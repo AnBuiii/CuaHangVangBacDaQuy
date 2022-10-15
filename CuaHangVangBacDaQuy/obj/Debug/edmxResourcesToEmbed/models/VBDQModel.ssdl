@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VBDQEntityDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CHITIETPHIEUBANHANG">
+    <Key>
+      <PropertyRef Name="MACHITIETPBH" />
+    </Key>
+    <Property Name="MACHITIETPBH" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="MASP" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="SOPHIEU" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="SOLUONG" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CHITIETPHIEUMUAHANG">
+    <Key>
+      <PropertyRef Name="MACHITIETPMH" />
+    </Key>
+    <Property Name="MACHITIETPMH" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="MASP" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="SOPHIEU" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="SOLUONG" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CHUCNANG">
+    <Key>
+      <PropertyRef Name="MACHUCNANG" />
+    </Key>
+    <Property Name="MACHUCNANG" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TENCHUCNANG" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TENMANHINHDUOCLOAD" Type="nchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KHACHHANG">
+    <Key>
+      <PropertyRef Name="MAKH" />
+    </Key>
+    <Property Name="MAKH" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TENKH" Type="nchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOAISANPHAM">
+    <Key>
+      <PropertyRef Name="MALOAISP" />
+    </Key>
+    <Property Name="MALOAISP" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TENLOAISP" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="DONVITINH" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="PHANTRAMLOINHUAN" Type="decimal" Precision="2" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NGUOIDUNG">
+    <Key>
+      <PropertyRef Name="TENDANGNHAP" />
+    </Key>
+    <Property Name="TENDANGNHAP" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="MATKHAU" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="MANHOM" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NHACUNGCAP">
+    <Key>
+      <PropertyRef Name="MANCC" />
+    </Key>
+    <Property Name="MANCC" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="DIACHI" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="SODT" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'VBDQEntityDB.dbo.NHOMNGUOIDUNG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="NHOMNGUOIDUNG">
+    <Key>
+      <PropertyRef Name="MANHOM" />
+      <PropertyRef Name="TENNHOM" />
+    </Key>
+    <Property Name="MANHOM" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TENNHOM" Type="nchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PHANQUYEN">
+    <Key>
+      <PropertyRef Name="MAPHANQUYEN" />
+    </Key>
+    <Property Name="MAPHANQUYEN" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="MANHOM" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="MACHUCNANG" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PHIEUBANHANG">
+    <Key>
+      <PropertyRef Name="SOPHIEU" />
+    </Key>
+    <Property Name="SOPHIEU" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="MAKH" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="NGAYLAP" Type="smalldatetime" Nullable="false" />
+    <Property Name="TONGTIEN" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PHIEUBAOCAOTONKHO">
+    <Key>
+      <PropertyRef Name="SOPHIEU" />
+    </Key>
+    <Property Name="SOPHIEU" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="THANG" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PHIEUMUAHANG">
+    <Key>
+      <PropertyRef Name="SOPHIEU" />
+    </Key>
+    <Property Name="SOPHIEU" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="NGAYLAP" Type="smalldatetime" Nullable="false" />
+    <Property Name="MANCC" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TONGTIEN" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SANPHAM">
+    <Key>
+      <PropertyRef Name="MASP" />
+    </Key>
+    <Property Name="MASP" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="MALOAISP" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TENSP" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="DONGIA" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="VBDQEntityDBModelStoreContainer">
+    <EntitySet Name="CHITIETPHIEUBANHANG" EntityType="Self.CHITIETPHIEUBANHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CHITIETPHIEUMUAHANG" EntityType="Self.CHITIETPHIEUMUAHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CHUCNANG" EntityType="Self.CHUCNANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LOAISANPHAM" EntityType="Self.LOAISANPHAM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NGUOIDUNG" EntityType="Self.NGUOIDUNG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NHACUNGCAP" EntityType="Self.NHACUNGCAP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PHANQUYEN" EntityType="Self.PHANQUYEN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PHIEUBANHANG" EntityType="Self.PHIEUBANHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PHIEUBAOCAOTONKHO" EntityType="Self.PHIEUBAOCAOTONKHO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PHIEUMUAHANG" EntityType="Self.PHIEUMUAHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SANPHAM" EntityType="Self.SANPHAM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NHOMNGUOIDUNG" EntityType="Self.NHOMNGUOIDUNG" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [NHOMNGUOIDUNG].[MANHOM] AS [MANHOM], 
+    [NHOMNGUOIDUNG].[TENNHOM] AS [TENNHOM]
+    FROM [dbo].[NHOMNGUOIDUNG] AS [NHOMNGUOIDUNG]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

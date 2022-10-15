@@ -20,3 +20,11 @@ C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debu
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy.exe
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy.pdb
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy_Content.g.cs
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\MaterialDesignColors.dll
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\MaterialDesignColors.pdb
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\App.baml
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\resource\MainResource.baml

@@ -70,6 +70,9 @@
     <Compile Include="models\CHITIETPHIEUBANHANG.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="models\CHITIETPHIEUBAOCAOTONKHO.cs">
+      <DependentUpon>VBDQModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="models\CHITIETPHIEUMUAHANG.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
@@ -104,6 +107,9 @@
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\SANPHAM.cs">
+      <DependentUpon>VBDQModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="models\sysdiagram.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\VBDQModel.Context.cs">

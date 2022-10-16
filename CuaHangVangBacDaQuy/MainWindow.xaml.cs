@@ -22,7 +22,7 @@ namespace CuaHangVangBacDaQuy
     {
         public MainWindow()
         {
-            InitializeComponent();
+            /*InitializeComponent();*/
         }
     }
 }

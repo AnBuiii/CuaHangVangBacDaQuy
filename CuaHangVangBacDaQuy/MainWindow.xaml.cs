@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuaHangVangBacDaQuy.views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,8 @@ namespace CuaHangVangBacDaQuy
     {
         public MainWindow()
         {
-            /*InitializeComponent();*/
+            //Test UI ở đây
+             
         }
     }
 }

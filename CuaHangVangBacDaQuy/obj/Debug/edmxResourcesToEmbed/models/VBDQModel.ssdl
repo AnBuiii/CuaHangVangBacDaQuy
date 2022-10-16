@@ -9,21 +9,6 @@
     <Property Name="SOPHIEU" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="SOLUONG" Type="int" Nullable="false" />
   </EntityType>
-<<<<<<< Updated upstream
-=======
-  <EntityType Name="CHITIETPHIEUBAOCAOTONKHO">
-    <Key>
-      <PropertyRef Name="MACHITIETBAOCAOTONKHO" />
-    </Key>
-    <Property Name="MACHITIETBAOCAOTONKHO" Type="nchar" MaxLength="10" Nullable="false" />
-    <Property Name="SOPHIEU" Type="nchar" MaxLength="10" Nullable="false" />
-    <Property Name="MASP" Type="nchar" MaxLength="10" Nullable="false" />
-    <Property Name="TONDAU" Type="int" Nullable="false" />
-    <Property Name="SlBAN" Type="int" Nullable="false" />
-    <Property Name="SLMUA" Type="int" Nullable="false" />
-    <Property Name="TONCUOI" Type="int" Nullable="false" />
-  </EntityType>
->>>>>>> Stashed changes
   <EntityType Name="CHITIETPHIEUMUAHANG">
     <Key>
       <PropertyRef Name="MACHITIETPMH" />
@@ -73,18 +58,12 @@
     <Property Name="DIACHI" Type="nchar" MaxLength="50" Nullable="false" />
     <Property Name="SODT" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
-<<<<<<< Updated upstream
   <!--Errors Found During Generation:
 warning 6002: The table/view 'VBDQEntityDB.dbo.NHOMNGUOIDUNG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="NHOMNGUOIDUNG">
     <Key>
       <PropertyRef Name="MANHOM" />
       <PropertyRef Name="TENNHOM" />
-=======
-  <EntityType Name="NHOMNGUOIDUNG">
-    <Key>
-      <PropertyRef Name="MANHOM" />
->>>>>>> Stashed changes
     </Key>
     <Property Name="MANHOM" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="TENNHOM" Type="nchar" MaxLength="20" Nullable="false" />
@@ -131,240 +110,24 @@ warning 6002: The table/view 'VBDQEntityDB.dbo.NHOMNGUOIDUNG' does not have a pr
     <Property Name="TENSP" Type="nchar" MaxLength="20" Nullable="false" />
     <Property Name="DONGIA" Type="money" Nullable="false" />
   </EntityType>
-<<<<<<< Updated upstream
   <EntityContainer Name="VBDQEntityDBModelStoreContainer">
     <EntitySet Name="CHITIETPHIEUBANHANG" EntityType="Self.CHITIETPHIEUBANHANG" Schema="dbo" store:Type="Tables" />
-=======
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
-  <Association Name="FK_CHITIETPHIEUBANHANG_PHIEUBANHANG">
-    <End Role="PHIEUBANHANG" Type="Self.PHIEUBANHANG" Multiplicity="1" />
-    <End Role="CHITIETPHIEUBANHANG" Type="Self.CHITIETPHIEUBANHANG" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PHIEUBANHANG">
-        <PropertyRef Name="SOPHIEU" />
-      </Principal>
-      <Dependent Role="CHITIETPHIEUBANHANG">
-        <PropertyRef Name="SOPHIEU" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CHITIETPHIEUBANHANG_SANPHAM">
-    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="1" />
-    <End Role="CHITIETPHIEUBANHANG" Type="Self.CHITIETPHIEUBANHANG" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SANPHAM">
-        <PropertyRef Name="MASP" />
-      </Principal>
-      <Dependent Role="CHITIETPHIEUBANHANG">
-        <PropertyRef Name="MASP" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CHITIETPHIEUBAOCAOTONKHO_PHIEUBAOCAOTONKHO">
-    <End Role="PHIEUBAOCAOTONKHO" Type="Self.PHIEUBAOCAOTONKHO" Multiplicity="1" />
-    <End Role="CHITIETPHIEUBAOCAOTONKHO" Type="Self.CHITIETPHIEUBAOCAOTONKHO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PHIEUBAOCAOTONKHO">
-        <PropertyRef Name="SOPHIEU" />
-      </Principal>
-      <Dependent Role="CHITIETPHIEUBAOCAOTONKHO">
-        <PropertyRef Name="SOPHIEU" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CHITIETPHIEUBAOCAOTONKHO_SANPHAM">
-    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="1" />
-    <End Role="CHITIETPHIEUBAOCAOTONKHO" Type="Self.CHITIETPHIEUBAOCAOTONKHO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SANPHAM">
-        <PropertyRef Name="MASP" />
-      </Principal>
-      <Dependent Role="CHITIETPHIEUBAOCAOTONKHO">
-        <PropertyRef Name="MASP" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CHITIETPHIEUMUAHANG_PHIEUMUAHANG">
-    <End Role="PHIEUMUAHANG" Type="Self.PHIEUMUAHANG" Multiplicity="1" />
-    <End Role="CHITIETPHIEUMUAHANG" Type="Self.CHITIETPHIEUMUAHANG" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PHIEUMUAHANG">
-        <PropertyRef Name="SOPHIEU" />
-      </Principal>
-      <Dependent Role="CHITIETPHIEUMUAHANG">
-        <PropertyRef Name="SOPHIEU" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CHITIETPHIEUMUAHANG_SANPHAM">
-    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="1" />
-    <End Role="CHITIETPHIEUMUAHANG" Type="Self.CHITIETPHIEUMUAHANG" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SANPHAM">
-        <PropertyRef Name="MASP" />
-      </Principal>
-      <Dependent Role="CHITIETPHIEUMUAHANG">
-        <PropertyRef Name="MASP" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_NGUOIDUNG_NHOMNGUOIDUNG">
-    <End Role="NHOMNGUOIDUNG" Type="Self.NHOMNGUOIDUNG" Multiplicity="1" />
-    <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="NHOMNGUOIDUNG">
-        <PropertyRef Name="MANHOM" />
-      </Principal>
-      <Dependent Role="NGUOIDUNG">
-        <PropertyRef Name="MANHOM" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PHANQUYEN_CHUCNANG">
-    <End Role="CHUCNANG" Type="Self.CHUCNANG" Multiplicity="1" />
-    <End Role="PHANQUYEN" Type="Self.PHANQUYEN" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CHUCNANG">
-        <PropertyRef Name="MACHUCNANG" />
-      </Principal>
-      <Dependent Role="PHANQUYEN">
-        <PropertyRef Name="MACHUCNANG" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PHANQUYEN_NHOMNGUOIDUNG">
-    <End Role="NHOMNGUOIDUNG" Type="Self.NHOMNGUOIDUNG" Multiplicity="1" />
-    <End Role="PHANQUYEN" Type="Self.PHANQUYEN" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="NHOMNGUOIDUNG">
-        <PropertyRef Name="MANHOM" />
-      </Principal>
-      <Dependent Role="PHANQUYEN">
-        <PropertyRef Name="MANHOM" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PHIEUBANHANG_KHACHHANG">
-    <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
-    <End Role="PHIEUBANHANG" Type="Self.PHIEUBANHANG" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="KHACHHANG">
-        <PropertyRef Name="MAKH" />
-      </Principal>
-      <Dependent Role="PHIEUBANHANG">
-        <PropertyRef Name="MAKH" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PHIEUMUAHANG_NHACUNGCAP">
-    <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="1" />
-    <End Role="PHIEUMUAHANG" Type="Self.PHIEUMUAHANG" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="NHACUNGCAP">
-        <PropertyRef Name="MANCC" />
-      </Principal>
-      <Dependent Role="PHIEUMUAHANG">
-        <PropertyRef Name="MANCC" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SANPHAM_LOAISANPHAM">
-    <End Role="LOAISANPHAM" Type="Self.LOAISANPHAM" Multiplicity="1" />
-    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="LOAISANPHAM">
-        <PropertyRef Name="MALOAISP" />
-      </Principal>
-      <Dependent Role="SANPHAM">
-        <PropertyRef Name="MALOAISP" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityContainer Name="VBDQEntityDBModelStoreContainer">
-    <EntitySet Name="CHITIETPHIEUBANHANG" EntityType="Self.CHITIETPHIEUBANHANG" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="CHITIETPHIEUBAOCAOTONKHO" EntityType="Self.CHITIETPHIEUBAOCAOTONKHO" Schema="dbo" store:Type="Tables" />
->>>>>>> Stashed changes
     <EntitySet Name="CHITIETPHIEUMUAHANG" EntityType="Self.CHITIETPHIEUMUAHANG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CHUCNANG" EntityType="Self.CHUCNANG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LOAISANPHAM" EntityType="Self.LOAISANPHAM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NGUOIDUNG" EntityType="Self.NGUOIDUNG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NHACUNGCAP" EntityType="Self.NHACUNGCAP" Schema="dbo" store:Type="Tables" />
-<<<<<<< Updated upstream
-=======
-    <EntitySet Name="NHOMNGUOIDUNG" EntityType="Self.NHOMNGUOIDUNG" Schema="dbo" store:Type="Tables" />
->>>>>>> Stashed changes
     <EntitySet Name="PHANQUYEN" EntityType="Self.PHANQUYEN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHIEUBANHANG" EntityType="Self.PHIEUBANHANG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHIEUBAOCAOTONKHO" EntityType="Self.PHIEUBAOCAOTONKHO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHIEUMUAHANG" EntityType="Self.PHIEUMUAHANG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SANPHAM" EntityType="Self.SANPHAM" Schema="dbo" store:Type="Tables" />
-<<<<<<< Updated upstream
     <EntitySet Name="NHOMNGUOIDUNG" EntityType="Self.NHOMNGUOIDUNG" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [NHOMNGUOIDUNG].[MANHOM] AS [MANHOM], 
     [NHOMNGUOIDUNG].[TENNHOM] AS [TENNHOM]
     FROM [dbo].[NHOMNGUOIDUNG] AS [NHOMNGUOIDUNG]</DefiningQuery>
     </EntitySet>
-=======
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_CHITIETPHIEUBANHANG_PHIEUBANHANG" Association="Self.FK_CHITIETPHIEUBANHANG_PHIEUBANHANG">
-      <End Role="PHIEUBANHANG" EntitySet="PHIEUBANHANG" />
-      <End Role="CHITIETPHIEUBANHANG" EntitySet="CHITIETPHIEUBANHANG" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CHITIETPHIEUBANHANG_SANPHAM" Association="Self.FK_CHITIETPHIEUBANHANG_SANPHAM">
-      <End Role="SANPHAM" EntitySet="SANPHAM" />
-      <End Role="CHITIETPHIEUBANHANG" EntitySet="CHITIETPHIEUBANHANG" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CHITIETPHIEUBAOCAOTONKHO_PHIEUBAOCAOTONKHO" Association="Self.FK_CHITIETPHIEUBAOCAOTONKHO_PHIEUBAOCAOTONKHO">
-      <End Role="PHIEUBAOCAOTONKHO" EntitySet="PHIEUBAOCAOTONKHO" />
-      <End Role="CHITIETPHIEUBAOCAOTONKHO" EntitySet="CHITIETPHIEUBAOCAOTONKHO" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CHITIETPHIEUBAOCAOTONKHO_SANPHAM" Association="Self.FK_CHITIETPHIEUBAOCAOTONKHO_SANPHAM">
-      <End Role="SANPHAM" EntitySet="SANPHAM" />
-      <End Role="CHITIETPHIEUBAOCAOTONKHO" EntitySet="CHITIETPHIEUBAOCAOTONKHO" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CHITIETPHIEUMUAHANG_PHIEUMUAHANG" Association="Self.FK_CHITIETPHIEUMUAHANG_PHIEUMUAHANG">
-      <End Role="PHIEUMUAHANG" EntitySet="PHIEUMUAHANG" />
-      <End Role="CHITIETPHIEUMUAHANG" EntitySet="CHITIETPHIEUMUAHANG" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CHITIETPHIEUMUAHANG_SANPHAM" Association="Self.FK_CHITIETPHIEUMUAHANG_SANPHAM">
-      <End Role="SANPHAM" EntitySet="SANPHAM" />
-      <End Role="CHITIETPHIEUMUAHANG" EntitySet="CHITIETPHIEUMUAHANG" />
-    </AssociationSet>
-    <AssociationSet Name="FK_NGUOIDUNG_NHOMNGUOIDUNG" Association="Self.FK_NGUOIDUNG_NHOMNGUOIDUNG">
-      <End Role="NHOMNGUOIDUNG" EntitySet="NHOMNGUOIDUNG" />
-      <End Role="NGUOIDUNG" EntitySet="NGUOIDUNG" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PHANQUYEN_CHUCNANG" Association="Self.FK_PHANQUYEN_CHUCNANG">
-      <End Role="CHUCNANG" EntitySet="CHUCNANG" />
-      <End Role="PHANQUYEN" EntitySet="PHANQUYEN" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PHANQUYEN_NHOMNGUOIDUNG" Association="Self.FK_PHANQUYEN_NHOMNGUOIDUNG">
-      <End Role="NHOMNGUOIDUNG" EntitySet="NHOMNGUOIDUNG" />
-      <End Role="PHANQUYEN" EntitySet="PHANQUYEN" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PHIEUBANHANG_KHACHHANG" Association="Self.FK_PHIEUBANHANG_KHACHHANG">
-      <End Role="KHACHHANG" EntitySet="KHACHHANG" />
-      <End Role="PHIEUBANHANG" EntitySet="PHIEUBANHANG" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PHIEUMUAHANG_NHACUNGCAP" Association="Self.FK_PHIEUMUAHANG_NHACUNGCAP">
-      <End Role="NHACUNGCAP" EntitySet="NHACUNGCAP" />
-      <End Role="PHIEUMUAHANG" EntitySet="PHIEUMUAHANG" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SANPHAM_LOAISANPHAM" Association="Self.FK_SANPHAM_LOAISANPHAM">
-      <End Role="LOAISANPHAM" EntitySet="LOAISANPHAM" />
-      <End Role="SANPHAM" EntitySet="SANPHAM" />
-    </AssociationSet>
->>>>>>> Stashed changes
   </EntityContainer>
 </Schema>

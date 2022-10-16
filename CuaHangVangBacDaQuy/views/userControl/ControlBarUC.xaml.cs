@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuaHangVangBacDaQuy.viewmodels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CuaHangVangBacDaQuy
+namespace CuaHangVangBacDaQuy.views.userControl
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ControlBarUC.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ControlBarUC : UserControl
     {
-        public MainWindow()
+        public ControlBarViewModel ViewModel { get; set; }
+
+        public ControlBarUC()
         {
-            /*InitializeComponent();*/
+            InitializeComponent();
+            this.DataContext = ViewModel = new ControlBarViewModel();
         }
     }
 }

@@ -1,18 +1,28 @@
-﻿using System;
+﻿using CuaHangVangBacDaQuy.views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels
 {
     public class MainViewModel : BaseViewModel
     {
-        // mọi thứ xử lý sẽ nằm trong này
+        public ICommand LoadedWindowCommand { get; set; }
+        public bool isLoaded {get; set;} = false;
         public MainViewModel()
         {
-            MessageBox.Show("Đã vào trong MainViewModel -> DataContext của mainwindow.xaml");
+            LoadedWindowCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                isLoaded = true;
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.ShowDialog();
+            });
+            
+            
         }
     }
 }

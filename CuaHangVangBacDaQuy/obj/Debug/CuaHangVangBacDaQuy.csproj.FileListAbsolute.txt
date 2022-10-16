@@ -3,6 +3,7 @@ C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debu
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\CuaHangVangBacDaQuy.pdb
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\EntityFramework.dll
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\EntityFramework.SqlServer.dll
+<<<<<<< Updated upstream
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\EntityFramework.xml
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy.csproj.AssemblyReference.cache
@@ -12,6 +13,33 @@ C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debu
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy_MarkupCompile.cache
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy_MarkupCompile.lref
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\MainWindow.baml
+=======
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\MaterialDesignColors.dll
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\Microsoft.Xaml.Behaviors.dll
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\EntityFramework.xml
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\MaterialDesignColors.pdb
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\Microsoft.Xaml.Behaviors.pdb
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\bin\Debug\Microsoft.Xaml.Behaviors.xml
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy.csproj.AssemblyReference.cache
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy.csproj.SuggestedBindingRedirects.cache
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\App.baml
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\MainWindow.g.cs
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\views\LoginWindow.g.cs
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\views\userControl\ControlBarUC.g.cs
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\App.g.cs
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy_Content.g.cs
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy_MarkupCompile.cache
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy_MarkupCompile.lref
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\MainWindow.baml
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\resource\MainResource.baml
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\views\LoginWindow.baml
+C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\views\userControl\ControlBarUC.baml
+>>>>>>> Stashed changes
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy.g.resources
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy.Properties.Resources.resources
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy.csproj.GenerateResource.cache
@@ -19,4 +47,7 @@ C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debu
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy.csproj.CopyComplete
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy.exe
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy.pdb
+<<<<<<< Updated upstream
 C:\Users\buile\Documents\GitHub\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy\obj\Debug\CuaHangVangBacDaQuy_Content.g.cs
+=======
+>>>>>>> Stashed changes

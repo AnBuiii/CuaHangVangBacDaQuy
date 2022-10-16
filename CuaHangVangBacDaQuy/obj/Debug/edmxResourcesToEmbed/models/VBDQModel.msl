@@ -11,6 +11,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< Updated upstream
+=======
+    <EntitySetMapping Name="CHITIETPHIEUBAOCAOTONKHOes">
+      <EntityTypeMapping TypeName="VBDQEntityDBModel.CHITIETPHIEUBAOCAOTONKHO">
+        <MappingFragment StoreEntitySet="CHITIETPHIEUBAOCAOTONKHO">
+          <ScalarProperty Name="MACHITIETBAOCAOTONKHO" ColumnName="MACHITIETBAOCAOTONKHO" />
+          <ScalarProperty Name="SOPHIEU" ColumnName="SOPHIEU" />
+          <ScalarProperty Name="MASP" ColumnName="MASP" />
+          <ScalarProperty Name="TONDAU" ColumnName="TONDAU" />
+          <ScalarProperty Name="SlBAN" ColumnName="SlBAN" />
+          <ScalarProperty Name="SLMUA" ColumnName="SLMUA" />
+          <ScalarProperty Name="TONCUOI" ColumnName="TONCUOI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+>>>>>>> Stashed changes
     <EntitySetMapping Name="CHITIETPHIEUMUAHANGs">
       <EntityTypeMapping TypeName="VBDQEntityDBModel.CHITIETPHIEUMUAHANG">
         <MappingFragment StoreEntitySet="CHITIETPHIEUMUAHANG">
@@ -66,6 +82,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< Updated upstream
+=======
+    <EntitySetMapping Name="NHOMNGUOIDUNGs">
+      <EntityTypeMapping TypeName="VBDQEntityDBModel.NHOMNGUOIDUNG">
+        <MappingFragment StoreEntitySet="NHOMNGUOIDUNG">
+          <ScalarProperty Name="MANHOM" ColumnName="MANHOM" />
+          <ScalarProperty Name="TENNHOM" ColumnName="TENNHOM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+>>>>>>> Stashed changes
     <EntitySetMapping Name="PHANQUYENs">
       <EntityTypeMapping TypeName="VBDQEntityDBModel.PHANQUYEN">
         <MappingFragment StoreEntitySet="PHANQUYEN">
@@ -113,11 +140,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< Updated upstream
     <EntitySetMapping Name="NHOMNGUOIDUNGs">
       <EntityTypeMapping TypeName="VBDQEntityDBModel.NHOMNGUOIDUNG">
         <MappingFragment StoreEntitySet="NHOMNGUOIDUNG">
           <ScalarProperty Name="MANHOM" ColumnName="MANHOM" />
           <ScalarProperty Name="TENNHOM" ColumnName="TENNHOM" />
+=======
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="VBDQEntityDBModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+>>>>>>> Stashed changes
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -1,8 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CuaHangVangBacDaQuy"
+                    xmlns:view ="clr-namespace:CuaHangVangBacDaQuy.views"
                     xmlns:viewModel="clr-namespace:CuaHangVangBacDaQuy.viewmodels">
-    <viewModel:MainViewModel x:Key="MainVM"></viewModel:MainViewModel>
-    <viewModel:HomeViewModel x:Key="HomeVM"></viewModel:HomeViewModel>
-
+    <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+        <view:HomeView />
+    </DataTemplate>
 </ResourceDictionary>

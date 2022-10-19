@@ -1,0 +1,362 @@
+﻿<Window x:Class="CuaHangVangBacDaQuy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        
+        xmlns:uc="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Name="mainwindow"
+        DataContext="{StaticResource MainVM}"
+        Title="Cửa hàng vàng bạc đá quý"
+        Height="800"
+        Width="1200">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand }" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <!--<uc:ControlBarUC Tag="{Binding Title, ElementName=mainwindow}" />-->
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid x:Name="GridNav"
+                      Width="55"
+                      Grid.Column="0"
+                      Background="#673AB7">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <ToggleButton x:Name="btnMenu"
+                                      Grid.Column="1"
+                                      VerticalAlignment="Center"
+                                      Style="{DynamicResource iToggleButtonStyle}"
+                                      HorizontalAlignment="Left"
+                                      BorderThickness="0"
+                                      Foreground="White"
+                                      Background="Transparent"
+                                      Margin="8 0 0 0"
+                                      Height="40"
+                                      Width="40"
+                                      Content="{materialDesign:PackIcon Kind=DiamondStone, Size=40}">
+                            <ToggleButton.Triggers>
+                                <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                    <BeginStoryboard>
+                                        <Storyboard x:Name="HideStackPanel">
+                                            <DoubleAnimation Storyboard.TargetName="GridNav"
+                                                             Storyboard.TargetProperty="Width"
+                                                             BeginTime="0:0:0"
+                                                             From="250"
+                                                             To="55"
+                                                             Duration="0:0:0.5">
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                    <BeginStoryboard>
+                                        <Storyboard x:Name="ShowStackPanel">
+                                            <DoubleAnimation Storyboard.TargetName="GridNav"
+                                                             Storyboard.TargetProperty="Width"
+                                                             BeginTime="0:0:0"
+                                                             From="55"
+                                                             To="250"
+                                                             Duration="0:0:0.5">
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </ToggleButton.Triggers>
+                        </ToggleButton>
+
+                        <Label Content="Jewelry store "
+                               FontWeight="Bold"
+                               FontSize="18"
+                               Foreground="White"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Margin="60 0 0 0" />
+                    </Grid>
+
+                    <!-- Start: MenuItem -->
+                    <StackPanel x:Name="stkMenu"
+                                Grid.Row="1"
+                                Margin="-1 0 0 20">
+                        <StackPanel.Resources>
+                            <Style TargetType="Button">
+                                <Setter Property="Background"
+                                        Value="Transparent" />
+                                <Setter Property="VerticalAlignment"
+                                        Value="Center" />
+                                <Setter Property="HorizontalAlignment"
+                                        Value="Center" />
+                                <Setter Property="Height"
+                                        Value="50" />
+                                <Setter Property="Padding"
+                                        Value="0" />
+                                <Setter Property="BorderThickness"
+                                        Value="0" />
+                                <Setter Property="Foreground"
+                                        Value="White" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button x:Name="btnDashboardd"
+                                Command="{Binding DashBoardViewCommmand}">
+                            <Grid Height="40"
+                                  Width="250">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <materialDesign:PackIcon Kind="Home"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             Width="20"
+                                                             Height="20" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock FontSize="14"
+                                               FontWeight="Regular"
+                                               VerticalAlignment="Center">Dash Board</TextBlock>
+                                </Grid>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="btnDashboard"
+                                Command="{Binding DashBoardViewCommmand}">
+                            <Grid Height="40"
+                                  Width="250">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <materialDesign:PackIcon Kind="ViewDashboard"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             Width="20"
+                                                             Height="20" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock FontSize="14"
+                                               FontWeight="Regular"
+                                               VerticalAlignment="Center">Dash Board</TextBlock>
+                                </Grid>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="btnCalendar"
+                                Command="{Binding CalendarViewCommmand}">
+                            <Grid Height="40"
+                                  Width="250">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <materialDesign:PackIcon Kind="ViewDashboardOutline"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             Width="20"
+                                                             Height="20" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock FontSize="14"
+                                               FontWeight="Regular"
+                                               VerticalAlignment="Center">Calendar</TextBlock>
+                                </Grid>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="btnRooms"
+                                Command="{Binding RoomsViewCommmand}">
+                            <Grid Height="40"
+                                  Width="250">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <materialDesign:PackIcon Kind="Diamond"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             Width="20"
+                                                             Height="20" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock FontSize="14"
+                                               FontWeight="Regular"
+                                               VerticalAlignment="Center">Rooms</TextBlock>
+                                </Grid>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="btnBooking"
+                                Command="{Binding ReservationListViewCommand}">
+                            <Grid Height="40"
+                                  Width="250">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <materialDesign:PackIcon Kind="Human"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             Width="20"
+                                                             Height="20" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock FontSize="14"
+                                               FontWeight="Regular"
+                                               VerticalAlignment="Center">Booking</TextBlock>
+                                </Grid>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="btnGuests"
+                                Command="{Binding GuestsViewCommmand}">
+                            <Grid Height="40"
+                                  Width="250">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <materialDesign:PackIcon Kind="BagCarryOn"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             Width="20"
+                                                             Height="20" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock FontSize="14"
+                                               FontWeight="Regular"
+                                               VerticalAlignment="Center">Guests</TextBlock>
+                                </Grid>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="btnAccount"
+                                Command="{Binding ServicesViewCommmand}">
+                            <Grid Height="40"
+                                  Width="250">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <materialDesign:PackIcon Kind="Account"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             Width="20"
+                                                             Height="20" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock FontSize="14"
+                                               FontWeight="Regular"
+                                               VerticalAlignment="Center">Services</TextBlock>
+                                </Grid>
+                            </Grid>
+                        </Button>
+
+
+                    </StackPanel>
+                    <!-- End: MenuItem -->
+
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="195*" />
+                        <RowDefinition Height="554*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Start: Button Close | Title -->
+                    <StackPanel HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                FlowDirection="LeftToRight">
+                        <Button Grid.Row="6"
+                                HorizontalAlignment="Center"
+                                Width="auto"
+                                Margin="4"
+                                Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Command="{Binding ChangePasswordCommand}"
+                                ToolTip="Change Password">
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+                                <materialDesign:PackIcon Kind="KeyChange"
+                                                         Margin="0 0 4 0"
+                                                         VerticalAlignment="Center"
+                                                         Height="20"
+                                                         Width="20" />
+                                <TextBlock Text="Change password"
+                                           FontSize="18" />
+                            </StackPanel>
+                        </Button>
+                        <Button Grid.Row="6"
+                                HorizontalAlignment="Center"
+                                Width="auto"
+                                Margin="4"
+                                Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Command="{Binding LogOutCommand}"
+                                CommandParameter="{Binding ElementName=home}"
+                                ToolTip="Log out">
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+                                <materialDesign:PackIcon Kind="ExitToApp"
+                                                         Margin="0 0 4 0"
+                                                         VerticalAlignment="Center"
+                                                         Height="20"
+                                                         Width="20" />
+                                <TextBlock Text="Log out"
+                                           FontSize="18" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnClose"
+                                Margin="4"
+                                Background="{DynamicResource btnClose}"
+                                Tag="IsCloseButton"
+                                Command="{Binding CloseWindowCommand}"
+                                Content="{materialDesign:PackIcon Kind= Close}" />
+                    </StackPanel>
+                    <!-- End: Button Close | Title -->
+                    <Grid Grid.Row="1" />
+                    <Grid Grid.Row="2"
+                          Grid.RowSpan="2">
+                        <ContentControl x:Name="contentView"
+                                        Grid.Row="0"
+                                        Content="{Binding DataTemplate}" />
+                    </Grid>
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>

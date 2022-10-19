@@ -7,18 +7,19 @@
              mc:Ignorable="d"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             Name="ucControlBar"            >
+             Name="ucControlBar">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand }" CommandParameter="{Binding ElementName=ucControlBar}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <materialDesign:ColorZone Mode="PrimaryLight">
+        <materialDesign:ColorZone  Background="#673AB7" >
             <DockPanel>
                 <StackPanel DockPanel.Dock="Right"
                             Background="Transparent"
                             Orientation="Horizontal">
+
                     <StackPanel.Resources>
                         <Style TargetType="Button">
                             <Setter Property="Width"
@@ -27,6 +28,8 @@
                                     Value="Transparent" />
                             <Setter Property="BorderBrush"
                                     Value="Transparent" />
+                            <Setter Property="Padding"
+                                    Value="8" />
                         </Style>
                     </StackPanel.Resources>
                     <Button ToolTip="Minimize"
@@ -46,10 +49,7 @@
                             ToolBar.OverflowMode="AsNeeded" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
-                    <TextBlock Margin="16,0,0,0"
-                               VerticalAlignment="Center"
-                               Text="{Binding Tag, ElementName=ucControlBar}" />
+                    
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>

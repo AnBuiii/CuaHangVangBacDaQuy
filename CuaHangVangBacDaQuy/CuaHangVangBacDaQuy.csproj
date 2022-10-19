@@ -136,10 +136,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VBDQModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="viewmodels\AccountViewModel.cs" />
     <Compile Include="viewmodels\BaseViewModel.cs" />
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
     <Compile Include="viewmodels\HomeViewModel.cs" />
     <Compile Include="viewmodels\MainViewModel.cs" />
+    <Compile Include="views\AccountView.xaml.cs">
+      <DependentUpon>AccountView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -150,6 +154,10 @@
       <DependentUpon>ControlBarUC.xaml</DependentUpon>
     </Compile>
     <Page Include="resource\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\AccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

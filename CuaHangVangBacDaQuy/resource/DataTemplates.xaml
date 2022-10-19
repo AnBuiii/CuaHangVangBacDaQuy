@@ -6,4 +6,8 @@
     <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
         <view:HomeView />
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type viewModel:AccountViewModel}">
+        <view:AccountView />
+    </DataTemplate>
 </ResourceDictionary>

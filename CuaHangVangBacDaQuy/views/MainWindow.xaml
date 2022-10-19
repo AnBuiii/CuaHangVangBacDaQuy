@@ -48,7 +48,7 @@
                 <Grid x:Name="GridNav"
                       Width="55"
                       Grid.Column="0"
-                      Background="#673AB7">
+                      Background="{StaticResource PrimaryDarkBrushTheme}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60" />
                         <RowDefinition Height="*" />
@@ -76,7 +76,7 @@
                                                              BeginTime="0:0:0"
                                                              From="250"
                                                              To="55"
-                                                             Duration="0:0:0.5">
+                                                             Duration="0:0:0.2">
                                             </DoubleAnimation>
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -89,7 +89,7 @@
                                                              BeginTime="0:0:0"
                                                              From="55"
                                                              To="250"
-                                                             Duration="0:0:0.5">
+                                                             Duration="0:0:0.2">
                                             </DoubleAnimation>
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -128,8 +128,8 @@
                                         Value="White" />
                             </Style>
                         </StackPanel.Resources>
-                        <Button x:Name="btnDashboardd"
-                                Command="{Binding DashBoardViewCommmand}">
+                        <Button x:Name="btnHome"
+                                Command="{Binding HomeViewCommand}">
                             <Grid Height="40"
                                   Width="250">
                                 <Grid.ColumnDefinitions>
@@ -146,7 +146,7 @@
                                 <Grid Grid.Column="1">
                                     <TextBlock FontSize="14"
                                                FontWeight="Regular"
-                                               VerticalAlignment="Center">Dash Board</TextBlock>
+                                               VerticalAlignment="Center">Trang chủ</TextBlock>
                                 </Grid>
                             </Grid>
                         </Button>
@@ -168,7 +168,7 @@
                                 <Grid Grid.Column="1">
                                     <TextBlock FontSize="14"
                                                FontWeight="Regular"
-                                               VerticalAlignment="Center">Dash Board</TextBlock>
+                                               VerticalAlignment="Center">Bán hàng</TextBlock>
                                 </Grid>
                             </Grid>
                         </Button>
@@ -190,7 +190,7 @@
                                 <Grid Grid.Column="1">
                                     <TextBlock FontSize="14"
                                                FontWeight="Regular"
-                                               VerticalAlignment="Center">Calendar</TextBlock>
+                                               VerticalAlignment="Center">Mua hàng</TextBlock>
                                 </Grid>
                             </Grid>
                         </Button>
@@ -212,7 +212,7 @@
                                 <Grid Grid.Column="1">
                                     <TextBlock FontSize="14"
                                                FontWeight="Regular"
-                                               VerticalAlignment="Center">Rooms</TextBlock>
+                                               VerticalAlignment="Center">Sản phẩm</TextBlock>
                                 </Grid>
                             </Grid>
                         </Button>
@@ -234,7 +234,7 @@
                                 <Grid Grid.Column="1">
                                     <TextBlock FontSize="14"
                                                FontWeight="Regular"
-                                               VerticalAlignment="Center">Booking</TextBlock>
+                                               VerticalAlignment="Center">Khách hàng</TextBlock>
                                 </Grid>
                             </Grid>
                         </Button>
@@ -256,12 +256,12 @@
                                 <Grid Grid.Column="1">
                                     <TextBlock FontSize="14"
                                                FontWeight="Regular"
-                                               VerticalAlignment="Center">Guests</TextBlock>
+                                               VerticalAlignment="Center">Nhà cung cấp</TextBlock>
                                 </Grid>
                             </Grid>
                         </Button>
                         <Button x:Name="btnAccount"
-                                Command="{Binding ServicesViewCommmand}">
+                                Command="{Binding AccountViewCommand}">
                             <Grid Height="40"
                                   Width="250">
                                 <Grid.ColumnDefinitions>
@@ -278,7 +278,7 @@
                                 <Grid Grid.Column="1">
                                     <TextBlock FontSize="14"
                                                FontWeight="Regular"
-                                               VerticalAlignment="Center">Services</TextBlock>
+                                               VerticalAlignment="Center">Tài khoản</TextBlock>
                                 </Grid>
                             </Grid>
                         </Button>
@@ -316,7 +316,7 @@
                                                          VerticalAlignment="Center"
                                                          Height="20"
                                                          Width="20" />
-                                <TextBlock Text="Change password"
+                                <TextBlock Text="Đổi mật khẩu"
                                            FontSize="18" />
                             </StackPanel>
                         </Button>
@@ -335,7 +335,7 @@
                                                          VerticalAlignment="Center"
                                                          Height="20"
                                                          Width="20" />
-                                <TextBlock Text="Log out"
+                                <TextBlock Text="Đăng xuất"
                                            FontSize="18" />
                             </StackPanel>
                         </Button>

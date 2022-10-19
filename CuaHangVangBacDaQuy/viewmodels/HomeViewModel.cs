@@ -19,7 +19,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void LoadingHomeView(HomeView view)
         {
-            Console.WriteLine("asd");
+            
         }
     }
     

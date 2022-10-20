@@ -25,20 +25,16 @@ namespace CuaHangVangBacDaQuy.models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CHITIETPHIEUBANHANG> CHITIETPHIEUBANHANGs { get; set; }
-        public virtual DbSet<CHITIETPHIEUBAOCAOTONKHO> CHITIETPHIEUBAOCAOTONKHOes { get; set; }
-        public virtual DbSet<CHITIETPHIEUMUAHANG> CHITIETPHIEUMUAHANGs { get; set; }
-        public virtual DbSet<CHUCNANG> CHUCNANGs { get; set; }
-        public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
-        public virtual DbSet<LOAISANPHAM> LOAISANPHAMs { get; set; }
-        public virtual DbSet<NGUOIDUNG> NGUOIDUNGs { get; set; }
-        public virtual DbSet<NHACUNGCAP> NHACUNGCAPs { get; set; }
-        public virtual DbSet<NHOMNGUOIDUNG> NHOMNGUOIDUNGs { get; set; }
-        public virtual DbSet<PHANQUYEN> PHANQUYENs { get; set; }
-        public virtual DbSet<PHIEUBANHANG> PHIEUBANHANGs { get; set; }
-        public virtual DbSet<PHIEUBAOCAOTONKHO> PHIEUBAOCAOTONKHOes { get; set; }
-        public virtual DbSet<PHIEUMUAHANG> PHIEUMUAHANGs { get; set; }
-        public virtual DbSet<SANPHAM> SANPHAMs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<ChiTietPhieuBan> ChiTietPhieuBans { get; set; }
+        public virtual DbSet<ChiTietPhieuMua> ChiTietPhieuMuas { get; set; }
+        public virtual DbSet<DonVi> DonVis { get; set; }
+        public virtual DbSet<KhachHang> KhachHangs { get; set; }
+        public virtual DbSet<LoaiSanPham> LoaiSanPhams { get; set; }
+        public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
+        public virtual DbSet<NhaCungCap> NhaCungCaps { get; set; }
+        public virtual DbSet<PhieuBan> PhieuBans { get; set; }
+        public virtual DbSet<PhieuMua> PhieuMuas { get; set; }
+        public virtual DbSet<QuyenHan> QuyenHans { get; set; }
+        public virtual DbSet<SanPham> SanPhams { get; set; }
     }
 }

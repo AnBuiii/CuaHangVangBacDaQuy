@@ -26,13 +26,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
 
         public HomeViewModel HomeViewModel { get; set; }
-
         public AccountViewModel AccountViewModel { get; set; }
         public ICommand LoadedWindowCommand { get; set; }
         public ICommand HomeViewCommand { get; set; }
         public ICommand AccountViewCommand { get; set; }
         public ICommand CloseWindowCommand { get; set; }
-        public bool isLoaded {get; set;} = false;
+        public bool isLoaded = false;
         public MainViewModel()
         {
             InitNavBar();
@@ -53,12 +52,29 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 DataTemplate = AccountViewModel;
             });
 
-            //LoadedWindowCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
-            //{
-            //    isLoaded = true;
-            //    LoginWindow loginWindow = new LoginWindow();
-            //    loginWindow.ShowDialog();
-            //});
+            LoadedWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                isLoaded = true;
+                if (p == null)
+                    return;
+                p.Hide();
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.ShowDialog();
+
+                if (loginWindow.DataContext == null)
+                    return;
+                var loginVM = loginWindow.DataContext as LoginViewModel;
+
+                if (loginVM.IsLogin)
+                {
+                    p.Show();
+                    //LoadTonKhoData();
+                }
+                else
+                {
+                    p.Close();
+                }
+            });
 
         }
         public void InitNavBar()

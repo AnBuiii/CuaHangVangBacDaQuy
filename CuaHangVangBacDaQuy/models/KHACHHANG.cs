@@ -12,18 +12,18 @@ namespace CuaHangVangBacDaQuy.models
     using System;
     using System.Collections.Generic;
     
-    public partial class KHACHHANG
+    public partial class KhachHang
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public KHACHHANG()
+        public KhachHang()
         {
-            this.PHIEUBANHANGs = new HashSet<PHIEUBANHANG>();
+            this.PhieuBans = new HashSet<PhieuBan>();
         }
     
-        public string MAKH { get; set; }
-        public string TENKH { get; set; }
+        public int MaKH { get; set; }
+        public string TenKH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PHIEUBANHANG> PHIEUBANHANGs { get; set; }
+        public virtual ICollection<PhieuBan> PhieuBans { get; set; }
     }
 }

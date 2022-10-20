@@ -12,19 +12,18 @@ namespace CuaHangVangBacDaQuy.models
     using System;
     using System.Collections.Generic;
     
-    public partial class CHUCNANG
+    public partial class QuyenHan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CHUCNANG()
+        public QuyenHan()
         {
-            this.PHANQUYENs = new HashSet<PHANQUYEN>();
+            this.NguoiDungs = new HashSet<NguoiDung>();
         }
     
-        public string MACHUCNANG { get; set; }
-        public string TENCHUCNANG { get; set; }
-        public string TENMANHINHDUOCLOAD { get; set; }
+        public int MaQH { get; set; }
+        public string TenQH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PHANQUYEN> PHANQUYENs { get; set; }
+        public virtual ICollection<NguoiDung> NguoiDungs { get; set; }
     }
 }

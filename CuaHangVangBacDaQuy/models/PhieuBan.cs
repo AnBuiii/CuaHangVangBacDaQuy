@@ -12,21 +12,20 @@ namespace CuaHangVangBacDaQuy.models
     using System;
     using System.Collections.Generic;
     
-    public partial class PHIEUBANHANG
+    public partial class PhieuBan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PHIEUBANHANG()
+        public PhieuBan()
         {
-            this.CHITIETPHIEUBANHANGs = new HashSet<CHITIETPHIEUBANHANG>();
+            this.ChiTietPhieuBans = new HashSet<ChiTietPhieuBan>();
         }
     
-        public string SOPHIEU { get; set; }
-        public string MAKH { get; set; }
-        public System.DateTime NGAYLAP { get; set; }
-        public decimal TONGTIEN { get; set; }
+        public string MaPhieu { get; set; }
+        public Nullable<System.DateTime> NgayLap { get; set; }
+        public int MaKH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIETPHIEUBANHANG> CHITIETPHIEUBANHANGs { get; set; }
-        public virtual KHACHHANG KHACHHANG { get; set; }
+        public virtual ICollection<ChiTietPhieuBan> ChiTietPhieuBans { get; set; }
+        public virtual KhachHang KhachHang { get; set; }
     }
 }

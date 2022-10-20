@@ -12,17 +12,14 @@ namespace CuaHangVangBacDaQuy.models
     using System;
     using System.Collections.Generic;
     
-    public partial class CHITIETPHIEUBAOCAOTONKHO
+    public partial class ChiTietPhieuBan
     {
-        public string MACHITIETBAOCAOTONKHO { get; set; }
-        public string SOPHIEU { get; set; }
-        public string MASP { get; set; }
-        public int TONDAU { get; set; }
-        public int SlBAN { get; set; }
-        public int SLMUA { get; set; }
-        public int TONCUOI { get; set; }
+        public string MaChiTietPhieu { get; set; }
+        public string MaPhieu { get; set; }
+        public string MaSP { get; set; }
+        public Nullable<int> SoLuong { get; set; }
     
-        public virtual PHIEUBAOCAOTONKHO PHIEUBAOCAOTONKHO { get; set; }
-        public virtual SANPHAM SANPHAM { get; set; }
+        public virtual PhieuBan PhieuBan { get; set; }
+        public virtual SanPham SanPham { get; set; }
     }
 }

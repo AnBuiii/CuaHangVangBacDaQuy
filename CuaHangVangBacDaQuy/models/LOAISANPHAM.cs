@@ -12,20 +12,19 @@ namespace CuaHangVangBacDaQuy.models
     using System;
     using System.Collections.Generic;
     
-    public partial class LOAISANPHAM
+    public partial class LoaiSanPham
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LOAISANPHAM()
+        public LoaiSanPham()
         {
-            this.SANPHAMs = new HashSet<SANPHAM>();
+            this.SanPhams = new HashSet<SanPham>();
         }
     
-        public string MALOAISP { get; set; }
-        public string TENLOAISP { get; set; }
-        public string DONVITINH { get; set; }
-        public decimal PHANTRAMLOINHUAN { get; set; }
+        public int MaLoaiSP { get; set; }
+        public string TenLoaiSP { get; set; }
+        public Nullable<decimal> LoiNhuan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SANPHAM> SANPHAMs { get; set; }
+        public virtual ICollection<SanPham> SanPhams { get; set; }
     }
 }

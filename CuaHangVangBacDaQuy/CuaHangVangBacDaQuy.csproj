@@ -76,49 +76,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="models\CHITIETPHIEUBANHANG.cs">
+    <Compile Include="models\ChiTietPhieuBan.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\CHITIETPHIEUBAOCAOTONKHO.cs">
+    <Compile Include="models\ChiTietPhieuMua.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\CHITIETPHIEUMUAHANG.cs">
+    <Compile Include="models\DataProvider.cs" />
+    <Compile Include="models\DonVi.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\CHUCNANG.cs">
+    <Compile Include="models\KhachHang.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\KHACHHANG.cs">
+    <Compile Include="models\LoaiSanPham.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\LOAISANPHAM.cs">
+    <Compile Include="models\NguoiDung.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\NGUOIDUNG.cs">
+    <Compile Include="models\NhaCungCap.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\NHACUNGCAP.cs">
+    <Compile Include="models\PhieuBan.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\NHOMNGUOIDUNG.cs">
+    <Compile Include="models\PhieuMua.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\PHANQUYEN.cs">
+    <Compile Include="models\QuyenHan.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\PHIEUBANHANG.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="models\PHIEUBAOCAOTONKHO.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="models\PHIEUMUAHANG.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="models\SANPHAM.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="models\sysdiagram.cs">
+    <Compile Include="models\SanPham.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\VBDQModel.Context.cs">
@@ -140,6 +129,7 @@
     <Compile Include="viewmodels\BaseViewModel.cs" />
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
     <Compile Include="viewmodels\HomeViewModel.cs" />
+    <Compile Include="viewmodels\LoginViewModel.cs" />
     <Compile Include="viewmodels\MainViewModel.cs" />
     <Compile Include="views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
@@ -212,11 +202,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <EntityDeploy Include="models\VBDQModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>VBDQModel.Designer.cs</LastGenOutput>
@@ -224,9 +209,17 @@
     <None Include="models\VBDQModel.edmx.diagram">
       <DependentUpon>VBDQModel.edmx</DependentUpon>
     </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="models\VBDQModel.Context.tt">
@@ -240,10 +233,6 @@
       <LastGenOutput>VBDQModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

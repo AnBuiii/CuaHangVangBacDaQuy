@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CuaHangVangBacDaQuy"
                     xmlns:viewModel="clr-namespace:CuaHangVangBacDaQuy.viewmodels">
-    <viewModel:MainViewModel x:Key="MainVM"></viewModel:MainViewModel>
-    <viewModel:HomeViewModel x:Key="HomeVM"></viewModel:HomeViewModel>
-
+    <viewModel:MainViewModel x:Key="MainVM" />
+    <viewModel:HomeViewModel x:Key="HomeVM" />
+    <viewModel:AccountViewModel x:Key="AccountVM" />
+    <viewModel:LoginViewModel x:Key="LoginVM" />
 </ResourceDictionary>

@@ -22,7 +22,8 @@
         Name="loginWindow"
         Title="Đăng nhập"
         Height="300"
-        Width="400">
+        Width="400"
+        DataContext ="{StaticResource LoginVM}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -67,13 +68,17 @@
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Width="110"
                             ToolTip="Resource name: MaterialDesignRaisedButton"
-                            Content="Đăng nhập"></Button>
+                            Content="Đăng nhập"
+                            Command="{Binding LoginCommand}"
+                            CommandParameter="{Binding ElementName=loginWindow}" />
                     <Button Grid.Column="1"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Width="110"
                             Background="OrangeRed"
                             ToolTip="Resource name: MaterialDesignRaisedButton"
-                            Content="Thoát"></Button>
+                            Content="Thoát"
+                            Command="{Binding CloseCommand}"
+                            CommandParameter="{Binding ElementName=loginWindow}" />
                 </Grid>
             </Grid>
         </materialDesign:Card>

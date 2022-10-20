@@ -12,12 +12,14 @@ namespace CuaHangVangBacDaQuy.models
     using System;
     using System.Collections.Generic;
     
-    public partial class NGUOIDUNG
+    public partial class NguoiDung
     {
-        public string TENDANGNHAP { get; set; }
-        public string MATKHAU { get; set; }
-        public string MANHOM { get; set; }
+        public int MaND { get; set; }
+        public string TenND { get; set; }
+        public string TenDangNhap { get; set; }
+        public string MatKhau { get; set; }
+        public int MaQH { get; set; }
     
-        public virtual NHOMNGUOIDUNG NHOMNGUOIDUNG { get; set; }
+        public virtual QuyenHan QuyenHan { get; set; }
     }
 }

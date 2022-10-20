@@ -12,27 +12,24 @@ namespace CuaHangVangBacDaQuy.models
     using System;
     using System.Collections.Generic;
     
-    public partial class SANPHAM
+    public partial class SanPham
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SANPHAM()
+        public SanPham()
         {
-            this.CHITIETPHIEUBANHANGs = new HashSet<CHITIETPHIEUBANHANG>();
-            this.CHITIETPHIEUBAOCAOTONKHOes = new HashSet<CHITIETPHIEUBAOCAOTONKHO>();
-            this.CHITIETPHIEUMUAHANGs = new HashSet<CHITIETPHIEUMUAHANG>();
+            this.ChiTietPhieuBans = new HashSet<ChiTietPhieuBan>();
+            this.ChiTietPhieuMuas = new HashSet<ChiTietPhieuMua>();
         }
     
-        public string MASP { get; set; }
-        public string MALOAISP { get; set; }
-        public string TENSP { get; set; }
-        public decimal DONGIA { get; set; }
+        public string MaSP { get; set; }
+        public string TenSP { get; set; }
+        public Nullable<decimal> DonGia { get; set; }
+        public int MaLoaiSP { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIETPHIEUBANHANG> CHITIETPHIEUBANHANGs { get; set; }
+        public virtual ICollection<ChiTietPhieuBan> ChiTietPhieuBans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIETPHIEUBAOCAOTONKHO> CHITIETPHIEUBAOCAOTONKHOes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIETPHIEUMUAHANG> CHITIETPHIEUMUAHANGs { get; set; }
-        public virtual LOAISANPHAM LOAISANPHAM { get; set; }
+        public virtual ICollection<ChiTietPhieuMua> ChiTietPhieuMuas { get; set; }
+        public virtual LoaiSanPham LoaiSanPham { get; set; }
     }
 }

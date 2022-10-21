@@ -24,6 +24,7 @@
         <AssociationConnector Association="VBDQEntityDBModel.FK__SanPham__MaLoaiS__300424B4" ManuallyRouted="false" />
         <AssociationConnector Association="VBDQEntityDBModel.FK__NguoiDung__MaQH__267ABA7A" ManuallyRouted="false" />
         <AssociationConnector Association="VBDQEntityDBModel.FK__PhieuMua__MaNCC__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="VBDQEntityDBModel.FK__SanPham__MaDV__32E0915F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

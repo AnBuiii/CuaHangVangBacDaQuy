@@ -110,6 +110,7 @@
     <Compile Include="models\SanPham.cs">
       <DependentUpon>VBDQModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="models\TonKho.cs" />
     <Compile Include="models\VBDQModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

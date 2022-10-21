@@ -14,7 +14,16 @@ namespace CuaHangVangBacDaQuy.models
     
     public partial class DonVi
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DonVi()
+        {
+            this.SanPhams = new HashSet<SanPham>();
+        }
+    
         public int MaDV { get; set; }
         public string TenDV { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SanPham> SanPhams { get; set; }
     }
 }

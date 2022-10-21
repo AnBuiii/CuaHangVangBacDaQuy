@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         
         xmlns:uc ="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
+        xmlns:i ="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -21,8 +22,8 @@
         
         Name="loginWindow"
         Title="Đăng nhập"
-        Height="300"
-        Width="400"
+        Height="200"
+        Width="380"
         DataContext ="{StaticResource LoginVM}">
     <Grid>
         <Grid.RowDefinitions>
@@ -30,7 +31,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <uc:ControlBarUC Tag="{Binding Title, ElementName=loginWindow}"/>
+            <!--<uc:ControlBarUC Tag="{Binding Title, ElementName=loginWindow}"/>-->
         </Grid>
         <materialDesign:Card Grid.Row="1"
                              Width="330"
@@ -51,12 +52,21 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                             Text="{Binding UserName}"/>
                 </Grid>
                 <Grid Grid.Row="1">
                     <PasswordBox x:Name="FloatingPasswordBox"
                                  materialDesign:HintAssist.Hint="Mật khẩu"
-                                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
+                                                       CommandParameter="{Binding ElementName=FloatingPasswordBox}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
+                    
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>

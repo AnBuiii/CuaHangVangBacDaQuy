@@ -25,11 +25,13 @@ namespace CuaHangVangBacDaQuy.models
         public string TenSP { get; set; }
         public Nullable<decimal> DonGia { get; set; }
         public int MaLoaiSP { get; set; }
+        public int MaDV { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuBan> ChiTietPhieuBans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuMua> ChiTietPhieuMuas { get; set; }
         public virtual LoaiSanPham LoaiSanPham { get; set; }
+        public virtual DonVi DonVi { get; set; }
     }
 }

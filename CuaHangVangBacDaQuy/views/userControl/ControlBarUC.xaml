@@ -43,13 +43,14 @@
                             Content="{materialDesign:PackIcon Kind=WindowClose}"
                             Command="{Binding CloseWindowCommand}"
                             CommandParameter="{Binding ElementName=ucControlBar}"
+ 
                             ToolBar.OverflowMode="AsNeeded" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" Command="" />
                     <TextBlock Margin="16,0,0,0"
                                VerticalAlignment="Center"
-                               Text="{Binding Tag, ElementName=ucControlBar}" />
+                                />
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>

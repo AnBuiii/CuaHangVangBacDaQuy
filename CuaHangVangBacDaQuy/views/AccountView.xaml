@@ -16,7 +16,12 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             DataContext="{StaticResource HomeVM}">
+             DataContext="{StaticResource AccountVM}">
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadAccountView }" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -28,17 +33,18 @@
         <materialDesign:Card Grid.Row="0"
                              Margin="5">
             <WrapPanel Margin="0 0 0 10">
-                <TextBox Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding TenNguoiDung, UpdateSourceTrigger=PropertyChanged}"
                          Margin="5 5 15 5"
                          materialDesign:HintAssist.Hint="Tên đăng nhập"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 <ComboBox Margin="5 5 15 5"
-                          ItemsSource="{Binding Role}"
-                          SelectedItem="{Binding SelectedRole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          materialDesign:HintAssist.Hint="Quyền"
+                          DisplayMemberPath="TenQH"
+                          ItemsSource="{Binding QuyenHanList}"
+                          SelectedItem="{Binding SelectedQuyenHan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          materialDesign:HintAssist.Hint="Quyền hạn"
                           IsEditable="True"
-                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
-                <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                <TextBox Text="{Binding TenNguoiDung, UpdateSourceTrigger=PropertyChanged}"
                          Margin="5 5 15 5"
                          materialDesign:HintAssist.Hint="Tên hiển thị"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
@@ -71,18 +77,18 @@
                              Margin="5"
                              VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ListView ItemsSource="{Binding List}"
+                <ListView ItemsSource="{Binding NguoiDungList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id"
-                                            DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                            DisplayMemberBinding="{Binding MaND}"></GridViewColumn>
                             <GridViewColumn Header="Tên đăng nhập"
-                                            DisplayMemberBinding="{Binding UserName}"></GridViewColumn>
+                                            DisplayMemberBinding="{Binding TenDangNhap}"></GridViewColumn>
                             <GridViewColumn Header="Chức vụ"
-                                            DisplayMemberBinding="{Binding Role.DisplayName}"></GridViewColumn>
+                                            DisplayMemberBinding="{Binding QuyenHan.TenQH}"></GridViewColumn>
                             <GridViewColumn Header="Tên hiển thị"
-                                            DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
+                                            DisplayMemberBinding="{Binding TenND}"></GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>

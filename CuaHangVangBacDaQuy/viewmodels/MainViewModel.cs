@@ -35,6 +35,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public MainViewModel()
         {
             InitNavBar();
+
             _dataTemplate = HomeViewModel;
 
             CloseWindowCommand = new RelayCommand<object>((p) => { return true; }, (p) =>

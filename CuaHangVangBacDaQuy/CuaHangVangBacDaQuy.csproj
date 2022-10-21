@@ -77,54 +77,54 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="models\ChiTietPhieuBan.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
+      <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\ChiTietPhieuMua.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
+      <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\DataProvider.cs" />
     <Compile Include="models\DonVi.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
+      <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\KhachHang.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
+      <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\LoaiSanPham.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
+      <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\NguoiDung.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
+      <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\NhaCungCap.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
+      <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\PhieuBan.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
+      <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\PhieuMua.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
+      <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\QuyenHan.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
+      <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\SanPham.cs">
-      <DependentUpon>VBDQModel.tt</DependentUpon>
+      <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\TonKho.cs" />
-    <Compile Include="models\VBDQModel.Context.cs">
+    <Compile Include="models\VDBQModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VBDQModel.Context.tt</DependentUpon>
+      <DependentUpon>VDBQModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\VBDQModel.cs">
+    <Compile Include="models\VDBQModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VBDQModel.tt</DependentUpon>
+      <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\VBDQModel.Designer.cs">
+    <Compile Include="models\VDBQModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VBDQModel.edmx</DependentUpon>
+      <DependentUpon>VDBQModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="viewmodels\AccountViewModel.cs" />
     <Compile Include="viewmodels\BaseViewModel.cs" />
@@ -203,12 +203,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="models\VBDQModel.edmx">
+    <EntityDeploy Include="models\VDBQModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>VBDQModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>VDBQModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="models\VBDQModel.edmx.diagram">
-      <DependentUpon>VBDQModel.edmx</DependentUpon>
+    <None Include="models\VDBQModel.edmx.diagram">
+      <DependentUpon>VDBQModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -223,15 +223,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="models\VBDQModel.Context.tt">
+    <Content Include="models\VDBQModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VBDQModel.edmx</DependentUpon>
-      <LastGenOutput>VBDQModel.Context.cs</LastGenOutput>
+      <DependentUpon>VDBQModel.edmx</DependentUpon>
+      <LastGenOutput>VDBQModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="models\VBDQModel.tt">
+    <Content Include="models\VDBQModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>VBDQModel.edmx</DependentUpon>
-      <LastGenOutput>VBDQModel.cs</LastGenOutput>
+      <DependentUpon>VDBQModel.edmx</DependentUpon>
+      <LastGenOutput>VDBQModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

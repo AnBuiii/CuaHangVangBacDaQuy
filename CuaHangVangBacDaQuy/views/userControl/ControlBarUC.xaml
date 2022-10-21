@@ -50,7 +50,7 @@
                     <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" Command="" />
                     <TextBlock Margin="16,0,0,0"
                                VerticalAlignment="Center"
-                                />
+                                Text="{Binding Tag, ElementName=ucControlBar}" />
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>

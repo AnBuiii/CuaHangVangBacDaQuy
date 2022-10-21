@@ -26,6 +26,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <uc:ControlBarUC Tag="{Binding Title, ElementName=userWindow}"></uc:ControlBarUC>
+            <!--<uc:TitleBarUC Tag="{Binding Title, ElementName=userWindow}"></uc:TitleBarUC>-->
+
         </Grid>
 
         <Grid Grid.Row="1">

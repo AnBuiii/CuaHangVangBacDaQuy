@@ -11,15 +11,16 @@
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
-             FontFamily="{DynamicResource MaterialDesignFont}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             FontFamily="{DynamicResource MaterialDesignFont}" 
+             Name="makeOderUC"
+             d:DesignHeight="533.413" d:DesignWidth="1047.31" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <local:TitleBarUC Tag="{Binding Title, ElementName=mainwindow}" />
+            <local:TitleBarUC Tag="{Binding Tag, ElementName=makeOderUC}" />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -28,17 +29,17 @@
             </Grid.RowDefinitions>
             <!--Thông tin khách hàng-->
             <Grid Grid.Row="0">
-                <Grid Grid.Row="0">
-                    <materialDesign:Card Margin="5">
-                        <Grid Grid.Row="0">
+                <materialDesign:Card Margin="5">
+                        <Grid >
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
                                 <RowDefinition Height="auto"></RowDefinition>
                                 <RowDefinition Height="auto"></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
                                 <materialDesign:ColorZone
-                                         Padding="16"
+                                         Padding="8"
                                          Mode="Light">
                                     <DockPanel>
                                         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
@@ -103,16 +104,204 @@
                                             BorderThickness="0" />
                                         
                                     </Grid>
-                                    
+                                   
                                 </materialDesign:ColorZone>
 
                             </Grid>
-                           
-                                      
+                            <!--Phần grid này để hiện thị thông tin khách hàng sau khi tạo hoặc tìm kiếm-->
+                        <Grid Grid.Row="3" Height="50" Background="WhiteSmoke">
+
                         </Grid>
+
+                    </Grid>
                     </materialDesign:Card>
-                </Grid>
+                
             </Grid>
+            
+            <!--Thông tin sản phẩm-->
+            <Grid Grid.Row="1">
+                
+                <materialDesign:Card Margin="5">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <materialDesign:ColorZone
+                                         Padding="8"
+                                         Mode="Light">
+                                <DockPanel>
+                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                        <Button
+                                            Content="_Kiểm tra tồn kho"
+                                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+                                    </StackPanel>
+                                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                          Margin="16,0,0,0"
+                                         VerticalAlignment="Center"
+                                         Text="Thông tin sản phẩm" />
+                                </DockPanel>
+                            </materialDesign:ColorZone>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Separator Margin="5"></Separator>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <materialDesign:ColorZone
+                                         Padding="32, 0, 0, 0"
+                                         Mode="Light">
+                                <Grid>
+                                    
+                                    <DockPanel>
+                                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="8, 0, 8, 0">
+                                           
+                                                <materialDesign:PackIcon Kind="Filter" Width="25" Height="25" VerticalAlignment="Center"/>
+                                                <ComboBox
+                                                materialDesign:HintAssist.Hint="Lọc"                                              
+                                                IsEditable="True">
+                                                    <ComboBoxItem
+                                                     Content="Android" />
+                                                    <ComboBoxItem
+                                                      Content="iOS" />
+                                                    <ComboBoxItem
+                                                     Content="Linux" />
+                                                    <ComboBoxItem
+                                                     Content="Windows" />
+                                                </ComboBox>
+                                           
+                                           
+                                        </StackPanel>
+                                        <TextBlock
+                                             Style="{StaticResource MaterialDesignOverlineTextBlock}"
+                                            VerticalAlignment="Center">
+                                            <materialDesign:PackIcon
+                                             Kind="Search"
+                                             Width="25"
+                                             Height="25"
+                                             Opacity=".56" />
+                                        </TextBlock>
+                                        <TextBox
+                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                            Grid.Column="1"
+                                            MinWidth="200"
+                                            Margin="8,0,0,0"
+                                            VerticalAlignment="Center"
+                                            materialDesign:HintAssist.Hint="Tìm kiếm Sản phẩm"
+                                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                            
+                                            BorderThickness="0" />
+                                    </DockPanel>
+                                </Grid>
+
+                            </materialDesign:ColorZone>
+
+                        </Grid>
+                        <!--Phần grid này để hiện thị thông tin các món hạng được mua sau khi tạo hoặc tìm kiếm-->
+                        <Grid Grid.Row="3">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Mã sản phẩm" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                            <GridViewColumn Header="Tên sản phẩm" DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
+                                            <GridViewColumn Header="Loại sản phẩm" DisplayMemberBinding="{Binding ProductType}"></GridViewColumn>
+                                            <GridViewColumn Header="Đơn giá" DisplayMemberBinding="{Binding UnitPrice}"></GridViewColumn>
+                                            <GridViewColumn Header="Đơn vị" DisplayMemberBinding="{Binding Unit}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <!--cột này có có giá trị là một combobox để chọn đơn vị-->
+                                                        <ComboBox></ComboBox>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Amount}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <!--cột này có có giá trị là một textbox để nhập số lượng-->
+                                                        <TextBox></TextBox>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            
+                                            <GridViewColumn Header="Thành tiền" DisplayMemberBinding="{Binding ContractDate}"></GridViewColumn>
+                                            
+                                            <GridViewColumn Header="Dấu X" DisplayMemberBinding="{Binding ContractDate}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <!--cột này có có giá trị là một button để có thể xóa sản phẩm khi chọn nhầm-->
+                                                        <Button></Button>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </ScrollViewer>
+                        </Grid>
+
+                        <Grid Grid.Row="4">
+                            <Separator Margin="5"></Separator>
+                        </Grid>
+                        
+                        <!--Tổng thanh toán-->
+                        <Grid Grid.Row="5">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                               
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <materialDesign:ColorZone
+                                         Padding="8"
+                                         Mode="Light">
+                                    <DockPanel>
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <StackPanel  DockPanel.Dock="Right" Orientation="Horizontal">
+                                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                          Margin="16,0,0,0"
+                                         VerticalAlignment="Center"
+                                         Text="Tổng tiền" />
+                                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                          Margin="16,0,0,0"
+                                         VerticalAlignment="Center"
+                                         Text="0" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                          Margin="16,0,0,0"
+                                         VerticalAlignment="Center"
+                                         Text="" />
+                                    </DockPanel>
+                                </materialDesign:ColorZone>
+                            </Grid>
+
+                            <Grid Grid.Row="1">
+                                <Button
+                                   Content="_Tạo đơn"
+                                   IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                   Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                   ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
+                                    VerticalAlignment="Center"
+                                     HorizontalAlignment="Right"
+                                    Margin="0, 0, 9, 0"/>
+                            </Grid>
+                            
+                        </Grid>
+
+                    </Grid>
+
+                </materialDesign:Card>
+            </Grid>
+
         </Grid>
     </Grid>
 </UserControl>

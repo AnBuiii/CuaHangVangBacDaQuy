@@ -103,6 +103,7 @@
                                             BorderThickness="0" />
                                         
                                     </Grid>
+                                    
                                 </materialDesign:ColorZone>
 
                             </Grid>

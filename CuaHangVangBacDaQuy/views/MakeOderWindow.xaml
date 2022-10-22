@@ -9,6 +9,7 @@
         Name="makeOderWindow"
         >
     <Grid>
+        
         <uc:MakeOderUC Tag="{Binding Title, ElementName=makeOderWindow}"/>
     </Grid>
 </Window>

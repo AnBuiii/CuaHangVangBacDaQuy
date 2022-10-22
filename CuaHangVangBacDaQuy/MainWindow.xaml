@@ -225,7 +225,7 @@
                                             Margin="5"
                                             Width="100"
                                             Content="Lọc"
-                                            Command="{Binding /////}"
+                                            Command="{Binding }"
                                            
                                             ToolTip="Resource name: MaterialDesignRaisedButton"></Button>
                                 </Grid>

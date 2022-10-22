@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views"
+        xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views" xmlns:uc="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
         mc:Ignorable="d"
-        Title="MakeOderWindow" Height="450" Width="800">
+        Title="Tạo đơn hàng" Height="450" Width="800"
+        Name="makeOderWindow"
+        >
     <Grid>
-        
+        <uc:MakeOderUC Tag="{Binding Title, ElementName=makeOderWindow}"/>
     </Grid>
 </Window>

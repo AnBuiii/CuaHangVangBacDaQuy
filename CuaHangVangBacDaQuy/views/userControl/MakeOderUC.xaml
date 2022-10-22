@@ -37,8 +37,77 @@
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
-                                
+                                <materialDesign:ColorZone
+                                         Padding="16"
+                                         Mode="Light">
+                                    <DockPanel>
+                                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                            <Button
+                                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryDarkButton}"
+                                                   ToolTip="MaterialDesignFloatingActionMiniSecondaryDarkButton">
+                                                <materialDesign:PackIcon
+
+                                                     Width="25"
+                                                     Height="25"
+                                                     Kind="Plus" />
+                                            </Button>
+                                            <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                            Margin="4,0,0,0"   
+                                            DockPanel.Dock="Right"
+                                            VerticalAlignment="Center"
+                                            Text="Tạo khách hàng" />
+                                        </StackPanel>
+                                        <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                          Margin="16,0,0,0"
+                                         VerticalAlignment="Center"
+                                         Text="Khách hàng" />
+                                    </DockPanel>
+                                </materialDesign:ColorZone>
                             </Grid>
+                            <Grid Grid.Row="1">
+                                <Separator Margin="5"></Separator>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <materialDesign:ColorZone
+                                         Padding="32, 0, 0, 0"
+                                         Mode="Light">
+                                    <Grid>
+                                  
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition
+                                            Width="Auto" />
+                                            <ColumnDefinition
+                                            Width="*" />
+                                            <ColumnDefinition
+                                             Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <TextBlock
+                                             Style="{StaticResource MaterialDesignOverlineTextBlock}"
+                                            VerticalAlignment="Center">
+                                            <materialDesign:PackIcon
+                                             Kind="Search"
+                                             Width="25"
+                                             Height="25"
+                                             Opacity=".56" />
+                                        </TextBlock>
+                                        <TextBox
+                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                            Grid.Column="1"
+                                            MinWidth="200"
+                                            Margin="8,0,0,0"
+                                            VerticalAlignment="Center"
+                                            materialDesign:HintAssist.Hint="Tìm kiếm khách hàng"
+                                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                            BorderThickness="0" />
+                                        
+                                    </Grid>
+                                </materialDesign:ColorZone>
+
+                            </Grid>
+                           
+                                      
                         </Grid>
                     </materialDesign:Card>
                 </Grid>

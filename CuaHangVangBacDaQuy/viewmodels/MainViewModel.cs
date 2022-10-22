@@ -12,7 +12,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
     public class MainViewModel : BaseViewModel
     {
         public ICommand LoadedWindowCommand { get; set; }
-        public bool isLoaded {get; set;} = false;
+        public bool isLoaded { get; set; } = false;
         public MainViewModel()
         {
             LoadedWindowCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -21,8 +21,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 LoginWindow loginWindow = new LoginWindow();
                 loginWindow.ShowDialog();
             });
-            
-            
+
+
         }
     }
 }

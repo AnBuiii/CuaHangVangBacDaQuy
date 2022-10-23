@@ -97,6 +97,7 @@
     <Compile Include="models\ChiTietPhieuMua.cs">
       <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="models\CurrentAccount.cs" />
     <Compile Include="models\DataProvider.cs" />
     <Compile Include="models\DonVi.cs">
       <DependentUpon>VDBQModel.tt</DependentUpon>

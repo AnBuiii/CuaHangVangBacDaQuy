@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
@@ -54,7 +55,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand ChangePasswordCommand { get; set; }
-        public ICommand SaveGuestCommand { get; set; }
+        public ICommand SavePasswordCommand { get; set; }
 
         private bool _IsOpenDialog;
         public bool IsOpenDialog { get => _IsOpenDialog; set { _IsOpenDialog = value; OnPropertyChanged(); } }
@@ -91,7 +92,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 nguoidung.TenND = TenNguoiDung;
                 DataProvider.Ins.DB.SaveChanges();
                 NguoiDungList = new ObservableCollection<NguoiDung>(DataProvider.Ins.DB.NguoiDungs);
-                SelectedItem.TenDangNhap = TenDangNhap;
             });
             ChangePasswordCommand = new RelayCommand<object>((p) =>
             {
@@ -103,6 +103,25 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 Password = "";
                 ConfirmPassword = "";
             });
+            SavePasswordCommand = new RelayCommand<object>((p) =>
+            {
+                if(Password == null || Password == "")
+                {
+                    return false;
+                }
+                if (Password != ConfirmPassword) return false;
+                return true;
+
+            }, (p) =>
+            {
+                var nguoidung = DataProvider.Ins.DB.NguoiDungs.Where(x => x.MaND == SelectedItem.MaND).SingleOrDefault();
+                nguoidung.MatKhau = MD5Hash(Base64Encode(Password));
+                DataProvider.Ins.DB.SaveChanges();
+                NguoiDungList = new ObservableCollection<NguoiDung>(DataProvider.Ins.DB.NguoiDungs);
+                IsOpenDialog = false;
+
+            });
+
         }
         private bool isItemSelected()
         {
@@ -114,6 +133,26 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 return false;
 
             return true;
+        }
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+
+
+        public static string MD5Hash(string input)
+        {
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
+            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("x2"));
+            }
+            return hash.ToString();
         }
 
     }

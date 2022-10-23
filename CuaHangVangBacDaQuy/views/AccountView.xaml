@@ -59,7 +59,7 @@
                                     HorizontalAlignment="Center"
                                     Margin="4"
                                     Style="{StaticResource MaterialDesignRaisedButton}"
-                                    Command="{Binding SaveGuestCommand}">
+                                    Command="{Binding SavePasswordCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="ContentSave"
                                                              Width="18"

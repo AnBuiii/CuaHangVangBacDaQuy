@@ -150,7 +150,7 @@
                             </Grid>
                         </Button>
                         <Button x:Name="btnDashboard"
-                                Command="{Binding DashBoardViewCommmand}">
+                                Command="{Binding MakeOrderCommand}">
                             <Grid Height="40"
                                   Width="250">
                                 <Grid.ColumnDefinitions>

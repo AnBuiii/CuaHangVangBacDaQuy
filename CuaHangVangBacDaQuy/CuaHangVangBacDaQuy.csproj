@@ -151,6 +151,7 @@
     <Compile Include="viewmodels\HomeViewModel.cs" />
     <Compile Include="viewmodels\LoginViewModel.cs" />
     <Compile Include="viewmodels\MainViewModel.cs" />
+    <Compile Include="viewmodels\MakeOrderViewModel.cs" />
     <Compile Include="views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
     </Compile>
@@ -159,14 +160,12 @@
     </Compile>
     <Compile Include="views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
-    <Compile Include="views\CustomerWindow.xaml.cs">
-      <DependentUpon>CustomerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\CustomerView.xaml.cs">
+      <DependentUpon>CustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="views\MakeOderWindow.xaml.cs">
-      <DependentUpon>MakeOderWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\userControl\ControlBarUC.xaml.cs">
       <DependentUpon>ControlBarUC.xaml</DependentUpon>
@@ -188,19 +187,13 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\MainWindow.xaml">
-    <Compile Include="views\userControl\ListBoxUserUC.xaml.cs">
-      <DependentUpon>ListBoxUserUC.xaml</DependentUpon>
-    </Compile>
+    </Page>
     <Compile Include="views\userControl\MakeOderUC.xaml.cs">
       <DependentUpon>MakeOderUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\userControl\TitleBarUC.xaml.cs">
       <DependentUpon>TitleBarUC.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -214,7 +207,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="resource\Theme.xaml">
-    <Page Include="views\CustomerWindow.xaml">
+    </Page>
+    <Page Include="views\CustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -222,15 +216,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\MakeOderWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="views\userControl\ControlBarUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="views\userControl\ListBoxUserUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

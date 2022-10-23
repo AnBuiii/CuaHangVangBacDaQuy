@@ -27,10 +27,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public HomeViewModel HomeViewModel { get; set; }
         public AccountViewModel AccountViewModel { get; set; }
+        public MakeOrderViewModel MakeOrderViewModel { get; set; }
         public ICommand LoadedWindowCommand { get; set; }
         public ICommand HomeViewCommand { get; set; }
         public ICommand AccountViewCommand { get; set; }
         public ICommand CloseWindowCommand { get; set; }
+        public ICommand MakeOrderCommand { get; set; }
         public bool isLoaded = false;
         public MainViewModel()
         {
@@ -46,6 +48,10 @@ namespace CuaHangVangBacDaQuy.viewmodels
             HomeViewCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 DataTemplate = HomeViewModel;
+            });
+            MakeOrderCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                DataTemplate = MakeOrderViewModel;
             });
 
             AccountViewCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -82,6 +88,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             HomeViewModel = new HomeViewModel();
             AccountViewModel = new AccountViewModel();
+            MakeOrderViewModel = new MakeOrderViewModel();
             //viewmodel init
         }
     }

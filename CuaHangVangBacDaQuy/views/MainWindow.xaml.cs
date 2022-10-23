@@ -28,8 +28,8 @@ namespace CuaHangVangBacDaQuy
             //userWindow.Show();
            // CustomerWindow customerWindow = new CustomerWindow();
            // customerWindow.Show();
-           MakeOderWindow makeOderWindow = new MakeOderWindow();
-            makeOderWindow.Show();
+           //MakeOderWindow makeOderWindow = new MakeOderWindow();
+           // makeOderWindow.Show();
         }
     }
 }

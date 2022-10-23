@@ -6,4 +6,5 @@
     <viewModel:HomeViewModel x:Key="HomeVM" />
     <viewModel:AccountViewModel x:Key="AccountVM" />
     <viewModel:LoginViewModel x:Key="LoginVM" />
+    <viewModel:MakeOrderViewModel x:Key="MakeOrderVM" />
 </ResourceDictionary>

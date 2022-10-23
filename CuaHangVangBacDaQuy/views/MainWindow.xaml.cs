@@ -24,7 +24,12 @@ namespace CuaHangVangBacDaQuy
         public MainWindow()
         {
             //Test UI ở đây
-             
+            // UserWindow userWindow = new UserWindow();
+            //userWindow.Show();
+           // CustomerWindow customerWindow = new CustomerWindow();
+           // customerWindow.Show();
+           MakeOderWindow makeOderWindow = new MakeOderWindow();
+            makeOderWindow.Show();
         }
     }
 }

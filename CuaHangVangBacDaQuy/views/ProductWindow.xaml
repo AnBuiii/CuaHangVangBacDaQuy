@@ -5,18 +5,25 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-       
+        DataContext="{StaticResource productVM}"
+        x:Name="ProductUC"
         mc:Ignorable="d"
-        Title="ProductWindow" Height="700" Width="1000">
+        Title="ProductWindow" Height="720" Width="1000">
+
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"
+                                   CommandParameter="{Binding ElementName=ProductUC}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="90"/>
-            <RowDefinition Height="90"/>
+            <RowDefinition Height="60"></RowDefinition>
 
-            <RowDefinition />
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Margin="0,0,0,605" Grid.RowSpan="2">
             <TextBlock
                         Text="DANH MỤC SẢN PHẨM"
                         FontSize="36"
@@ -26,203 +33,188 @@
                         VerticalAlignment="Top"
                         Margin="0 20 0 0"/>
         </Grid>
-
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="20,10,0,494">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="43*"/>
-                <ColumnDefinition Width="97*"/>
-                <ColumnDefinition Width="140*"/>
+                <ColumnDefinition Width="65*"></ColumnDefinition>
+                <ColumnDefinition Width="174*"></ColumnDefinition>
+                <ColumnDefinition Width="174*"></ColumnDefinition>
+                <ColumnDefinition Width="174*"></ColumnDefinition>
+                <ColumnDefinition Width="218*"></ColumnDefinition>
+                <ColumnDefinition Width="174*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
-            <StackPanel
-                        Grid.Column="0"
-                        Orientation="Horizontal"
-                        Margin="75,0,178,0" Grid.ColumnSpan="2">
-                <materialDesign:PackIcon
-                            Kind="Barcode"
-                            Width="30"
-                            Height="30"
-                            Foreground="{StaticResource Gray}"
-                            VerticalAlignment="Center"
-                            Margin="10 20 20 0" />
-                <TextBox
-                            x:Name="txtgroom"
-                            materialDesign:HintAssist.Hint="Mã sản phẩm"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                            Foreground="Black"
-                            FontSize="20"
-                            FontWeight="Medium"
-                            materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                            materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                            Width="175"
-                            VerticalContentAlignment="Center"
-                            Height="50"
-                            Padding="2,0,0,0">
-                </TextBox>
-            </StackPanel>
-            <StackPanel   
-                        Grid.Column="1"
-                        Orientation="Horizontal"
-                        Margin="222,10,304,-10" Grid.ColumnSpan="2">
-                <materialDesign:PackIcon
-                            Kind="FormatListText"
-                            Width="30"
-                            Height="30"
-                            Foreground="{StaticResource Gray}"
-                            VerticalAlignment="Center"
-                            Margin="10 0 5 0" />
-                <ComboBox
-                    x:Name="OutlinedComboBox"
-                    FontSize="20"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    IsEnabled="{Binding IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                    materialDesign:HintAssist.Hint="Mã loại sản phẩm"
-                    ItemsSource="{Binding ShortStringList}"
-                    Width="203" BorderThickness="0,0,0,0" />
-            </StackPanel>
-            <StackPanel
+            <TextBlock
+                Text="Mã SP"
+                FontSize="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontWeight="Medium"
+                Foreground="Black"
+                Grid.Column="0" />
+            <TextBlock
+                Text="Tên sản phẩm"
+                FontSize="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontWeight="Medium"
+                Foreground="Black"
+                Grid.Column="1" />
+            <TextBlock
+                        Text="Mã loại sản phẩm"
+                        FontSize="18"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        FontWeight="Medium"
+                        Foreground="Black"
                         Grid.Column="2"
-                        Orientation="Horizontal"
-                        Margin="197,0,56,0">
-                <materialDesign:PackIcon
-                            Kind="RenameBox"
-                            Width="30"
-                            Height="30"
-                            Foreground="{StaticResource Gray}"
-                            VerticalAlignment="Center"
-                            Margin="10 20 20 0" />
-                <TextBox
-                            x:Name="txtgrooam"
-                            materialDesign:HintAssist.Hint="Tên sản phẩm"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                            Foreground="Black"
-                            FontSize="20"
-                            FontWeight="Medium"
-                            materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                            materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                            Width="175"
-                            VerticalContentAlignment="Center"
-                            Height="50"
-                            Padding="2,0,0,0">
-                </TextBox>
-            </StackPanel>
-        </Grid>
-
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="43*"/>
-                <ColumnDefinition Width="97*"/>
-                <ColumnDefinition Width="140*"/>
-            </Grid.ColumnDefinitions>
-
-            <StackPanel
-                        Grid.Column="0"
-                        Orientation="Horizontal"
-                        Margin="75,0,178,0" Grid.ColumnSpan="2">
-                <materialDesign:PackIcon
-                            Kind="Pencil"
-                            Width="30"
-                            Height="30"
-                            Foreground="{StaticResource Gray}"
-                            VerticalAlignment="Center"
-                            Margin="10 20 20 0" />
-                <TextBox
-                            
-                            materialDesign:HintAssist.Hint="Tên loại sản phẩm"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                            Foreground="Black"
-                            FontSize="20"
-                            FontWeight="Medium"
-                            materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                            materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                            Width="175"
-                            VerticalContentAlignment="Center"
-                            Height="50"
-                            Padding="2,0,0,0">
-                </TextBox>
-            </StackPanel>
-            <StackPanel
-                        Grid.Column="1"
-                        Orientation="Horizontal"
-                        Margin="222,0,333,0" Grid.ColumnSpan="2">
-                <materialDesign:PackIcon
-                            Kind="Cash"
-                            Width="30"
-                            Height="30"
-                            Foreground="{StaticResource Gray}"
-                            VerticalAlignment="Center"
-                            Margin="10 20 20 0" />
-                <TextBox
-                            
-                            materialDesign:HintAssist.Hint="Đơn giá"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                            Foreground="Black"
-                            FontSize="20"
-                            FontWeight="Medium"
-                            materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                            materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                            Width="175"
-                            VerticalContentAlignment="Center"
-                            Height="50"
-                            Padding="2,0,0,0">
-                </TextBox>
-            </StackPanel>
-            <StackPanel
+                        TextWrapping="Wrap"
+                        TextAlignment="Center"
+                        Padding="0" />
+            <TextBlock
+                        Text="Đơn giá"
+                        FontSize="18"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        FontWeight="Medium"
+                        Foreground="Black"
                         Grid.Column="3"
-                        Orientation="Horizontal"
-                        Margin="197,0,56,0">
-                <materialDesign:PackIcon
-                            Kind="Counter"
-                            Width="30"
-                            Height="30"
-                            Foreground="{StaticResource Gray}"
-                            VerticalAlignment="Center"
-                            Margin="10 20 20 0" />
-                <TextBox
-                            
-                            materialDesign:HintAssist.Hint="Số lượng còn lại"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                            Foreground="Black"
-                            FontSize="20"
-                            FontWeight="Medium"
-                            materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                            materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                            Width="175"
-                            VerticalContentAlignment="Center"
-                            Height="50"
-                            Padding="2,0,0,0">
-                </TextBox>
-            </StackPanel>
-            <Grid Grid.ColumnSpan="3" Margin="0,95,0,-397">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="197*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
-                <ListView
-                    ItemsSource="{Binding Items1}" FontSize="24" Width="980" HorizontalAlignment="Left" VerticalAlignment="Center" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Multiple" Grid.ColumnSpan="2" Margin="10,0,0,0">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn
-                                DisplayMemberBinding="{Binding Code}"
-                                Header="Mã sản phẩm" />
-                            <GridViewColumn
-                                DisplayMemberBinding="{Binding Name}"
-                                Header="Tên sản phẩm" 
-                                />
-                            <GridViewColumn
-                                DisplayMemberBinding="{Binding Description}"
-                                Header="Mã loại sản phẩm" />
-                            <GridViewColumn
-                                DisplayMemberBinding="{Binding soluong}"
-                                Header="Đơn giá"/>
-                            <GridViewColumn
-                                DisplayMemberBinding="{Binding gia}"
-                                Header="Số lượng">
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Grid>
+                        TextWrapping="Wrap"
+                        TextAlignment="Center" />
+            <TextBlock
+                        Text="Số lượng"
+                        FontSize="18"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        FontWeight="Medium"
+                        Foreground="Black"
+                        Grid.Column="4"
+                        TextWrapping="Wrap"
+                        TextAlignment="Center" />
+            <Button
+                    Style="{StaticResource GreenBtn}"
+                    Content="Thêm"
+                    Width="100"
+                    Height="30"
+                    FontSize="18"
+                    Foreground="White"
+                    VerticalAlignment="Center"
+                    Grid.Column="5"
+                    Command="{Binding AddProductCommand}"
+                    CommandParameter="{Binding ElementName= ProductUC}" />
         </Grid>
+        <Separator Width="auto" Height="3" Margin="20,112,20,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <!--SOURCE CỦA LISTVIEW NÀY LÀ 1 LIST RECEIPT-->
+        <ListView Grid.Row="1" 
+                  Grid.Column="0" 
+                  ScrollViewer.CanContentScroll="False" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                  x:Name="list" 
+                  Visibility="Visible" 
+                  d:ItemsSource="{d:SampleData ItemCount=5}" 
+                  Margin="0,112,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="100" Margin="10 5 10 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65*"></ColumnDefinition>
+                            <ColumnDefinition Width="174*"></ColumnDefinition>
+                            <ColumnDefinition Width="174*"></ColumnDefinition>
+                            <ColumnDefinition Width="174*"></ColumnDefinition>
+                            <ColumnDefinition Width="218*"></ColumnDefinition>
+                            <ColumnDefinition Width="174*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <!--mã SP-->
+                        <TextBlock
+                            Text="{Binding masp, UpdateSourceTrigger=PropertyChanged}"
+                            FontSize="20"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Foreground="Black" />
+
+                        <!--tên SP-->
+                        <TextBlock
+                            Text="{Binding Tensp, UpdateSourceTrigger=PropertyChanged}"
+                            FontSize="20"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Foreground="Black"
+                            Grid.Column="1"
+                            TextWrapping="Wrap" />
+                        <!--MÃ LOẠI SẢN PHẨM-->
+                        <TextBlock
+                            Text="{Binding MaLsp, UpdateSourceTrigger=PropertyChanged}"
+                            FontSize="20"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontWeight="Medium"
+                            Foreground="Black"
+                            Grid.Column="2" />
+                        <!--ĐƠN GIÁ-->
+                        <TextBlock
+                            Grid.Column="3"
+                            Text="{Binding Dongia}"
+                            FontSize="20"
+                            FontWeight="DemiBold"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                        <!--SỐ LƯỢNG -->
+                        <TextBlock
+                            Grid.Column="4"
+                            Text="{Binding SoLuong,StringFormat=N0, UpdateSourceTrigger=PropertyChanged}"
+                            FontSize="20"
+                            FontWeight="DemiBold"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                        <!--button xóa sửa -->
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Column="6">
+
+                            <Button
+                      Style="{StaticResource MaterialDesignIconForegroundButton}"
+                      ToolTip="MaterialDesignIconForegroundButton"
+                      IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Foreground="Black"
+                        Margin="10 0"
+                                Command="{Binding Source={StaticResource productVM}, Path = EditHallCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}">
+                                <materialDesign:PackIcon Kind="Edit" />
+                            </Button>
+                            <Button
+                  Style="{StaticResource MaterialDesignIconForegroundButton}"
+                  ToolTip="MaterialDesignIconForegroundButton"
+                  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Foreground="Black"
+                                Command="{Binding Source={StaticResource productVM}, Path = DeleteHallCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}">
+                                <materialDesign:PackIcon Kind="Delete" />
+                            </Button>
+                        </StackPanel>
+
+                        <Separator Width="auto" Height="3" Margin="10 0" VerticalAlignment="Bottom" Grid.ColumnSpan="7"></Separator>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <Rectangle
+                Fill="White"
+                RadiusY="5"
+                RadiusX="5"
+                Margin="10,348,10,76"
+                Panel.ZIndex="-2"
+                Grid.Column="0"
+                Grid.Row="1"/>
     </Grid>
 </Window>

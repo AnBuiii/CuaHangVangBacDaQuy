@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CuaHangVangBacDaQuy.views.userControl
+namespace CuaHangVangBacDaQuy.views
 {
     /// <summary>
-    /// Interaction logic for MakeOderUC.xaml
+    /// Interaction logic for MakeOderView.xaml
     /// </summary>
-    public partial class MakeOderUC : UserControl
+    public partial class MakeOderView : UserControl
     {
-        public MakeOderUC()
+        public MakeOderView()
         {
             InitializeComponent();
         }

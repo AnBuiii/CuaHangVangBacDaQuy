@@ -351,7 +351,10 @@
                           Grid.RowSpan="2">
                         <ContentControl x:Name="contentView"
                                         Grid.Row="0"
+                                        
                                         Content="{Binding DataTemplate}" />
+                       
+                        
                     </Grid>
                 </Grid>
             </Grid>

@@ -4,7 +4,7 @@
                     xmlns:view ="clr-namespace:CuaHangVangBacDaQuy.views"
                     xmlns:view1="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
                     xmlns:viewModel="clr-namespace:CuaHangVangBacDaQuy.viewmodels">
-    <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+    <!--<DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
         <view:HomeView />
     </DataTemplate>
 
@@ -12,7 +12,7 @@
         <view:AccountView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewModel:MakeOrderViewModel}">
-        <view1:MakeOderUC />
-    </DataTemplate>
+        <view:MakeOderView/>
+    </DataTemplate>-->
     
 </ResourceDictionary>

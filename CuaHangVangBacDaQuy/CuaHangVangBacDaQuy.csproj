@@ -167,6 +167,9 @@
     <Compile Include="views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\MakeOderView.xaml.cs">
+      <DependentUpon>MakeOderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\userControl\ControlBarUC.xaml.cs">
       <DependentUpon>ControlBarUC.xaml</DependentUpon>
     </Compile>
@@ -188,9 +191,6 @@
     </Page>
     <Page Include="views\MainWindow.xaml">
     </Page>
-    <Compile Include="views\userControl\MakeOderUC.xaml.cs">
-      <DependentUpon>MakeOderUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="views\userControl\TitleBarUC.xaml.cs">
       <DependentUpon>TitleBarUC.xaml</DependentUpon>
     </Compile>
@@ -216,11 +216,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\userControl\ControlBarUC.xaml">
+    <Page Include="views\MakeOderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\userControl\MakeOderUC.xaml">
+    <Page Include="views\userControl\ControlBarUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

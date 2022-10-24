@@ -14,6 +14,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 {
     public class AccountViewModel : BaseViewModel
     {
+       
         private ObservableCollection<NguoiDung> _NguoiDungList;
         public ObservableCollection<NguoiDung> NguoiDungList { get => _NguoiDungList; set { _NguoiDungList = value; OnPropertyChanged(); } }
 

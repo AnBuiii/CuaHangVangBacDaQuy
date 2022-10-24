@@ -1,11 +1,10 @@
-﻿<UserControl x:Class="CuaHangVangBacDaQuy.views.userControl.MakeOderUC"
+﻿<UserControl x:Class="CuaHangVangBacDaQuy.views.MakeOderView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             
+             xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:local1="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
              mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -14,7 +13,7 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             Name="makeOderUC"
+             Name="makeOderView"
              d:DesignHeight="533.413"
              d:DesignWidth="1047.31"
              DataContext="{StaticResource MakeOrderVM}">
@@ -24,7 +23,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <local:TitleBarUC Tag="{Binding Tag, ElementName=makeOderUC}" />
+            <local1:TitleBarUC Tag="{Binding Tag, ElementName=makeOderView}" />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>

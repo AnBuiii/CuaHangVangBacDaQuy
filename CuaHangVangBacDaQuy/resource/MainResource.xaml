@@ -3,5 +3,6 @@
                     xmlns:local="clr-namespace:CuaHangVangBacDaQuy"
                     xmlns:viewModel="clr-namespace:CuaHangVangBacDaQuy.viewmodels">
     <viewModel:MainViewModel x:Key="MainVM"></viewModel:MainViewModel>
-    
+    <viewModel:ProductVM x:Key="productVM"></viewModel:ProductVM>
+    <viewModel:AddProductVM x:Key="addProductVM"></viewModel:AddProductVM>
 </ResourceDictionary>

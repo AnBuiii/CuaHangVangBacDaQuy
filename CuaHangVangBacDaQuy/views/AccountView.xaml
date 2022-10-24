@@ -38,7 +38,6 @@
                             <RowDefinition Height="50" />
                             <RowDefinition Height="50" />
                         </Grid.RowDefinitions>
-
                         <TextBox Grid.Row="0"
                                  Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="5 5 15 5"
@@ -100,7 +99,6 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <!--các element binding từ selected item-->
             <materialDesign:Card Grid.Row="0"
                                  Margin="5">
                 <WrapPanel Margin="0 0 0 10">

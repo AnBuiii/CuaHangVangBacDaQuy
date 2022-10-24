@@ -14,7 +14,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 {
     public class AccountViewModel : BaseViewModel
     {
-       
+        #region Params
         private ObservableCollection<NguoiDung> _NguoiDungList;
         public ObservableCollection<NguoiDung> NguoiDungList { get => _NguoiDungList; set { _NguoiDungList = value; OnPropertyChanged(); } }
 
@@ -51,12 +51,16 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private string _ConfirmPassword;
         public string ConfirmPassword { get => _ConfirmPassword; set { _ConfirmPassword = value; OnPropertyChanged(); } }
+        #endregion
 
+        #region Commands
         public ICommand LoadAccountView { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand ChangePasswordCommand { get; set; }
         public ICommand SavePasswordCommand { get; set; }
+        #endregion
+
 
         private bool _IsOpenDialog;
         public bool IsOpenDialog { get => _IsOpenDialog; set { _IsOpenDialog = value; OnPropertyChanged(); } }
@@ -140,8 +144,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
-
-
 
         public static string MD5Hash(string input)
         {

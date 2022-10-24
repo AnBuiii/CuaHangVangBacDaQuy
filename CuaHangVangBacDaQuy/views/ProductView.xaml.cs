@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CuaHangVangBacDaQuy.views
 {
     /// <summary>
-    /// Interaction logic for AddProductWindow.xaml
+    /// Interaction logic for ProductView.xaml
     /// </summary>
-    public partial class AddProductWindow : Window
+    public partial class ProductView : UserControl
     {
-        public AddProductWindow()
+        public ProductView()
         {
             InitializeComponent();
         }

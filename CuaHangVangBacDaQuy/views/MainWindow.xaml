@@ -172,7 +172,7 @@
                             </Grid>
                         </Button>
                         <Button x:Name="btnCalendar"
-                                Command="{Binding CalendarViewCommmand}">
+                                Command="{Binding SaleOrderViewCommand}">
                             <Grid Height="40"
                                   Width="250">
                                 <Grid.ColumnDefinitions>
@@ -193,8 +193,8 @@
                                 </Grid>
                             </Grid>
                         </Button>
-                        <Button x:Name="btnRooms"
-                                Command="{Binding RoomsViewCommmand}">
+                        <Button x:Name="btnProducts"
+                                Command="{Binding ProductViewCommand}">
                             <Grid Height="40"
                                   Width="250">
                                 <Grid.ColumnDefinitions>
@@ -216,7 +216,7 @@
                             </Grid>
                         </Button>
                         <Button x:Name="btnBooking"
-                                Command="{Binding ReservationListViewCommand}">
+                                Command="{Binding CustomerViewCommand}">
                             <Grid Height="40"
                                   Width="250">
                                 <Grid.ColumnDefinitions>
@@ -238,7 +238,7 @@
                             </Grid>
                         </Button>
                         <Button x:Name="btnGuests"
-                                Command="{Binding GuestsViewCommmand}">
+                                Command="{Binding SupplierViewCommmand}">
                             <Grid Height="40"
                                   Width="250">
                                 <Grid.ColumnDefinitions>
@@ -351,10 +351,9 @@
                           Grid.RowSpan="2">
                         <ContentControl x:Name="contentView"
                                         Grid.Row="0"
-                                        
                                         Content="{Binding DataTemplate}" />
-                       
-                        
+
+
                     </Grid>
                 </Grid>
             </Grid>

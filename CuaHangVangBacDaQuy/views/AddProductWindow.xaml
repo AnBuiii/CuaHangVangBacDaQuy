@@ -1,0 +1,231 @@
+﻿<Window x:Class="CuaHangVangBacDaQuy.views.AddProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:uc="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
+        mc:Ignorable="d"
+        Background="{x:Null}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Foreground="{x:Null}"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        DataContext="{StaticResource addProductVM}"
+        x:Name="AddProductUC"
+        Title="AddProductWindow"         
+        Height="750"
+        Width="440">
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn,Duration=0:0:0.2}">
+        <Grid>
+            <Grid Margin="10">
+                <Grid Grid.Row="0">
+                    <uc:ControlBarUC Tag="{Binding Title, ElementName=AddProductUC}" />
+                </Grid>
+                <StackPanel>
+                    <Label
+                x:Name="lblChangeinfo"
+                Content="Thêm sản phẩm"
+                HorizontalAlignment="Center"
+                Foreground="{StaticResource Orange1}"
+                Padding="0"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                FontSize="40"
+                FontWeight="Bold"
+                Margin="0,45,0,0" />
+                    <!--nhập thông tin đăng ký-->
+                    <Grid
+                        x:Name="grdInformation"
+                        Margin="10 50"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Center"
+                        Visibility="Visible">
+
+                        <StackPanel Orientation="Vertical" Margin="0,-41,0,40">
+                            <!--họ tên-->
+                            <StackPanel x:Name="nameStack"
+                                Orientation="Horizontal" Margin="0 20">
+                                <materialDesign:PackIcon
+                                    Kind="TownHall"
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="{StaticResource Gray}"
+                                    VerticalAlignment="Center"
+                                    Margin="10,10,20,-18" />
+                                <TextBox
+                                    x:Name="txtHallname"
+                                    TabIndex="2"
+                                materialDesign:HintAssist.Hint="Mã sản phẩm"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                Width="250"
+                                VerticalContentAlignment="Center"
+                                Height="50"
+                                Padding="2,0,0,0">
+                                </TextBox>
+                            </StackPanel>
+
+                            <StackPanel x:Name="phoneStack"
+                                Orientation="Horizontal" Margin="0 20">
+                                <materialDesign:PackIcon
+                                    Kind="TableChair"
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="{StaticResource Gray}"
+                                    VerticalAlignment="Center"
+                                    Margin="10,10,20,-18" />
+                                <TextBox
+                                    x:Name="txtMaxtable"
+                                    TabIndex="1"
+                                materialDesign:HintAssist.Hint="tên sản phẩm"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                Width="250"
+                                VerticalContentAlignment="Center"
+                                Height="50"
+                                Padding="2,0,0,0">
+                                </TextBox>
+                            </StackPanel>
+
+                            <StackPanel x:Name="usernameStack"
+                                Orientation="Horizontal" Margin="0 20">
+                                <materialDesign:PackIcon
+                                        Kind="CardText"
+                                        Width="30"
+                                        Height="30"
+                                        Foreground="{StaticResource Gray}"
+                                        VerticalAlignment="Top"
+                                        Margin="10,10,20,-18" />
+                                <ComboBox
+                                      materialDesign:HintAssist.Hint="Mã loại sản phẩm"
+                                    FontSize="16"
+                                    x:Name="comboBoxType"
+                                      ItemsSource="{Binding LongListToTestComboVirtualization}"
+                                    Foreground="Black"                                    
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    Width="200">
+                                    <ComboBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel />
+                                        </ItemsPanelTemplate>
+                                    </ComboBox.ItemsPanel>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel 
+                                Orientation="Horizontal" Margin="0 20">
+                                <materialDesign:PackIcon
+                                    Kind="TableChair"
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="{StaticResource Gray}"
+                                    VerticalAlignment="Center"
+                                    Margin="10,10,20,-18" />
+                                <TextBox
+                                    
+                                    TabIndex="1"
+                                materialDesign:HintAssist.Hint="tên loại sản phẩm"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                Width="250"
+                                VerticalContentAlignment="Center"
+                                Height="50"
+                                Padding="2,0,0,0">
+                                </TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0 20">
+                                <materialDesign:PackIcon
+                                    Kind="Money"
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="{StaticResource Gray}"
+                                    VerticalAlignment="Center"
+                                    Margin="10,10,20,-18" />
+                                <TextBox
+                                    x:Name="txtMinPrice"
+                                    TabIndex="2"
+                                materialDesign:HintAssist.Hint="Đơn giá"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                Width="250"
+                                VerticalContentAlignment="Center"
+                                Height="50"
+                                Padding="2,0,0,0"
+                                    >
+                                </TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0 20">
+                                <materialDesign:PackIcon
+                                    Kind="Money"
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="{StaticResource Gray}"
+                                    VerticalAlignment="Center"
+                                    Margin="10,10,20,-18" />
+                                <TextBox
+                                    
+                                    TabIndex="2"
+                                materialDesign:HintAssist.Hint="Số lượng còn lại"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Foreground="Black"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                Width="250"
+                                VerticalContentAlignment="Center"
+                                Height="50"
+                                Padding="2,0,0,0"
+                                    >
+                                </TextBox>
+                            </StackPanel>
+
+                            <Button
+                                x:Name="saveBtn"
+                                TabIndex="5"
+                                IsDefault="True"
+                                Style="{StaticResource GreenBtn}"
+                                Content="Thêm"
+                                Width="200"
+                                Height="40"
+                                FontSize="20"
+                                Foreground="White"
+                                Command="{Binding AddHallCommand}"
+                                CommandParameter="{Binding ElementName=AddHallUC}" Margin="0,15,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+
+            <Rectangle
+            Fill="White"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            RadiusY="10"
+            RadiusX="10"
+            Panel.ZIndex="-2"
+            Effect="{StaticResource dropShadow}"
+            Margin="10">
+            </Rectangle>
+        </Grid>
+    </materialDesign:TransitioningContent>
+</Window>

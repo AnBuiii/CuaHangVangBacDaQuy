@@ -7,4 +7,5 @@
     <viewModel:AccountViewModel x:Key="AccountVM" />
     <viewModel:LoginViewModel x:Key="LoginVM" />
     <viewModel:MakeOrderViewModel x:Key="MakeOrderVM" />
+    <viewModel:ProductViewModel x:Key="ProductVM" />
 </ResourceDictionary>

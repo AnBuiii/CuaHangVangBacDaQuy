@@ -13,8 +13,9 @@
     <DataTemplate DataType="{x:Type viewModel:MakeOrderViewModel}">
         <view:MakeOderView/>
     </DataTemplate>
+
     <DataTemplate DataType="{x:Type viewModel:ProductViewModel}">
         <view:ProductView />
     </DataTemplate>
-    
+
 </ResourceDictionary>

@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="CuaHangVangBacDaQuy.views.ProductView"
+﻿<UserControl x:Class="CuaHangVangBacDaQuy.views.SupplierView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             DataContext="{StaticResource ProductVM}"
+             DataContext="{StaticResource SupplierVM}"
              x:Name="ProductUC"
              mc:Ignorable="d"
              d:DesignHeight="450"
@@ -30,7 +30,7 @@
                                    Identifier="AccountDialog"
                                    CloseOnClickAway="True"
                                    DialogTheme="Inherit"
-                                   IsOpen="{Binding IsOpenProductDialog}">
+                                   IsOpen="{Binding IsOpenAddProductDialog}">
             <materialDesign:DialogHost.DialogContent>
                 <Grid>
                     <StackPanel>
@@ -41,7 +41,8 @@
                               Visibility="Visible">
                             <StackPanel Orientation="Vertical">
                                 <!--Tên sân phẩm-->
-                                <StackPanel Orientation="Horizontal"
+                                <StackPanel x:Name="phoneStack"
+                                            Orientation="Horizontal"
                                             Margin="0 20">
                                     <materialDesign:PackIcon Kind="TableChair"
                                                              Width="30"
@@ -50,7 +51,6 @@
                                                              VerticalAlignment="Center"
                                                              Margin="10,10,20,-18" />
                                     <TextBox materialDesign:HintAssist.Hint="Tên sản phẩm"
-                                             Text="{Binding TenSanPham}"
                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                              Foreground="Black"
                                              FontSize="16"
@@ -74,7 +74,6 @@
                                                              VerticalAlignment="Top"
                                                              Margin="10,10,20,-18" />
                                     <TextBox materialDesign:HintAssist.Hint="Đơn giá"
-                                             Text="{Binding DonGia}"
                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                              Foreground="Black"
                                              FontSize="16"
@@ -87,6 +86,7 @@
                                              Padding="2,0,0,0" />
 
                                 </StackPanel>
+                                <!--Loại sản phẩm-->
                                 <StackPanel Orientation="Horizontal"
                                             Margin="0 20">
                                     <materialDesign:PackIcon Kind="TableChair"
@@ -96,15 +96,15 @@
                                                              VerticalAlignment="Center"
                                                              Margin="10,10,20,-18" />
                                     <ComboBox materialDesign:HintAssist.Hint="Loại sản phẩm"
-                                              ItemsSource="{Binding LoaiSanPhamList}"
-                                              SelectedItem="{Binding SelectedLoaiSP}"
                                               FontSize="16"
+                                              ItemsSource="{Binding LoaiSanPhamList}"
                                               DisplayMemberPath="TenLoaiSP"
                                               Foreground="Black"
                                               Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                               Width="250">
                                     </ComboBox>
                                 </StackPanel>
+                                <!--Đơn vị-->
                                 <StackPanel Orientation="Horizontal"
                                             Margin="0 20">
                                     <materialDesign:PackIcon Kind="Money"
@@ -116,11 +116,16 @@
                                     <ComboBox materialDesign:HintAssist.Hint="Đơn vị"
                                               FontSize="16"
                                               ItemsSource="{Binding DonViList}"
-                                              SelectedItem="{Binding SelectedDonVi}"
                                               DisplayMemberPath="TenDV"
                                               Foreground="Black"
                                               Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                              Width="250" />
+                                              Width="250">
+                                        <!--<ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel />
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>-->
+                                    </ComboBox>
                                 </StackPanel>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -139,8 +144,7 @@
                                                                      VerticalAlignment="Center"
                                                                      HorizontalAlignment="Left"
                                                                      Margin="2 2 4 2" />
-                                            <TextBlock Text="{Binding AddButtonText}"
-                                                     
+                                            <TextBlock Text="Thêm sản phẩm"
                                                        FontSize="18" />
                                         </StackPanel>
                                     </Button>
@@ -191,27 +195,21 @@
                                  Margin="5"
                                  VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <DataGrid ItemsSource="{Binding SanPhamList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    <DataGrid ItemsSource="{Binding NhaCungCapList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"
                               AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Mã sản phẩm"
-                                                Binding="{Binding MaSP}"
+                            <DataGridTextColumn Header="Tên nhà cung cấp"
+                                                Binding="{Binding TenNCC}"
                                                 IsReadOnly="True" />
-                            <DataGridTextColumn Header="Tên sản phẩm"
-                                                Binding="{Binding TenSP}"
+                            <DataGridTextColumn Header="Địa chỉ"
+                                                Binding="{Binding DiaChi}"
                                                 IsReadOnly="True" />
-                            <DataGridTextColumn Header="Đơn giá"
-                                                Binding="{Binding DonGia}"
-                                                IsReadOnly="True" />
-                            <DataGridTextColumn Header="Loại sản phẩm"
-                                                Binding="{Binding LoaiSanPham.TenLoaiSP}"
-                                                IsReadOnly="True" />
-                            <DataGridTextColumn Header="Đơn vị"
-                                                Binding="{Binding DonVi.TenDV}"
+                            <DataGridTextColumn Header="Số điện thoại"
+                                                Binding="{Binding SoDT}"
                                                 IsReadOnly="True" />
                             <DataGridTemplateColumn x:Name="editBtn">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -241,10 +239,13 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
+
                         </DataGrid.Columns>
+
                     </DataGrid>
                 </ScrollViewer>
             </materialDesign:Card>
         </Grid>
     </Grid>
+
 </UserControl>

@@ -238,7 +238,7 @@
                             </Grid>
                         </Button>
                         <Button x:Name="btnGuests"
-                                Command="{Binding SupplierViewCommmand}">
+                                Command="{Binding SupplierViewCommand}">
                             <Grid Height="40"
                                   Width="250">
                                 <Grid.ColumnDefinitions>

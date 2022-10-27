@@ -37,14 +37,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
             if (p == null)
                 return;
 
-            /*
-             admin
-             admin
-
-            staff
-            staff
-             */
-
             string passEncode = MD5Hash(Base64Encode(Password));
             var accCount = DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == UserName && x.MatKhau == passEncode).Count();
    

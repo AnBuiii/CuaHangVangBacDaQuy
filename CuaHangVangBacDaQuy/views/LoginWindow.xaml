@@ -52,8 +52,13 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                             Text="{Binding UserName}"/>
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding UserName}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding LoginCommand}"
+                                        Key="Return" />
+                        </TextBox.InputBindings>
+                    </TextBox>
                 </Grid>
                 <Grid Grid.Row="1">
                     <PasswordBox x:Name="FloatingPasswordBox"
@@ -65,8 +70,12 @@
                                                        CommandParameter="{Binding ElementName=FloatingPasswordBox}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
+                        <PasswordBox.InputBindings>
+                            <KeyBinding Command="{Binding LoginCommand}"
+                                        CommandParameter="{Binding ElementName=loginWindow}"
+                                        Key="Return" />
+                        </PasswordBox.InputBindings>
                     </PasswordBox>
-                    
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>

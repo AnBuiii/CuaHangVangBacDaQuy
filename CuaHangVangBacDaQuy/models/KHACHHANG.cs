@@ -22,6 +22,10 @@ namespace CuaHangVangBacDaQuy.models
     
         public int MaKH { get; set; }
         public string TenKH { get; set; }
+        public string GioiTinh { get; set; }
+        public string DiaChi { get; set; }
+        public string SoDT { get; set; }
+        public Nullable<System.DateTime> NgayDK { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuBan> PhieuBans { get; set; }

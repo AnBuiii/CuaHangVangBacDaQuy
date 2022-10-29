@@ -24,18 +24,22 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 OnPropertyChanged();
             }
         }
-
+        #region
         public HomeViewModel HomeViewModel { get; set; }
         public AccountViewModel AccountViewModel { get; set; }
         public MakeOrderViewModel MakeOrderViewModel { get; set; }
+        public CustomerViewModel CustomerViewModel { get; set; }
         public ProductViewModel ProductViewModel { get; set; }
         public ICommand LoadedWindowCommand { get; set; }
         public ICommand HomeViewCommand { get; set; }
         public ICommand AccountViewCommand { get; set; }
         public ICommand CloseWindowCommand { get; set; }
+        public ICommand CustomerViewCommand { get; set; }
         public ICommand MakeOrderCommand { get; set; }
         public ICommand ProductViewCommand { get; set; }
         public bool isLoaded = false;
+        #endregion
+
         public MainViewModel()
         {
             InitNavBar();
@@ -55,6 +59,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                 DataTemplate = MakeOrderViewModel;
             });
+
+            CustomerViewCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                DataTemplate = CustomerViewModel;
+            });
+            
             ProductViewCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 DataTemplate = ProductViewModel;
@@ -96,6 +106,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             AccountViewModel = new AccountViewModel();
             MakeOrderViewModel = new MakeOrderViewModel();
             ProductViewModel = new ProductViewModel();
+            CustomerViewModel = new CustomerViewModel();
             //viewmodel init
         }
     }

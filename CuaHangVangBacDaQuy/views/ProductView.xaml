@@ -20,7 +20,7 @@
 
 
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
+        <i:EventTrigger EventName="Loaded" >
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"
                                    CommandParameter="{Binding ElementName=ProductUC}" />
         </i:EventTrigger>
@@ -30,7 +30,10 @@
                                    Identifier="AccountDialog"
                                    CloseOnClickAway="True"
                                    DialogTheme="Inherit"
-                                   IsOpen="{Binding IsOpenAddProductDialog}">
+                                  IsOpen="{Binding IsOpenAddProductDialog}">
+          
+                                   
+                                   
             <materialDesign:DialogHost.DialogContent>
                 <Grid>
                     <StackPanel>
@@ -455,6 +458,7 @@
                             <DataGridTextColumn Header="Đơn vị"
                                                 Binding="{Binding DonVi.TenDV}"
                                                 IsReadOnly="True" />
+                            
                             <DataGridTemplateColumn x:Name="editBtn">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

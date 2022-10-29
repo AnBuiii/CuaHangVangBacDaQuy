@@ -68,7 +68,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
         
         public ProductViewModel()
-        {
+            
+        {   
             IsOpenAddProductDialog = false;
             SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
             LoaiSanPhamList = new ObservableCollection<LoaiSanPham>(DataProvider.Ins.DB.LoaiSanPhams);

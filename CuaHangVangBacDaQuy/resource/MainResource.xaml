@@ -8,4 +8,5 @@
     <viewModel:LoginViewModel x:Key="LoginVM" />
     <viewModel:MakeOrderViewModel x:Key="MakeOrderVM" />
     <viewModel:ProductViewModel x:Key="ProductVM" />
+    <viewModel:CreateAVoucherViewModel x:Key="CreateAVoucherVM" />
 </ResourceDictionary>

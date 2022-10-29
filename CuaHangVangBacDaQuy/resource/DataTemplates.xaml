@@ -16,5 +16,7 @@
     <DataTemplate DataType="{x:Type viewModel:ProductViewModel}">
         <view:ProductView />
     </DataTemplate>
-    
+    <DataTemplate DataType="{x:Type viewModel:CreateAVoucherViewModel}">
+        <view:CreateAVoucherView />
+    </DataTemplate>
 </ResourceDictionary>

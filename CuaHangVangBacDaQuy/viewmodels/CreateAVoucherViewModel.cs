@@ -24,32 +24,51 @@ namespace CuaHangVangBacDaQuy.viewmodels
         #region Params
         private ObservableCollection<SanPham> _SanPhamList;
         public ObservableCollection<SanPham> SanPhamList { get => _SanPhamList; set { _SanPhamList = value; OnPropertyChanged(); } }
-        private ObservableCollection<LoaiSanPham> _LoaiSanPhamList;
-        public ObservableCollection<LoaiSanPham> LoaiSanPhamList { get => _LoaiSanPhamList; set { _LoaiSanPhamList = value; OnPropertyChanged(); } }
+        private ObservableCollection<PhieuMua> _PhieuMuaList;
+        public ObservableCollection<PhieuMua> PhieuMuaList { get => _PhieuMuaList; set { _PhieuMuaList = value; OnPropertyChanged(); } }
         private ObservableCollection<DonVi> _DonViList;
         public ObservableCollection<DonVi> DonViList { get => _DonViList; set { _DonViList = value; OnPropertyChanged(); } }
-        private string _TenSanPham;
-        public string TenSanPham { get => _TenSanPham; set { _TenSanPham = value; OnPropertyChanged(); } }
-        private decimal? _DonGia;
-        public decimal? DonGia { get => _DonGia; set { _DonGia = value; OnPropertyChanged(); } }
-        private LoaiSanPham _SelectedLoaiSP;
-        public LoaiSanPham SelectedLoaiSP { get => _SelectedLoaiSP; set { _SelectedLoaiSP = value; OnPropertyChanged(); } }
+        private string _MaSanPham;
+        public string MaSanPham { get => _MaSanPham; set { _MaSanPham = value; OnPropertyChanged(); } }
+        private string _MaNhaCC;
+        public string NhaCC { get => _MaNhaCC; set { _MaNhaCC = value; OnPropertyChanged(); } }
+        private string _NgayLP;
+        public string NgayLP { get => _NgayLP; set { _NgayLP = value; OnPropertyChanged(); } }
+        private PhieuMua _SelectedPM;
+        public PhieuMua SelectedPM { get => _SelectedPM; set { _SelectedPM = value; OnPropertyChanged(); } }
         private DonVi _SelectedDonVi;
         public DonVi SelectedDonVi { get => _SelectedDonVi; set { _SelectedDonVi = value; OnPropertyChanged(); } }
         private SanPham _SelectedItem;
-        public SanPham SelectedItem
+        //public SanPham SelectedItem
+        //{
+        //    get => _SelectedItem;
+        //    set
+        //    {
+        //        _SelectedItem = value;
+        //        OnPropertyChanged();
+        //        if (SelectedItem != null)
+        //        {
+        //            TenSanPham = SelectedItem.TenSP;
+        //            DonGia = SelectedItem.DonGia;
+        //            SelectedDonVi = SelectedItem.DonVi;
+
+        //        }
+        //    }
+        //}
+        private PhieuMua _SelectedIte;
+        public SanPham SelectedItem;
+        public PhieuMua SelectedIte
         {
-            get => _SelectedItem;
+            get => _SelectedIte;
             set
             {
-                _SelectedItem = value;
+                _SelectedIte = value;
                 OnPropertyChanged();
-                if (SelectedItem != null)
+                if (SelectedIte != null)
                 {
-                    TenSanPham = SelectedItem.TenSP;
-                    DonGia = SelectedItem.DonGia;
-                    SelectedLoaiSP = SelectedItem.LoaiSanPham;
-                    SelectedDonVi = SelectedItem.DonVi;
+                    MaSanPham=SelectedIte.MaPhieu;
+                    NhaCC = SelectedIte.NhaCungCap.TenNCC;
+                    NgayLP = SelectedIte.NgayLap.ToString();
 
                 }
             }
@@ -72,7 +91,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             IsOpenAddProductDialog = false;
             SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
-            LoaiSanPhamList = new ObservableCollection<LoaiSanPham>(DataProvider.Ins.DB.LoaiSanPhams);
+            PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
             DonViList = new ObservableCollection<DonVi>(DataProvider.Ins.DB.DonVis);
             LoadedCommand = new RelayCommand<CreateAVoucherView>(p => true, p => Loaded(p));
             AddCommand = new RelayCommand<CreateAVoucherView>(p => true, p => IsOpenAddProductDialog = true);

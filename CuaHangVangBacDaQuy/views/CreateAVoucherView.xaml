@@ -402,24 +402,24 @@
                                  Margin="5"
                                  VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <DataGrid ItemsSource="{Binding SanPhamList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
+                    <DataGrid ItemsSource="{Binding PhieuMuaList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedIte, Mode=OneWayToSource}"
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"
                               AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Tên sản phẩm"
-                                                Binding="{Binding TenSP}"
+                            <DataGridTextColumn Header="Mã phiếu"
+                                                Binding="{Binding MaPhieu}"
                                                 IsReadOnly="True" />
-                            <DataGridTextColumn Header="Đơn giá"
-                                                Binding="{Binding DonGia}"
+                            <DataGridTextColumn Header="Nhà cung cấp"
+                                                Binding="{Binding NhaCungCap.TenNCC}"
                                                 IsReadOnly="True" />
-                            <DataGridTextColumn Header="Số lượng"
-                                                Binding="{Binding LoaiSanPham.TenLoaiSP}"
+                            <DataGridTextColumn Header="Ngày lập phiếu"
+                                                Binding="{Binding NgayLap}"
                                                 IsReadOnly="True" />
-                            <DataGridTextColumn Header="Thành tiền"
-                                                Binding="{Binding DonVi.TenDV}"
+                            <DataGridTextColumn Header="Tổng tiền"
+                                                Binding="{Binding ThanhTien}"
                                                 IsReadOnly="True" />
                             <DataGridTemplateColumn x:Name="editBtn">
                                 <DataGridTemplateColumn.CellTemplate>

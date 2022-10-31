@@ -146,9 +146,12 @@
       <DependentUpon>VDBQModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="viewmodels\AccountViewModel.cs" />
+    <Compile Include="viewmodels\AddCustomerViewModel.cs" />
     <Compile Include="viewmodels\BaseViewModel.cs" />
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
     <Compile Include="viewmodels\CreateAVoucherViewModel.cs" />
+    <Compile Include="viewmodels\Converter\GenderConverter.cs" />
+    <Compile Include="viewmodels\CustomerViewModel.cs" />
     <Compile Include="viewmodels\HomeViewModel.cs" />
     <Compile Include="viewmodels\LoginViewModel.cs" />
     <Compile Include="viewmodels\MainViewModel.cs" />
@@ -166,6 +169,9 @@
     <Compile Include="views\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="viewmodels\ProductViewModel.cs" />
     <Compile Include="views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -178,6 +184,9 @@
     </Compile>
     <Compile Include="views\SupplierView.xaml.cs">
       <DependentUpon>SupplierView.xaml</DependentUpon>
+	</Compile>
+    <Compile Include="views\userControl\AddCustomerUC.xaml.cs">
+      <DependentUpon>AddCustomerUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\userControl\ControlBarUC.xaml.cs">
       <DependentUpon>ControlBarUC.xaml</DependentUpon>
@@ -190,7 +199,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\CreateAVoucherView.xaml">
+    <Page Include="views\CreateAVoucherView.xaml"></Page>
+    <Page Include="views\CustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -217,8 +227,6 @@
     </Page>
     <Page Include="resource\Theme.xaml">
     </Page>
-    <Page Include="views\CustomerView.xaml">
-    </Page>
     <Page Include="resource\XAML\Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -241,7 +249,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\SupplierView.xaml">
+    <Page Include="views\SupplierView.xaml"></Page>
+    <Page Include="views\userControl\AddCustomerUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

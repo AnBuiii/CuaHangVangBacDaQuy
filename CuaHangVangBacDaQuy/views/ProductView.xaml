@@ -20,7 +20,7 @@
 
 
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
+        <i:EventTrigger EventName="Loaded" >
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"
                                    CommandParameter="{Binding ElementName=ProductUC}" />
         </i:EventTrigger>
@@ -280,6 +280,7 @@
                             <DataGridTextColumn Header="Đơn vị"
                                                 Binding="{Binding DonVi.TenDV}"
                                                 IsReadOnly="True" />
+                            
                             <DataGridTemplateColumn x:Name="editBtn">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

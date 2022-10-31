@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CuaHangVangBacDaQuy.views
+namespace CuaHangVangBacDaQuy.views.userControl
 {
     /// <summary>
-    /// Interaction logic for CustomerView.xaml
+    /// Interaction logic for AddCustomerUC.xaml
     /// </summary>
-    public partial class CustomerView : UserControl
+    public partial class AddCustomerUC : UserControl
     {
-        public CustomerView()
+        public AddCustomerUC()
         {
             InitializeComponent();
         }

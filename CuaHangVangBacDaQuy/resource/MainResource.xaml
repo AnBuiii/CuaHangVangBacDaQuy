@@ -10,4 +10,6 @@
     <viewModel:ProductViewModel x:Key="ProductVM" />
     <viewModel:SupplierViewModel x:Key="SupplierVM" />
     <viewModel:CreateAVoucherViewModel x:Key="CreateAVoucherVM" />
+    <viewModel:CustomerViewModel x:Key="CustomerVM"/>
+    <viewModel:AddCustomerViewModel x:Key ="AddCustomerVM"/>
 </ResourceDictionary>

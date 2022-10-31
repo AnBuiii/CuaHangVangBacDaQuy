@@ -1,41 +1,71 @@
-﻿<Window x:Class="CuaHangVangBacDaQuy.views.CustomerWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views"
-        mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:uc="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-     TextElement.FontWeight="Regular"
-     TextElement.FontSize="13"
-     TextOptions.TextFormattingMode="Ideal"
-     TextOptions.TextRenderingMode="Auto"
-     Background="{DynamicResource MaterialDesignPaper}"
-     FontFamily="{DynamicResource MaterialDesignFont}"
-        ResizeMode="NoResize"
-        WindowStyle="None"
-        WindowStartupLocation="CenterScreen"
-        x:Name="window"
-        
-        Title="Khách hàng" Height="500" Width="700">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <uc:ControlBarUC Tag="{Binding Title, ElementName=window}"></uc:ControlBarUC>
-        </Grid>
+﻿<UserControl x:Class="CuaHangVangBacDaQuy.views.CustomerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views" xmlns:uc="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:local1="clr-namespace:CuaHangVangBacDaQuy.views.userControl" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+              DataContext="{StaticResource CustomerVM}"
+             mc:Ignorable="d" 
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Name="CustomerUC"
+           
+             d:DesignHeight="450" d:DesignWidth="800">
 
-        <Grid Grid.Row="1">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadCustomerView }" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+
+
+        <materialDesign:DialogHost Name="dialog"
+                                   Identifier="AccountDialog"
+                                   CloseOnClickAway="True"
+                                   DialogTheme="Inherit"
+                                    IsOpen="{Binding IsOpenAddCustomerDialog}"                                  >
+            <materialDesign:DialogHost.DialogContent>
+
+                <uc:AddCustomerUC DataContext="{Binding  addCustomerViewModel}"></uc:AddCustomerUC>
+               
+            </materialDesign:DialogHost.DialogContent>
+
+
+        </materialDesign:DialogHost>
+            
+      
+
+        <Grid>
+
+
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <local1:TitleBarUC Tag="{Binding Tag, ElementName=makeOderView}" />
+            </Grid>
 
-            <!--các element binding từ selected item-->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <!--các element binding từ selected item-->
+                <!--
             <materialDesign:Card Grid.Row="0" Margin="5">
                 <WrapPanel Margin="0 0 0 10">
                     <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tên khách hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
@@ -43,33 +73,94 @@
                     <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <DatePicker VerticalAlignment="Center" SelectedDate="{Binding ContractDate, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="5 5 15 -7" materialDesign:HintAssist.Hint="Ngày đăng ký" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                 </WrapPanel>
-            </materialDesign:Card>
+            </materialDesign:Card>-->
 
-            <materialDesign:Card Grid.Row="1" Margin="5">
-                <WrapPanel>
-                    <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100"></Button>
-                    <Button Command="{Binding EditCommand}" Content="Sửa" Margin="5" Width="100"></Button>
-                    <Button Command="{Binding DeleteCommand}" Content="Xóa" Margin="5" Width="100"></Button>
-                </WrapPanel>
-            </materialDesign:Card>
+                <materialDesign:Card Grid.Row="1" Margin="5">
+                    <WrapPanel>
+                        <Button Tag ="Tạo khách hàng"  Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100"></Button>
+                        <Button Tag ="Sửa đổi thông tin khách hàng" Command="{Binding EditCommand}" Content="Sửa" Margin="5" Width="100"></Button>
+                        <Button Command="{Binding DeleteCommand}" Content="Xóa" Margin="5" Width="100"></Button>
+                    </WrapPanel>
+                </materialDesign:Card>
 
-            <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                <GridViewColumn Header="Tên khách hàng" DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
-                                <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding Address}"></GridViewColumn>
-                                <GridViewColumn Header="Điện thoại" DisplayMemberBinding="{Binding Phone}"></GridViewColumn>
-                                <!--<GridViewColumn Header="Thông tin thêm" DisplayMemberBinding="{Binding MoreInfo}"></GridViewColumn>-->
-                                <GridViewColumn Header="Ngày đăng ký" DisplayMemberBinding="{Binding ContractDate}"></GridViewColumn>
+                <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ListView  ItemsSource="{Binding CustomerList }">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding MaKH}"></GridViewColumn>
+                                    <GridViewColumn Header="Tên khách hàng" DisplayMemberBinding="{Binding TenKH}"></GridViewColumn>
+                                    <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"></GridViewColumn>
+                                    <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
+                                    <GridViewColumn Header="Điện thoại" DisplayMemberBinding="{Binding SoDT}"></GridViewColumn>
+                                    <GridViewColumn Header="Ngày đăng ký" DisplayMemberBinding="{Binding NgayDK}"></GridViewColumn>
+                                    <GridViewColumn>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Width="40"
+                                                Padding="0"
+                                                Background="{StaticResource PrimaryHueDarkBrush}"
+                                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.EditCommand}"
+                                                CommandParameter="{Binding ElementName=editBtn}">
+                                                    <materialDesign:PackIcon Kind="Edit" />
+                                                </Button>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        
+                                                    
+                                    </GridViewColumn>
+                                </GridView>
+                               
+                            </ListView.View>
+                        </ListView>
+                        <!--<DataGrid ItemsSource="{Binding CustomerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            
+                              CanUserResizeColumns="False"
+                              IsReadOnly="False"
+                              CanUserAddRows="False"
+                              AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Mã khách hàng"
+                                                Binding="{Binding MaKH}"
+                                                IsReadOnly="True" />
+                                <DataGridTextColumn Header="Tên KH"
+                                                Binding="{Binding TenKH}"
+                                                IsReadOnly="True" />
+                                <DataGridTextColumn Header="Giới tính"
+                                                Binding="{Binding GioiTinh}"
+                                                IsReadOnly="True" />
+                                <DataGridTextColumn Header="Địa chỉ"
+                                                Binding="{Binding DiaChi}"
+                                                IsReadOnly="True" />
+                                <DataGridTextColumn Header="Số điện thoại"
+                                                Binding="{Binding SoDT}"
+                                                IsReadOnly="True" />
+                                <DataGridTextColumn Header="Ngày đăng ký"
+                                                Binding="{Binding NgayDK}"
+                                                IsReadOnly="True" />
 
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </ScrollViewer>
-            </materialDesign:Card>
+                                <DataGridTemplateColumn x:Name="editBtn">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Width="40"
+                                                Padding="0"
+                                                Background="{StaticResource PrimaryHueDarkBrush}"
+                                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.EditCommand}"
+                                                CommandParameter="{Binding ElementName=editBtn}">
+                                                <materialDesign:PackIcon Kind="Edit" />
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>-->
+                    </ScrollViewer>
+                </materialDesign:Card>
+            </Grid>
         </Grid>
     </Grid>
-</Window>
+</UserControl>

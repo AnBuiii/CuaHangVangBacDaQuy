@@ -64,12 +64,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CuaHangVangBacDaQuy\CuaHangVangBacDaQuy.csproj">
-      <Project>{A8B0EFA4-E404-4E25-A312-1D0427191806}</Project>
-      <Name>CuaHangVangBacDaQuy</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

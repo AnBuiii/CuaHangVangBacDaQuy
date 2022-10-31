@@ -172,7 +172,6 @@
       <DependentUpon>VDBQModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="viewmodels\AccountViewModel.cs" />
-    <Compile Include="viewmodels\AddCustomerViewModel.cs" />
     <Compile Include="viewmodels\BaseViewModel.cs" />
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
     <Compile Include="viewmodels\CreateAVoucherViewModel.cs" />

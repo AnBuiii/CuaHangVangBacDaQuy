@@ -16,7 +16,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         #region Params
         private ObservableCollection<KhachHang> _CustomerList;
-        public ObservableCollection<KhachHang> CustomerList
+        private ObservableCollection<KhachHang> CustomerList
         {
             get  => _CustomerList; 
             set { _CustomerList = value; OnPropertyChanged(); }
@@ -61,11 +61,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand AddCommand { get; set; }
         
 
+        public ICommand LoadCustomerView { get; set; }
         #endregion
 
         public CustomerViewModel()
-        {   
-            IsOpenAddCustomerDialog=false;
+        {
             CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
 
             AddCommand = new RelayCommand<CustomerView>((p) => true, p => IsOpenAddCustomerDialog = true);
@@ -84,7 +84,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
            EditCommand = new RelayCommand<CustomerView>((p) => true, p => IsOpenAddCustomerDialog = true);
             
-           // LoadCustomerView = new RelayCommand<CustomerView>((p) => true, (p) => loadCustomer(p));
+            LoadCustomerView = new RelayCommand<CustomerView>((p) => true, (p) => loadCustomer(p));
         }
 
 

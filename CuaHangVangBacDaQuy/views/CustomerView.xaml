@@ -33,10 +33,10 @@
                                    Identifier="AccountDialog"
                                    CloseOnClickAway="True"
                                    DialogTheme="Inherit"
-                                    IsOpen="False"                                  >
+                                    IsOpen="{Binding IsOpenAddCustomerDialog}"                                  >
             <materialDesign:DialogHost.DialogContent>
-                
-                    <uc:AddCustomerUC></uc:AddCustomerUC>
+
+                <uc:AddCustomerUC DataContext="{Binding  addCustomerViewModel}"></uc:AddCustomerUC>
                
             </materialDesign:DialogHost.DialogContent>
 
@@ -77,15 +77,15 @@
 
                 <materialDesign:Card Grid.Row="1" Margin="5">
                     <WrapPanel>
-                        <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100"></Button>
-                        <Button Command="{Binding EditCommand}" Content="Sửa" Margin="5" Width="100"></Button>
+                        <Button Tag ="Tạo khách hàng"  Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100"></Button>
+                        <Button Tag ="Sửa đổi thông tin khách hàng" Command="{Binding EditCommand}" Content="Sửa" Margin="5" Width="100"></Button>
                         <Button Command="{Binding DeleteCommand}" Content="Xóa" Margin="5" Width="100"></Button>
                     </WrapPanel>
                 </materialDesign:Card>
 
                 <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <!--<ListView  ItemsSource="{Binding CustommerList}">
+                        <ListView  ItemsSource="{Binding CustomerList }">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding MaKH}"></GridViewColumn>
@@ -94,11 +94,27 @@
                                     <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
                                     <GridViewColumn Header="Điện thoại" DisplayMemberBinding="{Binding SoDT}"></GridViewColumn>
                                     <GridViewColumn Header="Ngày đăng ký" DisplayMemberBinding="{Binding NgayDK}"></GridViewColumn>
-
+                                    <GridViewColumn>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Width="40"
+                                                Padding="0"
+                                                Background="{StaticResource PrimaryHueDarkBrush}"
+                                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.EditCommand}"
+                                                CommandParameter="{Binding ElementName=editBtn}">
+                                                    <materialDesign:PackIcon Kind="Edit" />
+                                                </Button>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        
+                                                    
+                                    </GridViewColumn>
                                 </GridView>
+                               
                             </ListView.View>
-                        </ListView>-->
-                        <DataGrid ItemsSource="{Binding CustomerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        </ListView>
+                        <!--<DataGrid ItemsSource="{Binding CustomerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
@@ -141,7 +157,7 @@
 
                             </DataGrid.Columns>
 
-                        </DataGrid>
+                        </DataGrid>-->
                     </ScrollViewer>
                 </materialDesign:Card>
             </Grid>

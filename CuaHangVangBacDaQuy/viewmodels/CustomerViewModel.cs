@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace CuaHangVangBacDaQuy.viewmodels
 {
@@ -16,7 +17,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         #region Params
         private ObservableCollection<KhachHang> _CustomerList;
-        private ObservableCollection<KhachHang> CustomerList
+        public ObservableCollection<KhachHang> CustomerList
         {
             get  => _CustomerList; 
             set { _CustomerList = value; OnPropertyChanged(); }
@@ -30,11 +31,32 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
 
 
-        private string _FirstName;
-        public string FirstName { get => _FirstName; set { _FirstName = value; OnPropertyChanged(); } }
+        private string _TitleDiaLog;
+        public string TitleDiaLog
+        {
+            get { return _TitleDiaLog; }
+            set { _TitleDiaLog = value; OnPropertyChanged(); }
+        }
 
-        private string _LastName;
-        public string LastName { get => _LastName; set { _LastName = value; OnPropertyChanged(); } }
+
+
+        private string _CustomerName;
+        public string CustomerName
+        {
+            get => _CustomerName;
+            set
+            {
+                _CustomerName = value; OnPropertyChanged();
+            }
+        }
+
+        //private string _FirstName;
+        //public string FirstName { get => _FirstName; set { _FirstName = value; OnPropertyChanged(); } }
+
+        //private string _LastName;
+        //public string LastName { get => _LastName; set { _LastName = value; OnPropertyChanged(); } }
+
+
 
         private string _Gender;
         public string Gender
@@ -52,8 +74,27 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private string _PhoneNumber;
         public string PhoneNumber { get => _PhoneNumber; set { _PhoneNumber = value; OnPropertyChanged(); } }
+        
+        private KhachHang _SelectedItem;
+        public KhachHang SelectedItem
+        {
+            get => _SelectedItem;
+            set
+            {
 
-
+                _SelectedItem = value;
+                OnPropertyChanged();
+                if (SelectedItem != null)
+                {
+                    CustomerName = SelectedItem.TenKH;
+                    Gender = SelectedItem.GioiTinh;
+                    Address = SelectedItem.DiaChi;
+                    PhoneNumber = SelectedItem.SoDT;
+                    
+                }
+                
+            }
+        }
 
         public ICommand SaveAddCommand { get; set; }
         public ICommand EditCommand { get; set; }
@@ -61,14 +102,14 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand AddCommand { get; set; }
         
 
-        public ICommand LoadCustomerView { get; set; }
+        
         #endregion
 
         public CustomerViewModel()
         {
             CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
 
-            AddCommand = new RelayCommand<CustomerView>((p) => true, p => IsOpenAddCustomerDialog = true);
+            AddCommand = new RelayCommand<CustomerView>((p) => true, p => { TitleDiaLog = "Tạo khách hàng"; SelectedItem = new KhachHang(); IsOpenAddCustomerDialog = true; });
 
 
             SaveAddCommand = new RelayCommand<CustomerView>((p) =>
@@ -77,14 +118,17 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
                 if (!checkData()) return false;
                 var phone = DataProvider.Ins.DB.KhachHangs.Where(x => x.SoDT == PhoneNumber);
-
-             
                      return true;
             }, p => { actionAddCustomer(); });
 
-           EditCommand = new RelayCommand<CustomerView>((p) => true, p => IsOpenAddCustomerDialog = true);
+           EditCommand = new RelayCommand<DataGridTemplateColumn>( (p) => true, p => {
+              
+               TitleDiaLog = "Sửa đổi thông tin khách hàng";
+               IsOpenAddCustomerDialog = true;
+               
+               });
             
-            LoadCustomerView = new RelayCommand<CustomerView>((p) => true, (p) => loadCustomer(p));
+           // LoadCustomerView = new RelayCommand<CustomerView>((p) => true, (p) => loadCustomer(p));
         }
 
 
@@ -93,7 +137,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
             var newCus = new KhachHang()
             {
-                TenKH = FirstName + " " + LastName,
+                TenKH = CustomerName,
                 GioiTinh = Gender,
                 DiaChi = Address,
                 SoDT = PhoneNumber,
@@ -110,7 +154,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         bool checkData()
         {
-            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(Gender) || string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(PhoneNumber))
+            if (string.IsNullOrEmpty(CustomerName) || string.IsNullOrEmpty(Gender) || string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(PhoneNumber))
             {
                 return false;
             }

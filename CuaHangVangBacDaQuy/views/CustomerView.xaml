@@ -7,7 +7,7 @@
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:local1="clr-namespace:CuaHangVangBacDaQuy.views.userControl" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-              DataContext="{StaticResource CustomerVM}"
+             DataContext="{StaticResource CustomerVM}"
              mc:Ignorable="d" 
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -34,11 +34,11 @@
                                    Identifier="AccountDialog"
                                    CloseOnClickAway="True"
                                    DialogTheme="Inherit"
-                                    IsOpen="False"                                  >
+                                    IsOpen="{Binding IsOpenAddCustomerDialog}"     >
             <materialDesign:DialogHost.DialogContent>
 
 
-                <Grid  Margin="16px">
+                <Grid  Margin="16px" Width="350" Height="500">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
@@ -53,7 +53,7 @@
                         <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                        
                         VerticalAlignment="Center"
-                        Text="{Binding Title }" 
+                        Text="{Binding TitleDiaLog }" 
                         FontSize="20"/>
 
 
@@ -73,8 +73,24 @@
 
                     <Grid Grid.Row="2" >
 
+                        <StackPanel>
+                            <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                               VerticalAlignment="Center"
+                        Text="Họ và tên" ></TextBlock>
 
-                        <Grid.ColumnDefinitions>
+                            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                           
+                                             MinWidth="100"
+                                            
+                                             VerticalAlignment="Center"                                           
+                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                             BorderThickness="0.5" 
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                             Text="{Binding CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        </StackPanel>
+
+                        <!--<Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
@@ -132,12 +148,10 @@
                              Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </Grid>
 
-                        </Grid>
+                        </Grid>-->
 
 
-                        <Grid Grid.Row="0" Grid.Column="1">
-
-                        </Grid>
+                     
 
                     </Grid>
 
@@ -257,7 +271,7 @@
                 </Grid>
 
                 
-                    <uc:AddCustomerUC></uc:AddCustomerUC>
+                   
                
             </materialDesign:DialogHost.DialogContent>
 
@@ -299,9 +313,9 @@
 
                 <materialDesign:Card Grid.Row="1" Margin="5">
                     <WrapPanel>
-                        <Button Tag ="Tạo khách hàng"  Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100"></Button>
+                       
                         <!--<Button Tag ="Sửa đổi thông tin khách hàng" Command="{Binding EditCommand}" Content="Sửa" Margin="5" Width="100"></Button>-->
-                        <Button Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100"></Button>
+                        <Button  Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100"></Button>
                         <!-- <Button Command="{Binding EditCommand}" Content="Sửa" Margin="5" Width="100"></Button> -->
                         <Button Command="{Binding DeleteCommand}" Content="Xóa" Margin="5" Width="100"></Button>
                     </WrapPanel>
@@ -309,9 +323,17 @@
 
                 <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <!--<ListView  ItemsSource="{Binding CustommerList}">
+                        <!--<ListView  ItemsSource="{Binding CustomerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
+                                   
+                                  
+                                   
+                                   
+                                     
+                                   
+                              >
                             <ListView.View>
-                                <GridView>
+                                <GridView >
                                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding MaKH}"></GridViewColumn>
                                     <GridViewColumn Header="Tên khách hàng" DisplayMemberBinding="{Binding TenKH}"></GridViewColumn>
                                     <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"></GridViewColumn>
@@ -319,11 +341,28 @@
                                     <GridViewColumn Header="Điện thoại" DisplayMemberBinding="{Binding SoDT}"></GridViewColumn>
                                     <GridViewColumn Header="Ngày đăng ký" DisplayMemberBinding="{Binding NgayDK}"></GridViewColumn>
 
+                                  
+                                    <GridViewColumn x:Name="editBtn">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Width="40"
+                                                Padding="0"
+                                                Background="{StaticResource PrimaryHueDarkBrush}"
+                                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                                
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=DataContext.EditCommand}"
+                                                CommandParameter="{Binding ElementName=editBtn}">
+                                                    <materialDesign:PackIcon Kind="Edit" />
+                                                </Button>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
                                 </GridView>
                             </ListView.View>
                         </ListView>-->
                         <DataGrid ItemsSource="{Binding CustomerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            
+                             SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"

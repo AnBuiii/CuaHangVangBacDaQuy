@@ -13,6 +13,5 @@
     <viewModel:SupplierViewModel x:Key="SupplierVM" />
     <viewModel:SaleOrderViewModel x:Key="CreateAVoucherVM" />
     <viewModel:CustomerViewModel x:Key="CustomerVM"/>
-    <viewModel:AddCustomerViewModel x:Key ="AddCustomerVM"/>
     <converter:GenderConverter x:Key="genderConverterKey"/>
 </ResourceDictionary>

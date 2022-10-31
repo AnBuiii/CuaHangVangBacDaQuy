@@ -301,6 +301,7 @@
                                         <Button Width="40"
                                                 Padding="0"
                                                 Background="{StaticResource PrimaryHueDarkBrush}"
+                                               
                                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteCommand}"
                                                 CommandParameter="{Binding ElementName=editBtn}">

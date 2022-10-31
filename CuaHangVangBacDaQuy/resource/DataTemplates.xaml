@@ -20,5 +20,7 @@
     <DataTemplate DataType="{x:Type viewModel:SupplierViewModel}">
         <view:SupplierView />
     </DataTemplate>
-    
+    <DataTemplate DataType="{x:Type viewModel:CreateAVoucherViewModel}">
+        <view:CreateAVoucherView />
+    </DataTemplate>
 </ResourceDictionary>

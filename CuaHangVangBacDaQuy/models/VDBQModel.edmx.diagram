@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="51b2bb895eed4d11bf0e377af477e78c" Name="Diagram1">
         <EntityTypeShape EntityType="VBDQEntityDBModel.ChiTietPhieuBan" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="VBDQEntityDBModel.ChiTietPhieuMua" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VBDQEntityDBModel.ChiTietPhieuMua" Width="2" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VBDQEntityDBModel.DonVi" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="VBDQEntityDBModel.KhachHang" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="VBDQEntityDBModel.LoaiSanPham" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />

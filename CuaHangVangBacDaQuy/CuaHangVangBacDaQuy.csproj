@@ -148,6 +148,7 @@
     <Compile Include="viewmodels\AccountViewModel.cs" />
     <Compile Include="viewmodels\BaseViewModel.cs" />
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
+    <Compile Include="viewmodels\CreateAVoucherViewModel.cs" />
     <Compile Include="viewmodels\HomeViewModel.cs" />
     <Compile Include="viewmodels\LoginViewModel.cs" />
     <Compile Include="viewmodels\MainViewModel.cs" />
@@ -155,6 +156,9 @@
     <Compile Include="viewmodels\SupplierViewModel.cs" />
     <Compile Include="views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\CreateAVoucherView.xaml.cs">
+      <DependentUpon>CreateAVoucherView.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -183,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\AccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\CreateAVoucherView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

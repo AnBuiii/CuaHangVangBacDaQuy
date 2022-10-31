@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels
 {
-    public class CreateAVoucherViewModel:BaseViewModel
+    public class SaleOrderViewModel:BaseViewModel
     {
         #region Commands
         public ICommand LoadedCommand { get; set; }
@@ -87,7 +87,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             get { return _IsOpenAddProductDialog1; }
             set { _IsOpenAddProductDialog1 = value; OnPropertyChanged(); }
         }
-        public CreateAVoucherViewModel()
+        public SaleOrderViewModel()
         {
             IsOpenAddProductDialog = false;
             SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);

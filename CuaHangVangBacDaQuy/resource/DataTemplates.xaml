@@ -19,7 +19,7 @@
     <DataTemplate DataType="{x:Type viewModel:SupplierViewModel}">
         <view:SupplierView />
     </DataTemplate>
-    <DataTemplate DataType="{x:Type viewModel:CreateAVoucherViewModel}">
+    <DataTemplate DataType="{x:Type viewModel:SaleOrderViewModel}">
         <view:CreateAVoucherView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewModel:CustomerViewModel}">

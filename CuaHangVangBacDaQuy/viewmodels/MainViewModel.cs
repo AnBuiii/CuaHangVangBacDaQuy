@@ -28,6 +28,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public HomeViewModel HomeViewModel { get; set; }
         public AccountViewModel AccountViewModel { get; set; }
         public MakeOrderViewModel MakeOrderViewModel { get; set; }
+        public CreateAVoucherViewModel CreateAVoucherViewModel { get; set; }
         public ProductViewModel ProductViewModel { get; set; }
         public SupplierViewModel SupplierViewModel { get; set; }
         #endregion
@@ -38,6 +39,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand AccountViewCommand { get; set; }
         public ICommand CloseWindowCommand { get; set; }
         public ICommand MakeOrderCommand { get; set; }
+        public ICommand SaleOrderViewCommand { get; set; }
         public ICommand ProductViewCommand { get; set; }
         public ICommand SupplierViewCommand { get; set; }
         #endregion
@@ -61,6 +63,10 @@ namespace CuaHangVangBacDaQuy.viewmodels
             MakeOrderCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 DataTemplate = MakeOrderViewModel;
+            });
+            SaleOrderViewCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                DataTemplate = CreateAVoucherViewModel;
             });
             ProductViewCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -106,6 +112,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             HomeViewModel = new HomeViewModel();
             AccountViewModel = new AccountViewModel();
             MakeOrderViewModel = new MakeOrderViewModel();
+            CreateAVoucherViewModel = new CreateAVoucherViewModel();
             ProductViewModel = new ProductViewModel();
             SupplierViewModel = new SupplierViewModel();
             //viewmodel init

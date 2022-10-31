@@ -44,24 +44,49 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public AddCustomerViewModel() {
 
-            AddCommand = new RelayCommand<AddCustomerViewModel>((p) => true, (p) =>
-            {
-                addCustomer();
-            });
 
         }
 
 
-       
-        public AddCustomerViewModel(ref KhachHang newCustomer)
+
+        public AddCustomerViewModel(ObservableCollection<KhachHang> listCustomer, bool isOpenDialog)
         {
 
+            AddCommand = new RelayCommand<AddCustomerViewModel>((p) =>
+            {
 
-           
+
+                if (!checkData()) return false;
+                var phone = DataProvider.Ins.DB.KhachHangs.Where(x => x.SoDT == PhoneNumber);
+               
+                if (phone != null || phone.Count() > 0) return false;
+              
+                return true;
+            },
+
+            (p) =>
+            {
+
+
+                addCustomer(listCustomer);
+
+
+            });
+
+
         }
 
 
-        private void addCustomer()
+        bool checkData()
+        {
+            if(string.IsNullOrEmpty(FirstName)|| string.IsNullOrEmpty(LastName)|| string.IsNullOrEmpty(LastName)|| string.IsNullOrEmpty(Gender)|| string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(PhoneNumber))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void addCustomer(ObservableCollection<KhachHang> listCus)
         {
            
                 var newCus = new KhachHang() {
@@ -73,7 +98,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
             };
             DataProvider.Ins.DB.KhachHangs.Add(newCus);
-           
+            DataProvider.Ins.DB.SaveChanges();
+            listCus.Add(newCus);
+          
+            
+            
         
         }
       

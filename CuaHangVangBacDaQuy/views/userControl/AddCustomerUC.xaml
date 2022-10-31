@@ -3,10 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:converters="clr-namespace:CuaHangVangBacDaQuy.viewmodels.Converter"
-           
+             xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-  
              mc:Ignorable="d" 
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -15,17 +13,10 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             Name="AddCustomer"
-             DataContext="{StaticResource AddCustomerVM}"
-             d:DesignHeight="550" d:DesignWidth="400"
-                Height="550" Width="400"
+             Name="makeOderView"
+             d:DesignHeight="600" d:DesignWidth="400"
              >
-
-    <UserControl.Resources>
-
-        <converters:GenderConverter x:Key="genderConverterKey"/>
-
-    </UserControl.Resources>
+   
     <Grid  Margin="16px">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -41,7 +32,7 @@
             <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                        
                         VerticalAlignment="Center"
-                        Text="{Binding Title }" 
+                        Text="Tạo khách hàng" 
                         FontSize="20"/>
 
 
@@ -87,8 +78,7 @@
                                              VerticalAlignment="Center"                                           
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                             Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"/>
                 </Grid>
                 
             </Grid>
@@ -112,12 +102,11 @@
                     <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                             
                                              MinWidth="100"
-                                            
+                                             
                                              VerticalAlignment="Center"                                           
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                             Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"/>
                 </Grid>
 
             </Grid>
@@ -144,25 +133,10 @@
                         />
             </Grid>
             <Grid Grid.Row="1"   Margin="0, 16, 0, 0">
-                <RadioButton  GroupName="Gender" 
-                              Content="Nam" 
-                              Style="{StaticResource MaterialDesignAccentRadioButton}"
-                                IsChecked="{Binding Path = Gender, 
-                                         UpdateSourceTrigger=PropertyChanged,
-			                            Converter={StaticResource ResourceKey=genderConverterKey},
-			                             ConverterParameter=Nam, Mode=TwoWay}" 
-                                        >
-                              </RadioButton>
+                <RadioButton  GroupName="Gender" Content="Nam" Style="{StaticResource MaterialDesignAccentRadioButton}"></RadioButton>
             </Grid>
             <Grid Grid.Row="2"  Margin="0, 16, 0, 0">
-                <RadioButton   GroupName="Gender"  
-                               Content="Nữ" 
-                               Style="{StaticResource MaterialDesignAccentRadioButton}"
-                                IsChecked="{Binding Path = Gender, 
-                                         UpdateSourceTrigger=PropertyChanged,
-			                            Converter={StaticResource ResourceKey=genderConverterKey},
-			                             ConverterParameter=Nu, Mode=TwoWay}"
-                    ></RadioButton>
+                <RadioButton   GroupName="Gender"  Content="Nữ" Style="{StaticResource MaterialDesignAccentRadioButton}"></RadioButton>
             </Grid>
         </Grid>
 
@@ -181,8 +155,7 @@
                                              VerticalAlignment="Center"                                           
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                             Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"/>
 
 
                 <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
@@ -196,8 +169,7 @@
                                              VerticalAlignment="Center"                                           
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                            Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"/>
             </StackPanel>
         </Grid>
 
@@ -227,7 +199,7 @@
                      HorizontalAlignment="Center"
                      Margin="4"
                      Style="{StaticResource MaterialDesignRaisedButton}"
-                     Command="{Binding AddCommand}">
+                     Command="{Binding SaveAddCommand}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="ContentSave"
                                                  Width="18"

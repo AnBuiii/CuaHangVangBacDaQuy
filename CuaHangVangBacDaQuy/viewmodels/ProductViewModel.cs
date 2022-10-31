@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
@@ -49,6 +51,29 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 }
             }
         }
+        private string _AddButtonText { get; set; }
+        public string AddButtonText { get => _AddButtonText; set { _AddButtonText = value; OnPropertyChanged(); } }
+
+        #region SearchBar
+        private List<string> _searchTypes;
+        public List<string> SearchTypes { get { return _searchTypes; } set { _searchTypes = value; OnPropertyChanged(); } }
+        private string _selectedSearchType;
+        public string SelectedSearchType { get { return _selectedSearchType; } set { _selectedSearchType = value; OnPropertyChanged(); } }
+
+        private string _contentSearch;
+        public string ContentSearch
+        {
+            get { return _contentSearch; }
+            set
+            {
+                _contentSearch = value;
+                OnPropertyChanged();
+                //if (ContentSearch == "")
+                //    Load(false);
+            }
+        }
+        #endregion
+
         #endregion
 
         #region Commands
@@ -56,37 +81,115 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand AddProductCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
         public ICommand SaveAddCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
         #endregion
 
 
-        private bool _IsOpenAddProductDialog;
-        public bool IsOpenAddProductDialog
+        private bool _IsOpenProductDialog;
+        public bool IsOpenProductDialog
         {
-            get { return _IsOpenAddProductDialog; }
-            set { _IsOpenAddProductDialog = value; OnPropertyChanged(); }
+            get { return _IsOpenProductDialog; }
+            set { _IsOpenProductDialog = value; OnPropertyChanged(); }
         }
-        
+        private bool _isEditing { get; set; }
+        public bool isEditing
+        {
+            get { return _isEditing; }
+            set
+            {
+                _isEditing = value; OnPropertyChanged(); 
+                if (_isEditing)
+                {
+                    AddButtonText = "Save change";
+                } else
+                {
+                    AddButtonText = "Save new Product";
+                }
+            }
+        }
+
         public ProductViewModel()
         {
-            IsOpenAddProductDialog = false;
+            IsOpenProductDialog = false;
+            SearchTypes = new List<string> {"Mã sản phẩm","Tên sản phẩm", };
+            SelectedSearchType = SearchTypes[1];
             SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
             LoaiSanPhamList = new ObservableCollection<LoaiSanPham>(DataProvider.Ins.DB.LoaiSanPhams);
             DonViList = new ObservableCollection<DonVi>(DataProvider.Ins.DB.DonVis);
             LoadedCommand = new RelayCommand<ProductView>(p => true, p => Loaded(p));
-            AddCommand = new RelayCommand<ProductView>(p=> true, p => IsOpenAddProductDialog = true);
-            EditCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => IsOpenAddProductDialog = true);
+            AddCommand = new RelayCommand<ProductView>(p => true, p => AddProduct());
+            EditCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => EditProduct());
             SaveAddCommand = new RelayCommand<ProductView>(p => true, p => SaveAdd());
+            DeleteCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => DeleteProduct());
+            SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
         }
+
+        private void Search()
+        {
+            switch (SelectedSearchType)
+            {
+                case "Mã sản phẩm":
+                    SanPhamList = new ObservableCollection<SanPham>(
+                        DataProvider.Ins.DB.SanPhams.Where(
+                            x => x.MaSP.ToString().Contains(ContentSearch)));
+                    break;
+                case "Tên sản phẩm":
+                    SanPhamList = new ObservableCollection<SanPham>(
+                         DataProvider.Ins.DB.SanPhams.Where(
+                             x => x.TenSP.ToString().Contains(ContentSearch)));
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public void Loaded(ProductView weddingHallUC)
         {
 
         }
+        public void AddProduct()
+        {
+            isEditing = false;
+            IsOpenProductDialog = true;
+            SelectedItem = new SanPham();
+        }
+        public void EditProduct()
+        {
+            isEditing = true;
+            IsOpenProductDialog = true;
+        }
+        public void DeleteProduct()
+        {
+            DataProvider.Ins.DB.SanPhams.Attach(SelectedItem);
+            DataProvider.Ins.DB.SanPhams.Remove(SelectedItem);
+            DataProvider.Ins.DB.SaveChanges();
+            SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
+        }
         public void SaveAdd()
         {
-            //lưu vào database
-            //notify UI
-            IsOpenAddProductDialog = false;
+            if (!isEditing)
+            {
+                var SanPham = new SanPham() { MaSP = Guid.NewGuid().ToString(), TenSP = TenSanPham, DonGia = DonGia, MaLoaiSP = SelectedLoaiSP.MaLoaiSP, MaDV = SelectedDonVi.MaDV };
+                DataProvider.Ins.DB.SanPhams.Add(SanPham);
+                DataProvider.Ins.DB.SaveChanges();
+                SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
+                IsOpenProductDialog = false;
+            }
+            else
+            {
+                var SanPham = DataProvider.Ins.DB.SanPhams.Where(x => x.MaSP == SelectedItem.MaSP).SingleOrDefault();
+                SanPham.TenSP = TenSanPham;
+                SanPham.DonGia = DonGia;
+                SanPham.MaLoaiSP = SelectedLoaiSP.MaLoaiSP;
+                SanPham.MaDV = SelectedDonVi.MaDV;
+                DataProvider.Ins.DB.SaveChanges();
+                SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
+                IsOpenProductDialog = false;
+                isEditing = false;
+
+            }
         }
     }
 }

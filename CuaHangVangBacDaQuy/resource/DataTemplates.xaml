@@ -17,5 +17,8 @@
     <DataTemplate DataType="{x:Type viewModel:ProductViewModel}">
         <view:ProductView />
     </DataTemplate>
-
+    <DataTemplate DataType="{x:Type viewModel:SupplierViewModel}">
+        <view:SupplierView />
+    </DataTemplate>
+    
 </ResourceDictionary>

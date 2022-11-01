@@ -75,21 +75,21 @@ namespace CuaHangVangBacDaQuy.viewmodels
         private string _PhoneNumber;
         public string PhoneNumber { get => _PhoneNumber; set { _PhoneNumber = value; OnPropertyChanged(); } }
      
-        private KhachHang _SelectedItem;
-        public KhachHang SelectedItem
+        private KhachHang _SelectedCustomer;
+        public KhachHang SelectedCustomer
         {
-            get => _SelectedItem;
+            get => _SelectedCustomer;
             set
             {
 
-                _SelectedItem = value;
+                _SelectedCustomer = value;
                 OnPropertyChanged();
-                if (SelectedItem != null)
+                if (SelectedCustomer != null && SelectedCustomer.SoDT != PhoneNumber )
                 {
-                    CustomerName = SelectedItem.TenKH;
-                    Gender = SelectedItem.GioiTinh;
-                    Address = SelectedItem.DiaChi;
-                    PhoneNumber = SelectedItem.SoDT;
+                    CustomerName = SelectedCustomer.TenKH;
+                    Gender = SelectedCustomer.GioiTinh;
+                    Address = SelectedCustomer.DiaChi;
+                    PhoneNumber = SelectedCustomer.SoDT;
 
                 }
 
@@ -111,7 +111,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
             CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
             testList = new ObservableCollection<string>(new string[] { "123", "321", "1256", "4343", "1567" });
-            AddCustomerCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { MessageBox.Show(CustomerList.Count().ToString()); TitleDiaLog = "Thêm khách hàng"; SelectedItem = new KhachHang(); IsOpenAddCustomerDialog = true; });
+            AddCustomerCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { MessageBox.Show(CustomerList.Count().ToString()); TitleDiaLog = "Thêm khách hàng"; SelectedCustomer = new KhachHang(); IsOpenAddCustomerDialog = true; });
 
           
             SaveAddCommand = new RelayCommand<MakeOrderViewModel>((p) =>
@@ -146,6 +146,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             };
             DataProvider.Ins.DB.KhachHangs.Add(newCus);
             DataProvider.Ins.DB.SaveChanges();
+            SelectedCustomer = newCus;
             IsOpenAddCustomerDialog = false;
 
         }

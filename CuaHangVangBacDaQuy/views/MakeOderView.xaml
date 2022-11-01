@@ -94,7 +94,8 @@
                                    Identifier="AccountDialog"
                                    CloseOnClickAway="True"
                                    DialogTheme="Inherit"
-                                    IsOpen="{Binding IsOpenAddCustomerDialog}"     >
+                                    IsOpen="{Binding IsOpenAddCustomerDialog}"   
+                                     >
                 <materialDesign:DialogHost.DialogContent>
 
 
@@ -440,14 +441,14 @@
                                              ItemTemplate="{StaticResource ResourceKey=CustomerItemTemplate}"
                                              MaxLength="50"
                                              Provider="{StaticResource ResourceKey=CustomerProvider}"
-                                            
-                                             SelectedItem="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             
+                                             SelectedItem="{Binding SelectedCustomer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              
                                              
                                              Watermark="Tìm kiếm một khách hàng "
                                             Style="{StaticResource MaterialAutoCompleteTextBox}">
 
-
+                                            
                                             <acb:AutoCompleteTextBox.Width>
                                                 <Binding Path="Width" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}" />
                                             </acb:AutoCompleteTextBox.Width>
@@ -490,20 +491,55 @@
                                 </materialDesign:ColorZone>
 
                             </Grid>
+                            
                             <!--Phần grid này để hiện thị thông tin khách hàng sau khi tạo hoặc tìm kiếm-->
                             <Grid Grid.Row="3"
-                              Height="50"
-                              Background="WhiteSmoke">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="15*"/>
-                                    <ColumnDefinition Width="426*"/>
-                                    <ColumnDefinition Width="202*"/>
-                                    <ColumnDefinition Width="394*"/>
-                                </Grid.ColumnDefinitions>
-                                <!--<syncfusion:AutoComplete x:Name="AutoComplete1" Source="Custom" />-->
+                            
+                              Background="WhiteSmoke"
+                                  Margin="16, 16, 0, 0"
+                               
+                                 >
 
-                            </Grid>
+                             
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"  />
+                                        <ColumnDefinition Width="auto"  />
+                                    </Grid.ColumnDefinitions>
 
+
+                                    <Border Grid.Column="0" CornerRadius="200" >
+                                        <Image Source="\Image\icon-user-default.png"></Image>
+                                    </Border>
+
+                                    <Grid Grid.Column="1" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                       
+                                    </Grid.RowDefinitions>
+                                        <TextBlock
+                                                 Grid.Row="0" 
+                                                
+                                                Margin="5,0,0,0"
+                                             Text="{Binding SelectedCustomer.TenKH}" />
+                                        <TextBlock
+                                             Grid.Row="1"
+                 
+                                                Margin="5,0,0,0"
+                                             Foreground="LightGray"
+                                         Text="{Binding SelectedCustomer.SoDT}"/>
+
+                                    <StackPanel Grid.Row="2" Margin="5,0,0,0">
+                                        <TextBlock Text="{Binding SelectedCustomer.GioiTinh}"/>
+                                        <TextBlock Text="{Binding SelectedCustomer.DiaChi}"/>
+                                    </StackPanel>
+                                </Grid>
+                                </Grid>
+                              
+                                    
+                               
+                            
 
                         </Grid>
                     </materialDesign:Card>

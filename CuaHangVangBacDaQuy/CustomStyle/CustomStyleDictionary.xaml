@@ -101,6 +101,8 @@
                         <Trigger Property="Validation.HasError" Value="True">
                             <Setter Property="BorderBrush" Value="Red" />
                         </Trigger>
+                         
+                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

@@ -44,9 +44,12 @@
                 <ResourceDictionary Source="/resource/MainResource.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="/resource/DataTemplates.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="/resource/Theme.xaml"></ResourceDictionary>
+
+                <ResourceDictionary Source="/CustomStyle/CustomStyleDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!--Cách app dụng style mặc định cho tất cả các Button trong ứng dụng-->
             <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="{x:Type Button}"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

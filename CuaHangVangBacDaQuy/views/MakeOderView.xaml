@@ -27,28 +27,62 @@
 
 
         <providers:CustomerProvider x:Key="CustomerProvider"/>
-        <DataTemplate x:Key="CustomerItemTemplate">
-            <Grid Grid.IsSharedSizeScope="True">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" SharedSizeGroup="" />
-                    <ColumnDefinition Width="Auto" SharedSizeGroup="" />
-                </Grid.ColumnDefinitions>
-                <Border Grid.Column="0" CornerRadius="50" >
-                    <Image Source=".\Image\icon-user-default.png"></Image>
-                </Border>
+        <DataTemplate x:Key="CustomerItemTemplate" >
+           
+            <Grid Grid.IsSharedSizeScope="True" >
 
-                <StackPanel Grid.Column="1">
-                    <TextBlock
-                    Grid.Column="1"
+                <Grid.Width>
+                    <Binding Path="Width" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type acb:AutoCompleteTextBox}}" />
+                </Grid.Width>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"  />
+                        <ColumnDefinition Width="auto"  />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Border Grid.Column="0" CornerRadius="200" >
+                        <Image Source="\Image\icon-user-default.png"></Image>
+                    </Border>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                  
                     Margin="5,0,0,0"
                     Text="{Binding TenKH}" />
-                    <TextBlock
-                    Grid.Column="2"
+                        <TextBlock
+                            Grid.Row="1"
+                 
+                    Margin="5,0,0,0"
+                    Foreground="LightGray"
+                    Text="{Binding SoDT}"/>
+                    </Grid>
+                    <!--<StackPanel Grid.Column="1" HorizontalAlignment="Stretch">
+                        <TextBlock
+                   HorizontalAlignment="Stretch"
+                    Margin="5,0,0,0"
+                    Text="{Binding TenKH}" />
+                        <TextBlock
+                   HorizontalAlignment="Stretch"
                     Margin="5,0,0,0"
                     Foreground="LightGray"
                     Text="{Binding SoDT}" />
-                </StackPanel>
+                    </StackPanel-->
+                </Grid>
+                
             </Grid>
+            
+              
+            
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
@@ -396,17 +430,27 @@
 
                                         <acb:AutoCompleteTextBox
                                             Grid.Column="1"
-                                             Height="26"
+                                            
+                                            
                                              Margin="0,0,6,0"
-                                             HorizontalAlignment="Stretch"
-                                             CharacterCasing="Upper"
+                                            
+                                            HorizontalAlignment="Stretch"
+                                             CharacterCasing="Normal"
                                              DisplayMember="Name"
                                              ItemTemplate="{StaticResource ResourceKey=CustomerItemTemplate}"
                                              MaxLength="50"
                                              Provider="{StaticResource ResourceKey=CustomerProvider}"
-                                             SelectedItem="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             
-                                             Watermark="Tìm kiếm một khách hàng ">
+                                             SelectedItem="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             
+                                             
+                                             Watermark="Tìm kiếm một khách hàng "
+                                            Style="{StaticResource MaterialAutoCompleteTextBox}">
+
+
+                                            <acb:AutoCompleteTextBox.Width>
+                                                <Binding Path="Width" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}" />
+                                            </acb:AutoCompleteTextBox.Width>
                                             <acb:AutoCompleteTextBox.LoadingContent>
                                                 <TextBlock
                                     Margin="5"

@@ -109,7 +109,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
 
-            AddCommand = new RelayCommand<CustomerView>((p) => true, p => { TitleDiaLog = "Tạo khách hàng"; SelectedItem = new KhachHang(); IsOpenAddCustomerDialog = true; });
+            AddCommand = new RelayCommand<CustomerView>((p) => true, p => { TitleDiaLog = "Thêm khách hàng"; SelectedItem = new KhachHang(); IsOpenAddCustomerDialog = true; });
 
 
             SaveAddCommand = new RelayCommand<CustomerView>((p) =>

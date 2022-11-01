@@ -13,7 +13,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual bool SetProperty<T>(ref T member, T value, [CallerMemberName] string propertyName = null)
+        protected virtual bool SetPropertyChanged<T>(ref T member, T value, [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(member, value))
             {

@@ -7,6 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:uc="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+       
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -38,6 +39,7 @@
             <!--<uc:ControlBarUC Tag="{Binding Title, ElementName=mainwindow}" />-->
         </Grid>
         <Grid Grid.Row="1">
+           
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />

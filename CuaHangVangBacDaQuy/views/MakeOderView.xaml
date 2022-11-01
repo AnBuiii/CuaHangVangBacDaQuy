@@ -4,7 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local1="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
+             xmlns:local1="clr-namespace:CuaHangVangBacDaQuy.views.userControl" 
+             xmlns:editor ="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
+            xmlns:acb="http://wpfcontrols.com/"
+             xmlns:providers="clr-namespace:CuaHangVangBacDaQuy.models.Provider"
              mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -13,173 +16,522 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
+             Tag="Tạo đơn hàng mới"
              Name="makeOderView"
              d:DesignHeight="533.413"
              d:DesignWidth="1047.31"
              DataContext="{StaticResource MakeOrderVM}">
+
+
+    <UserControl.Resources>
+
+
+        <providers:CustomerProvider x:Key="CustomerProvider"/>
+        <DataTemplate x:Key="CustomerItemTemplate">
+            <Grid Grid.IsSharedSizeScope="True">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" SharedSizeGroup="" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" CornerRadius="50" >
+                    <Image Source=".\Image\icon-user-default.png"></Image>
+                </Border>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock
+                    Grid.Column="1"
+                    Margin="5,0,0,0"
+                    Text="{Binding TenKH}" />
+                    <TextBlock
+                    Grid.Column="2"
+                    Margin="5,0,0,0"
+                    Foreground="LightGray"
+                    Text="{Binding SoDT}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <local1:TitleBarUC Tag="{Binding Tag, ElementName=makeOderView}" />
-        </Grid>
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <!--Thông tin khách hàng-->
-            <Grid Grid.Row="0">
-                <materialDesign:Card Margin="5">
-                    <Grid>
+
+
+        <Grid>
+            <!--Dialog addCustomer-->
+            <materialDesign:DialogHost Name="dialog"
+                                   Identifier="AccountDialog"
+                                   CloseOnClickAway="True"
+                                   DialogTheme="Inherit"
+                                    IsOpen="{Binding IsOpenAddCustomerDialog}"     >
+                <materialDesign:DialogHost.DialogContent>
+
+
+                    <Grid  Margin="16px" Width="350" Height="500">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <materialDesign:ColorZone Padding="8"
+                        <Grid Grid.Row="0" >
+
+                            <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                       
+                        VerticalAlignment="Center"
+                        Text="{Binding TitleDiaLog }" 
+                        FontSize="20"/>
+
+
+                            <Button  HorizontalAlignment="Right" 
+                     Style="{StaticResource MaterialDesignIconButton}"
+                      Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                     >
+
+                                <materialDesign:PackIcon Kind="CloseCircleOutline" Height="30" Width="30" />
+
+                            </Button>
+                        </Grid>
+
+                        <Grid Grid.Row ="1">
+                            <Separator Margin="5"></Separator>
+                        </Grid>
+
+                        <Grid Grid.Row="2" >
+
+                            <StackPanel>
+                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                               VerticalAlignment="Center"
+                        Text="Họ và tên" ></TextBlock>
+
+                                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                           
+                                             MinWidth="100"
+                                            
+                                             VerticalAlignment="Center"                                           
+                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                             BorderThickness="0.5" 
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                             Text="{Binding CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            </StackPanel>
+
+                            <!--<Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0"  Margin="0, 0, 16, 0" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                               VerticalAlignment="Center"
+                        Text="Họ" 
+                          />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                           
+                                             MinWidth="100"
+                                            
+                                             VerticalAlignment="Center"                                           
+                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                             BorderThickness="0.5" 
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                             Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Grid>
+
+                        </Grid>
+
+
+                        <Grid Grid.Column="1"  Margin="16,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                       
+                        VerticalAlignment="Center"
+                        Text="Tên" 
+                          
+                        />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                            
+                                             MinWidth="100"
+                                            
+                                             VerticalAlignment="Center"                                           
+                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                             BorderThickness="0.5" 
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                             Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Grid>
+
+                        </Grid>-->
+
+
+
+
+                        </Grid>
+
+                        <Grid Grid.Row="3" Margin="0, 16, 0 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                       
+                        VerticalAlignment="Center"
+                        Text="Giới tính" 
+                          
+                        />
+                            </Grid>
+                            <Grid Grid.Row="1"   Margin="0, 16, 0, 0">
+                                <RadioButton  GroupName="Gender" 
+                              Content="Nam" 
+                              Style="{StaticResource MaterialDesignAccentRadioButton}"
+                                IsChecked="{Binding Path = Gender, 
+                                         UpdateSourceTrigger=PropertyChanged,
+			                            Converter={StaticResource ResourceKey=genderConverterKey},
+			                             ConverterParameter=Nam, Mode=TwoWay}" 
+                                        >
+                                </RadioButton>
+                            </Grid>
+                            <Grid Grid.Row="2"  Margin="0, 16, 0, 0">
+                                <RadioButton   GroupName="Gender"  
+                               Content="Nữ" 
+                               Style="{StaticResource MaterialDesignAccentRadioButton}"
+                                IsChecked="{Binding Path = Gender, 
+                                         UpdateSourceTrigger=PropertyChanged,
+			                            Converter={StaticResource ResourceKey=genderConverterKey},
+			                             ConverterParameter=Nu, Mode=TwoWay}"
+                    ></RadioButton>
+                            </Grid>
+                        </Grid>
+
+                        <Grid Grid.Row="4"  Margin="0, 16, 0, 0">
+                            <StackPanel>
+
+
+                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                               VerticalAlignment="Center"
+                        Text="Địa chỉ" 
+                          />
+                                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                           
+                                             MinWidth="100"
+                                            
+                                             VerticalAlignment="Center"                                           
+                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                             BorderThickness="0.5" 
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                             Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                               VerticalAlignment="Center"
+                        Text="Số điện thoại" 
+                          />
+                                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                           
+                                             MinWidth="100"
+                                            
+                                             VerticalAlignment="Center"                                           
+                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                             BorderThickness="0.5" 
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                            Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Grid.Row="5" Margin="0, 16, 0, 0">
+                            <Separator Margin="5"></Separator>
+                        </Grid>
+                        <Grid Grid.Row="6"  Margin="0, 16, 0, 0">
+
+                            <StackPanel  Orientation="Horizontal"  HorizontalAlignment="Right">
+
+                                <Button 
+                      HorizontalAlignment="Center"
+                      Margin="0, 0, 16, 0"
+                      Style="{StaticResource MaterialDesignRaisedButton}"
+                      Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="CloseCircle"
+                                                 Width="18"
+                                                 Height="18"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Left"
+                                                 Margin="2 2 4 2" />
+                                        <TextBlock Text="Hủy" FontSize="18" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Grid.Column="0" 
+                     HorizontalAlignment="Center"
+                     Margin="4"
+                     Style="{StaticResource MaterialDesignRaisedButton}"
+                     Command="{Binding SaveAddCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ContentSave"
+                                                 Width="18"
+                                                 Height="18"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Left"
+                                                 Margin="2 2 4 2" />
+                                        <TextBlock Text="Lưu"
+                                                FontSize="18" />
+                                    </StackPanel>
+                                </Button>
+
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+
+
+
+
+                </materialDesign:DialogHost.DialogContent>
+
+
+            </materialDesign:DialogHost>
+            <!--enđ Diaglog-->
+        </Grid>
+
+
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <local1:TitleBarUC Tag="{Binding Tag, ElementName=makeOderView}" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--Thông tin khách hàng-->
+                <Grid Grid.Row="0">
+                    <materialDesign:Card Margin="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <materialDesign:ColorZone Padding="8"
                                                       Mode="Light">
-                                <DockPanel>
-                                    <StackPanel DockPanel.Dock="Right"
+                                    <DockPanel>
+                                        <StackPanel DockPanel.Dock="Right"
                                                 Orientation="Horizontal">
-                                        <Button IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                            <Button IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                                 Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryDarkButton}"
-                                                ToolTip="MaterialDesignFloatingActionMiniSecondaryDarkButton">
-                                            <materialDesign:PackIcon Width="25"
+                                                ToolTip="MaterialDesignFloatingActionMiniSecondaryDarkButton"
+                                                Command="{Binding AddCustomerCommand}">
+                                                <materialDesign:PackIcon Width="25"
                                                                      Height="25"
                                                                      Kind="Plus" />
-                                        </Button>
-                                        <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                            </Button>
+                                            <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                                     Margin="4,0,0,0"
                                                     DockPanel.Dock="Right"
                                                     VerticalAlignment="Center"
                                                     Text="Tạo khách hàng" />
-                                    </StackPanel>
-                                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                        </StackPanel>
+                                        <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                                 Margin="16,0,0,0"
                                                 VerticalAlignment="Center"
                                                 Text="Khách hàng" />
-                                </DockPanel>
-                            </materialDesign:ColorZone>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Separator Margin="5"></Separator>
-                        </Grid>
-                        <Grid Grid.Row="2">
-                            <materialDesign:ColorZone Padding="32, 0, 0, 0"
+                                    </DockPanel>
+                                </materialDesign:ColorZone>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Separator Margin="5"></Separator>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <materialDesign:ColorZone Padding="32, 0, 0, 0"
                                                       Mode="Light">
-                                <Grid>
+                                    <Grid>
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <TextBlock Style="{StaticResource MaterialDesignOverlineTextBlock}"
+
+                                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignOverlineTextBlock}"
                                                VerticalAlignment="Center">
                                             <materialDesign:PackIcon Kind="Search"
                                                                      Width="25"
                                                                      Height="25"
                                                                      Opacity=".56" />
-                                    </TextBlock>
-                                    <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                        </TextBlock>
+
+                                        <!--<editor:AutoCompleteBox Grid.Column="1"
+                                                Height="40"
+                                                                FontSize="20"
+                                               
+                                                VerticalContentAlignment="Center"
+                                                
+                                                ItemsSource="{Binding testList, UpdateSourceTrigger=PropertyChanged}"
+                                                
+                                                               >
+
+                                        </editor:AutoCompleteBox>-->
+
+                                        <acb:AutoCompleteTextBox
+                                            Grid.Column="1"
+                                             Height="26"
+                                             Margin="0,0,6,0"
+                                             HorizontalAlignment="Stretch"
+                                             CharacterCasing="Upper"
+                                             DisplayMember="Name"
+                                             ItemTemplate="{StaticResource ResourceKey=CustomerItemTemplate}"
+                                             MaxLength="50"
+                                             Provider="{StaticResource ResourceKey=CustomerProvider}"
+                                             SelectedItem="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            
+                                             Watermark="Tìm kiếm một khách hàng ">
+                                            <acb:AutoCompleteTextBox.LoadingContent>
+                                                <TextBlock
+                                    Margin="5"
+                                    FontSize="14"
+                                    Text="Loading..." />
+                                            </acb:AutoCompleteTextBox.LoadingContent>
+                                        </acb:AutoCompleteTextBox>
+                                        <!--<acb:AutoCompleteTextBox
+                                            Grid.Column="1"
+                                            Height="40"
+                                             Margin="0,0,6,0"
+                                             HorizontalAlignment="Stretch"
+                                             CharacterCasing="Upper"
+                                             DisplayMember="Name"
+                                             MaxLength="50"
+                                             Watermark="Tìm kiếm một khách hàng" 
+                                             
+                                            />-->
+                                        
+
+                                        
+
+
+
+
+                                        <!--<TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                              Grid.Column="1"
                                              MinWidth="200"
                                              Margin="8,0,0,0"
                                              VerticalAlignment="Center"
                                              materialDesign:HintAssist.Hint="Tìm kiếm khách hàng"
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                             BorderThickness="0" />
+                                             BorderThickness="0" />-->
 
-                                </Grid>
+                                    </Grid>
 
-                            </materialDesign:ColorZone>
+                                </materialDesign:ColorZone>
 
-                        </Grid>
-                        <!--Phần grid này để hiện thị thông tin khách hàng sau khi tạo hoặc tìm kiếm-->
-                        <Grid Grid.Row="3"
+                            </Grid>
+                            <!--Phần grid này để hiện thị thông tin khách hàng sau khi tạo hoặc tìm kiếm-->
+                            <Grid Grid.Row="3"
                               Height="50"
                               Background="WhiteSmoke">
-                           
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15*"/>
+                                    <ColumnDefinition Width="426*"/>
+                                    <ColumnDefinition Width="202*"/>
+                                    <ColumnDefinition Width="394*"/>
+                                </Grid.ColumnDefinitions>
+                                <!--<syncfusion:AutoComplete x:Name="AutoComplete1" Source="Custom" />-->
+
+                            </Grid>
+
 
                         </Grid>
+                    </materialDesign:Card>
 
-                    </Grid>
-                </materialDesign:Card>
+                </Grid>
 
-            </Grid>
+                <!--Thông tin sản phẩm-->
+                <Grid Grid.Row="1">
 
-            <!--Thông tin sản phẩm-->
-            <Grid Grid.Row="1">
-
-                <materialDesign:Card Margin="5">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <materialDesign:ColorZone Padding="8"
+                    <materialDesign:Card Margin="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <materialDesign:ColorZone Padding="8"
                                                       Mode="Light">
-                                <DockPanel>
-                                    <StackPanel DockPanel.Dock="Right"
+                                    <DockPanel>
+                                        <StackPanel DockPanel.Dock="Right"
                                                 Orientation="Horizontal">
-                                        <Button Content="_Kiểm tra tồn kho"
+                                            <Button Content="_Kiểm tra tồn kho"
                                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                                 ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
-                                    </StackPanel>
-                                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                        </StackPanel>
+                                        <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                                 Margin="16,0,0,0"
                                                 VerticalAlignment="Center"
                                                 Text="Thông tin sản phẩm" />
-                                </DockPanel>
-                            </materialDesign:ColorZone>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Separator Margin="5"></Separator>
-                        </Grid>
-                        <Grid Grid.Row="2">
-                            <materialDesign:ColorZone Padding="32, 0, 0, 0"
+                                    </DockPanel>
+                                </materialDesign:ColorZone>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Separator Margin="5"></Separator>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <materialDesign:ColorZone Padding="32, 0, 0, 0"
                                                       Mode="Light">
-                                <Grid>
+                                    <Grid>
 
-                                    <DockPanel>
-                                        <StackPanel DockPanel.Dock="Right"
+                                        <DockPanel>
+                                            <StackPanel DockPanel.Dock="Right"
                                                     Orientation="Horizontal"
                                                     Margin="8, 0, 8, 0">
 
-                                            <materialDesign:PackIcon Kind="Filter"
+                                                <materialDesign:PackIcon Kind="Filter"
                                                                      Width="25"
                                                                      Height="25"
                                                                      VerticalAlignment="Center" />
-                                            <ComboBox materialDesign:HintAssist.Hint="Lọc"
+                                                <ComboBox materialDesign:HintAssist.Hint="Lọc"
                                                       IsEditable="True">
-                                                <ComboBoxItem Content="Android" />
-                                                <ComboBoxItem Content="iOS" />
-                                                <ComboBoxItem Content="Linux" />
-                                                <ComboBoxItem Content="Windows" />
-                                            </ComboBox>
+                                                    <ComboBoxItem Content="Android" />
+                                                    <ComboBoxItem Content="iOS" />
+                                                    <ComboBoxItem Content="Linux" />
+                                                    <ComboBoxItem Content="Windows" />
+                                                </ComboBox>
 
 
-                                        </StackPanel>
-                                        <TextBlock Style="{StaticResource MaterialDesignOverlineTextBlock}"
+                                            </StackPanel>
+                                            <TextBlock Style="{StaticResource MaterialDesignOverlineTextBlock}"
                                                    VerticalAlignment="Center">
                                             <materialDesign:PackIcon Kind="Search"
                                                                      Width="25"
                                                                      Height="25"
                                                                      Opacity=".56" />
-                                        </TextBlock>
-                                        <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                            </TextBlock>
+                                            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                                  Grid.Column="1"
                                                  MinWidth="200"
                                                  Margin="8,0,0,0"
@@ -187,119 +539,120 @@
                                                  materialDesign:HintAssist.Hint="Tìm kiếm Sản phẩm"
                                                  materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                                  BorderThickness="0" />
-                                    </DockPanel>
-                                </Grid>
+                                        </DockPanel>
+                                    </Grid>
 
-                            </materialDesign:ColorZone>
+                                </materialDesign:ColorZone>
 
-                        </Grid>
-                        <!--Phần grid này để hiện thị thông tin các món hạng được mua sau khi tạo hoặc tìm kiếm-->
-                        <Grid Grid.Row="3">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <ListView ItemsSource="{Binding List}"
+                            </Grid>
+                            <!--Phần grid này để hiện thị thông tin các món hạng được mua sau khi tạo hoặc tìm kiếm-->
+                            <Grid Grid.Row="3">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <ListView ItemsSource="{Binding List}"
                                           SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn Header="Mã sản phẩm"
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Mã sản phẩm"
                                                             DisplayMemberBinding="{Binding Id}"></GridViewColumn>
-                                            <GridViewColumn Header="Tên sản phẩm"
+                                                <GridViewColumn Header="Tên sản phẩm"
                                                             DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
-                                            <GridViewColumn Header="Loại sản phẩm"
+                                                <GridViewColumn Header="Loại sản phẩm"
                                                             DisplayMemberBinding="{Binding ProductType}"></GridViewColumn>
-                                            <GridViewColumn Header="Đơn giá"
+                                                <GridViewColumn Header="Đơn giá"
                                                             DisplayMemberBinding="{Binding UnitPrice}"></GridViewColumn>
-                                            <GridViewColumn Header="Đơn vị"
+                                                <GridViewColumn Header="Đơn vị"
                                                             DisplayMemberBinding="{Binding Unit}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <!--cột này có có giá trị là một combobox để chọn đơn vị-->
-                                                        <ComboBox></ComboBox>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn Header="Số lượng"
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <!--cột này có có giá trị là một combobox để chọn đơn vị-->
+                                                            <ComboBox></ComboBox>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Header="Số lượng"
                                                             DisplayMemberBinding="{Binding Amount}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <!--cột này có có giá trị là một textbox để nhập số lượng-->
-                                                        <TextBox></TextBox>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <!--cột này có có giá trị là một textbox để nhập số lượng-->
+                                                            <TextBox></TextBox>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
 
-                                            <GridViewColumn Header="Thành tiền"
+                                                <GridViewColumn Header="Thành tiền"
                                                             DisplayMemberBinding="{Binding ContractDate}"></GridViewColumn>
 
-                                            <GridViewColumn Header="Dấu X"
+                                                <GridViewColumn Header="Dấu X"
                                                             DisplayMemberBinding="{Binding ContractDate}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <!--cột này có có giá trị là một button để có thể xóa sản phẩm khi chọn nhầm-->
-                                                        <Button></Button>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <!--cột này có có giá trị là một button để có thể xóa sản phẩm khi chọn nhầm-->
+                                                            <Button></Button>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
 
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </ScrollViewer>
-                        </Grid>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </ScrollViewer>
+                            </Grid>
 
-                        <Grid Grid.Row="4">
-                            <Separator Margin="5"></Separator>
-                        </Grid>
+                            <Grid Grid.Row="4">
+                                <Separator Margin="5"></Separator>
+                            </Grid>
 
-                        <!--Tổng thanh toán-->
-                        <Grid Grid.Row="5">
+                            <!--Tổng thanh toán-->
+                            <Grid Grid.Row="5">
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"></RowDefinition>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
 
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <materialDesign:ColorZone Padding="8"
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <materialDesign:ColorZone Padding="8"
                                                           Mode="Light">
-                                    <DockPanel>
-                                        <StackPanel DockPanel.Dock="Right">
-                                            <StackPanel  DockPanel.Dock="Right"
+                                        <DockPanel>
+                                            <StackPanel DockPanel.Dock="Right">
+                                                <StackPanel  DockPanel.Dock="Right"
                                                          Orientation="Horizontal">
-                                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                                             Margin="16,0,0,0"
                                                             VerticalAlignment="Center"
                                                             Text="Tổng tiền" />
-                                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                                             Margin="16,0,0,0"
                                                             VerticalAlignment="Center"
                                                             Text="0" />
+                                                </StackPanel>
                                             </StackPanel>
-                                        </StackPanel>
-                                        <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                            <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                                     Margin="16,0,0,0"
                                                     VerticalAlignment="Center"
                                                     Text="" />
-                                    </DockPanel>
-                                </materialDesign:ColorZone>
-                            </Grid>
+                                        </DockPanel>
+                                    </materialDesign:ColorZone>
+                                </Grid>
 
-                            <Grid Grid.Row="1">
-                                <Button Content="_Tạo đơn"
+                                <Grid Grid.Row="1">
+                                    <Button Content="_Tạo đơn"
                                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right"
                                         Margin="0, 0, 9, 0" />
+                                </Grid>
+
                             </Grid>
 
                         </Grid>
 
-                    </Grid>
+                    </materialDesign:Card>
+                </Grid>
 
-                </materialDesign:Card>
             </Grid>
-
         </Grid>
     </Grid>
 </UserControl>

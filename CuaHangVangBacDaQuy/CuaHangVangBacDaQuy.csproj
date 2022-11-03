@@ -126,7 +126,8 @@
     <Compile Include="models\PhieuMua.cs">
       <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\Provider\CustomerProvider.cs" />
+    <Compile Include="models\Provider\ProductSuggestionProvider.cs" />
+    <Compile Include="models\Provider\SupplierSuggesionProvider.cs" />
     <Compile Include="models\QuyenHan.cs">
       <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>

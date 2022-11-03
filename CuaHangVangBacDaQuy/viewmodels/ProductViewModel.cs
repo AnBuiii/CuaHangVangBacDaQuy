@@ -49,6 +49,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
                     SelectedDonVi = SelectedItem.DonVi;
 
                 }
+
+               
             }
         }
         private string _AddButtonText { get; set; }

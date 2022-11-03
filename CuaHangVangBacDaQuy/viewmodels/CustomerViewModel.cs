@@ -141,7 +141,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 GioiTinh = Gender,
                 DiaChi = Address,
                 SoDT = PhoneNumber,
-                NgayDK = System.DateTime.Today
+                NgayDK = System.DateTime.Now
 
             };
             DataProvider.Ins.DB.KhachHangs.Add(newCus);

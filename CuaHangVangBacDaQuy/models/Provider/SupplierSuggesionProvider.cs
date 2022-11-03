@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CuaHangVangBacDaQuy.models.Provider
 {
@@ -19,21 +20,25 @@ namespace CuaHangVangBacDaQuy.models.Provider
         Exact,
     }
 
-    public class CustomerProvider : BaseViewModel, ISuggestionProvider
+    public class SupplierSuggesionProvider : BaseViewModel, ISuggestionProvider
     {
 
        
-        public ObservableCollection<KhachHang> CustomerList { get; private set; }
+        public ObservableCollection<NhaCungCap> SupplierList { get; private set; }
 
-
-        private bool _allowEmptyFilter;
+       
+       private bool _allowEmptyFilter;
         private bool _ignoreCase;
         private string _lastFilter;
         private int _maxSuggestionCount;
         private MatchKind _matchKind;
         private StringComparison _comparison;
+       
         private Func<string, string, bool> _matchPredicate;
 
+
+
+       
         public bool AllowEmptyFilter
         {
 
@@ -99,14 +104,14 @@ namespace CuaHangVangBacDaQuy.models.Provider
                 if (!AllowEmptyFilter)
                     return null;
 
-                return CustomerList
+                return SupplierList
                         .Take(MaxSuggestionCount)
                         .ToList();
             }
 
             return
-                CustomerList
-                    .Where(x => _matchPredicate(x.TenKH, filter)|| _matchPredicate(x.SoDT, filter))
+                SupplierList
+                    .Where(x => _matchPredicate(x.TenNCC, filter)|| _matchPredicate(x.SoDT, filter))
                     .Take(MaxSuggestionCount)
                     .ToList();
         }
@@ -134,13 +139,14 @@ namespace CuaHangVangBacDaQuy.models.Provider
             return source.StartsWith(value, _comparison);
         }
 
-        public CustomerProvider()
+        public SupplierSuggesionProvider()
         {
             IgnoreCase = true;
             MatchKind = MatchKind.Contains;
             MaxSuggestionCount = 10;
-            CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
-            
+            SupplierList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
+           
+          
         }
       
     }

@@ -15,18 +15,21 @@ namespace CuaHangVangBacDaQuy.viewmodels
     {
         #region
 
-        private ObservableCollection<KhachHang> _CustomerList;
-        public ObservableCollection<KhachHang> CustomerList
+
+        string caseButtonSaveDialog { get; set; }
+
+        private ObservableCollection<NhaCungCap> _SuppliersList;
+        public ObservableCollection<NhaCungCap> SuppliersList
         {
-            get => _CustomerList;
-            set { _CustomerList = value; OnPropertyChanged(); }
+            get => _SuppliersList;
+            set { _SuppliersList = value; OnPropertyChanged(); }
         }
 
-        private bool _IsOpenAddCustomerDialog;
-        public bool IsOpenAddCustomerDialog
+        private bool _IsOpenAddSupplierDialog;
+        public bool IsOpenAddSupplierDialog
         {
-            get { return _IsOpenAddCustomerDialog; }
-            set { _IsOpenAddCustomerDialog = value; OnPropertyChanged(); }
+            get { return _IsOpenAddSupplierDialog; }
+            set { _IsOpenAddSupplierDialog = value; OnPropertyChanged(); }
         }
 
         
@@ -39,122 +42,201 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
 
 
-        private string _CustomerName;
-        public string CustomerName
+        private string _SupplierName;
+        public string SupplierName
         {
-            get => _CustomerName;
+            get => _SupplierName;
             set
             {
-                _CustomerName = value; OnPropertyChanged();
+                _SupplierName = value; OnPropertyChanged();
             }
         }
 
-        //private string _FirstName;
-        //public string FirstName { get => _FirstName; set { _FirstName = value; OnPropertyChanged(); } }
-
-        //private string _LastName;
-        //public string LastName { get => _LastName; set { _LastName = value; OnPropertyChanged(); } }
 
 
-
-        private string _Gender;
-        public string Gender
+        private string _SupplierAddress;
+        public string SupplierAddress
         {
-            get => _Gender;
+            get => _SupplierAddress;
             set
             {
-                _Gender = value; OnPropertyChanged();
+                _SupplierAddress = value; OnPropertyChanged();
             }
             
         }
 
 
-        private string _Address;
-        public string Address { get => _Address; set { _Address = value; OnPropertyChanged(); } }
+        private string _SupplierPhoneNumber;
+        public string SupplierPhoneNumber { get => _SupplierPhoneNumber; set { _SupplierPhoneNumber = value; OnPropertyChanged(); } }
 
-        private string _PhoneNumber;
-        public string PhoneNumber { get => _PhoneNumber; set { _PhoneNumber = value; OnPropertyChanged(); } }
-     
-        private KhachHang _SelectedCustomer;
-        public KhachHang SelectedCustomer
+
+        private string _SupplierSelectedName;
+        public string SupplierSelectedName
         {
-            get => _SelectedCustomer;
+            get => _SupplierSelectedName;
             set
             {
-
-                _SelectedCustomer = value;
-                OnPropertyChanged();
-                if (SelectedCustomer != null && SelectedCustomer.SoDT != PhoneNumber )
-                {
-                    CustomerName = SelectedCustomer.TenKH;
-                    Gender = SelectedCustomer.GioiTinh;
-                    Address = SelectedCustomer.DiaChi;
-                    PhoneNumber = SelectedCustomer.SoDT;
-
-                }
-
+                _SupplierSelectedName = value; OnPropertyChanged();
             }
         }
 
 
-        public ICommand SaveAddCommand { get; set; }
-       // public ICommand EditCommand { get; set; }
-        public ICommand AddCustomerCommand { get; set; }
 
-        private ObservableCollection<String> _testList;
-        public ObservableCollection<String> testList { get => _testList; set { _testList = value; OnPropertyChanged(); } }
+        private string _SupplierSelectedAddress;
+        public string SupplierSelectedAddress
+        {
+            get => _SupplierSelectedAddress;
+            set
+            {
+                _SupplierSelectedAddress = value; OnPropertyChanged();
+            }
+
+        }
+
+
+        private string _SupplierSelectedPhoneNumber;
+        public string SupplierSelectedPhoneNumber { get => _SupplierSelectedPhoneNumber; set { _SupplierSelectedPhoneNumber = value; OnPropertyChanged(); } }
+
+
+
+        private NhaCungCap _SelectedSupplier;
+        public NhaCungCap SelectedSupplier
+        {
+            get
+            {
+                return _SelectedSupplier;
+            } 
+            set
+            {
+
+                
+               
+                if (SelectedSupplier != null )
+                {
+
+                   
+                        SupplierSelectedName = SelectedSupplier.TenNCC;
+                        SupplierSelectedAddress = SelectedSupplier.DiaChi;
+                        SupplierSelectedPhoneNumber = SelectedSupplier.SoDT;
+                    VisibilitySelectedSupplier = "Visible";
+
+
+
+
+                }
+                _SelectedSupplier = value;
+                OnPropertyChanged();
+
+
+
+            }
+        }
+
+        private string _VisibilitySelectedSupplier = "Collapsed";
+        public string VisibilitySelectedSupplier 
+        {
+            get => _VisibilitySelectedSupplier;
+            set
+            {
+              
+                _VisibilitySelectedSupplier = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+        public ICommand AddSupplierCommand { get; set; }
+        public ICommand RemoveSelectedSupplierCommand { get; set; }
+        public ICommand EditSelectedSupplierCommand { get; set; }
+        public ICommand SaveAddCommand { get; set; }
+      
+       
+
+        
 
         #endregion
 
         public MakeOrderViewModel()
         {
 
-            CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
-            testList = new ObservableCollection<string>(new string[] { "123", "321", "1256", "4343", "1567" });
-            AddCustomerCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { MessageBox.Show(CustomerList.Count().ToString()); TitleDiaLog = "Thêm khách hàng"; SelectedCustomer = new KhachHang(); IsOpenAddCustomerDialog = true; });
+           
 
-          
-            SaveAddCommand = new RelayCommand<MakeOrderViewModel>((p) =>
-            {
+            SuppliersList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
+
+            RemoveSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => {  VisibilitySelectedSupplier = "Collapsed";  });
+
+            EditSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => {
+
+                
+                TitleDiaLog = "Chỉnh sửa thông tin nhà cung cấp";
+                SupplierName = SupplierSelectedName;
+                SupplierAddress = SupplierSelectedAddress;
+                SupplierPhoneNumber = SupplierSelectedPhoneNumber;
+
+                caseButtonSaveDialog = "Edit";
+                IsOpenAddSupplierDialog = true;
+                
+
+            });
+            
+
+            AddSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { TitleDiaLog = "Thêm nhà cung cấp"; ClearFieldDialog(); IsOpenAddSupplierDialog = true; caseButtonSaveDialog = "Add"; });          
+            SaveAddCommand = new RelayCommand<MakeOrderViewModel>((p) => checkData(), p => {
 
 
-                if (!checkData()) return false;
-                var phone = DataProvider.Ins.DB.KhachHangs.Where(x => x.SoDT == PhoneNumber);
-                return true;
-            }, p => { actionAddCustomer();  });
+                switch (caseButtonSaveDialog)
+                {
 
-            //EditCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => {
+                    case "Edit":
+                        {
+                            actionEditSupplier(); break;
+                        }
 
-            //    TitleDiaLog = "Sửa đổi thông tin khách hàng";
-            //    IsOpenAddCustomerDialog = true;
-
-            //});
+                    case "Add":
+                        {
+                            actionAddSupplier(); break;
+                        }                
+                }
+              
+            
+            });
 
         }
 
-        public void actionAddCustomer()
+
+        
+        public void actionAddSupplier()
         {
 
-            var newCus = new KhachHang()
+            var newSupplier = new NhaCungCap()
             {
-                TenKH = CustomerName,
-                GioiTinh = Gender,
-                DiaChi = Address,
-                SoDT = PhoneNumber,
-                NgayDK = System.DateTime.Today
+                TenNCC = SupplierName,
+                DiaChi = SupplierAddress,
+                SoDT = SupplierPhoneNumber,
 
             };
-            DataProvider.Ins.DB.KhachHangs.Add(newCus);
+            DataProvider.Ins.DB.NhaCungCaps.Add(newSupplier);
             DataProvider.Ins.DB.SaveChanges();
-            SelectedCustomer = newCus;
-            IsOpenAddCustomerDialog = false;
+            SelectedSupplier = newSupplier;
+            IsOpenAddSupplierDialog = false;
 
         }
 
+        public void actionEditSupplier()
+        {
+
+        }
+
+        void ClearFieldDialog()
+        {
+            SupplierName = "";
+            SupplierAddress = "";
+            SupplierPhoneNumber = "";
+        }
 
         bool checkData()
         {
-            if (string.IsNullOrEmpty(CustomerName) || string.IsNullOrEmpty(Gender) || string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(PhoneNumber))
+            if (string.IsNullOrEmpty(SupplierName) || string.IsNullOrEmpty(SupplierAddress) || string.IsNullOrEmpty(SupplierPhoneNumber))
             {
                 return false;
             }

@@ -18,9 +18,9 @@ namespace CuaHangVangBacDaQuy.views
     /// <summary>
     /// Interaction logic for CreateAVoucherView.xaml
     /// </summary>
-    public partial class CreateAVoucherView : UserControl
+    public partial class SaleOrderView : UserControl
     {
-        public CreateAVoucherView()
+        public SaleOrderView()
         {
             InitializeComponent();
         }

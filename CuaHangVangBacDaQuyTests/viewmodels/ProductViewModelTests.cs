@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
+using CuaHangVangBacDaQuy.models;
 
 namespace CuaHangVangBacDaQuy.viewmodels.Tests
 {
@@ -28,13 +29,19 @@ namespace CuaHangVangBacDaQuy.viewmodels.Tests
         }
 
         [TestMethod()]
-        public void AddProductTest()
+        public void AddProductTest(SanPham b)
         {
-            int a = 3;
-            int b = 4;
-
-            int c = a + b;
-            Assert.AreEqual(c, 7);
+            //khoi tao
+            List<SanPham> a = new List<SanPham>();
+            SanPham sanPham = new SanPham() ;
+            // chay
+            a.Add(sanPham);
+            List<SanPham> expect = new List<SanPham>() { sanPham };
+            Console.WriteLine(expect);
+            Console.WriteLine(a);
+            //kiem tra
+            Assert.AreEqual(expect, a);
+            
         }
 
         [TestMethod()]

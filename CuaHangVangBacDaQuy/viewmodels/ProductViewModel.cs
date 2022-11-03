@@ -95,8 +95,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
             get { return _IsOpenProductDialog; }
             set { _IsOpenProductDialog = value; OnPropertyChanged(); }
         }
-        private bool _isEditing { get; set; }
-        public bool isEditing
+        private bool _isEditing;
+        public bool IsEditing
         {
             get { return _isEditing; }
             set
@@ -153,13 +153,13 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
         public void AddProduct()
         {
-            isEditing = false;
+            IsEditing = false;
             IsOpenProductDialog = true;
             SelectedItem = new SanPham();
         }
         public void EditProduct()
         {
-            isEditing = true;
+            IsEditing = true;
             IsOpenProductDialog = true;
         }
         public void DeleteProduct()
@@ -171,7 +171,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
         public void SaveAdd()
         {
-            if (!isEditing)
+            if (!IsEditing)
             {
                 var SanPham = new SanPham() { MaSP = Guid.NewGuid().ToString(), TenSP = TenSanPham, DonGia = DonGia, MaLoaiSP = SelectedLoaiSP.MaLoaiSP, MaDV = SelectedDonVi.MaDV };
                 DataProvider.Ins.DB.SanPhams.Add(SanPham);
@@ -189,7 +189,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 DataProvider.Ins.DB.SaveChanges();
                 SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
                 IsOpenProductDialog = false;
-                isEditing = false;
+                IsEditing = false;
 
             }
         }

@@ -209,6 +209,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\SaleOrderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="views\CustomerView.xaml">

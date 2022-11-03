@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 
@@ -25,11 +26,16 @@ namespace CuaHangVangBacDaQuy.viewmodels
             set { _SuppliersList = value; OnPropertyChanged(); }
         }
 
+
         private ObservableCollection<ProductAdded> _SelectedProductList;
         public ObservableCollection<ProductAdded> SelectedProductList
         {
             get => _SelectedProductList;
-            set { _SelectedProductList = value; OnPropertyChanged(); }
+            set {
+               
+                _SelectedProductList = value; 
+                OnPropertyChanged(); 
+            }
         }
 
 
@@ -108,16 +114,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
 
 
-        private decimal? _TotalMoney;
-        public decimal? TotalMoney { 
-            get => _TotalMoney; 
-            
-            set {
-                TotalMoney = SelectedProductList.Sum(p => p.IntoMoney);
-                _TotalMoney = value;
-                OnPropertyChanged(); 
-            } 
-        }
 
         private NhaCungCap _SelectedSupplier;
         public NhaCungCap SelectedSupplier
@@ -143,6 +139,19 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
 
 
+        private decimal _TotalMoney;
+        public decimal TotalMoney
+        {
+            get => _TotalMoney;
+
+            set
+            {
+
+                _TotalMoney = value;
+                OnPropertyChanged();
+            }
+        }
+
         private SanPham _SelectedProductItem;
         public SanPham SelectedProductItem
         {
@@ -167,7 +176,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
                         };
                        
-                        SelectedProductList.Add(productAdded);
+                        SelectedProductList.Add(productAdded); 
                     };
                    
                   
@@ -180,7 +189,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
 
 
-        private string _VisibilitySelectedSupplier = "Collapsed";
+        private string _VisibilitySelectedSupplier = "Hidden";
         public string VisibilitySelectedSupplier 
         {
             get => _VisibilitySelectedSupplier;
@@ -197,10 +206,10 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand RemoveSelectedSupplierCommand { get; set; }
         public ICommand EditSelectedSupplierCommand { get; set; }
         public ICommand SaveAddCommand { get; set; }
-      
-       
+        public ICommand CaculateTotalMoneyCommand  { get; set; }
 
-        
+
+
 
         #endregion
 
@@ -211,7 +220,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
             SuppliersList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
 
-            RemoveSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => {  VisibilitySelectedSupplier = "Collapsed";  });
+            RemoveSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => {  VisibilitySelectedSupplier = "Hidden";  });
 
             EditSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => {
 
@@ -250,6 +259,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
             });
 
             SelectedProductList = new ObservableCollection<ProductAdded>();
+
+            CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => caculateTotalMoney());
 
         }
 
@@ -292,7 +303,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
             return true;
         }
-
+        
+        void caculateTotalMoney()
+        {
+            
+            TotalMoney = SelectedProductList.Sum(p => p.IntoMoney);
+        }
 
     }
 }

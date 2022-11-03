@@ -155,8 +155,6 @@
     <Compile Include="viewmodels\AccountViewModel.cs" />
     <Compile Include="viewmodels\BaseViewModel.cs" />
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
-    <Compile Include="viewmodels\Converter\IntoMoneyConverter.cs" />
-    <Compile Include="viewmodels\Converter\VisualTreeHelperExtension.cs" />
     <Compile Include="viewmodels\SaleOrderViewModel.cs" />
     <Compile Include="viewmodels\Converter\GenderConverter.cs" />
     <Compile Include="viewmodels\CustomerViewModel.cs" />

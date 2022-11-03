@@ -30,7 +30,7 @@ namespace CuaHangVangBacDaQuy.models
             {
                 _IntoMoney = value;
                 OnPropertyChanged();
-                OnPropertyChanged("TotalMoney");
+                           
             }
         }
 

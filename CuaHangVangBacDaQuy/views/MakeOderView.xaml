@@ -7,7 +7,7 @@
              xmlns:local1="clr-namespace:CuaHangVangBacDaQuy.views.userControl" 
              xmlns:toolkit ="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
             xmlns:acb="http://wpfcontrols.com/"
-             xmlns:providers="clr-namespace:CuaHangVangBacDaQuy.models.Provider"
+             xmlns:providers="clr-namespace:CuaHangVangBacDaQuy.models.Provider" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -18,7 +18,7 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              Tag="Tạo đơn hàng mới"
              Name="makeOderView"
-             d:DesignHeight="752.613"
+             d:DesignHeight="850.213"
              d:DesignWidth="1047.31"
              DataContext="{StaticResource MakeOrderVM}">
 
@@ -409,7 +409,7 @@
                             </Grid>
                             <Grid Grid.Row="2">
                                 <materialDesign:ColorZone Padding="16"
-                                                      Mode="Light">
+                                                      Mode="Light" Height="89">
                                     <Grid>
 
                                         <Grid.ColumnDefinitions>
@@ -661,9 +661,9 @@
                                             <acb:AutoCompleteComboBox
                                             Grid.Column="1"
                                            
-                                            
+                                              
                                              Margin="0,0,6,0"
-                                            IsLoading="True"
+                                            
                                              CharacterCasing="Normal"
                                              DisplayMember="Name"
                                              ItemTemplate="{StaticResource ResourceKey=ProductItemTemplate}"
@@ -673,7 +673,7 @@
                                 
                                             
                                              Watermark="Tìm kiếm Sản phẩm"
-                                                Style="{StaticResource MaterialAutoCompleteComboBox}" 
+                                                Style="{StaticResource MaterialAutoCompleteComboBox}" Height="56" 
                                            >
 
 
@@ -696,7 +696,7 @@
 
                             </Grid>
                             <!--Phần grid này để hiện thị thông tin các món hạng được mua sau khi tạo hoặc tìm kiếm-->
-                            <Grid Grid.Row="3" MinHeight="300" MaxHeight="300">
+                            <Grid Grid.Row="3" MinHeight="270" MaxHeight="270">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <DataGrid ItemsSource="{Binding SelectedProductList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                              SelectedItem="{Binding SelectedProductItem, Mode=OneWayToSource}"
@@ -720,13 +720,37 @@
                                                 Binding="{Binding SanPham.DonVi.TenDV}"
                                                 IsReadOnly="True" />
                                             
-                                            <DataGridTemplateColumn Header="Số lượng"  >
-                                               
+                                            <DataGridTemplateColumn Header="Số lượng" x:Name="columnTextBox" >
+
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="TextChanged">
+                                                        <i:InvokeCommandAction Command="{Binding CaculateTotalMoneyCommand}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
                                                 <DataGridTemplateColumn.CellTemplate >
+                                                    
+                                                    
                                                     <DataTemplate>
                                                         <TextBox  x:Name="txbSoLuong"  Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                                                  Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                                  Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                  
+                                                                  >
 
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="TextChanged">
+                                                                    <i:InvokeCommandAction Command="{Binding DataContext.CaculateTotalMoneyCommand 
+                                                                                 , RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                                                  CommandParameter="{Binding ElementName=columnTextBox}"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                            <TextBox.InputBindings>
+                                                                
+                                                                <!--<KeyBinding Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.CaculateTotalMoneyCommand}"
+                                                                             CommandParameter="{Binding ElementName=columnTextBox}"
+                                                                             Key="Return" />-->
+                                                            </TextBox.InputBindings>
+                                                        </TextBox>
+                                                        
 
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>

@@ -25,6 +25,6 @@ namespace CuaHangVangBacDaQuy.views
             InitializeComponent();
         }
 
-      
+     
     }
 }

@@ -567,7 +567,7 @@
                 <!--Thông tin sản phẩm-->
                 <Grid Grid.Row="1">
 
-                    <materialDesign:Card Margin="5">
+                    <materialDesign:Card Margin="5, 16, 5, 5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"></RowDefinition>
@@ -612,9 +612,9 @@
                                     </DockPanel>
                                 </materialDesign:ColorZone>
                             </Grid>
-                            <Grid Grid.Row="1">
+                            <!--<Grid Grid.Row="1">
                                 <Separator Margin="5"></Separator>
-                            </Grid>
+                            </Grid>-->
                             <Grid Grid.Row="2">
                                 <materialDesign:ColorZone Padding="32, 0, 0, 0"
                                                       Mode="Light">
@@ -696,7 +696,7 @@
 
                             </Grid>
                             <!--Phần grid này để hiện thị thông tin các món hạng được mua sau khi tạo hoặc tìm kiếm-->
-                            <Grid Grid.Row="3" MinHeight="100">
+                            <Grid Grid.Row="3" MinHeight="300">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <DataGrid ItemsSource="{Binding CustomerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
@@ -806,9 +806,9 @@
                                 </ScrollViewer>
                             </Grid>
 
-                            <Grid Grid.Row="4">
+                            <!--<Grid Grid.Row="4">
                                 <Separator Margin="5"></Separator>
-                            </Grid>
+                            </Grid>-->
 
                             <!--Tổng thanh toán-->
                             <Grid Grid.Row="5">

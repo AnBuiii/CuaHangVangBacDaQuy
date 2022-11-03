@@ -211,10 +211,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
                         SelectedProductItem = null;
                        
 
-                    };
-                   
+                    }
+                    
                     
                 }
+               
                
                 _SelectedProductItem = value;
 
@@ -371,11 +372,14 @@ namespace CuaHangVangBacDaQuy.viewmodels
         void removeSelectedProduct()
         {
 
-            if(SelectedRemoveItem != null)
+            SelectedProductItem = null;
+
+            if (SelectedRemoveItem != null)
             {   
 
                 SelectedProductList.Remove(SelectedRemoveItem);
-                SelectedProductItem = null;
+              
+                
                 //OnPropertyChanged("SelectedProductItem");
                 caculateTotalMoney();
             }

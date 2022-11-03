@@ -25,6 +25,15 @@ namespace CuaHangVangBacDaQuy.viewmodels
             set { _SuppliersList = value; OnPropertyChanged(); }
         }
 
+        private ObservableCollection<SanPham> _SelectedProductList;
+        public ObservableCollection<SanPham> SelectedProductList
+        {
+            get => _SelectedProductList;
+            set { _SelectedProductList = value; OnPropertyChanged(); }
+        }
+
+
+
         private bool _IsOpenAddSupplierDialog;
         public bool IsOpenAddSupplierDialog
         {
@@ -118,7 +127,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                         SupplierSelectedName = SelectedSupplier.TenNCC;
                         SupplierSelectedAddress = SelectedSupplier.DiaChi;
                         SupplierSelectedPhoneNumber = SelectedSupplier.SoDT;
-                    VisibilitySelectedSupplier = "Visible";
+                        VisibilitySelectedSupplier = "Visible";
 
 
 
@@ -131,6 +140,30 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
             }
         }
+
+
+        private SanPham _SelectedProductItem;
+        public SanPham SelectedProductItem
+        {
+            get
+            {
+                return _SelectedProductItem;
+            }
+            set
+            {
+
+                if (SelectedProductItem != null && !SelectedProductList.Contains(SelectedProductItem))
+                {
+                    SelectedProductList.Add(SelectedProductItem);
+                  
+                }
+                _SelectedProductItem = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+
 
         private string _VisibilitySelectedSupplier = "Collapsed";
         public string VisibilitySelectedSupplier 
@@ -200,6 +233,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
               
             
             });
+
+            SelectedProductList = new ObservableCollection<SanPham>();
 
         }
 

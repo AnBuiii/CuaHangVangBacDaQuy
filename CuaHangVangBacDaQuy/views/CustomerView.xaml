@@ -34,11 +34,11 @@
                                    Identifier="AccountDialog"
                                    CloseOnClickAway="True"
                                    DialogTheme="Inherit"
-                                    IsOpen="{Binding IsOpenAddCustomerDialog}"     >
+                                    IsOpen="{Binding IsOpenAddCustomerDialog}"    >
             <materialDesign:DialogHost.DialogContent>
 
 
-                <Grid  Margin="16px" Width="350" Height="500">
+                <Grid  Margin="16px" Width="400" Height="500">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
@@ -73,15 +73,15 @@
 
                     <Grid Grid.Row="2" >
 
-                        <StackPanel>
+                        <StackPanel >
                             <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                VerticalAlignment="Center"
                         Text="Họ và tên" ></TextBlock>
 
-                            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                           
+                            <TextBox  
+                                            VerticalScrollBarVisibility="Auto"
                                              MinWidth="100"
-                                            
+                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                              VerticalAlignment="Center"                                           
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5" 

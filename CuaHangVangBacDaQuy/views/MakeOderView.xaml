@@ -658,18 +658,27 @@
                                                  BorderThickness="0" />-->
 
 
+
+                                            <!--<toolkit:AutoCompleteBox
+                                                ItemsSource="{Binding TestList}"
+                                                SelectedItem="{Binding SelectedTest, UpdateSourceTrigger=PropertyChanged}">
+                                                
+                                            </toolkit:AutoCompleteBox>-->
                                             <acb:AutoCompleteComboBox
                                             Grid.Column="1"
                                            
-                                              
+                                           
+                                                IsLoading="True"
+                                                AllowDrop="True"
                                              Margin="0,0,6,0"
                                             
                                              CharacterCasing="Normal"
                                              DisplayMember="Name"
                                              ItemTemplate="{StaticResource ResourceKey=ProductItemTemplate}"
                                              MaxLength="50"
-                                             SelectedItem="{Binding SelectedProductItem, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                             SelectedItem="{Binding SelectedProductItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              Provider="{StaticResource ProductSuggestionProvider}"
+                                             Focusable="True"
                                 
                                             
                                              Watermark="Tìm kiếm Sản phẩm"
@@ -677,7 +686,7 @@
                                            >
 
 
-
+                                              
 
                                                 <acb:AutoCompleteComboBox.LoadingContent>
                                                     <TextBlock

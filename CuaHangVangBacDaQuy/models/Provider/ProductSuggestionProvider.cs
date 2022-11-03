@@ -24,7 +24,7 @@ namespace CuaHangVangBacDaQuy.models.Provider
             public IEnumerable<SanPham> GetSuggestions(string filter)
             {
                 if (string.IsNullOrWhiteSpace(filter)) return null;
-                //System.Threading.Thread.Sleep(1000);
+                 System.Threading.Thread.Sleep(300);
                 return
                     ProductList
                         .Where(state => state.TenSP.IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) > -1)

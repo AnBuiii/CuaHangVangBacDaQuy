@@ -114,7 +114,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
 
 
-        static int v = 0;
+        
         private NhaCungCap _SelectedSupplier;
         public NhaCungCap SelectedSupplier
         {
@@ -131,8 +131,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                         SupplierSelectedAddress = SelectedSupplier.DiaChi;
                         SupplierSelectedPhoneNumber = SelectedSupplier.SoDT;
                         VisibilitySelectedSupplier = "Visible";
-                    v++;
-                    MessageBox.Show(v.ToString());
+                   
                 }
                
                
@@ -156,12 +155,38 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
         }
 
-       
+
+
+        private ObservableCollection<string> _TestList;
+        public ObservableCollection<string> TestList
+        {
+            get => _TestList;
+            set { 
+                
+                _TestList = value; 
+                OnPropertyChanged(); 
+            }
+        }
+        static int v = 0;
+        private string _SelectedTest;
+        public string SelectedTest
+        {
+            get => _SelectedTest;
+
+            set
+            {
+                   
+                _SelectedTest = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private SanPham _SelectedProductItem;
         public SanPham SelectedProductItem
         {
             get
-            {
+           {
                 return _SelectedProductItem;
             }
             set
@@ -171,7 +196,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 {
 
                    
-                   if(SelectedProductList.Where(x => x.SanPham.MaSP == SelectedProductItem.MaSP).Count() == 0)
+                   if(SelectedProductList.Where(x => x.SanPham == SelectedProductItem).Count() == 0)
                     {
                         ProductAdded productAdded = new ProductAdded()
                         {
@@ -180,13 +205,17 @@ namespace CuaHangVangBacDaQuy.viewmodels
                             IntoMoney = 0,
 
                         };
-                       
+                      
+
                         SelectedProductList.Add(productAdded);
+                        SelectedProductItem = null;
                        
+
                     };
                    
                     
                 }
+               
                 _SelectedProductItem = value;
 
                 OnPropertyChanged();
@@ -242,7 +271,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public MakeOrderViewModel()
         {
-
+            TestList = new ObservableCollection<string>(new string[] { "343", "12", "342", "3443" });
            
 
             SuppliersList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
@@ -343,30 +372,15 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
 
             if(SelectedRemoveItem != null)
-            {
+            {   
+
                 SelectedProductList.Remove(SelectedRemoveItem);
+                SelectedProductItem = null;
+                //OnPropertyChanged("SelectedProductItem");
+                caculateTotalMoney();
             }
 
-           // if(SelectedProductItem != null)
-           // {
-           //     ProductAdded product = SelectedProductList.Where(p => p.SanPham.MaSP == SelectedProductItem.MaSP).First();
-
-
-           //     for (int i = 0; i < SelectedProductList.Count; i++)
-           //     {
-           //         if (product.SanPham.MaSP == SelectedProductList[i].SanPham.MaSP)
-           //         {
-
-           //             SelectedProductList.RemoveAt(i);
-           //             //MessageBox.Show(SelectedProductList.Count.ToString());
-           //             break;
-           //         }
-           //     }
-           // }
            
-           //  // SelectedProductList.Remove(product);
-           
-           //// MessageBox.Show(product.SanPham.TenSP);
         }
 
     }

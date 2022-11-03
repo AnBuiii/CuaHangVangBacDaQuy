@@ -127,6 +127,7 @@
     <Compile Include="models\PhieuMua.cs">
       <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="models\ProductAdded.cs" />
     <Compile Include="models\Provider\ProductSuggestionProvider.cs" />
     <Compile Include="models\Provider\SupplierSuggesionProvider.cs" />
     <Compile Include="models\QuyenHan.cs">

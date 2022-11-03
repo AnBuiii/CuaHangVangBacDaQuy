@@ -707,46 +707,47 @@
                                               x:Name="produtDataGrid">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="Mã sản phẩm"
-                                                Binding="{Binding MaSP}"
+                                                Binding="{Binding SanPham.MaSP}"
                                                 IsReadOnly="True" />
                                             <DataGridTextColumn Header="Tên sản phẩm"
-                                                Binding="{Binding TenSP}"
+                                                Binding="{Binding SanPham.TenSP}"
                                                 IsReadOnly="True" />
                                             <DataGridTextColumn Header="Loại sản phẩm"
-                                                Binding="{Binding LoaiSanPham.TenLoaiSP}"
+                                                Binding="{Binding SanPham.LoaiSanPham.TenLoaiSP}"
                                                 IsReadOnly="True" />
 
                                             <DataGridTextColumn Header="Đơn vị"
-                                                Binding="{Binding DonVi.TenDV}"
+                                                Binding="{Binding SanPham.DonVi.TenDV}"
                                                 IsReadOnly="True" />
                                             
                                             <DataGridTemplateColumn Header="Số lượng"  >
                                                
                                                 <DataGridTemplateColumn.CellTemplate >
                                                     <DataTemplate>
-                                                        <TextBox x:Name="txbSoLuong"  Style="{StaticResource MaterialDesignOutlinedTextBox}">
-                                                            
-                                                        </TextBox>
+                                                        <TextBox  x:Name="txbSoLuong"  Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                                  Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
                                             
                                             <DataGridTextColumn Header="Đơn giá"
-                                                Binding="{Binding DonGia}"
+                                                Binding="{Binding SanPham.DonGia}"
                                                 IsReadOnly="True" 
                                                 />
 
 
 
                                             <DataGridTextColumn Header="Thành tiền"
-                                                IsReadOnly="True" >
-                                                <DataGridTextColumn.Binding>
-                                                    <MultiBinding  UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource intoMoneyConverterKey}">
-                                                        <Binding  ElementName="produtDataGrid" />
-                                                        <Binding Path="DonGia"/>
-                                                    </MultiBinding>
-                                                </DataGridTextColumn.Binding>
-                                            </DataGridTextColumn>
+                                                IsReadOnly="True" Binding="{Binding IntoMoney}"/>
+                                            <!--<DataGridTextColumn.Binding>
+                                                <MultiBinding  UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource intoMoneyConverterKey}">
+                                                    <Binding  ElementName="produtDataGrid" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
+                                                    <Binding Path="DonGia"/>
+                                                </MultiBinding>
+                                            </DataGridTextColumn.Binding>-->
+
 
 
 

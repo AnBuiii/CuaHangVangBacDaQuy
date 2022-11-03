@@ -25,8 +25,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
             set { _SuppliersList = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<SanPham> _SelectedProductList;
-        public ObservableCollection<SanPham> SelectedProductList
+        private ObservableCollection<ProductAdded> _SelectedProductList;
+        public ObservableCollection<ProductAdded> SelectedProductList
         {
             get => _SelectedProductList;
             set { _SelectedProductList = value; OnPropertyChanged(); }
@@ -107,26 +107,17 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public string SupplierSelectedPhoneNumber { get => _SupplierSelectedPhoneNumber; set { _SupplierSelectedPhoneNumber = value; OnPropertyChanged(); } }
 
 
-        private decimal? _IntoMoney;
-        public decimal? IntoMoney { get => _IntoMoney; set { _IntoMoney = value; OnPropertyChanged(); } }
-
-
-        private string _AmountProduct;
-        public string AmountProduct { 
-            get => _AmountProduct; 
-            set {
-                if (CheckField.checkNumber(AmountProduct))
-                {
-                    IntoMoney = Convert.ToDecimal(value) * SelectedProductItem.DonGia;
-                    _AmountProduct = value;
-                    OnPropertyChanged();
-                }
-               
-            } 
-        }
 
         private decimal? _TotalMoney;
-        public decimal? TotalMoney { get => _TotalMoney; set { _TotalMoney = value; OnPropertyChanged(); } }
+        public decimal? TotalMoney { 
+            get => _TotalMoney; 
+            
+            set {
+                TotalMoney = SelectedProductList.Sum(p => p.IntoMoney);
+                _TotalMoney = value;
+                OnPropertyChanged(); 
+            } 
+        }
 
         private NhaCungCap _SelectedSupplier;
         public NhaCungCap SelectedSupplier
@@ -162,9 +153,23 @@ namespace CuaHangVangBacDaQuy.viewmodels
             set
             {
 
-                if (SelectedProductItem != null && !SelectedProductList.Contains(SelectedProductItem))
+                if (SelectedProductItem != null)
                 {
-                    SelectedProductList.Add(SelectedProductItem);
+
+                   
+                   if(SelectedProductList.Where(x => x.SanPham == SelectedProductItem).Count() == 0)
+                    {
+                        ProductAdded productAdded = new ProductAdded()
+                        {
+                            SanPham = SelectedProductItem,
+                            Amount = 0,
+                            IntoMoney = 0,
+
+                        };
+                       
+                        SelectedProductList.Add(productAdded);
+                    };
+                   
                   
                 }
                 _SelectedProductItem = value;
@@ -244,7 +249,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             
             });
 
-            SelectedProductList = new ObservableCollection<SanPham>();
+            SelectedProductList = new ObservableCollection<ProductAdded>();
 
         }
 

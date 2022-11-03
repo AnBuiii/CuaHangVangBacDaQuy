@@ -699,7 +699,7 @@
                             <Grid Grid.Row="3" MinHeight="270" MaxHeight="270">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <DataGrid ItemsSource="{Binding SelectedProductList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                             SelectedItem="{Binding SelectedProductItem, Mode=OneWayToSource}"
+                             SelectedItem="{Binding SelectedRemoveItem, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"
@@ -743,12 +743,7 @@
                                                                                   CommandParameter="{Binding ElementName=columnTextBox}"/>
                                                                 </i:EventTrigger>
                                                             </i:Interaction.Triggers>
-                                                            <TextBox.InputBindings>
-                                                                
-                                                                <!--<KeyBinding Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.CaculateTotalMoneyCommand}"
-                                                                             CommandParameter="{Binding ElementName=columnTextBox}"
-                                                                             Key="Return" />-->
-                                                            </TextBox.InputBindings>
+                                                            
                                                         </TextBox>
                                                         
 
@@ -783,7 +778,7 @@
                                                 Background="{StaticResource PrimaryHueDarkBrush}"
                                                
                                                 Style="{StaticResource MaterialDesignRaisedButton}"
-                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteCommand}"
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.RemoveSelectedProductCommand}"
                                                 CommandParameter="{Binding ElementName=deleteBtn}">
                                                             <materialDesign:PackIcon Kind="Delete" />
                                                         </Button>

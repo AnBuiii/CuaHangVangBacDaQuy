@@ -114,7 +114,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
 
 
-
+        static int v = 0;
         private NhaCungCap _SelectedSupplier;
         public NhaCungCap SelectedSupplier
         {
@@ -131,7 +131,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
                         SupplierSelectedAddress = SelectedSupplier.DiaChi;
                         SupplierSelectedPhoneNumber = SelectedSupplier.SoDT;
                         VisibilitySelectedSupplier = "Visible";
+                    v++;
+                    MessageBox.Show(v.ToString());
                 }
+               
+               
                 _SelectedSupplier = value;
                 OnPropertyChanged();
 
@@ -152,6 +156,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
         }
 
+       
         private SanPham _SelectedProductItem;
         public SanPham SelectedProductItem
         {
@@ -166,7 +171,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 {
 
                    
-                   if(SelectedProductList.Where(x => x.SanPham == SelectedProductItem).Count() == 0)
+                   if(SelectedProductList.Where(x => x.SanPham.MaSP == SelectedProductItem.MaSP).Count() == 0)
                     {
                         ProductAdded productAdded = new ProductAdded()
                         {
@@ -176,16 +181,37 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
                         };
                        
-                        SelectedProductList.Add(productAdded); 
+                        SelectedProductList.Add(productAdded);
+                       
                     };
                    
-                  
+                    
                 }
                 _SelectedProductItem = value;
+
+                OnPropertyChanged();
+
+
+            }
+        }
+
+        private ProductAdded _SelectedRemoveItem;
+        public ProductAdded SelectedRemoveItem
+        {
+            get
+            {
+                return _SelectedRemoveItem;
+            }
+            set
+            {
+
+
+                _SelectedRemoveItem = value;
                 OnPropertyChanged();
 
             }
         }
+
 
 
 
@@ -204,6 +230,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public ICommand AddSupplierCommand { get; set; }
         public ICommand RemoveSelectedSupplierCommand { get; set; }
+        public ICommand RemoveSelectedProductCommand { get; set; }
         public ICommand EditSelectedSupplierCommand { get; set; }
         public ICommand SaveAddCommand { get; set; }
         public ICommand CaculateTotalMoneyCommand  { get; set; }
@@ -261,6 +288,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
             SelectedProductList = new ObservableCollection<ProductAdded>();
 
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => caculateTotalMoney());
+            RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => removeSelectedProduct());
+
 
         }
 
@@ -308,6 +337,36 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             
             TotalMoney = SelectedProductList.Sum(p => p.IntoMoney);
+        }
+
+        void removeSelectedProduct()
+        {
+
+            if(SelectedRemoveItem != null)
+            {
+                SelectedProductList.Remove(SelectedRemoveItem);
+            }
+
+           // if(SelectedProductItem != null)
+           // {
+           //     ProductAdded product = SelectedProductList.Where(p => p.SanPham.MaSP == SelectedProductItem.MaSP).First();
+
+
+           //     for (int i = 0; i < SelectedProductList.Count; i++)
+           //     {
+           //         if (product.SanPham.MaSP == SelectedProductList[i].SanPham.MaSP)
+           //         {
+
+           //             SelectedProductList.RemoveAt(i);
+           //             //MessageBox.Show(SelectedProductList.Count.ToString());
+           //             break;
+           //         }
+           //     }
+           // }
+           
+           //  // SelectedProductList.Remove(product);
+           
+           //// MessageBox.Show(product.SanPham.TenSP);
         }
 
     }

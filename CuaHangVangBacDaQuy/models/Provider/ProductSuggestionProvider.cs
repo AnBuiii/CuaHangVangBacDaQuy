@@ -42,8 +42,8 @@ namespace CuaHangVangBacDaQuy.models.Provider
 
             public ProductSuggestionProvider()
             {
-                var states = DataProvider.Ins.DB.SanPhams;
-                ProductList = states;
+                var products = DataProvider.Ins.DB.SanPhams;
+                ProductList = products;
             }
         }
     }

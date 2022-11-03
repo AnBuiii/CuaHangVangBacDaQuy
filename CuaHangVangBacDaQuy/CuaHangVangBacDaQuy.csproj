@@ -97,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="models\CheckField.cs" />
     <Compile Include="models\ChiTietPhieuBan.cs">
       <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
@@ -153,6 +154,8 @@
     <Compile Include="viewmodels\AccountViewModel.cs" />
     <Compile Include="viewmodels\BaseViewModel.cs" />
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
+    <Compile Include="viewmodels\Converter\IntoMoneyConverter.cs" />
+    <Compile Include="viewmodels\Converter\VisualTreeHelperExtension.cs" />
     <Compile Include="viewmodels\SaleOrderViewModel.cs" />
     <Compile Include="viewmodels\Converter\GenderConverter.cs" />
     <Compile Include="viewmodels\CustomerViewModel.cs" />

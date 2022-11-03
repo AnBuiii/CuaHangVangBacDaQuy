@@ -18,7 +18,7 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              Tag="Tạo đơn hàng mới"
              Name="makeOderView"
-             d:DesignHeight="533.413"
+             d:DesignHeight="752.613"
              d:DesignWidth="1047.31"
              DataContext="{StaticResource MakeOrderVM}">
 
@@ -699,11 +699,12 @@
                             <Grid Grid.Row="3" MinHeight="300" MaxHeight="300">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <DataGrid ItemsSource="{Binding SelectedProductList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                             SelectedItem="{Binding SelectedItemProduct, Mode=OneWayToSource}"
+                             SelectedItem="{Binding SelectedProductItem, Mode=OneWayToSource}"
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"
-                              AutoGenerateColumns="False">
+                              AutoGenerateColumns="False"
+                                              x:Name="produtDataGrid">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="Mã sản phẩm"
                                                 Binding="{Binding MaSP}"
@@ -719,10 +720,11 @@
                                                 Binding="{Binding DonVi.TenDV}"
                                                 IsReadOnly="True" />
                                             
-                                            <DataGridTemplateColumn Header="Số lượng">
-                                                <DataGridTemplateColumn.CellTemplate>
+                                            <DataGridTemplateColumn Header="Số lượng"  >
+                                               
+                                                <DataGridTemplateColumn.CellTemplate >
                                                     <DataTemplate>
-                                                        <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}">
+                                                        <TextBox x:Name="txbSoLuong"  Style="{StaticResource MaterialDesignOutlinedTextBox}">
                                                             
                                                         </TextBox>
                                                     </DataTemplate>
@@ -731,13 +733,20 @@
                                             
                                             <DataGridTextColumn Header="Đơn giá"
                                                 Binding="{Binding DonGia}"
-                                                IsReadOnly="True" />
-                                            
-                                            
+                                                IsReadOnly="True" 
+                                                />
+
+
 
                                             <DataGridTextColumn Header="Thành tiền"
-                                                Binding="{Binding SumCount}"
-                                                IsReadOnly="True" />
+                                                IsReadOnly="True" >
+                                                <DataGridTextColumn.Binding>
+                                                    <MultiBinding  UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource intoMoneyConverterKey}">
+                                                        <Binding  ElementName="produtDataGrid" />
+                                                        <Binding Path="DonGia"/>
+                                                    </MultiBinding>
+                                                </DataGridTextColumn.Binding>
+                                            </DataGridTextColumn>
 
 
 
@@ -842,7 +851,7 @@
                                                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                                             Margin="16,0,0,0"
                                                             VerticalAlignment="Center"
-                                                            Text="0" />
+                                                            Text="{Binding TotalMoney}" />
                                                 </StackPanel>
                                             </StackPanel>
                                             <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"

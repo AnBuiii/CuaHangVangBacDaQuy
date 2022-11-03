@@ -107,6 +107,26 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public string SupplierSelectedPhoneNumber { get => _SupplierSelectedPhoneNumber; set { _SupplierSelectedPhoneNumber = value; OnPropertyChanged(); } }
 
 
+        private decimal? _IntoMoney;
+        public decimal? IntoMoney { get => _IntoMoney; set { _IntoMoney = value; OnPropertyChanged(); } }
+
+
+        private string _AmountProduct;
+        public string AmountProduct { 
+            get => _AmountProduct; 
+            set {
+                if (CheckField.checkNumber(AmountProduct))
+                {
+                    IntoMoney = Convert.ToDecimal(value) * SelectedProductItem.DonGia;
+                    _AmountProduct = value;
+                    OnPropertyChanged();
+                }
+               
+            } 
+        }
+
+        private decimal? _TotalMoney;
+        public decimal? TotalMoney { get => _TotalMoney; set { _TotalMoney = value; OnPropertyChanged(); } }
 
         private NhaCungCap _SelectedSupplier;
         public NhaCungCap SelectedSupplier
@@ -117,26 +137,16 @@ namespace CuaHangVangBacDaQuy.viewmodels
             } 
             set
             {
-
-                
-               
+              
                 if (SelectedSupplier != null )
-                {
-
-                   
+                {                   
                         SupplierSelectedName = SelectedSupplier.TenNCC;
                         SupplierSelectedAddress = SelectedSupplier.DiaChi;
                         SupplierSelectedPhoneNumber = SelectedSupplier.SoDT;
                         VisibilitySelectedSupplier = "Visible";
-
-
-
-
                 }
                 _SelectedSupplier = value;
                 OnPropertyChanged();
-
-
 
             }
         }

@@ -14,4 +14,5 @@
     <viewModel:SaleOrderViewModel x:Key="CreateAVoucherVM" />
     <viewModel:CustomerViewModel x:Key="CustomerVM"/>
     <converter:GenderConverter x:Key="genderConverterKey"/>
+    <converter:IntoMoneyConverter x:Key="intoMoneyConverterKey"/>
 </ResourceDictionary>

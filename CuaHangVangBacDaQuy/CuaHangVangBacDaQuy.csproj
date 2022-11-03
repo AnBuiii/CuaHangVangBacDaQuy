@@ -149,7 +149,7 @@
     <Compile Include="viewmodels\AddCustomerViewModel.cs" />
     <Compile Include="viewmodels\BaseViewModel.cs" />
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
-    <Compile Include="viewmodels\CreateAVoucherViewModel.cs" />
+    <Compile Include="viewmodels\SaleOrderViewModel.cs" />
     <Compile Include="viewmodels\Converter\GenderConverter.cs" />
     <Compile Include="viewmodels\CustomerViewModel.cs" />
     <Compile Include="viewmodels\HomeViewModel.cs" />
@@ -160,8 +160,11 @@
     <Compile Include="views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\CreateAVoucherView.xaml.cs">
-      <DependentUpon>CreateAVoucherView.xaml</DependentUpon>
+    <Compile Include="views\AddProduct.xaml.cs">
+      <DependentUpon>AddProduct.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\SaleOrderView.xaml.cs">
+      <DependentUpon>SaleOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -184,7 +187,7 @@
     </Compile>
     <Compile Include="views\SupplierView.xaml.cs">
       <DependentUpon>SupplierView.xaml</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="views\userControl\AddCustomerUC.xaml.cs">
       <DependentUpon>AddCustomerUC.xaml</DependentUpon>
     </Compile>
@@ -199,7 +202,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\CreateAVoucherView.xaml"></Page>
+    <Page Include="views\AddProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\SaleOrderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="views\CustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -249,7 +259,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\SupplierView.xaml"></Page>
+    <Page Include="views\SupplierView.xaml">
+    </Page>
     <Page Include="views\userControl\AddCustomerUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

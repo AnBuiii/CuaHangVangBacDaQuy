@@ -296,6 +296,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>VDBQModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="models\VDBQModel.edmx.diagram">
       <DependentUpon>VDBQModel.edmx</DependentUpon>
     </None>

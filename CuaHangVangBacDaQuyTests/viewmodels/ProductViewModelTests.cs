@@ -22,7 +22,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.Tests
             Assert.Fail();
         }
 
-        [TestMethod()]
         public void LoadedTest()
         {
             Assert.Fail();
@@ -33,18 +32,18 @@ namespace CuaHangVangBacDaQuy.viewmodels.Tests
         {
             //khoi tao
             List<SanPham> a = new List<SanPham>();
-            SanPham sanPham = new SanPham() ;
+            SanPham sanPham = new SanPham();
             // chay
-            a.Add(sanPham);
+             a.Add(sanPham);
             List<SanPham> expect = new List<SanPham>() { sanPham };
             Console.WriteLine(expect);
             Console.WriteLine(a);
             //kiem tra
             Assert.AreEqual(expect, a);
-            
+
         }
 
-        [TestMethod()]
+        [            TestMethod()]
         public void EditProductTest()
         {
             Assert.Fail();

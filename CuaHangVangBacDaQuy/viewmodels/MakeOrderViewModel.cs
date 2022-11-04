@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels
 {
-    public class MakeOrderViewModel: BaseViewModel
+    public class MakeOrderViewModel : BaseViewModel
     {
         #region
 
@@ -31,10 +31,22 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ObservableCollection<ProductAdded> SelectedProductList
         {
             get => _SelectedProductList;
-            set {
-               
-                _SelectedProductList = value; 
-                OnPropertyChanged(); 
+            set
+            {
+
+                _SelectedProductList = value;
+                OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<PhieuMua> _PhieuMuaList;
+        public ObservableCollection<PhieuMua> PhieuMuaList
+        {
+            get => _PhieuMuaList;
+            set
+            {
+
+                _PhieuMuaList = value;
+                OnPropertyChanged();
             }
         }
 
@@ -47,7 +59,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             set { _IsOpenAddSupplierDialog = value; OnPropertyChanged(); }
         }
 
-        
+
         private string _TitleDiaLog;
         public string TitleDiaLog
         {
@@ -77,7 +89,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                 _SupplierAddress = value; OnPropertyChanged();
             }
-            
+
         }
 
 
@@ -114,14 +126,14 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
 
 
-        
+
         private NhaCungCap _SelectedSupplier;
         public NhaCungCap SelectedSupplier
         {
             get
             {
                 return _SelectedSupplier;
-            } 
+            }
             set
             {
 
@@ -130,17 +142,17 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 OnPropertyChanged();
 
 
-                if (SelectedSupplier != null )
-                {                   
-                        SupplierSelectedName = SelectedSupplier.TenNCC;
-                        SupplierSelectedAddress = SelectedSupplier.DiaChi;
-                        SupplierSelectedPhoneNumber = SelectedSupplier.SoDT;
-                        VisibilitySelectedSupplier = "Visible";
-                    
-                   
+                if (SelectedSupplier != null)
+                {
+                    SupplierSelectedName = SelectedSupplier.TenNCC;
+                    SupplierSelectedAddress = SelectedSupplier.DiaChi;
+                    SupplierSelectedPhoneNumber = SelectedSupplier.SoDT;
+                    VisibilitySelectedSupplier = "Visible";
+
+
                 }
-               
-               
+
+
             }
         }
 
@@ -164,13 +176,14 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ObservableCollection<string> TestList
         {
             get => _TestList;
-            set { 
-                
-                _TestList = value; 
-                OnPropertyChanged(); 
+            set
+            {
+
+                _TestList = value;
+                OnPropertyChanged();
             }
         }
-        static int v = 0;
+    
         private string _SelectedTest;
         public string SelectedTest
         {
@@ -178,7 +191,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
             set
             {
-                   
+
                 _SelectedTest = value;
                 OnPropertyChanged();
             }
@@ -189,7 +202,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public SanPham SelectedProductItem
         {
             get
-           {
+            {
                 return _SelectedProductItem;
             }
             set
@@ -201,8 +214,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 if (SelectedProductItem != null)
                 {
 
-                   
-                   if(SelectedProductList.Where(x => x.SanPham == SelectedProductItem).Count() == 0)
+
+                    if (SelectedProductList.Where(x => x.SanPham == SelectedProductItem).Count() == 0)
                     {
                         ProductAdded productAdded = new ProductAdded()
                         {
@@ -211,21 +224,37 @@ namespace CuaHangVangBacDaQuy.viewmodels
                             IntoMoney = 0,
 
                         };
-                      
+
 
                         SelectedProductList.Add(productAdded);
                         SelectedProductItem = null;
-                       
+
 
                     }
-                    
-                    
+
+
                 }
-               
-               
-               
 
 
+            }
+        }
+        private PhieuMua _SelectedItem;
+        public PhieuMua SelectedItem
+        {
+            get => _SelectedItem;
+            set
+            {
+                _SelectedItem = value;
+                OnPropertyChanged();
+                if(SelectedItem != null)
+                {
+                    SelectedSupplier = SelectedItem.NhaCungCap;
+                    SelectedProductList = new ObservableCollection<ProductAdded>();
+                    foreach(var detail in SelectedItem.ChiTietPhieuMuas)
+                    {
+                        SelectedProductList.Add(new ProductAdded() { Stt = SelectedProductList.Count, SanPham = detail.SanPham, Amount = (int)detail.SoLuong, IntoMoney = (decimal)detail.SanPham.DonGia, });
+                    }
+                }
             }
         }
 
@@ -245,17 +274,23 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
             }
         }
+        private bool _IsOpenDetailDialog;
+        public bool IsOpenDetailDialog
+        {
+            get { return _IsOpenDetailDialog; }
+            set { _IsOpenDetailDialog = value; OnPropertyChanged(); }
+        }
 
 
 
 
         private string _VisibilitySelectedSupplier = "Hidden";
-        public string VisibilitySelectedSupplier 
+        public string VisibilitySelectedSupplier
         {
             get => _VisibilitySelectedSupplier;
             set
             {
-              
+
                 _VisibilitySelectedSupplier = value;
                 OnPropertyChanged();
 
@@ -267,7 +302,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand RemoveSelectedProductCommand { get; set; }
         public ICommand EditSelectedSupplierCommand { get; set; }
         public ICommand SaveAddCommand { get; set; }
-        public ICommand CaculateTotalMoneyCommand  { get; set; }
+        public ICommand CaculateTotalMoneyCommand { get; set; }
+        public ICommand EditCommand { get; set; }
 
 
 
@@ -277,15 +313,17 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public MakeOrderViewModel()
         {
             TestList = new ObservableCollection<string>(new string[] { "343", "12", "342", "3443" });
-           
+
+            PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
 
             SuppliersList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
 
-            RemoveSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => {  VisibilitySelectedSupplier = "Hidden";  });
+            RemoveSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { VisibilitySelectedSupplier = "Hidden"; });
 
-            EditSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => {
+            EditSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p =>
+            {
 
-                
+
                 TitleDiaLog = "Chỉnh sửa thông tin nhà cung cấp";
                 SupplierName = SupplierSelectedName;
                 SupplierAddress = SupplierSelectedAddress;
@@ -293,13 +331,14 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
                 caseButtonSaveDialog = "Edit";
                 IsOpenAddSupplierDialog = true;
-                
+
 
             });
-            
 
-            AddSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { TitleDiaLog = "Thêm nhà cung cấp"; ClearFieldDialog(); IsOpenAddSupplierDialog = true; caseButtonSaveDialog = "Add"; });          
-            SaveAddCommand = new RelayCommand<MakeOrderViewModel>((p) => checkData(), p => {
+
+            AddSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { TitleDiaLog = "Thêm nhà cung cấp"; ClearFieldDialog(); IsOpenAddSupplierDialog = true; caseButtonSaveDialog = "Add"; });
+            SaveAddCommand = new RelayCommand<MakeOrderViewModel>((p) => checkData(), p =>
+            {
 
 
                 switch (caseButtonSaveDialog)
@@ -313,22 +352,23 @@ namespace CuaHangVangBacDaQuy.viewmodels
                     case "Add":
                         {
                             actionAddSupplier(); break;
-                        }                
+                        }
                 }
-              
-            
+
+
             });
 
             SelectedProductList = new ObservableCollection<ProductAdded>();
 
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => caculateTotalMoney());
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => removeSelectedProduct());
+            EditCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Edit());
 
 
         }
 
 
-        
+
         public void actionAddSupplier()
         {
 
@@ -342,7 +382,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             DataProvider.Ins.DB.NhaCungCaps.Add(newSupplier);
             DataProvider.Ins.DB.SaveChanges();
             SelectedSupplier = newSupplier;
-           
+
             IsOpenAddSupplierDialog = false;
 
         }
@@ -367,29 +407,33 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
             return true;
         }
-        
+
         void caculateTotalMoney()
         {
-            
+
             TotalMoney = SelectedProductList.Sum(p => p.IntoMoney);
         }
 
         void removeSelectedProduct()
         {
 
-           // SelectedProductItem = null;
+            // SelectedProductItem = null;
 
             if (SelectedRemoveItem != null)
-            {   
+            {
 
                 SelectedProductList.Remove(SelectedRemoveItem);
-              
-                
+
+
                 //OnPropertyChanged("SelectedProductItem");
                 caculateTotalMoney();
             }
 
-           
+
+        }
+        private void Edit()
+        {
+            IsOpenDetailDialog = true;
         }
 
     }

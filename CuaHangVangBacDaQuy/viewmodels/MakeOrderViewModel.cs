@@ -131,6 +131,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                         SupplierSelectedAddress = SelectedSupplier.DiaChi;
                         SupplierSelectedPhoneNumber = SelectedSupplier.SoDT;
                         VisibilitySelectedSupplier = "Visible";
+                    
                    
                 }
                

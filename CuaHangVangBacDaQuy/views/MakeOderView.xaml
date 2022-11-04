@@ -69,10 +69,7 @@
 
                 </Grid>
 
-
-
             </Grid>
-
 
         </DataTemplate>
 
@@ -346,6 +343,7 @@
 
             </materialDesign:DialogHost>
             <!--enđ Diaglog-->
+            
         </Grid>
 
 

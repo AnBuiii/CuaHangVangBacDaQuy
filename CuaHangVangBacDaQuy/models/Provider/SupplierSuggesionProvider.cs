@@ -145,8 +145,6 @@ namespace CuaHangVangBacDaQuy.models.Provider
             MatchKind = MatchKind.Contains;
             MaxSuggestionCount = 10;
             SupplierList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
-           
-          
         }
       
     }

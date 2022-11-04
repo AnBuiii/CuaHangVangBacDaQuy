@@ -39,7 +39,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 OnPropertyChanged();
                 if(SelectedItem != null)
                 {
-                    //SelectedCustomer = SelectedItem.KhachHang;
+                    SelectedCustomer = SelectedItem.KhachHang;
                     ChiTietPhieuBans = SelectedItem.ChiTietPhieuBans.ToList();
                     InitTonKhoList();
                 }
@@ -152,8 +152,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
         private void Edit()
         {
             IsOpenSelectCustomerDialog = true;
-           // SelectedCustomer = SelectedItem.KhachHang;
-            //IsOpenSelectCustomerDialog = true;
+            SelectedCustomer = SelectedItem.KhachHang;
+            IsOpenSelectCustomerDialog = true;
 
         }
 

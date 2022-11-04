@@ -124,7 +124,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
             } 
             set
             {
-              
+
+
+                _SelectedSupplier = value;
+                OnPropertyChanged();
+
+
                 if (SelectedSupplier != null )
                 {                   
                         SupplierSelectedName = SelectedSupplier.TenNCC;
@@ -136,9 +141,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 }
                
                
-                _SelectedSupplier = value;
-                OnPropertyChanged();
-
             }
         }
 
@@ -192,6 +194,9 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
             set
             {
+                _SelectedProductItem = value;
+
+                OnPropertyChanged();
 
                 if (SelectedProductItem != null)
                 {
@@ -218,9 +223,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 }
                
                
-                _SelectedProductItem = value;
-
-                OnPropertyChanged();
+               
 
 
             }
@@ -339,6 +342,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             DataProvider.Ins.DB.NhaCungCaps.Add(newSupplier);
             DataProvider.Ins.DB.SaveChanges();
             SelectedSupplier = newSupplier;
+           
             IsOpenAddSupplierDialog = false;
 
         }
@@ -373,7 +377,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         void removeSelectedProduct()
         {
 
-            SelectedProductItem = null;
+           // SelectedProductItem = null;
 
             if (SelectedRemoveItem != null)
             {   

@@ -351,10 +351,13 @@
                     <Grid Grid.Row="1" />
                     <Grid Grid.Row="2"
                           Grid.RowSpan="2">
-                        <ContentControl x:Name="contentView"
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ContentControl x:Name="contentView"
                                         Grid.Row="0"
                                         Content="{Binding DataTemplate}" />
 
+                        </ScrollViewer>
+                      
 
                     </Grid>
                 </Grid>

@@ -90,65 +90,7 @@
 
                         </StackPanel>
 
-                        <!--<Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="0"  Margin="0, 0, 16, 0" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <Grid Grid.Row="0">
-                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                               VerticalAlignment="Center"
-                        Text="Họ" 
-                          />
-                            </Grid>
-                            <Grid Grid.Row="1">
-                                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                           
-                                             MinWidth="100"
-                                            
-                                             VerticalAlignment="Center"                                           
-                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                             BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                             Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            </Grid>
-
-                        </Grid>
-
-
-                        <Grid Grid.Column="1"  Margin="16,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <Grid Grid.Row="0">
-                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                       
-                        VerticalAlignment="Center"
-                        Text="Tên" 
-                          
-                        />
-                            </Grid>
-                            <Grid Grid.Row="1">
-                                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                            
-                                             MinWidth="100"
-                                            
-                                             VerticalAlignment="Center"                                           
-                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                             BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                             Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            </Grid>
-
-                        </Grid>-->
+                     
 
 
                      
@@ -402,44 +344,7 @@
 
                 <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <!--<ListView  ItemsSource="{Binding CustomerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
-                                   
-                                  
-                                   
-                                   
-                                     
-                                   
-                              >
-                            <ListView.View>
-                                <GridView >
-                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding MaKH}"></GridViewColumn>
-                                    <GridViewColumn Header="Tên khách hàng" DisplayMemberBinding="{Binding TenKH}"></GridViewColumn>
-                                    <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"></GridViewColumn>
-                                    <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
-                                    <GridViewColumn Header="Điện thoại" DisplayMemberBinding="{Binding SoDT}"></GridViewColumn>
-                                    <GridViewColumn Header="Ngày đăng ký" DisplayMemberBinding="{Binding NgayDK}"></GridViewColumn>
-
-                                  
-                                    <GridViewColumn x:Name="editBtn">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Width="40"
-                                                Padding="0"
-                                                Background="{StaticResource PrimaryHueDarkBrush}"
-                                                Style="{StaticResource MaterialDesignRaisedButton}"
-                                                
-                                                Command="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=DataContext.EditCommand}"
-                                                CommandParameter="{Binding ElementName=editBtn}">
-                                                    <materialDesign:PackIcon Kind="Edit" />
-                                                </Button>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-
-                                </GridView>
-                            </ListView.View>
-                        </ListView>-->
+                      
                         <DataGrid ItemsSource="{Binding CustomerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
                               CanUserResizeColumns="False"

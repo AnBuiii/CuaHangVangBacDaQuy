@@ -13,7 +13,8 @@
     <viewModel:SupplierViewModel x:Key="SupplierVM" />
     <viewModel:CustomerViewModel x:Key="CustomerVM"/>
     <converter:GenderConverter x:Key="genderConverterKey"/>
-  
+    <converter:AmountConverter x:Key="AmountConverterKey"/>
+    <converter:DecimalConverter x:Key="DecimalConverterKey"/>
     <viewModel:SaleOrderViewModel x:Key="SaleOrderVM" />
    
 </ResourceDictionary>

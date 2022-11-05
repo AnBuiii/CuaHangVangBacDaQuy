@@ -155,6 +155,8 @@
     <Compile Include="viewmodels\AccountViewModel.cs" />
     <Compile Include="viewmodels\BaseViewModel.cs" />
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
+    <Compile Include="viewmodels\Converter\AmountConverter.cs" />
+    <Compile Include="viewmodels\Converter\DecimalConverter.cs" />
     <Compile Include="viewmodels\SaleOrderViewModel.cs" />
     <Compile Include="viewmodels\Converter\GenderConverter.cs" />
     <Compile Include="viewmodels\CustomerViewModel.cs" />
@@ -313,6 +315,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\icon-user-default.png" />
+    <Resource Include="Image\Image-supplier.jpg" />
     <Content Include="models\VDBQModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>VDBQModel.edmx</DependentUpon>

@@ -238,22 +238,23 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
             }
         }
-        private PhieuMua _SelectedItem;
-        public PhieuMua SelectedItem
+        private PhieuMua _SelectedPurchaseOder;
+        public PhieuMua SelectedPurchaseOder
         {
-            get => _SelectedItem;
+            get => _SelectedPurchaseOder;
             set
             {
-                _SelectedItem = value;
+                _SelectedPurchaseOder = value;
                 OnPropertyChanged();
-                if(SelectedItem != null)
+                if(SelectedPurchaseOder != null)
                 {
-                    SelectedSupplier = SelectedItem.NhaCungCap;
+                    SelectedSupplier = SelectedPurchaseOder.NhaCungCap;
                     SelectedProductList = new ObservableCollection<ProductAdded>();
-                    foreach(var detail in SelectedItem.ChiTietPhieuMuas)
+                    foreach(var detail in SelectedPurchaseOder.ChiTietPhieuMuas)
                     {
                         SelectedProductList.Add(new ProductAdded() { Stt = SelectedProductList.Count, SanPham = detail.SanPham, Amount = (int)detail.SoLuong, IntoMoney = (decimal)detail.SanPham.DonGia, });
                     }
+                    caculateTotalMoney();
                 }
             }
         }
@@ -267,8 +268,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
             set
             {
-
-
                 _SelectedRemoveItem = value;
                 OnPropertyChanged();
 
@@ -297,6 +296,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
         }
 
+        public ICommand AddPurchaseOrderCommand { get; set; }
         public ICommand AddSupplierCommand { get; set; }
         public ICommand RemoveSelectedSupplierCommand { get; set; }
         public ICommand RemoveSelectedProductCommand { get; set; }
@@ -312,11 +312,14 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public MakeOrderViewModel()
         {
-            TestList = new ObservableCollection<string>(new string[] { "343", "12", "342", "3443" });
+
+            
 
             PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
 
             SuppliersList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
+
+            AddPurchaseOrderCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { IsOpenDetailDialog = true; });
 
             RemoveSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { VisibilitySelectedSupplier = "Hidden"; });
 

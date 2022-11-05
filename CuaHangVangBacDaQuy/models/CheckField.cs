@@ -16,7 +16,7 @@ namespace CuaHangVangBacDaQuy.models
             if(regexChecknumber.IsMatch(str)) return true;
             else
             {
-                MessageBox.Show("Vui lòng chỉ nhập số!");
+               // MessageBox.Show("Vui lòng chỉ nhập số!");
                 return false;
             }
         }

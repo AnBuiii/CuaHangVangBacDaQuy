@@ -16,9 +16,19 @@ namespace CuaHangVangBacDaQuy.models
         public int Amount { get => _Amount;
             set
             {
-                IntoMoney = (decimal)(value * SanPham.DonGia);
                 _Amount = value;
                 OnPropertyChanged();
+                if (Amount != 0)
+                {
+                    IntoMoney = (decimal)(value * SanPham.DonGia);
+                }
+                else
+                {   
+                    IntoMoney = 0;
+                }
+                Console.WriteLine(Amount.ToString());
+               
+               
             }
         }
 

@@ -80,13 +80,16 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         #region Commands
         public ICommand LoadedCommand { get; set; }
-        public ICommand AddProductCommand { get; set; }
+        
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
+        
+        public ICommand CancelDiaLogCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
-        public ICommand SaveAddCommand { get; set; }
+        public ICommand SaveProductCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         #endregion
+
 
 
         private bool _IsOpenProductDialog;
@@ -123,7 +126,20 @@ namespace CuaHangVangBacDaQuy.viewmodels
             LoadedCommand = new RelayCommand<ProductView>(p => true, p => Loaded(p));
             AddCommand = new RelayCommand<ProductView>(p => true, p => AddProduct());
             EditCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => EditProduct());
-            SaveAddCommand = new RelayCommand<ProductView>(p => true, p => SaveAdd());
+            
+            SaveProductCommand = new RelayCommand<ProductView>(
+                (p) =>
+                    {
+                        if (CheckValidProductDiaLog()) return true;
+                        return false;
+                        
+                    }
+                        
+                 , p => SaveAdd()
+            );
+            CancelDiaLogCommand = new RelayCommand<ProductView>(
+                (p) => true, p => CheckCloseProductDiaLog()
+            ) ;
             DeleteCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => DeleteProduct());
             SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
         }
@@ -192,6 +208,24 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 IsEditing = false;
 
             }
+        }
+
+
+        private void CheckCloseProductDiaLog()
+        {
+
+            if(MessageBox.Show("Những thay đổi của bạn sẽ không được lưu?", "",
+                 MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                IsOpenProductDialog=false;
+            }
+            
+
+        }
+        private bool CheckValidProductDiaLog()
+        {
+            if(string.IsNullOrWhiteSpace(TenSanPham) || string.IsNullOrEmpty(DonGia.ToString()) || DonGia.ToString() == "0" || SelectedLoaiSP == null || SelectedDonVi == null) return false;
+            return true;
         }
     }
 }

@@ -98,7 +98,7 @@
 
 
         <Grid>
-            <!--Dialog addCustomer-->
+            <!--Dialog addSupplier-->
             <materialDesign:DialogHost Name="dialog"
                                        Identifier="AccountDialog"
                                        CloseOnClickAway="True"
@@ -129,7 +129,7 @@
 
                             <Button  HorizontalAlignment="Right"
                                      Style="{StaticResource MaterialDesignIconButton}"
-                                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                                     Command="{Binding CancelDiaLogCommand}">
 
                                 <materialDesign:PackIcon Kind="CloseCircleOutline"
                                                          Height="30"
@@ -155,7 +155,7 @@
                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                          BorderThickness="0.5"
                                          BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                         Text="{Binding SupplierName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                         Text="{Binding NewSupplierName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             </StackPanel>
 
@@ -179,7 +179,7 @@
                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                          BorderThickness="0.5"
                                          BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                         Text="{Binding SupplierAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                         Text="{Binding NewSupplierAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
                                 <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
@@ -191,7 +191,7 @@
                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                          BorderThickness="0.5"
                                          BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                         Text="{Binding SupplierPhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                         Text="{Binding NewSupplierPhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </Grid>
 
@@ -208,7 +208,7 @@
                                 <Button HorizontalAlignment="Center"
                                         Margin="0, 0, 16, 0"
                                         Style="{StaticResource MaterialDesignRaisedButton}"
-                                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                                        Command="{Binding CancelAddSupplierDiaLogCommand}">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="CloseCircle"
                                                                  Width="18"
@@ -224,7 +224,7 @@
                                         HorizontalAlignment="Center"
                                         Margin="4"
                                         Style="{StaticResource MaterialDesignRaisedButton}"
-                                        Command="{Binding SaveAddCommand}">
+                                        Command="{Binding SaveSupplierCommand}">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="ContentSave"
                                                                  Width="18"
@@ -248,6 +248,180 @@
 
 
             </materialDesign:DialogHost>
+            <!--DigLog addProduct-->
+            <materialDesign:DialogHost 
+                                   Identifier="AccountDialog"
+                                   CloseOnClickAway="True"
+                                   DialogTheme="Inherit"
+                                   IsOpen="{Binding IsOpenProductDialog}">
+                <materialDesign:DialogHost.DialogContent>
+                    <Grid>
+                        <StackPanel>
+                            <Grid x:Name="grdInformation"
+                              Margin="16"
+                              VerticalAlignment="Stretch"
+                              HorizontalAlignment="Center"
+                              Visibility="Visible">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" >
+
+                                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                       
+                        VerticalAlignment="Center"
+                        Text="Thêm sản phẩm mới" 
+                                            Foreground="{StaticResource PrimaryHueDarkBrush}"
+                        FontSize="20"/>
+
+
+                                    <Button  HorizontalAlignment="Right" 
+                                         Style="{StaticResource MaterialDesignIconButton}"
+                                         Command="{Binding CancelDiaLogCommand}"   
+                                       >
+
+                                        <materialDesign:PackIcon Kind="CloseCircleOutline" Height="30" Width="30" />
+
+                                    </Button>
+                                </Grid>
+
+                                <Grid Grid.Row ="1">
+                                    <Separator Margin="5"></Separator>
+                                </Grid>
+                                <StackPanel Orientation="Vertical" Grid.Row="3">
+                                    <!--Tên sân phẩm-->
+                                    <StackPanel Orientation="Horizontal"
+                                            Margin="0 20">
+                                        <materialDesign:PackIcon Kind="TableChair"
+                                                             Width="30"
+                                                             Height="30"
+                                                             Foreground="{StaticResource Gray}"
+                                                             VerticalAlignment="Center"
+                                                             Margin="10,10,20,-18" />
+                                        <TextBox materialDesign:HintAssist.Hint="Tên sản phẩm"
+                                             Text="{Binding NewProductName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                             Foreground="Black"
+                                             FontSize="16"
+                                             FontWeight="Medium"
+                                             materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                             Width="250"
+                                             VerticalContentAlignment="Center"
+                                             Height="50"
+                                             Padding="2,0,0,0">
+                                        </TextBox>
+                                    </StackPanel>
+                                    <!--Đơn giá-->
+                                    <StackPanel x:Name="usernameStack"
+                                            Orientation="Horizontal"
+                                            Margin="0 20">
+                                        <materialDesign:PackIcon Kind="Money"
+                                                             Width="30"
+                                                             Height="30"
+                                                             Foreground="{StaticResource Gray}"
+                                                             VerticalAlignment="Center"
+                                                             Margin="10,10,20,-18" />
+                                        <TextBox materialDesign:HintAssist.Hint="Đơn giá"
+                                             Text="{Binding NewProductPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource ResourceKey=DecimalConverterKey}}"
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                             Foreground="Black"
+                                             FontSize="16"
+                                             FontWeight="Medium"
+                                             materialDesign:HintAssist.Foreground="{StaticResource Gray}"
+                                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
+                                             Width="250"
+                                             VerticalContentAlignment="Center"
+                                             Height="50"
+                                             Padding="2,0,0,0" />
+
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"
+                                            Margin="0 20">
+                                        <materialDesign:PackIcon Kind="TableChair"
+                                                             Width="30"
+                                                             Height="30"
+                                                             Foreground="{StaticResource Gray}"
+                                                             VerticalAlignment="top"
+                                                             Margin="10,10,20,-18" />
+                                        <ComboBox materialDesign:HintAssist.Hint="Loại sản phẩm"
+                                              ItemsSource="{Binding ProductTypeList}"
+                                              SelectedItem="{Binding SelectedProductType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              FontSize="16"
+                                              DisplayMemberPath="TenLoaiSP"
+                                              Foreground="Black"
+                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                              Width="250">
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"
+                                            Margin="0 20">
+                                        <materialDesign:PackIcon Kind="CardText"
+                                                             Width="30"
+                                                             Height="30"
+                                                             Foreground="{StaticResource Gray}"
+                                                             VerticalAlignment="top"
+                                                             Margin="10,10,20,-18" />
+                                        <ComboBox materialDesign:HintAssist.Hint="Đơn vị"
+                                              FontSize="16"
+                                              ItemsSource="{Binding ProductUnitList}"
+                                              SelectedItem="{Binding SelectedProductUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              DisplayMemberPath="TenDV"
+                                              Foreground="Black"
+                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                              Width="250" />
+                                    </StackPanel>
+                                    <Grid>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <Button 
+                                           
+                                            Margin="16"
+                                            HorizontalAlignment="Right"
+                                            Style="{StaticResource MaterialDesignRaisedButton}"
+                                             Command="{Binding CancelDiaLogCommand}"  >
+                                                <StackPanel Orientation="Horizontal">
+                                                    <materialDesign:PackIcon Kind="CloseCircle"
+                                                                     Width="18"
+                                                                     Height="18"
+                                                                     VerticalAlignment="Center"
+                                                                     HorizontalAlignment="Left"
+                                                                     Margin="2 2 4 2" />
+                                                    <TextBlock Text="Hủy"
+                                                       FontSize="18" />
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button 
+                                            
+                                            Margin="0 16"
+                                            HorizontalAlignment="Right"
+                                            Style="{StaticResource MaterialDesignRaisedButton}"
+                                            Command="{Binding SaveProductCommand}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <materialDesign:PackIcon Kind="ContentSave"
+                                                                     Width="18"
+                                                                     Height="18"
+                                                                     VerticalAlignment="Center"
+                                                                     HorizontalAlignment="Left"
+                                                                     Margin="2 2 4 2" />
+                                                    <TextBlock Text="Lưu"
+                                                       FontSize="18" />
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+
+
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:DialogHost.DialogContent>
+
+            </materialDesign:DialogHost>
             <!--<materialDesign:DialogHost CloseOnClickAway="True"
                                        DialogTheme="Inherit"
                                        IsOpen="{Binding IsOpenDetailDialog}">
@@ -255,6 +429,8 @@
                  
                 </materialDesign:DialogHost.DialogContent>
             </materialDesign:DialogHost>-->
+            
+            
             <Grid >
               
 
@@ -565,7 +741,7 @@
                                               MaxHeight="270">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0, 0, 16, 0">
                                         <DataGrid ItemsSource="{Binding SelectedProductList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                          SelectedItem="{Binding SelectedRemoveItem, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                                          SelectedItem="{Binding SelectedProductDataGrid, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                                                           CanUserResizeColumns="False"
                                                           IsReadOnly="False"
                                                           CanUserAddRows="False"

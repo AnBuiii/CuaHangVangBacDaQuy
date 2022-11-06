@@ -50,13 +50,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
         }
 
-        //private string _FirstName;
-        //public string FirstName { get => _FirstName; set { _FirstName = value; OnPropertyChanged(); } }
-
-        //private string _LastName;
-        //public string LastName { get => _LastName; set { _LastName = value; OnPropertyChanged(); } }
-
-
 
         private string _Gender;
         public string Gender
@@ -81,8 +74,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             get => _SelectedItem;
             set
             {
-
-                _SelectedItem = value;
+                  _SelectedItem = value;
                 OnPropertyChanged();
                 if (SelectedItem != null)
                 {
@@ -112,14 +104,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             AddCommand = new RelayCommand<CustomerView>((p) => true, p => { TitleDiaLog = "Thêm khách hàng"; SelectedItem = new KhachHang(); IsOpenAddCustomerDialog = true; });
 
 
-            SaveAddCommand = new RelayCommand<CustomerView>((p) =>
-            {
-               
-
-                if (!checkData()) return false;
-                var phone = DataProvider.Ins.DB.KhachHangs.Where(x => x.SoDT == PhoneNumber);
-                     return true;
-            }, p => { actionAddCustomer(); });
+            SaveAddCommand = new RelayCommand<CustomerView>((p) => checkData(), p => { actionAddCustomer(); });
 
            EditCommand = new RelayCommand<DataGridTemplateColumn>( (p) => true, p => {
               
@@ -133,7 +118,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
 
         public void actionAddCustomer()
-        {
+        {           
+            if(!checkValidPhone()) return;
 
             var newCus = new KhachHang()
             {
@@ -161,6 +147,23 @@ namespace CuaHangVangBacDaQuy.viewmodels
             return true;
         }
 
+        bool checkValidPhone()
+        {
+            if (!CheckField.checkPhone(PhoneNumber))
+            {
+
+                MessageBox.Show("Vui lòng nhập đúng định dạng số điện thoại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+
+            if (CustomerList.Where(p => p.SoDT == PhoneNumber).Count() > 0)
+            {
+                MessageBox.Show("Số điện thoại đã tồn tại!", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            return true;
+        }
         void loadCustomer(CustomerView view)
         {
             

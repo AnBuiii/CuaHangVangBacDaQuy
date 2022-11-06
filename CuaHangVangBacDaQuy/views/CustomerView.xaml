@@ -165,7 +165,7 @@
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5" 
                                              BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                            Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            Text="{Binding PhoneNumber, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                     </Grid>
 

@@ -13,30 +13,22 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
 
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {       
+        {
+
+            //if (value == null) return "0";
+            //return (int)value;
+            
             if(value == null || (int)value == 0) return "";
             return value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            
-            if (value == null) return 0;
-
-            if (CheckField.checkNumber((string)value))
-            {
-                if (System.Convert.ToInt64(value) <= 2147483647) // giới hạn int trong sql
-                {
-                    return value;
-                }
-                else
-                {
-                    MessageBox.Show("Giá trị nhập quá lớn!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            
+            //  return Binding.DoNothing;
+            //MessageBox.Show("cc");
+            if (CheckField.checkNumber((string)value)) return value; 
             return 0;
-                   
+           
         }
 
 

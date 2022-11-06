@@ -74,30 +74,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 //    Load(false);
             }
         }
-
-        private bool _IsOpenProductDialog;
-        public bool IsOpenProductDialog
-        {
-            get { return _IsOpenProductDialog; }
-            set { _IsOpenProductDialog = value; OnPropertyChanged(); }
-        }
-        private bool _isEditing;
-        public bool IsEditing
-        {
-            get { return _isEditing; }
-            set
-            {
-                _isEditing = value; OnPropertyChanged();
-                if (_isEditing)
-                {
-                    AddButtonText = "Save change";
-                }
-                else
-                {
-                    AddButtonText = "Save new Product";
-                }
-            }
-        }
         #endregion
 
         #endregion
@@ -114,6 +90,31 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand SearchCommand { get; set; }
         #endregion
 
+
+
+        private bool _IsOpenProductDialog;
+        public bool IsOpenProductDialog
+        {
+            get { return _IsOpenProductDialog; }
+            set { _IsOpenProductDialog = value; OnPropertyChanged(); }
+        }
+        private bool _isEditing;
+        public bool IsEditing
+        {
+            get { return _isEditing; }
+            set
+            {
+                _isEditing = value; OnPropertyChanged(); 
+                if (_isEditing)
+                {
+                    AddButtonText = "Save change";
+                } else
+                {
+                    AddButtonText = "Save new Product";
+                }
+            }
+        }
+
         public ProductViewModel()
         {
             IsOpenProductDialog = false;
@@ -125,20 +126,20 @@ namespace CuaHangVangBacDaQuy.viewmodels
             LoadedCommand = new RelayCommand<ProductView>(p => true, p => Loaded(p));
             AddCommand = new RelayCommand<ProductView>(p => true, p => AddProduct());
             EditCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => EditProduct());
-
+            
             SaveProductCommand = new RelayCommand<ProductView>(
                 (p) =>
                     {
                         if (CheckValidProductDiaLog()) return true;
                         return false;
-
+                        
                     }
-
-                 , p => SaveProduct()
+                        
+                 , p => SaveAdd()
             );
             CancelDiaLogCommand = new RelayCommand<ProductView>(
                 (p) => true, p => CheckCloseProductDiaLog()
-            );
+            ) ;
             DeleteCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => DeleteProduct());
             SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
         }
@@ -168,7 +169,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
         public void AddProduct()
         {
-           
             IsEditing = false;
             IsOpenProductDialog = true;
             SelectedItem = new SanPham();
@@ -185,7 +185,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             DataProvider.Ins.DB.SaveChanges();
             SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
         }
-        public void SaveProduct()
+        public void SaveAdd()
         {
             if (!IsEditing)
             {
@@ -219,14 +219,13 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                 IsOpenProductDialog=false;
             }
-           // else  IsOpenProdu`ctDialog = true;
-           
+            
+
         }
         private bool CheckValidProductDiaLog()
         {
             if(string.IsNullOrWhiteSpace(TenSanPham) || string.IsNullOrEmpty(DonGia.ToString()) || DonGia.ToString() == "0" || SelectedLoaiSP == null || SelectedDonVi == null) return false;
             return true;
         }
-      
     }
 }

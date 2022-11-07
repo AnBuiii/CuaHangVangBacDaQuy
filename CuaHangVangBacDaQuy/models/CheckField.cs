@@ -22,8 +22,6 @@ namespace CuaHangVangBacDaQuy.models
         public static bool checkPhone(string str)
         {
             if (regexCheckPhoneNumber.IsMatch(str)) return true;
-           
-                
                 return false;
             
         }

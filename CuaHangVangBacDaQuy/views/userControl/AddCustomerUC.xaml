@@ -14,10 +14,11 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              Name="makeOderView"
-             d:DesignHeight="600" d:DesignWidth="400"
+             DataContext="{StaticResource AddCustomerVM}"
+             d:DesignHeight="620.071" d:DesignWidth="441.967"
              >
-   
-    <Grid  Margin="16px">
+
+    <Grid  Margin="16px" Width="400" Height="500">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
@@ -27,122 +28,56 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" >
 
             <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                       
                         VerticalAlignment="Center"
-                        Text="Tạo khách hàng" 
+                        Text="{Binding  TilteView }" 
                         FontSize="20"/>
 
 
-            <Button  HorizontalAlignment="Right"
+            <Button  HorizontalAlignment="Right" 
                      Style="{StaticResource MaterialDesignIconButton}"
-                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                      Command="{Binding  CancelCommand}"
+                     >
 
-                <materialDesign:PackIcon Kind="CloseCircleOutline"
-                                         Height="30"
-                                         Width="30" />
+                <materialDesign:PackIcon Kind="CloseCircleOutline" Height="30" Width="30" />
 
             </Button>
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row ="1">
             <Separator Margin="5"></Separator>
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" >
 
-
-            <StackPanel>
+            <StackPanel >
                 <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                VerticalAlignment="Center"
                         Text="Họ và tên" ></TextBlock>
 
-                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                           
+                <TextBox  
+                                            VerticalScrollBarVisibility="Auto"
                                              MinWidth="100"
-                                            
+                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                              VerticalAlignment="Center"                                           
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"/>
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                             Text="{Binding CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             </StackPanel>
-            <!--<Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-
-            
-            <Grid Grid.Row="0">
-                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                               VerticalAlignment="Center"
-                        Text="Họ và Tên" ></TextBlock>
-            </Grid>-->
-            
-            
-            <!--<Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="0"
-                  Margin="0, 0, 16, 0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0">
-                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                VerticalAlignment="Center"
-                                Text="Họ" />
-                </Grid>
-                <Grid Grid.Row="1">
-                    <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                           
-                                             MinWidth="100"
-                                            
-                                             VerticalAlignment="Center"                                           
-                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                             BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"/>
-                </Grid>
-
-            </Grid>
 
 
-            <Grid Grid.Column="1"
-                  Margin="16,0,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0">
-                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                VerticalAlignment="Center"
-                                Text="Tên" />
-                </Grid>
-                <Grid Grid.Row="1">
-                    <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                            
-                                             MinWidth="100"
-                                             
-                                             VerticalAlignment="Center"                                           
-                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                             BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"/>
-                </Grid>
-
-            </Grid>-->
 
 
 
         </Grid>
 
-        <Grid Grid.Row="3"
-              Margin="0, 16, 0 0">
+        <Grid Grid.Row="3" Margin="0, 16, 0 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -150,25 +85,43 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                            VerticalAlignment="Center"
-                            Text="Giới tính" />
+                       
+                        VerticalAlignment="Center"
+                        Text="Giới tính" 
+                          
+                        />
             </Grid>
             <Grid Grid.Row="1"   Margin="0, 16, 0, 0">
-                <RadioButton  GroupName="Gender" Content="Nam" Style="{StaticResource MaterialDesignAccentRadioButton}"></RadioButton>
+                <RadioButton  GroupName="Gender" 
+                              Content="Nam" 
+                              Style="{StaticResource MaterialDesignAccentRadioButton}"
+                                IsChecked="{Binding Path = Gender, 
+                                         UpdateSourceTrigger=PropertyChanged,
+			                            Converter={StaticResource ResourceKey=genderConverterKey},
+			                             ConverterParameter=Nam, Mode=TwoWay}" 
+                                        >
+                </RadioButton>
             </Grid>
             <Grid Grid.Row="2"  Margin="0, 16, 0, 0">
-                <RadioButton   GroupName="Gender"  Content="Nữ" Style="{StaticResource MaterialDesignAccentRadioButton}"></RadioButton>
+                <RadioButton   GroupName="Gender"  
+                               Content="Nữ" 
+                               Style="{StaticResource MaterialDesignAccentRadioButton}"
+                                IsChecked="{Binding Path = Gender, 
+                                         UpdateSourceTrigger=PropertyChanged,
+			                            Converter={StaticResource ResourceKey=genderConverterKey},
+			                             ConverterParameter=Nu, Mode=TwoWay}"
+                    ></RadioButton>
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="4"
-              Margin="0, 16, 0, 0">
+        <Grid Grid.Row="4"  Margin="0, 16, 0, 0">
             <StackPanel>
 
 
                 <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                            VerticalAlignment="Center"
-                            Text="Địa chỉ" />
+                               VerticalAlignment="Center"
+                        Text="Địa chỉ" 
+                          />
                 <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                            
                                              MinWidth="100"
@@ -176,12 +129,14 @@
                                              VerticalAlignment="Center"                                           
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"/>
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                             Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
                 <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                            VerticalAlignment="Center"
-                            Text="Số điện thoại" />
+                               VerticalAlignment="Center"
+                        Text="Số điện thoại" 
+                          />
                 <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                            
                                              MinWidth="100"
@@ -189,24 +144,23 @@
                                              VerticalAlignment="Center"                                           
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"/>
+                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                            Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="5"
-              Margin="0, 16, 0, 0">
+        <Grid Grid.Row="5" Margin="0, 16, 0, 0">
             <Separator Margin="5"></Separator>
         </Grid>
-        <Grid Grid.Row="6"
-              Margin="0, 16, 0, 0">
+        <Grid Grid.Row="6"  Margin="0, 16, 0, 0">
 
-            <StackPanel  Orientation="Horizontal"
-                         HorizontalAlignment="Right">
+            <StackPanel  Orientation="Horizontal"  HorizontalAlignment="Right">
 
-                <Button HorizontalAlignment="Center"
-                        Margin="0, 0, 16, 0"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                <Button 
+                      HorizontalAlignment="Center"
+                      Margin="0, 0, 16, 0"
+                      Style="{StaticResource MaterialDesignRaisedButton}"
+                      Command="{Binding CancelCommand}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="CloseCircle"
                                                  Width="18"
@@ -214,15 +168,14 @@
                                                  VerticalAlignment="Center"
                                                  HorizontalAlignment="Left"
                                                  Margin="2 2 4 2" />
-                        <TextBlock Text="Hủy"
-                                   FontSize="18" />
+                        <TextBlock Text="Hủy" FontSize="18" />
                     </StackPanel>
                 </Button>
                 <Button Grid.Column="0" 
                      HorizontalAlignment="Center"
                      Margin="4"
                      Style="{StaticResource MaterialDesignRaisedButton}"
-                     Command="{Binding SaveAddCommand}">
+                     Command="{Binding SaveCommand}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="ContentSave"
                                                  Width="18"
@@ -231,7 +184,7 @@
                                                  HorizontalAlignment="Left"
                                                  Margin="2 2 4 2" />
                         <TextBlock Text="Lưu"
-                                   FontSize="18" />
+                                                FontSize="18" />
                     </StackPanel>
                 </Button>
 

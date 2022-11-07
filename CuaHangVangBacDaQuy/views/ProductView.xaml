@@ -4,19 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:uc="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
              DataContext="{StaticResource ProductVM}"
              x:Name="ProductUC"
              mc:Ignorable="d"
-             d:DesignHeight="450"
-             d:DesignWidth="800"
+             d:DesignHeight="470.4"
+             d:DesignWidth="918.2"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
-             FontFamily="{DynamicResource MaterialDesignFont}">
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             >
 
 
     <i:Interaction.Triggers>
@@ -26,176 +27,14 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <materialDesign:DialogHost Name="dialog"
+        <materialDesign:DialogHost  VerticalAlignment="Top"
                                    Identifier="AccountDialog"
                                    CloseOnClickAway="True"
                                    DialogTheme="Inherit"
-                                   IsOpen="{Binding IsOpenProductDialog}">
+                                   IsOpen="{Binding IsOpenProductDialog.IsOpen}"
+                                   >
             <materialDesign:DialogHost.DialogContent>
-                <Grid>
-                    <StackPanel>
-                        <Grid x:Name="grdInformation"
-                              Margin="16"
-                              VerticalAlignment="Stretch"
-                              HorizontalAlignment="Center"
-                              Visibility="Visible">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" >
-
-                                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                       
-                        VerticalAlignment="Center"
-                        Text="Thêm sản phẩm mới" 
-                                            Foreground="{StaticResource PrimaryHueDarkBrush}"
-                        FontSize="20"/>
-
-
-                                <Button  HorizontalAlignment="Right" 
-                                         Style="{StaticResource MaterialDesignIconButton}"
-                                         Command="{Binding CancelDiaLogCommand}"   
-                                       >
-
-                                    <materialDesign:PackIcon Kind="CloseCircleOutline" Height="30" Width="30" />
-
-                                </Button>
-                            </Grid>
-
-                            <Grid Grid.Row ="1">
-                                <Separator Margin="5"></Separator>
-                            </Grid>
-                            <StackPanel Orientation="Vertical" Grid.Row="3">
-                                <!--Tên sân phẩm-->
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="0 20">
-                                    <materialDesign:PackIcon Kind="TableChair"
-                                                             Width="30"
-                                                             Height="30"
-                                                             Foreground="{StaticResource Gray}"
-                                                             VerticalAlignment="Center"
-                                                             Margin="10,10,20,-18" />
-                                    <TextBox materialDesign:HintAssist.Hint="Tên sản phẩm"
-                                             Text="{Binding TenSanPham, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                             Foreground="Black"
-                                             FontSize="16"
-                                             FontWeight="Medium"
-                                             materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                                             Width="250"
-                                             VerticalContentAlignment="Center"
-                                             Height="50"
-                                             Padding="2,0,0,0">
-                                    </TextBox>
-                                </StackPanel>
-                                <!--Đơn giá-->
-                                <StackPanel x:Name="usernameStack"
-                                            Orientation="Horizontal"
-                                            Margin="0 20">
-                                    <materialDesign:PackIcon Kind="Money"
-                                                             Width="30"
-                                                             Height="30"
-                                                             Foreground="{StaticResource Gray}"
-                                                             VerticalAlignment="Center"
-                                                             Margin="10,10,20,-18" />
-                                    <TextBox materialDesign:HintAssist.Hint="Đơn giá"
-                                             Text="{Binding DonGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource ResourceKey=DecimalConverterKey}}"
-                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                             Foreground="Black"
-                                             FontSize="16"
-                                             FontWeight="Medium"
-                                             materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                                             Width="250"
-                                             VerticalContentAlignment="Center"
-                                             Height="50"
-                                             Padding="2,0,0,0" />
-
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="0 20">
-                                    <materialDesign:PackIcon Kind="TableChair"
-                                                             Width="30"
-                                                             Height="30"
-                                                             Foreground="{StaticResource Gray}"
-                                                             VerticalAlignment="top"
-                                                             Margin="10,10,20,-18" />
-                                    <ComboBox materialDesign:HintAssist.Hint="Loại sản phẩm"
-                                              ItemsSource="{Binding LoaiSanPhamList}"
-                                              SelectedItem="{Binding SelectedLoaiSP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                              FontSize="16"
-                                              DisplayMemberPath="TenLoaiSP"
-                                              Foreground="Black"
-                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                              Width="250">
-                                    </ComboBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="0 20">
-                                    <materialDesign:PackIcon Kind="CardText"
-                                                             Width="30"
-                                                             Height="30"
-                                                             Foreground="{StaticResource Gray}"
-                                                             VerticalAlignment="top"
-                                                             Margin="10,10,20,-18" />
-                                    <ComboBox materialDesign:HintAssist.Hint="Đơn vị"
-                                              FontSize="16"
-                                              ItemsSource="{Binding DonViList}"
-                                              SelectedItem="{Binding SelectedDonVi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                              DisplayMemberPath="TenDV"
-                                              Foreground="Black"
-                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                              Width="250" />
-                                </StackPanel>
-                                <Grid>
-
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Button 
-                                           
-                                            Margin="16"
-                                            HorizontalAlignment="Right"
-                                            Style="{StaticResource MaterialDesignRaisedButton}"
-                                             Command="{Binding CancelDiaLogCommand}"  >
-                                            <StackPanel Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="CloseCircle"
-                                                                     Width="18"
-                                                                     Height="18"
-                                                                     VerticalAlignment="Center"
-                                                                     HorizontalAlignment="Left"
-                                                                     Margin="2 2 4 2" />
-                                                <TextBlock Text="Hủy"
-                                                       FontSize="18" />
-                                            </StackPanel>
-                                        </Button>
-
-                                        <Button 
-                                            
-                                            Margin="0 16"
-                                            HorizontalAlignment="Right"
-                                            Style="{StaticResource MaterialDesignRaisedButton}"
-                                            Command="{Binding SaveProductCommand}">
-                                            <StackPanel Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="ContentSave"
-                                                                     Width="18"
-                                                                     Height="18"
-                                                                     VerticalAlignment="Center"
-                                                                     HorizontalAlignment="Left"
-                                                                     Margin="2 2 4 2" />
-                                                <TextBlock Text="Lưu"
-                                                       FontSize="18" />
-                                            </StackPanel>
-                                        </Button>
-                                    </StackPanel>
-                                   
-                                    
-                                </Grid>
-                            </StackPanel>
-                        </Grid>
-                    </StackPanel>
-                </Grid>
+                <uc:AddProductUC DataContext="{Binding ContentAddProduct}"></uc:AddProductUC>
             </materialDesign:DialogHost.DialogContent>
 
         </materialDesign:DialogHost>

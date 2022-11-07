@@ -30,193 +30,18 @@
         
         
         <!--Dialog addCustomer-->
-        <materialDesign:DialogHost Name="dialog"
+        <materialDesign:DialogHost 
                                    Identifier="AccountDialog"
                                    CloseOnClickAway="True"
                                    DialogTheme="Inherit"
-                                    IsOpen="{Binding IsOpenAddCustomerDialog}"    >
+                                    IsOpen="{Binding IsOpenDiaLog.IsOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"                              
+                                  
+                                   >
+
             <materialDesign:DialogHost.DialogContent>
-
-
-                <Grid  Margin="16px" Width="400" Height="500">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" >
-
-                        <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                       
-                        VerticalAlignment="Center"
-                        Text="{Binding TitleDiaLog }" 
-                        FontSize="20"/>
-
-
-                        <Button  HorizontalAlignment="Right" 
-                     Style="{StaticResource MaterialDesignIconButton}"
-                      Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                     >
-
-                            <materialDesign:PackIcon Kind="CloseCircleOutline" Height="30" Width="30" />
-
-                        </Button>
-                    </Grid>
-
-                    <Grid Grid.Row ="1">
-                        <Separator Margin="5"></Separator>
-                    </Grid>
-
-                    <Grid Grid.Row="2" >
-
-                        <StackPanel >
-                            <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                               VerticalAlignment="Center"
-                        Text="Họ và tên" ></TextBlock>
-
-                            <TextBox  
-                                            VerticalScrollBarVisibility="Auto"
-                                             MinWidth="100"
-                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                             VerticalAlignment="Center"                                           
-                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                             BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                             Text="{Binding CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-                        </StackPanel>
-
-                     
-
-
-                     
-
-                    </Grid>
-
-                    <Grid Grid.Row="3" Margin="0, 16, 0 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                       
-                        VerticalAlignment="Center"
-                        Text="Giới tính" 
-                          
-                        />
-                        </Grid>
-                        <Grid Grid.Row="1"   Margin="0, 16, 0, 0">
-                            <RadioButton  GroupName="Gender" 
-                              Content="Nam" 
-                              Style="{StaticResource MaterialDesignAccentRadioButton}"
-                                IsChecked="{Binding Path = Gender, 
-                                         UpdateSourceTrigger=PropertyChanged,
-			                            Converter={StaticResource ResourceKey=genderConverterKey},
-			                             ConverterParameter=Nam, Mode=TwoWay}" 
-                                        >
-                            </RadioButton>
-                        </Grid>
-                        <Grid Grid.Row="2"  Margin="0, 16, 0, 0">
-                            <RadioButton   GroupName="Gender"  
-                               Content="Nữ" 
-                               Style="{StaticResource MaterialDesignAccentRadioButton}"
-                                IsChecked="{Binding Path = Gender, 
-                                         UpdateSourceTrigger=PropertyChanged,
-			                            Converter={StaticResource ResourceKey=genderConverterKey},
-			                             ConverterParameter=Nu, Mode=TwoWay}"
-                    ></RadioButton>
-                        </Grid>
-                    </Grid>
-
-                    <Grid Grid.Row="4"  Margin="0, 16, 0, 0">
-                        <StackPanel>
-
-
-                            <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                               VerticalAlignment="Center"
-                        Text="Địa chỉ" 
-                          />
-                            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                           
-                                             MinWidth="100"
-                                            
-                                             VerticalAlignment="Center"                                           
-                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                             BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                             Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-
-                            <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                               VerticalAlignment="Center"
-                        Text="Số điện thoại" 
-                          />
-                            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                           
-                                             MinWidth="100"
-                                            
-                                             VerticalAlignment="Center"                                           
-                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                             BorderThickness="0.5" 
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                            Text="{Binding PhoneNumber, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
-                    </Grid>
-
-                    <Grid Grid.Row="5" Margin="0, 16, 0, 0">
-                        <Separator Margin="5"></Separator>
-                    </Grid>
-                    <Grid Grid.Row="6"  Margin="0, 16, 0, 0">
-
-                        <StackPanel  Orientation="Horizontal"  HorizontalAlignment="Right">
-
-                            <Button 
-                      HorizontalAlignment="Center"
-                      Margin="0, 0, 16, 0"
-                      Style="{StaticResource MaterialDesignRaisedButton}"
-                      Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="CloseCircle"
-                                                 Width="18"
-                                                 Height="18"
-                                                 VerticalAlignment="Center"
-                                                 HorizontalAlignment="Left"
-                                                 Margin="2 2 4 2" />
-                                    <TextBlock Text="Hủy" FontSize="18" />
-                                </StackPanel>
-                            </Button>
-                            <Button Grid.Column="0" 
-                     HorizontalAlignment="Center"
-                     Margin="4"
-                     Style="{StaticResource MaterialDesignRaisedButton}"
-                     Command="{Binding SaveAddCommand}">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="ContentSave"
-                                                 Width="18"
-                                                 Height="18"
-                                                 VerticalAlignment="Center"
-                                                 HorizontalAlignment="Left"
-                                                 Margin="2 2 4 2" />
-                                    <TextBlock Text="Lưu"
-                                                FontSize="18" />
-                                </StackPanel>
-                            </Button>
-
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-
-                
-                   
-               
+                <uc:AddCustomerUC DataContext="{Binding ContentAddCustomer}"></uc:AddCustomerUC>
             </materialDesign:DialogHost.DialogContent>
-
+          
 
         </materialDesign:DialogHost>
             <!--enđ Diaglog-->
@@ -332,21 +157,13 @@
                         </Button>
                     </Grid>
                 </materialDesign:Card>
-                <!--<materialDesign:Card Grid.Row="1" Margin="5">
-                    <WrapPanel>
-                       
-                        --><!--<Button Tag ="Sửa đổi thông tin khách hàng" Command="{Binding EditCommand}" Content="Sửa" Margin="5" Width="100"></Button>--><!--
-                        <Button  Command="{Binding AddCommand}" Content="Thêm" Margin="5" Width="100"></Button>
-                        --><!-- <Button Command="{Binding EditCommand}" Content="Sửa" Margin="5" Width="100"></Button> --><!--
-                        <Button Command="{Binding DeleteCommand}" Content="Xóa" Margin="5" Width="100"></Button>
-                    </WrapPanel>
-                </materialDesign:Card>-->
+               
 
                 <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                       
                         <DataGrid ItemsSource="{Binding CustomerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
+                             SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"

@@ -9,10 +9,11 @@
 
 namespace CuaHangVangBacDaQuy.models
 {
+    using CuaHangVangBacDaQuy.viewmodels;
     using System;
     using System.Collections.Generic;
     
-    public partial class SanPham
+    public partial class SanPham:BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SanPham()
@@ -20,13 +21,22 @@ namespace CuaHangVangBacDaQuy.models
             this.ChiTietPhieuBans = new HashSet<ChiTietPhieuBan>();
             this.ChiTietPhieuMuas = new HashSet<ChiTietPhieuMua>();
         }
-    
+
+
         public string MaSP { get; set; }
-        public string TenSP { get; set; }
-        public Nullable<decimal> DonGia { get; set; }
-        public int MaLoaiSP { get; set; }
-        public int MaDV { get; set; }
-    
+
+        private string _TenSP { get; set; }
+        public string TenSP { get =>_TenSP ; set { _TenSP = value; OnPropertyChanged(); }}
+
+        private Nullable<decimal> _DonGia { get; set; }
+        public Nullable<decimal> DonGia { get => _DonGia; set { _DonGia = value; OnPropertyChanged(); } }
+
+        private int _MaLoaiSP { get; set; }
+        public int MaLoaiSP { get => _MaLoaiSP; set { _MaLoaiSP = value; OnPropertyChanged(); } }
+
+        private int _MaDV { get; set; }
+        public int MaDV { get => _MaDV; set { _MaDV = value; OnPropertyChanged(); } }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuBan> ChiTietPhieuBans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

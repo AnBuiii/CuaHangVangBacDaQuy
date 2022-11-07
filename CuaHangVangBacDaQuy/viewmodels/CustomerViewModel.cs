@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Controls;
+using CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel;
 
 namespace CuaHangVangBacDaQuy.viewmodels
 {
+
     public class CustomerViewModel : BaseViewModel
     {
 
@@ -23,50 +25,13 @@ namespace CuaHangVangBacDaQuy.viewmodels
             set { _CustomerList = value; OnPropertyChanged(); }
         }
 
-        private bool _IsOpenAddCustomerDialog;
-        public bool IsOpenAddCustomerDialog
+
+        private OpenDiaLog _IsOpenDiaLog;
+        public OpenDiaLog IsOpenDiaLog
         {
-            get { return _IsOpenAddCustomerDialog; }
-            set { _IsOpenAddCustomerDialog = value; OnPropertyChanged(); }
+            get { return _IsOpenDiaLog; }
+            set { _IsOpenDiaLog = value; OnPropertyChanged(); } 
         }
-
-
-        private string _TitleDiaLog;
-        public string TitleDiaLog
-        {
-            get { return _TitleDiaLog; }
-            set { _TitleDiaLog = value; OnPropertyChanged(); }
-        }
-
-
-
-        private string _CustomerName;
-        public string CustomerName
-        {
-            get => _CustomerName;
-            set
-            {
-                _CustomerName = value; OnPropertyChanged();
-            }
-        }
-
-
-        private string _Gender;
-        public string Gender
-        {
-            get => _Gender;
-            set
-            {
-                _Gender = value; OnPropertyChanged();
-            }
-        }
-
-
-        private string _Address;
-        public string Address { get => _Address; set { _Address = value; OnPropertyChanged(); } }
-
-        private string _PhoneNumber;
-        public string PhoneNumber { get => _PhoneNumber; set { _PhoneNumber = value; OnPropertyChanged(); } }
         
         private KhachHang _SelectedItem;
         public KhachHang SelectedItem
@@ -76,21 +41,26 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                   _SelectedItem = value;
                 OnPropertyChanged();
-                if (SelectedItem != null)
-                {
-                    CustomerName = SelectedItem.TenKH;
-                    Gender = SelectedItem.GioiTinh;
-                    Address = SelectedItem.DiaChi;
-                    PhoneNumber = SelectedItem.SoDT;
-                    
-                }
+              
                 
             }
         }
 
-        public ICommand SaveAddCommand { get; set; }
+        private AddCustomerViewModel _ContentAddCustomer;
+        public AddCustomerViewModel ContentAddCustomer
+        {
+            get => _ContentAddCustomer;
+            set
+            {
+                _ContentAddCustomer = value;
+                OnPropertyChanged();
+               
+            }
+        }
+
+        
         public ICommand EditCommand { get; set; }
-        public ICommand LoadCustomerView { get; set; }
+       
         public ICommand AddCommand { get; set; }
         
 
@@ -99,70 +69,43 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public CustomerViewModel()
         {
-            CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
-
-            AddCommand = new RelayCommand<CustomerView>((p) => true, p => { TitleDiaLog = "Thêm khách hàng"; SelectedItem = new KhachHang(); IsOpenAddCustomerDialog = true; });
 
 
-            SaveAddCommand = new RelayCommand<CustomerView>((p) => checkData(), p => { actionAddCustomer(); });
-
-           EditCommand = new RelayCommand<DataGridTemplateColumn>( (p) => true, p => {
-              
-               TitleDiaLog = "Sửa đổi thông tin khách hàng";
-               IsOpenAddCustomerDialog = true;
-               
-               });
+            IsOpenDiaLog = new OpenDiaLog() { IsOpen = false };
+            CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);         
+            AddCommand = new RelayCommand<CustomerView>((p) => true, p =>  actionDiaLog("Add"));
+            EditCommand = new RelayCommand<DataGridTemplateColumn>((p)=>true, p=> actionDiaLog("Edit"));
             
-           // LoadCustomerView = new RelayCommand<CustomerView>((p) => true, (p) => loadCustomer(p));
-        }
-
-
-        public void actionAddCustomer()
-        {           
-            if(!checkValidPhone()) return;
-
-            var newCus = new KhachHang()
-            {
-                TenKH = CustomerName,
-                GioiTinh = Gender,
-                DiaChi = Address,
-                SoDT = PhoneNumber,
-                NgayDK = System.DateTime.Now
-
-            };
-            DataProvider.Ins.DB.KhachHangs.Add(newCus);
-            DataProvider.Ins.DB.SaveChanges();
-            CustomerList.Add(newCus);
-            IsOpenAddCustomerDialog = false;
+            
 
         }
 
 
-        bool checkData()
+        private void actionDiaLog(string caseDiaLog)
         {
-            if (string.IsNullOrEmpty(CustomerName) || string.IsNullOrEmpty(Gender) || string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(PhoneNumber))
+            IsOpenDiaLog.IsOpen = true;
+            switch (caseDiaLog)
             {
-                return false;
+                case "Add":
+                    addNewCustomer();
+                    break;
+
+                case "Edit":
+                    editCustomer();
+                    break;
             }
-            return true;
         }
 
-        bool checkValidPhone()
+        private void addNewCustomer()
         {
-            if (!CheckField.checkPhone(PhoneNumber))
-            {
+            ContentAddCustomer = new AddCustomerViewModel("Thêm khách hàng", ref _IsOpenDiaLog, ref _CustomerList);
+        }
 
-                MessageBox.Show("Vui lòng nhập đúng định dạng số điện thoại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-
-
-            if (CustomerList.Where(p => p.SoDT == PhoneNumber).Count() > 0)
-            {
-                MessageBox.Show("Số điện thoại đã tồn tại!", "", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            return true;
+        private void editCustomer()
+        {
+            ContentAddCustomer = new AddCustomerViewModel("Sửa thông tin khách hàng", ref _IsOpenDiaLog, ref _CustomerList, ref _SelectedItem);
+           // DataProvider.Ins.DB.SaveChanges();
+            //CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
         }
         void loadCustomer(CustomerView view)
         {

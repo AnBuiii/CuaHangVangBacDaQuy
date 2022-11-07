@@ -2,8 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CuaHangVangBacDaQuy"
                     xmlns:view ="clr-namespace:CuaHangVangBacDaQuy.views"
-                
+                     xmlns:viewUC ="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
+                    xmlns:contentDialogViewModel="clr-namespace:CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel"
                     xmlns:viewModel="clr-namespace:CuaHangVangBacDaQuy.viewmodels">
+    
     <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
         <view:HomeView />
     </DataTemplate>
@@ -24,5 +26,11 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewModel:SaleOrderViewModel}">
         <view:SaleOrderView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type contentDialogViewModel:AddCustomerViewModel}">
+        <viewUC:AddCustomerUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type contentDialogViewModel:AddProductViewModel}">
+        <viewUC:AddProductUC/>
     </DataTemplate>
 </ResourceDictionary>

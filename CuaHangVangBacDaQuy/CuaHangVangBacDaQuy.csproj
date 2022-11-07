@@ -121,6 +121,7 @@
     <Compile Include="models\NhaCungCap.cs">
       <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="models\OpenDiaLog.cs" />
     <Compile Include="models\PhieuBan.cs">
       <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
@@ -157,6 +158,8 @@
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
     <Compile Include="viewmodels\Converter\AmountConverter.cs" />
     <Compile Include="viewmodels\Converter\DecimalConverter.cs" />
+    <Compile Include="viewmodels\DialogContentViewModel\AddCustomerViewModel.cs" />
+    <Compile Include="viewmodels\DialogContentViewModel\AddProductViewModel.cs" />
     <Compile Include="viewmodels\SaleOrderViewModel.cs" />
     <Compile Include="viewmodels\Converter\GenderConverter.cs" />
     <Compile Include="viewmodels\CustomerViewModel.cs" />
@@ -192,6 +195,9 @@
     </Compile>
     <Compile Include="views\userControl\AddCustomerUC.xaml.cs">
       <DependentUpon>AddCustomerUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\userControl\AddProductUC.xaml.cs">
+      <DependentUpon>AddProductUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\userControl\ControlBarUC.xaml.cs">
       <DependentUpon>ControlBarUC.xaml</DependentUpon>
@@ -264,6 +270,10 @@
     <Page Include="views\SupplierView.xaml">
     </Page>
     <Page Include="views\userControl\AddCustomerUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\userControl\AddProductUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

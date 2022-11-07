@@ -2,8 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CuaHangVangBacDaQuy"
                     xmlns:viewModel="clr-namespace:CuaHangVangBacDaQuy.viewmodels"
+                    xmlns:contentDialogViewModel="clr-namespace:CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel"
                     xmlns:converter ="clr-namespace:CuaHangVangBacDaQuy.viewmodels.Converter">
-                    
+                   
     <viewModel:MainViewModel x:Key="MainVM" />
     <viewModel:HomeViewModel x:Key="HomeVM" />
     <viewModel:AccountViewModel x:Key="AccountVM" />
@@ -12,9 +13,12 @@
     <viewModel:ProductViewModel x:Key="ProductVM" />
     <viewModel:SupplierViewModel x:Key="SupplierVM" />
     <viewModel:CustomerViewModel x:Key="CustomerVM"/>
+    <viewModel:SaleOrderViewModel x:Key="SaleOrderVM" />
+    <contentDialogViewModel:AddCustomerViewModel x:Key="AddCustomerVM"/>
+    <contentDialogViewModel:AddProductViewModel x:Key="AddProductVM"/>
     <converter:GenderConverter x:Key="genderConverterKey"/>
     <converter:AmountConverter x:Key="AmountConverterKey"/>
     <converter:DecimalConverter x:Key="DecimalConverterKey"/>
-    <viewModel:SaleOrderViewModel x:Key="SaleOrderVM" />
+    
    
 </ResourceDictionary>

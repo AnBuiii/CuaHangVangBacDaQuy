@@ -27,6 +27,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
+        <!--DiaLog Add New Product-->
         <materialDesign:DialogHost  VerticalAlignment="Top"
                                    Identifier="AccountDialog"
                                    CloseOnClickAway="True"

@@ -13,7 +13,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
     public class AddProductViewModel:BaseViewModel
     {
-        private ObservableCollection<SanPham> ProductList;
+        private readonly ObservableCollection<SanPham> ProductList;
+        private readonly ObservableCollection<ProductAdded> ProductAddedList;
 
         private ObservableCollection<LoaiSanPham> _TypeProductList;
         public ObservableCollection<LoaiSanPham> TypeProductList { get => _TypeProductList; set { _TypeProductList = value; OnPropertyChanged(); } }
@@ -80,6 +81,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         {
 
         }
+
+        //constructor dùng cho thêm sản phẩm mới từ màn hình quản lý sản phẩm
         public AddProductViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<SanPham> productsList)
         {
 
@@ -89,12 +92,13 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             openDiaLog = isOpenDialog;
             ProductList = productsList;
             CancelCommand = new RelayCommand<AddProductUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddProductUC>((p) => checkEmptyFieldDialog(), p => actionAddProduct());
+            SaveCommand = new RelayCommand<AddProductUC>((p) => CheckEmptyFieldDialog(), p => ActionAddProduct());
 
 
 
         }
 
+        //constructor dùng cho chỉnh sủa sản phẩm mới từ màn hình quản lý sản phẩm
         public AddProductViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<SanPham> productsList, ref SanPham editedProduct)
         {
             TypeProductList = new ObservableCollection<LoaiSanPham>(DataProvider.Ins.DB.LoaiSanPhams);
@@ -104,19 +108,38 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             ProductList = productsList;
             EditedProduct = editedProduct;
             CancelCommand = new RelayCommand<AddCustomerUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddCustomerUC>((p) => checkEmptyFieldDialog(), p => actionEditProduct());
+            SaveCommand = new RelayCommand<AddCustomerUC>((p) => CheckEmptyFieldDialog(), p => ActionEditProduct());
+
+
+        }
+
+        //constructor dùng cho thêm sản phẩm mới từ màn hình tạo đơn mua hàng mới(danh sách sản phẩm là list các sản phẩm được chọn để tạo đơn trong datagridview )
+        public AddProductViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<ProductAdded> productsAddedList)
+        {
+
+            TypeProductList = new ObservableCollection<LoaiSanPham>(DataProvider.Ins.DB.LoaiSanPhams);
+            UnitList = new ObservableCollection<DonVi>(DataProvider.Ins.DB.DonVis);
+            TilteView = tilteView;
+            openDiaLog = isOpenDialog;
+            ProductAddedList = productsAddedList;
+            CancelCommand = new RelayCommand<AddProductUC>((p) => true, p => CheckCloseDiaLog());
+            SaveCommand = new RelayCommand<AddProductUC>((p) => CheckEmptyFieldDialog(), p => ActionAddProduct());
+
 
 
         }
 
 
-        bool checkEmptyFieldDialog()
+        //constructor dùng cho chỉnh sủa sản phẩm mới từ màn hình tạo đơn mua hàng
+
+
+        bool CheckEmptyFieldDialog()
         {
             if (string.IsNullOrWhiteSpace(ProductName) || string.IsNullOrEmpty(ProductPrice.ToString()) || ProductPrice.ToString() == "0" || SelectedTypeProduct == null || SelectedUnit == null) return false;
             return true;
         }
 
-        private void actionAddProduct()
+        private void ActionAddProduct()
         {
            
             var newProduct = new SanPham()
@@ -131,13 +154,31 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             DataProvider.Ins.DB.SanPhams.Add(newProduct);
             DataProvider.Ins.DB.SaveChanges();
-            ProductList.Add(newProduct);
+
+            //nếu constuctor được khởi tạo từ view quản lý sản phẩm
+            if(ProductList != null)
+            {
+                ProductList.Add(newProduct);
+            }
+
+            //nếu constuctor được khởi tạo từ view tạo đơn mua hàng
+            if(ProductAddedList != null)
+            {
+
+                ProductAdded productAdded = new ProductAdded(){
+                    SanPham = newProduct,
+                    Amount = 0,
+                    IntoMoney = 0,
+
+                };            
+                ProductAddedList.Add(productAdded);
+            }
             openDiaLog.IsOpen = false;
 
 
         }
 
-        private void actionEditProduct()
+        private void ActionEditProduct()
         {
            
             openDiaLog.IsOpen = false;

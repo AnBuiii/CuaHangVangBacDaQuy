@@ -35,14 +35,16 @@
             <Grid Grid.Row="0">
 
                 <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                        VerticalAlignment="Center"
-                                        Text="{Binding TitleView }"
-                                        FontSize="20" />
+                            VerticalAlignment="Center"
+                            Text="{Binding TitleView }"
+                            FontWeight="Bold"
+                            Foreground="{StaticResource PrimaryHueDarkBrush}"
+                            FontSize="20" />
 
 
                 <Button  HorizontalAlignment="Right"
-                                     Style="{StaticResource MaterialDesignIconButton}"
-                                     Command="{Binding CancelCommand}">
+                         Style="{StaticResource MaterialDesignIconButton}"
+                         Command="{Binding CancelCommand}">
 
                     <materialDesign:PackIcon Kind="CloseCircleOutline"
                                                          Height="30"
@@ -62,8 +64,9 @@
                                             VerticalAlignment="Center"
                                             Text="Tên nhà cung cấp"></TextBlock>
 
-                    <TextBox Height="48" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    <TextBox Height="52" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                               Foreground="Black"
+                             
                                              FontSize="16"
                                              FontWeight="Medium"
                                          MinWidth="100"
@@ -89,7 +92,7 @@
                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                             VerticalAlignment="Center"
                                             Text="Địa chỉ" />
-                    <TextBox Height="48" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    <TextBox Height="52" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Foreground="Black"
                                              FontSize="16"
                                              FontWeight="Medium"
@@ -104,7 +107,7 @@
                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                             VerticalAlignment="Center"
                                             Text="Số điện thoại" />
-                    <TextBox  Height="48" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    <TextBox  Height="52" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                Foreground="Black"
                                              FontSize="16"
                                              FontWeight="Medium"

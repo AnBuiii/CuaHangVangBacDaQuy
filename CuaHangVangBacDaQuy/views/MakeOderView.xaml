@@ -33,7 +33,7 @@
                     <ColumnDefinition Width="80" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
+                   
                 </Grid.ColumnDefinitions>
 
 
@@ -67,7 +67,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Column="2"
+                <!--<Grid Grid.Column="2"
                                                   Margin="16">
 
                     <Button Width="25"
@@ -79,13 +79,13 @@
                         <materialDesign:PackIcon Kind="Edit" />
                     </Button>
 
-                </Grid>
+                </Grid>-->
 
-                <Grid Grid.Column="3">
+                <Grid Grid.Column="2">
 
                     <Button  HorizontalAlignment="Right"
                                                          Style="{StaticResource MaterialDesignIconButton}"
-                                                         Command="{Binding RemoveSelectedSupplierCommand}">
+                                                          Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.RemoveSelectedSupplierCommand}">
 
                         <materialDesign:PackIcon Kind="CloseCircleOutline"
                                                                              Height="25"
@@ -492,7 +492,7 @@
                                 <Grid Grid.Row="3"
                                               Background="WhiteSmoke"
                                               Margin="16"
-                                              Visibility="{Binding VisibilitySelectedSupplier}">
+                                              >
 
 
 

@@ -13,7 +13,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
     public class AddSupplierViewModel:BaseViewModel
     {
-        private ObservableCollection<NhaCungCap> SuppliersList;
+        private readonly ObservableCollection<NhaCungCap> SuppliersList;
+        private readonly ObservableCollection<NhaCungCap> SelectedSuppliersList;
 
         private NhaCungCap _EditedSupplier;
         public NhaCungCap EditedSupplier
@@ -27,15 +28,11 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
                 if (EditedSupplier != null)
                 {
-
-                    
+                  
                         SupplierName = EditedSupplier.TenNCC;
                         SupplierAddress = EditedSupplier.DiaChi;
                         SupplierPhoneNumber = EditedSupplier.SoDT;
-                        //VisibilitySelectedSupplier = "Visible";
-
-
-                   
+                                         
 
                 }
             }
@@ -82,6 +79,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         {
 
         }
+
+        //constructor used for add new supplier in supplier view
         public AddSupplierViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList)
         {
 
@@ -91,11 +90,25 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             SuppliersList = suppliersList;
 
             CancelCommand = new RelayCommand<AddSupplierUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddSupplierUC>((p) => checkEmptyFieldDialog(), p => actionAddCustomer());
+            SaveCommand = new RelayCommand<AddSupplierUC>((p) => checkEmptyFieldDialog(), p => actionAddSupplier());
 
 
         }
 
+        //constructor used for add new supplier in make pushchase oder view
+
+        public AddSupplierViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList, ref ObservableCollection<NhaCungCap> selectedSuppliersList)
+        {
+            TitleView = tilteView;
+            openDiaLog = isOpenDialog;
+            SuppliersList = suppliersList;
+            SelectedSuppliersList = selectedSuppliersList;
+            CancelCommand = new RelayCommand<AddSupplierUC>((p) => true, p => CheckCloseDiaLog());
+            SaveCommand = new RelayCommand<AddSupplierUC>((p) => checkEmptyFieldDialog(), p => actionAddSupplier());
+        }
+
+
+        //constructor used for edit supplier in supplier view
         public AddSupplierViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList, ref NhaCungCap editedSupplier)
         {
             TitleView = tilteView;
@@ -106,6 +119,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             SaveCommand = new RelayCommand<AddSupplierUC>((p) => checkEmptyFieldDialog(), p => actionEditCustomer());
         }
 
+      
+
 
         bool checkEmptyFieldDialog()
         {
@@ -113,7 +128,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             return true;
         }
 
-        private void actionAddCustomer()
+        private void actionAddSupplier()
         {
             if (!checkValidPhoneNumber() || !checkExistPhoneNumer()) return;
 
@@ -127,7 +142,18 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             DataProvider.Ins.DB.NhaCungCaps.Add(newSup);
             DataProvider.Ins.DB.SaveChanges();
+
+
+            if (SelectedSuppliersList != null)
+            {
+                
+                 SelectedSuppliersList?.Clear();
+                SelectedSuppliersList.Add(newSup);
+
+            }
             SuppliersList.Add(newSup);
+            
+            
             openDiaLog.IsOpen = false;
 
 

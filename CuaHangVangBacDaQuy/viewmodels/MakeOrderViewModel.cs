@@ -20,14 +20,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         string caseButtonSaveDialog { get; set; }
 
-        private ObservableCollection<NhaCungCap> _SuppliersList;
-        public ObservableCollection<NhaCungCap> SuppliersList
-        {
-            get => _SuppliersList;
-            set { _SuppliersList = value; OnPropertyChanged(); }
-        }
-
-
+       
         private ObservableCollection<ProductAdded> _SelectedProductList;
         public ObservableCollection<ProductAdded> SelectedProductList
         {
@@ -52,74 +45,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
 
 
-
-
-
-        private string _TitleDiaLog;
-        public string TitleDiaLog
-        {
-            get { return _TitleDiaLog; }
-            set { _TitleDiaLog = value; OnPropertyChanged(); }
-        }
-
-
-
-        private string _NewSupplierName;
-        public string NewSupplierName
-        {
-            get => _NewSupplierName;
-            set
-            {
-                _NewSupplierName = value; OnPropertyChanged();
-            }
-        }
-
-
-
-        private string _NewSupplierAddress;
-        public string NewSupplierAddress
-        {
-            get => _NewSupplierAddress;
-            set
-            {
-                _NewSupplierAddress = value; OnPropertyChanged();
-            }
-
-        }
-
-
-        private string _NewSupplierPhoneNumber;
-        public string NewSupplierPhoneNumber { get => _NewSupplierPhoneNumber; set { _NewSupplierPhoneNumber = value; OnPropertyChanged(); } }
-
-
-        private string _SupplierSelectedName;
-        public string SupplierSelectedName
-        {
-            get => _SupplierSelectedName;
-            set
-            {
-                _SupplierSelectedName = value; OnPropertyChanged();
-            }
-        }
-
-
-
-        private string _SupplierSelectedAddress;
-        public string SupplierSelectedAddress
-        {
-            get => _SupplierSelectedAddress;
-            set
-            {
-                _SupplierSelectedAddress = value; OnPropertyChanged();
-            }
-
-        }
-
-
-        private string _SupplierSelectedPhoneNumber;
-        public string SupplierSelectedPhoneNumber { get => _SupplierSelectedPhoneNumber; set { _SupplierSelectedPhoneNumber = value; OnPropertyChanged(); } }
-
-
         private ObservableCollection<NhaCungCap> _SelectedSuppliersList;
         public ObservableCollection<NhaCungCap> SelectedSuppliersList
         {
@@ -137,8 +62,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
             set
             {
-
-
                 _SelectedSupplier = value;
                 OnPropertyChanged();
 
@@ -146,12 +69,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 if (value != null && !SelectedSuppliersList.Contains(value) )
                 {
                     SelectedSuppliersList?.Clear();
-                    SupplierSelectedName = SelectedSupplier.TenNCC;
-                    SupplierSelectedAddress = SelectedSupplier.DiaChi;
-                    SupplierSelectedPhoneNumber = SelectedSupplier.SoDT;
                     SelectedSuppliersList.Add(value);
-                    VisibilitySelectedSupplier = "Visible";
-                    
+                   
                 }
                 
 
@@ -338,27 +257,14 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
 
 
-
-        private string _VisibilitySelectedSupplier = "Hidden";
-        public string VisibilitySelectedSupplier
-        {
-            get => _VisibilitySelectedSupplier;
-            set
-            {
-
-                _VisibilitySelectedSupplier = value;
-                OnPropertyChanged();
-
-            }
-        }
-
         public ICommand AddPurchaseOrderCommand { get; set; }
         public ICommand AddSupplierCommand { get; set; }
-        public ICommand AddProductCommand { get; set; }
+       
         public ICommand RemoveSelectedSupplierCommand { get; set; }
         public ICommand RemoveSelectedProductCommand { get; set; }
         public ICommand EditSelectedSupplierCommand { get; set; }
         public ICommand SaveSupplierCommand { get; set; }
+        public ICommand AddProductCommand { get; set; }
         public ICommand CancelAddSupplierDiaLogCommand { get; set; }
         public ICommand CaculateTotalMoneyCommand { get; set; }
         public ICommand SaveProductCommand { get; set; }
@@ -373,20 +279,17 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
 
 
-            
+
 
             PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
-
-            SuppliersList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
             SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
-
             IsOpenAddSupplierDialog = new OpenDiaLog() { IsOpen = false };
             AddPurchaseOrderCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { IsOpenDetailDialog = true; });
-           
+
 
 
             AddSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { actionAddSupplier(); });
-            SaveSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => CheckValidSupplierDiaLog(), p =>
+
             {
                 switch (caseButtonSaveDialog)
                 {
@@ -401,7 +304,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
                             actionAddSupplier(); break;
                         }
                 }
-            });
+            };
+        
 
             CancelAddSupplierDiaLogCommand = new RelayCommand<MakeOrderViewModel>(
                (p) => true, p => CheckCloseProductDiaLog()
@@ -410,20 +314,13 @@ namespace CuaHangVangBacDaQuy.viewmodels
             SelectedProductList = new ObservableCollection<ProductAdded>();
             AddProductCommand = new RelayCommand<MakeOrderViewModel>(p => true, p => AddProduct());
 
-            RemoveSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { VisibilitySelectedSupplier = "Hidden"; });
+            RemoveSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { SelectedSuppliersList.Clear(); });
 
             EditSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p =>
             {
 
-
-                TitleDiaLog = "Chỉnh sửa thông tin nhà cung cấp";
-                NewSupplierName = SupplierSelectedName;
-                NewSupplierAddress = SupplierSelectedAddress;
-                NewSupplierPhoneNumber = SupplierSelectedPhoneNumber;
-
                 caseButtonSaveDialog = "Edit";
                // IsOpenAddSupplierDialog = true;
-
 
             });
 
@@ -450,23 +347,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public void actionAddSupplier()
         {
-            MessageBox.Show("cc");
+            
+            
+
+            ContentAddSupplier = new AddSupplierViewModel("Thêm nhà cung cấp mới", ref _IsOpenAddSupplierDialog,  ref _SelectedSuppliersList);
             IsOpenAddSupplierDialog.IsOpen = true;
-            ContentAddSupplier = new AddSupplierViewModel("Thêm nhà cung cấp mới", ref _IsOpenAddSupplierDialog, ref _SuppliersList);
-            //if (!checkValidPhone()) return;
-            //var newSupplier = new NhaCungCap()
-            //{
-            //    TenNCC = NewSupplierName,
-            //    DiaChi = NewSupplierAddress,
-            //    SoDT = NewSupplierPhoneNumber,
-
-            //};
-            //DataProvider.Ins.DB.NhaCungCaps.Add(newSupplier);
-            //DataProvider.Ins.DB.SaveChanges();
-            //SuppliersList.Add(newSupplier);
-            //SelectedSupplier = newSupplier;
-
-            //IsOpenAddSupplierDialog = false;
+           
 
         }
 
@@ -475,22 +361,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         }
 
-        void ClearFieldAddSupplierDialog()
-        {
-            NewSupplierName = "";
-            NewSupplierAddress = "";
-            NewSupplierPhoneNumber = "";
-        }
-
-        bool CheckValidSupplierDiaLog()
-        {
-            if (string.IsNullOrEmpty(NewSupplierName) || string.IsNullOrEmpty(NewSupplierAddress) || string.IsNullOrEmpty(NewSupplierPhoneNumber))
-            {
-                return false;
-            }
-            return true;
-        }
-
+      
         void caculateTotalMoney()
         {
 

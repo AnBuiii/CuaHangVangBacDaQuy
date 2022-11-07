@@ -22,7 +22,9 @@ namespace CuaHangVangBacDaQuy.models
         }
     
         public int MaNCC { get; set; }
-      
+
+        //private int _MaNCC { get; set; }
+        //public int MaNCC { get => _MaNCC; set { _MaNCC = value; OnPropertyChanged(); } }
         private string _TenNCC { get; set; }
         public string TenNCC { get => _TenNCC; set { _TenNCC = value; OnPropertyChanged(); } }
         private string _DiaChi { get; set; }

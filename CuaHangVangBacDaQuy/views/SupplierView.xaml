@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:uc="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
              DataContext="{StaticResource SupplierVM}"
              x:Name="ProductUC"
              mc:Ignorable="d"
@@ -26,153 +26,18 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
+        <!--Dialog thêm hoặc sửa nhà cung cấp-->
         <materialDesign:DialogHost Name="dialog"
                                    Identifier="AccountDialog"
                                    CloseOnClickAway="True"
                                    DialogTheme="Inherit"
-                                   IsOpen="{Binding IsOpenAddProductDialog}">
+                                   IsOpen="{Binding IsOpenDiaLog.IsOpen}">
             <materialDesign:DialogHost.DialogContent>
-                <Grid>
-                    <StackPanel>
-                        <Grid x:Name="grdInformation"
-                              Margin="10 50"
-                              VerticalAlignment="Stretch"
-                              HorizontalAlignment="Center"
-                              Visibility="Visible">
-                            <StackPanel Orientation="Vertical">
-                                <!--Tên sân phẩm-->
-                                <StackPanel x:Name="phoneStack"
-                                            Orientation="Horizontal"
-                                            Margin="0 20">
-                                    <materialDesign:PackIcon Kind="TableChair"
-                                                             Width="30"
-                                                             Height="30"
-                                                             Foreground="{StaticResource Gray}"
-                                                             VerticalAlignment="Center"
-                                                             Margin="10,10,20,-18" />
-                                    <TextBox materialDesign:HintAssist.Hint="Tên sản phẩm"
-                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                             Foreground="Black"
-                                             FontSize="16"
-                                             FontWeight="Medium"
-                                             materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                                             Width="250"
-                                             VerticalContentAlignment="Center"
-                                             Height="50"
-                                             Padding="2,0,0,0">
-                                    </TextBox>
-                                </StackPanel>
-                                <!--Đơn giá-->
-                                <StackPanel x:Name="usernameStack"
-                                            Orientation="Horizontal"
-                                            Margin="0 20">
-                                    <materialDesign:PackIcon Kind="CardText"
-                                                             Width="30"
-                                                             Height="30"
-                                                             Foreground="{StaticResource Gray}"
-                                                             VerticalAlignment="Top"
-                                                             Margin="10,10,20,-18" />
-                                    <TextBox materialDesign:HintAssist.Hint="Đơn giá"
-                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                             Foreground="Black"
-                                             FontSize="16"
-                                             FontWeight="Medium"
-                                             materialDesign:HintAssist.Foreground="{StaticResource Gray}"
-                                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource Gray}"
-                                             Width="250"
-                                             VerticalContentAlignment="Center"
-                                             Height="50"
-                                             Padding="2,0,0,0" />
-
-                                </StackPanel>
-                                <!--Loại sản phẩm-->
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="0 20">
-                                    <materialDesign:PackIcon Kind="TableChair"
-                                                             Width="30"
-                                                             Height="30"
-                                                             Foreground="{StaticResource Gray}"
-                                                             VerticalAlignment="Center"
-                                                             Margin="10,10,20,-18" />
-                                    <ComboBox materialDesign:HintAssist.Hint="Loại sản phẩm"
-                                              FontSize="16"
-                                              ItemsSource="{Binding LoaiSanPhamList}"
-                                              DisplayMemberPath="TenLoaiSP"
-                                              Foreground="Black"
-                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                              Width="250">
-                                    </ComboBox>
-                                </StackPanel>
-                                <!--Đơn vị-->
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="0 20">
-                                    <materialDesign:PackIcon Kind="Money"
-                                                             Width="30"
-                                                             Height="30"
-                                                             Foreground="{StaticResource Gray}"
-                                                             VerticalAlignment="Center"
-                                                             Margin="10,10,20,-18" />
-                                    <ComboBox materialDesign:HintAssist.Hint="Đơn vị"
-                                              FontSize="16"
-                                              ItemsSource="{Binding DonViList}"
-                                              DisplayMemberPath="TenDV"
-                                              Foreground="Black"
-                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                              Width="250">
-                                        <!--<ComboBox.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <VirtualizingStackPanel />
-                                            </ItemsPanelTemplate>
-                                        </ComboBox.ItemsPanel>-->
-                                    </ComboBox>
-                                </StackPanel>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0"
-                                            HorizontalAlignment="Center"
-                                            Margin="4"
-                                            Style="{StaticResource MaterialDesignRaisedButton}"
-                                            Command="{Binding SaveAddCommand}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Kind="ContentSave"
-                                                                     Width="18"
-                                                                     Height="18"
-                                                                     VerticalAlignment="Center"
-                                                                     HorizontalAlignment="Left"
-                                                                     Margin="2 2 4 2" />
-                                            <TextBlock Text="Thêm sản phẩm"
-                                                       FontSize="18" />
-                                        </StackPanel>
-                                    </Button>
-                                    <Button Grid.Column="1"
-                                            HorizontalAlignment="Center"
-                                            Margin="4"
-                                            Style="{StaticResource MaterialDesignRaisedButton}"
-                                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Kind="CloseCircle"
-                                                                     Width="18"
-                                                                     Height="18"
-                                                                     VerticalAlignment="Center"
-                                                                     HorizontalAlignment="Left"
-                                                                     Margin="2 2 4 2" />
-                                            <TextBlock Text="Đóng"
-                                                       FontSize="18" />
-                                        </StackPanel>
-                                    </Button>
-                                </Grid>
-                            </StackPanel>
-                        </Grid>
-                    </StackPanel>
-                </Grid>
+                <uc:AddSupplierUC DataContext="{Binding ContentAddSupplier}"></uc:AddSupplierUC>
             </materialDesign:DialogHost.DialogContent>
 
         </materialDesign:DialogHost>
-
+         <!--End Dialog-->
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -266,8 +131,8 @@
                                  Margin="5"
                                  VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <DataGrid ItemsSource="{Binding NhaCungCapList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
+                    <DataGrid ItemsSource="{Binding SuppliersList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedSupplier, Mode=OneWayToSource}"
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"
@@ -305,7 +170,7 @@
                                                 Background="{StaticResource PrimaryHueDarkBrush}"
                                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteCommand}"
-                                                CommandParameter="{Binding ElementName=editBtn}">
+                                                CommandParameter="{Binding ElementName=deleteBtn}">
                                             <materialDesign:PackIcon Kind="Delete" />
                                         </Button>
                                     </DataTemplate>

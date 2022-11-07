@@ -20,42 +20,22 @@ namespace CuaHangVangBacDaQuy.viewmodels
     public class ProductViewModel : BaseViewModel
     {
         #region Params
-        private ObservableCollection<SanPham> _SanPhamList;
-        public ObservableCollection<SanPham> SanPhamList { get => _SanPhamList; set { _SanPhamList = value; OnPropertyChanged(); } }
-        private ObservableCollection<LoaiSanPham> _LoaiSanPhamList;
-        public ObservableCollection<LoaiSanPham> LoaiSanPhamList { get => _LoaiSanPhamList; set { _LoaiSanPhamList = value; OnPropertyChanged(); } }
-        private ObservableCollection<DonVi> _DonViList;
-        public ObservableCollection<DonVi> DonViList { get => _DonViList; set { _DonViList = value; OnPropertyChanged(); } }
-        private string _TenSanPham;
-        public string TenSanPham { get => _TenSanPham; set { _TenSanPham = value; OnPropertyChanged(); } }
-        private decimal? _DonGia;
-        public decimal? DonGia { get => _DonGia; set { _DonGia = value; OnPropertyChanged(); } }
-        private LoaiSanPham _SelectedLoaiSP;
-        public LoaiSanPham SelectedLoaiSP { get => _SelectedLoaiSP; set { _SelectedLoaiSP = value; OnPropertyChanged(); } }
-        private DonVi _SelectedDonVi;
-        public DonVi SelectedDonVi { get => _SelectedDonVi; set { _SelectedDonVi = value; OnPropertyChanged(); } }
-        private SanPham _SelectedItem;
-        public SanPham SelectedItem
+        private ObservableCollection<SanPham> _ProducstList;
+        public ObservableCollection<SanPham> ProductsList { get => _ProducstList; set { _ProducstList = value; OnPropertyChanged(); } }
+       
+       
+        private SanPham _SelectedProduct;
+        public SanPham SelectedProduct
         {
-            get => _SelectedItem;
+            get => _SelectedProduct;
             set
             {
-                _SelectedItem = value;
+                _SelectedProduct = value;
                 OnPropertyChanged();
-                if (SelectedItem != null)
-                {
-                    TenSanPham = SelectedItem.TenSP;
-                    DonGia = SelectedItem.DonGia;
-                    SelectedLoaiSP = SelectedItem.LoaiSanPham;
-                    SelectedDonVi = SelectedItem.DonVi;
-
-                }
-
-
+  
             }
         }
-        private string _AddButtonText { get; set; }
-        public string AddButtonText { get => _AddButtonText; set { _AddButtonText = value; OnPropertyChanged(); } }
+     
 
         #region SearchBar
         private List<string> _searchTypes;
@@ -95,24 +75,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
         }
 
-
-        //private bool _isEditing;
-        //public bool IsEditing
-        //{
-        //    get { return _isEditing; }
-        //    set
-        //    {
-        //        _isEditing = value; OnPropertyChanged();
-        //        if (_isEditing)
-        //        {
-        //            AddButtonText = "Save change";
-        //        }
-        //        else
-        //        {
-        //            AddButtonText = "Save new Product";
-        //        }
-        //    }
-        //}
         #endregion
 
         #endregion
@@ -122,10 +84,9 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
-
-        public ICommand CancelDiaLogCommand { get; set; }
+   
         public ICommand DeleteCommand { get; set; }
-        public ICommand SaveProductCommand { get; set; }
+        
         public ICommand SearchCommand { get; set; }
         #endregion
 
@@ -134,14 +95,10 @@ namespace CuaHangVangBacDaQuy.viewmodels
             IsOpenProductDialog = new OpenDiaLog() { IsOpen = false };
             SearchTypes = new List<string> { "Mã sản phẩm", "Tên sản phẩm", };
             SelectedSearchType = SearchTypes[1];
-            SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
-            LoaiSanPhamList = new ObservableCollection<LoaiSanPham>(DataProvider.Ins.DB.LoaiSanPhams);
-            DonViList = new ObservableCollection<DonVi>(DataProvider.Ins.DB.DonVis);
-            LoadedCommand = new RelayCommand<ProductView>(p => true, p => Loaded(p));
-            //AddCommand = new RelayCommand<ProductView>(p => true, p => AddProduct());
-            //EditCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => EditProduct());
-            AddCommand = new RelayCommand<CustomerView>((p) => true, p => actionDiaLog("Add"));
-            EditCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => actionDiaLog("Edit"));
+            ProductsList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
+            LoadedCommand = new RelayCommand<ProductView>(p => true, p => Loaded(p));          
+            AddCommand = new RelayCommand<CustomerView>((p) => true, p => ActionDiaLog("Add"));
+            EditCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => ActionDiaLog("Edit"));
             DeleteCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => DeleteProduct());
             SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
         }
@@ -151,12 +108,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
             switch (SelectedSearchType)
             {
                 case "Mã sản phẩm":
-                    SanPhamList = new ObservableCollection<SanPham>(
+                    ProductsList = new ObservableCollection<SanPham>(
                         DataProvider.Ins.DB.SanPhams.Where(
                             x => x.MaSP.ToString().Contains(ContentSearch)));
                     break;
                 case "Tên sản phẩm":
-                    SanPhamList = new ObservableCollection<SanPham>(
+                    ProductsList = new ObservableCollection<SanPham>(
                          DataProvider.Ins.DB.SanPhams.Where(
                              x => x.TenSP.ToString().Contains(ContentSearch)));
                     break;
@@ -170,7 +127,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         }
 
-        private void actionDiaLog(string caseDiaLog)
+        private void ActionDiaLog(string caseDiaLog)
         {
             IsOpenProductDialog.IsOpen = true;
             switch (caseDiaLog)
@@ -188,43 +145,20 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public void AddnewProduct()
         {
 
-            ContentAddProduct = new AddProductViewModel("Thêm sản phẩm mới", ref _IsOpenProductDialog, ref _SanPhamList);
+            ContentAddProduct = new AddProductViewModel("Thêm sản phẩm mới", ref _IsOpenProductDialog, ref _ProducstList);
         }
         public void EditProduct()
         {
-            ContentAddProduct = new AddProductViewModel("Chỉnh sửa thông tin sản phẩm", ref _IsOpenProductDialog, ref _SanPhamList, ref _SelectedItem);
+            ContentAddProduct = new AddProductViewModel("Chỉnh sửa thông tin sản phẩm", ref _IsOpenProductDialog, ref _ProducstList, ref _SelectedProduct);
         }
         public void DeleteProduct()
         {
-            DataProvider.Ins.DB.SanPhams.Attach(SelectedItem);
-            DataProvider.Ins.DB.SanPhams.Remove(SelectedItem);
+            DataProvider.Ins.DB.SanPhams.Attach(SelectedProduct);
+            DataProvider.Ins.DB.SanPhams.Remove(SelectedProduct);
             DataProvider.Ins.DB.SaveChanges();
-            SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
+            ProductsList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
         }
-        public void SaveProduct()
-        {
-            //if (!IsEditing)
-            //{
-            //    var SanPham = new SanPham() { MaSP = Guid.NewGuid().ToString(), TenSP = TenSanPham, DonGia = DonGia, MaLoaiSP = SelectedLoaiSP.MaLoaiSP, MaDV = SelectedDonVi.MaDV };
-            //    DataProvider.Ins.DB.SanPhams.Add(SanPham);
-            //    DataProvider.Ins.DB.SaveChanges();
-            //    SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
-            //    IsOpenProductDialog = false;
-            //}
-            //else
-            //{
-            //    var SanPham = DataProvider.Ins.DB.SanPhams.Where(x => x.MaSP == SelectedItem.MaSP).SingleOrDefault();
-            //    SanPham.TenSP = TenSanPham;
-            //    SanPham.DonGia = DonGia;
-            //    SanPham.MaLoaiSP = SelectedLoaiSP.MaLoaiSP;
-            //    SanPham.MaDV = SelectedDonVi.MaDV;
-            //    DataProvider.Ins.DB.SaveChanges();
-            //    SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
-            //    IsOpenProductDialog = false;
-            //    //IsEditing = false;
-
-            //}
-        }
+       
     }
 
 }

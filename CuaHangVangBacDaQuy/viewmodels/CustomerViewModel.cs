@@ -33,13 +33,13 @@ namespace CuaHangVangBacDaQuy.viewmodels
             set { _IsOpenDiaLog = value; OnPropertyChanged(); } 
         }
         
-        private KhachHang _SelectedItem;
-        public KhachHang SelectedItem
+        private KhachHang _SelectedCustomer;
+        public KhachHang SelectedCustomer
         {
-            get => _SelectedItem;
+            get => _SelectedCustomer;
             set
             {
-                  _SelectedItem = value;
+                  _SelectedCustomer = value;
                 OnPropertyChanged();
               
                 
@@ -70,18 +70,15 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public CustomerViewModel()
         {
 
-
             IsOpenDiaLog = new OpenDiaLog() { IsOpen = false };
             CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);         
-            AddCommand = new RelayCommand<CustomerView>((p) => true, p =>  actionDiaLog("Add"));
-            EditCommand = new RelayCommand<DataGridTemplateColumn>((p)=>true, p=> actionDiaLog("Edit"));
+            AddCommand = new RelayCommand<CustomerView>((p) => true, p =>  ActionDiaLog("Add"));
+            EditCommand = new RelayCommand<DataGridTemplateColumn>((p)=>true, p=> ActionDiaLog("Edit"));
             
-            
-
         }
 
 
-        private void actionDiaLog(string caseDiaLog)
+        private void ActionDiaLog(string caseDiaLog)
         {
             IsOpenDiaLog.IsOpen = true;
             switch (caseDiaLog)
@@ -91,7 +88,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                     break;
 
                 case "Edit":
-                    editCustomer();
+                    EditCustomer();
                     break;
             }
         }
@@ -101,11 +98,10 @@ namespace CuaHangVangBacDaQuy.viewmodels
             ContentAddCustomer = new AddCustomerViewModel("Thêm khách hàng", ref _IsOpenDiaLog, ref _CustomerList);
         }
 
-        private void editCustomer()
+        private void EditCustomer()
         {
-            ContentAddCustomer = new AddCustomerViewModel("Sửa thông tin khách hàng", ref _IsOpenDiaLog, ref _CustomerList, ref _SelectedItem);
-           // DataProvider.Ins.DB.SaveChanges();
-            //CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
+            ContentAddCustomer = new AddCustomerViewModel("Sửa thông tin khách hàng", ref _IsOpenDiaLog, ref _CustomerList, ref _SelectedCustomer);
+          
         }
         void loadCustomer(CustomerView view)
         {

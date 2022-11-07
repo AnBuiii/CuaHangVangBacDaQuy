@@ -37,8 +37,9 @@
             <materialDesign:DialogHost.DialogContent>
                 <uc:AddProductUC DataContext="{Binding ContentAddProduct}"></uc:AddProductUC>
             </materialDesign:DialogHost.DialogContent>
-
+           
         </materialDesign:DialogHost>
+        <!--end dialog-->
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -134,8 +135,8 @@
                     <!--<ScrollViewer.MaxHeight>
                         <Binding Path="Height" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}" ></Binding>
                     </ScrollViewer.MaxHeight>-->
-                    <DataGrid ItemsSource="{Binding SanPhamList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
+                    <DataGrid ItemsSource="{Binding ProductsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedProduct, Mode=OneWayToSource}"
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"
@@ -182,7 +183,7 @@
                                                
                                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteCommand}"
-                                                CommandParameter="{Binding ElementName=editBtn}">
+                                                CommandParameter="{Binding ElementName=deleteBtn}">
                                             <materialDesign:PackIcon Kind="Delete" />
                                         </Button>
                                     </DataTemplate>

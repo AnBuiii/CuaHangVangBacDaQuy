@@ -125,8 +125,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             CancelCommand = new RelayCommand<AddProductUC>((p) => true, p => CheckCloseDiaLog());
             SaveCommand = new RelayCommand<AddProductUC>((p) => CheckEmptyFieldDialog(), p => ActionAddProduct());
 
-
-
         }
 
 

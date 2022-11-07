@@ -87,7 +87,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             CustomerList = customersList;
 
             CancelCommand = new RelayCommand<AddCustomerUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddCustomerUC>((p) => checkEmptyFieldDialog(), p => actionAddCustomer());
+            SaveCommand = new RelayCommand<AddCustomerUC>((p) => CheckEmptyFieldDialog(), p => ActionAddCustomer());
           
 
         }
@@ -99,13 +99,13 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             CustomerList = customersList;
             EditedCustomer = editedCustomer;
             CancelCommand = new RelayCommand<AddCustomerUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddCustomerUC>((p) => checkEmptyFieldDialog(), p => actionEditCustomer());
+            SaveCommand = new RelayCommand<AddCustomerUC>((p) => CheckEmptyFieldDialog(), p => ActionEditCustomer());
            
             
         }
 
 
-        bool checkEmptyFieldDialog()
+        bool CheckEmptyFieldDialog()
         {
             if (string.IsNullOrEmpty(CustomerName) || string.IsNullOrEmpty(Gender) || string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(PhoneNumber))
             {
@@ -114,9 +114,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             return true;
         }
 
-        private void actionAddCustomer()
+        private void ActionAddCustomer()
         {
-            if (!checkValidPhoneNumber() || !checkExistPhoneNumer()) return;
+            if (!CheckValidPhoneNumber() || !CheckExistPhoneNumer()) return;
 
             var newCus = new KhachHang()
             {
@@ -136,9 +136,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         }
 
-        private void actionEditCustomer()
+        private void ActionEditCustomer()
         {
-            if (!checkValidPhoneNumber()) return;
+            if (!CheckValidPhoneNumber()) return;
             openDiaLog.IsOpen = false;
             var customer = DataProvider.Ins.DB.KhachHangs.Where(x => x.MaKH == EditedCustomer.MaKH).SingleOrDefault();          
             customer.TenKH = CustomerName;
@@ -148,7 +148,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
         
-        bool checkValidPhoneNumber()
+        bool CheckValidPhoneNumber()
         {
             if (!CheckField.checkPhone(PhoneNumber))
             {
@@ -161,7 +161,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         }
 
-        bool checkExistPhoneNumer()
+        bool CheckExistPhoneNumer()
         {
 
             if (CustomerList.Where(p => p.SoDT == PhoneNumber).Count() > 0)
@@ -181,8 +181,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 openDiaLog.IsOpen = false;
                
             }
-           // IsOpenDialog = false;
-            
+         
 
         }
        

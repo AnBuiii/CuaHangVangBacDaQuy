@@ -230,7 +230,8 @@
                     <Separator></Separator>
                 </Grid>
                 <Grid Grid.Row="2">
-                    <ListView ItemsSource="{Binding TonKhoList}">
+                    <ListView ItemsSource="{Binding TonKhoList}"
+                               MaxHeight="680">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="STT"

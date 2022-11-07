@@ -128,14 +128,20 @@
 
             <materialDesign:Card Grid.Row="1"
                                  Margin="5"
-                                 VerticalAlignment="Stretch">
+                                
+                                 >
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <!--<ScrollViewer.MaxHeight>
+                        <Binding Path="Height" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}" ></Binding>
+                    </ScrollViewer.MaxHeight>-->
                     <DataGrid ItemsSource="{Binding SanPhamList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"
-                              AutoGenerateColumns="False">
+                              AutoGenerateColumns="False"
+                              MaxHeight="680"
+                              >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Mã sản phẩm"
                                                 Binding="{Binding MaSP}"

@@ -185,7 +185,8 @@
                                  VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ListView ItemsSource="{Binding NguoiDungList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                              SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
+                               MaxHeight="680">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Id"

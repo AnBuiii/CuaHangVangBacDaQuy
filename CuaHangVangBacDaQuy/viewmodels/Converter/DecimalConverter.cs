@@ -11,11 +11,15 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
 {
     public class DecimalConverter: IValueConverter
     {
+
+        //Convert số đơn giá từ model ra view
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {          
             if ( value == null||(decimal)value == 0) return "";
             return value;
         }
+
+        //Convert số đơn giá từ view vào model
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

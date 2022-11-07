@@ -26,7 +26,7 @@
 
 
     <UserControl.Resources>
-
+        <!--item template cho listBox nhà cung cấp-->
         <DataTemplate DataType="{x:Type models:NhaCungCap}" >
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -96,7 +96,9 @@
             </Grid>
         </DataTemplate>
         
+        
         <providers:SupplierSuggesionProvider x:Key="SupplierSuggesionProvider" />
+        <!--item template cho AutoCompleteComboBox nhà cung cấp-->
         <DataTemplate x:Key="SupplierItemTemplate">
 
             <Grid Grid.IsSharedSizeScope="True">
@@ -142,20 +144,38 @@
         </DataTemplate>
 
         <providers:ProductSuggestionProvider x:Key="ProductSuggestionProvider" />
-
+        <!--item template cho AutoCompleteComboBox Sản phẩm-->
         <DataTemplate  x:Key="ProductItemTemplate">
             <Grid Grid.IsSharedSizeScope="True">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
                     <ColumnDefinition Width="300"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0"
+                <Image Grid.Column="0" Source="\Image\Image-Diamond4.jpeg"/>
+                <TextBlock Grid.Column="1"
+                           VerticalAlignment="Center"
                            Text="{Binding TenSP}"
                            Padding="5" />
-                <TextBlock Grid.Column="1"
+                <TextBlock Grid.Column="2"
+                           VerticalAlignment="Center"
                            Text="{Binding DonGia}"
                            Padding="24, 5, 5, 5"
+                           FontStyle="Italic"
+                           Foreground="DarkGray" />
+
+                <TextBlock Grid.Column="3"
+                           VerticalAlignment="Center"
+                           Text="Tồn kho: "
+                           FontStyle="Italic"
+                           Foreground="DarkGray" />
+                
+                <TextBlock Grid.Column="4"
+                           VerticalAlignment="Center"
+                           Text="{Binding MaSP, Converter={StaticResource CaculateInventoryConverterKey}}"
                            FontStyle="Italic"
                            Foreground="DarkGray" />
             </Grid>
@@ -177,6 +197,8 @@
                     <local1:AddSupplierUC DataContext="{Binding ContentAddSupplier}"/>
                 </materialDesign:DialogHost.DialogContent>
             </materialDesign:DialogHost>
+            <!--enđ Diaglog-->
+            
             <!--DigLog addProduct-->
             <materialDesign:DialogHost 
                                    Identifier="AccountDialog"
@@ -188,9 +210,9 @@
                 </materialDesign:DialogHost.DialogContent>
 
             </materialDesign:DialogHost>
+            <!--enđ Diaglog-->
             <Grid >
               
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition />
@@ -458,7 +480,7 @@
                                                                             Binding="{Binding SanPham.DonVi.TenDV}"
                                                                             IsReadOnly="True" />
 
-                                                <DataGridTemplateColumn Header="Số lượng"
+                                                <DataGridTemplateColumn Header="Số lượng nhập"
                                                                                 x:Name="columnTextBox">
 
                                                     <DataGridTemplateColumn.CellTemplate>
@@ -585,7 +607,7 @@
 
                 </Grid>
             </Grid>
-            <!--enđ Diaglog-->
+           
 
         </Grid>
         <!--<Grid>

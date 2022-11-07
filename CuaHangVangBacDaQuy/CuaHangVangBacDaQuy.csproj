@@ -158,6 +158,7 @@
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
     <Compile Include="viewmodels\Converter\AmountConverter.cs" />
     <Compile Include="viewmodels\Converter\DecimalConverter.cs" />
+    <Compile Include="viewmodels\Converter\CaculateInventoryConverter.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddCustomerViewModel.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddProductViewModel.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddSupplierViewModel.cs" />
@@ -232,9 +233,6 @@
     </Page>
     <Page Include="views\MainWindow.xaml">
     </Page>
-    <Compile Include="views\userControl\TitleBarUC.xaml.cs">
-      <DependentUpon>TitleBarUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -289,10 +287,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\userControl\TitleBarUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -334,6 +328,10 @@
   <ItemGroup>
     <Resource Include="Image\icon-user-default.png" />
     <Resource Include="Image\Image-supplier.jpg" />
+    <Resource Include="Image\Image-Diamond.png" />
+    <Resource Include="Image\Image-Diamond2.jpeg" />
+    <Resource Include="Image\Image-Diamond4.jpeg" />
+    <Resource Include="Image\Image-jewels.jpg" />
     <Content Include="models\VDBQModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>VDBQModel.edmx</DependentUpon>

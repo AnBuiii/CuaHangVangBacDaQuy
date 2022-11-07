@@ -11,13 +11,14 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
     public class AmountConverter : IValueConverter
     {
 
-
+        // Convert số lượng nhập từ model ra view
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {       
             if(value == null || (int)value == 0) return "";
             return value;
         }
 
+        //Convert số lượng nhập hàng từ view vào model
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             

@@ -33,4 +33,5 @@
     <DataTemplate DataType="{x:Type contentDialogViewModel:AddProductViewModel}">
         <viewUC:AddProductUC/>
     </DataTemplate>
+ 
 </ResourceDictionary>

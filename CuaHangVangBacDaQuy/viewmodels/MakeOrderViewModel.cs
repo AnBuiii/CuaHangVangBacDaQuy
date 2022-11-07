@@ -1,4 +1,5 @@
 ﻿using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -52,12 +53,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
 
 
-        private bool _IsOpenAddSupplierDialog;
-        public bool IsOpenAddSupplierDialog
-        {
-            get { return _IsOpenAddSupplierDialog; }
-            set { _IsOpenAddSupplierDialog = value; OnPropertyChanged(); }
-        }
 
 
         private string _TitleDiaLog;
@@ -125,6 +120,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public string SupplierSelectedPhoneNumber { get => _SupplierSelectedPhoneNumber; set { _SupplierSelectedPhoneNumber = value; OnPropertyChanged(); } }
 
 
+        private ObservableCollection<NhaCungCap> _SelectedSuppliersList;
+        public ObservableCollection<NhaCungCap> SelectedSuppliersList
+        {
+            get => _SelectedSuppliersList;
+            set { _SelectedSuppliersList = value; OnPropertyChanged(); }
+        }
 
 
         private NhaCungCap _SelectedSupplier;
@@ -142,18 +143,40 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 OnPropertyChanged();
 
 
-                if (SelectedSupplier != null)
+                if (value != null && !SelectedSuppliersList.Contains(value) )
                 {
+                    SelectedSuppliersList?.Clear();
                     SupplierSelectedName = SelectedSupplier.TenNCC;
                     SupplierSelectedAddress = SelectedSupplier.DiaChi;
                     SupplierSelectedPhoneNumber = SelectedSupplier.SoDT;
+                    SelectedSuppliersList.Add(value);
                     VisibilitySelectedSupplier = "Visible";
-
-
+                    
                 }
-
+                
 
             }
+        }
+
+        private AddSupplierViewModel _ContentAddSupplier;
+        public AddSupplierViewModel ContentAddSupplier
+        {
+            get => _ContentAddSupplier;
+            set
+            {
+                _ContentAddSupplier = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+
+
+        private OpenDiaLog _IsOpenAddSupplierDialog;
+        public OpenDiaLog IsOpenAddSupplierDialog
+        {
+            get { return _IsOpenAddSupplierDialog; }
+            set { _IsOpenAddSupplierDialog = value; OnPropertyChanged(); }
         }
 
 
@@ -166,33 +189,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
 
                 _TotalMoney = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-
-        private ObservableCollection<string> _TestList;
-        public ObservableCollection<string> TestList
-        {
-            get => _TestList;
-            set
-            {
-
-                _TestList = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _SelectedTest;
-        public string SelectedTest
-        {
-            get => _SelectedTest;
-
-            set
-            {
-
-                _SelectedTest = value;
                 OnPropertyChanged();
             }
         }
@@ -377,16 +373,19 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
 
 
+            
 
             PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
 
             SuppliersList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
+            SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
 
+            IsOpenAddSupplierDialog = new OpenDiaLog() { IsOpen = false };
             AddPurchaseOrderCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { IsOpenDetailDialog = true; });
            
 
 
-            AddSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { TitleDiaLog = "Thêm nhà cung cấp"; ClearFieldAddSupplierDialog(); IsOpenAddSupplierDialog = true; caseButtonSaveDialog = "Add"; });
+            AddSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { actionAddSupplier(); });
             SaveSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => CheckValidSupplierDiaLog(), p =>
             {
                 switch (caseButtonSaveDialog)
@@ -423,7 +422,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 NewSupplierPhoneNumber = SupplierSelectedPhoneNumber;
 
                 caseButtonSaveDialog = "Edit";
-                IsOpenAddSupplierDialog = true;
+               // IsOpenAddSupplierDialog = true;
 
 
             });
@@ -451,21 +450,23 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public void actionAddSupplier()
         {
+            MessageBox.Show("cc");
+            IsOpenAddSupplierDialog.IsOpen = true;
+            ContentAddSupplier = new AddSupplierViewModel("Thêm nhà cung cấp mới", ref _IsOpenAddSupplierDialog, ref _SuppliersList);
+            //if (!checkValidPhone()) return;
+            //var newSupplier = new NhaCungCap()
+            //{
+            //    TenNCC = NewSupplierName,
+            //    DiaChi = NewSupplierAddress,
+            //    SoDT = NewSupplierPhoneNumber,
 
-            if (!checkValidPhone()) return;
-            var newSupplier = new NhaCungCap()
-            {
-                TenNCC = NewSupplierName,
-                DiaChi = NewSupplierAddress,
-                SoDT = NewSupplierPhoneNumber,
+            //};
+            //DataProvider.Ins.DB.NhaCungCaps.Add(newSupplier);
+            //DataProvider.Ins.DB.SaveChanges();
+            //SuppliersList.Add(newSupplier);
+            //SelectedSupplier = newSupplier;
 
-            };
-            DataProvider.Ins.DB.NhaCungCaps.Add(newSupplier);
-            DataProvider.Ins.DB.SaveChanges();
-            SuppliersList.Add(newSupplier);
-            SelectedSupplier = newSupplier;
-
-            IsOpenAddSupplierDialog = false;
+            //IsOpenAddSupplierDialog = false;
 
         }
 
@@ -518,29 +519,13 @@ namespace CuaHangVangBacDaQuy.viewmodels
             if (MessageBox.Show("Những thay đổi của bạn sẽ không được lưu?", "",
                  MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                IsOpenAddSupplierDialog = false;
+               // IsOpenAddSupplierDialog = false;
             }
 
 
         }
 
-        bool checkValidPhone()
-        {
-            if (!CheckField.checkPhone(NewSupplierPhoneNumber))
-            {
-
-                MessageBox.Show("Vui lòng nhập đúng định dạng số điện thoại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-
-
-            if (SuppliersList.Where(p => p.SoDT == NewSupplierPhoneNumber).Count() > 0)
-            {
-                MessageBox.Show("Số điện thoại đã tồn tại!", "", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            return true;
-        }
+      
 
         void AddProduct()
         {

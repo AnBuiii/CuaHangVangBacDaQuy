@@ -1,0 +1,167 @@
+﻿<UserControl x:Class="CuaHangVangBacDaQuy.views.userControl.AddSupplierUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
+             mc:Ignorable="d" 
+            
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Name="makeOderView"
+            DataContext="{StaticResource AddSupplierViewModel}"
+             d:DesignHeight="487.982" d:DesignWidth="382.844"
+             >
+    <Grid>
+        <Grid  Margin="16px"
+                           Width="350"
+                           Height="400">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+
+                <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding TitleView }"
+                                        FontSize="20" />
+
+
+                <Button  HorizontalAlignment="Right"
+                                     Style="{StaticResource MaterialDesignIconButton}"
+                                     Command="{Binding CancelCommand}">
+
+                    <materialDesign:PackIcon Kind="CloseCircleOutline"
+                                                         Height="30"
+                                                         Width="30" />
+
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Separator Margin="5"></Separator>
+            </Grid>
+
+            <Grid Grid.Row="2">
+
+                <StackPanel>
+                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                            VerticalAlignment="Center"
+                                            Text="Tên nhà cung cấp"></TextBlock>
+
+                    <TextBox Height="48" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                              Foreground="Black"
+                                             FontSize="16"
+                                             FontWeight="Medium"
+                                         MinWidth="100"
+                                         VerticalAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         BorderThickness="0.5"
+                                         BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                         Text="{Binding SupplierName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                </StackPanel>
+
+
+
+
+
+            </Grid>
+
+            <Grid Grid.Row="3"
+                              Margin="0, 16, 0, 0">
+                <StackPanel>
+
+
+                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                            VerticalAlignment="Center"
+                                            Text="Địa chỉ" />
+                    <TextBox Height="48" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                         Foreground="Black"
+                                             FontSize="16"
+                                             FontWeight="Medium"
+                                         MinWidth="100"
+                                         VerticalAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         BorderThickness="0.5"
+                                         BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                         Text="{Binding SupplierAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+
+                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                            VerticalAlignment="Center"
+                                            Text="Số điện thoại" />
+                    <TextBox  Height="48" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                               Foreground="Black"
+                                             FontSize="16"
+                                             FontWeight="Medium"
+                                         MinWidth="100"
+                                         VerticalAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         BorderThickness="0.5"
+                                         BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                         Text="{Binding SupplierPhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="4"
+                              Margin="0, 16, 0, 0">
+                <Separator Margin="5"></Separator>
+            </Grid>
+            <Grid Grid.Row="5"
+                              Margin="0, 16, 0, 0">
+
+                <StackPanel  Orientation="Horizontal"
+                                         HorizontalAlignment="Right">
+
+                    <Button HorizontalAlignment="Center"
+                                        Margin="0, 0, 16, 0"
+                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                        Command="{Binding CancelCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="CloseCircle"
+                                                                 Width="18"
+                                                                 Height="18"
+                                                                 VerticalAlignment="Center"
+                                                                 HorizontalAlignment="Left"
+                                                                 Margin="2 2 4 2" />
+                            <TextBlock Text="Hủy"
+                                                   FontSize="18" />
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="0"
+                                        HorizontalAlignment="Center"
+                                        Margin="4"
+                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                        Command="{Binding  SaveCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ContentSave"
+                                                                 Width="18"
+                                                                 Height="18"
+                                                                 VerticalAlignment="Center"
+                                                                 HorizontalAlignment="Left"
+                                                                 Margin="2 2 4 2" />
+                            <TextBlock Text="Lưu"
+                                                   FontSize="18" />
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</UserControl>

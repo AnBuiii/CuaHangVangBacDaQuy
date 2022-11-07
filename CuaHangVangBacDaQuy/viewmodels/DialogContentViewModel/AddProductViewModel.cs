@@ -72,13 +72,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
         }
 
-
-        private int _CodeTypeProduct;
-        public int CodeTypeProduct { get => _CodeTypeProduct; set { _CodeTypeProduct = value; OnPropertyChanged(); } }
-
-        private int _CodeUnit;
-        public int CodeUnit { get => _CodeUnit; set { _CodeUnit = value; OnPropertyChanged(); } }
-
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 

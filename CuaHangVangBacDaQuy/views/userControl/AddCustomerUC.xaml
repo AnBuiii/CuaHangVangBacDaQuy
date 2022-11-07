@@ -15,10 +15,10 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              Name="makeOderView"
              DataContext="{StaticResource AddCustomerVM}"
-             d:DesignHeight="620.071" d:DesignWidth="441.967"
+             d:DesignHeight="548.071" d:DesignWidth="391.567"
              >
 
-    <Grid  Margin="16px" Width="400" Height="500">
+    <Grid  Margin="16px" Width="350" >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
@@ -34,7 +34,8 @@
                        
                         VerticalAlignment="Center"
                         Text="{Binding  TilteView }" 
-                        FontSize="20"/>
+                        FontSize="20"
+                        Foreground="{StaticResource PrimaryHueDarkBrush}"/>
 
 
             <Button  HorizontalAlignment="Right" 
@@ -58,7 +59,10 @@
                                VerticalAlignment="Center"
                         Text="Họ và tên" ></TextBlock>
 
-                <TextBox  
+                
+                    <TextBox  Height="52.5"       Foreground="Black"
+                                             FontSize="16"
+                                             FontWeight="Medium"
                                             VerticalScrollBarVisibility="Auto"
                                              MinWidth="100"
                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -67,6 +71,11 @@
                                              BorderThickness="0.5" 
                                              BorderBrush="{StaticResource MaterialDesignBodyLight}"
                                              Text="{Binding CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+               
+                
+
+
 
             </StackPanel>
 
@@ -104,7 +113,9 @@
             </Grid>
             <Grid Grid.Row="2"  Margin="0, 16, 0, 0">
                 <RadioButton   GroupName="Gender"  
-                               Content="Nữ" 
+                               Content="Nữ"
+                              
+                               
                                Style="{StaticResource MaterialDesignAccentRadioButton}"
                                 IsChecked="{Binding Path = Gender, 
                                          UpdateSourceTrigger=PropertyChanged,
@@ -122,10 +133,12 @@
                                VerticalAlignment="Center"
                         Text="Địa chỉ" 
                           />
-                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                <TextBox Height="52" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                            
                                              MinWidth="100"
-                                            
+                                             Foreground="Black"
+                                             FontSize="16"
+                                             FontWeight="Medium"
                                              VerticalAlignment="Center"                                           
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5" 
@@ -137,10 +150,12 @@
                                VerticalAlignment="Center"
                         Text="Số điện thoại" 
                           />
-                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                <TextBox   Height="52" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                            
                                              MinWidth="100"
-                                            
+                                              Foreground="Black"
+                                             FontSize="16"
+                                             FontWeight="Medium"
                                              VerticalAlignment="Center"                                           
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5" 

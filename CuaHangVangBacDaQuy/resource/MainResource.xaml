@@ -16,6 +16,7 @@
     <viewModel:SaleOrderViewModel x:Key="SaleOrderVM" />
     <contentDialogViewModel:AddCustomerViewModel x:Key="AddCustomerVM"/>
     <contentDialogViewModel:AddProductViewModel x:Key="AddProductVM"/>
+    <contentDialogViewModel:AddSupplierViewModel x:Key="AddSupplierViewModel"/>
     <converter:GenderConverter x:Key="genderConverterKey"/>
     <converter:AmountConverter x:Key="AmountConverterKey"/>
     <converter:DecimalConverter x:Key="DecimalConverterKey"/>

@@ -160,6 +160,7 @@
     <Compile Include="viewmodels\Converter\DecimalConverter.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddCustomerViewModel.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddProductViewModel.cs" />
+    <Compile Include="viewmodels\DialogContentViewModel\AddSupplierViewModel.cs" />
     <Compile Include="viewmodels\SaleOrderViewModel.cs" />
     <Compile Include="viewmodels\Converter\GenderConverter.cs" />
     <Compile Include="viewmodels\CustomerViewModel.cs" />
@@ -198,6 +199,9 @@
     </Compile>
     <Compile Include="views\userControl\AddProductUC.xaml.cs">
       <DependentUpon>AddProductUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\userControl\AddSupplierUC.xaml.cs">
+      <DependentUpon>AddSupplierUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\userControl\ControlBarUC.xaml.cs">
       <DependentUpon>ControlBarUC.xaml</DependentUpon>
@@ -274,6 +278,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\userControl\AddProductUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\userControl\AddSupplierUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

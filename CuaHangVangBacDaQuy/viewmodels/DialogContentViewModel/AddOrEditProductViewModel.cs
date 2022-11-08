@@ -128,9 +128,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
 
-        //constructor dùng cho chỉnh sủa sản phẩm mới từ màn hình tạo đơn mua hàng
-
-
         bool CheckEmptyFieldDialog()
         {
             if (string.IsNullOrWhiteSpace(ProductName) || string.IsNullOrEmpty(ProductPrice.ToString()) || ProductPrice.ToString() == "0" || SelectedTypeProduct == null || SelectedUnit == null) return false;

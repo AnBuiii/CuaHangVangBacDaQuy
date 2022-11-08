@@ -15,8 +15,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
     public class AddOrEditSupplierViewModel:BaseViewModel
     {
         private readonly ObservableCollection<NhaCungCap> SuppliersList;
-        private readonly ObservableCollection<NhaCungCap> SelectedSuppliersList;
-
+        
         private NhaCungCap _EditedSupplier;
         public NhaCungCap EditedSupplier
         {
@@ -148,24 +147,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             };
 
             DataProvider.Ins.DB.NhaCungCaps.Add(newSup);
-            DataProvider.Ins.DB.SaveChanges();
-
-            //nếu dialog được mở từ view quản lý nhà cung cấp
-            if (SuppliersList != null)
-            {
-                SuppliersList.Add(newSup);
-            }
-
-          
-            //nếu dialog được mở từ view tạo phiếu mua hàng
-            if (SelectedSuppliersList != null)
-            {
-                
-                 SelectedSuppliersList?.Clear();
-                SelectedSuppliersList.Add(newSup);
-
-            }
-                      
+            DataProvider.Ins.DB.SaveChanges();           
+            SuppliersList.Add(newSup);                     
             openDiaLog.IsOpen = false;
         }
 

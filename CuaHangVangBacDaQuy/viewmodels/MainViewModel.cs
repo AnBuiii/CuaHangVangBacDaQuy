@@ -27,7 +27,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         #region ViewModelParams
         public HomeViewModel HomeViewModel { get; set; }
         public AccountViewModel AccountViewModel { get; set; }
-        public MakeOrderViewModel MakeOrderViewModel { get; set; }
+        public ImportReceiptViewModel ImportReceiptViewModel { get; set; }
         public SaleOrderViewModel SaleOrderViewModel { get; set; }
         public CustomerViewModel CustomerViewModel { get; set; }
         public ProductViewModel ProductViewModel { get; set; }
@@ -66,7 +66,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             });
             MakeOrderCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                DataTemplate = MakeOrderViewModel;
+                DataTemplate = ImportReceiptViewModel;
             });
             SaleOrderViewCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -121,7 +121,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             HomeViewModel = new HomeViewModel();
             AccountViewModel = new AccountViewModel();
-            MakeOrderViewModel = new MakeOrderViewModel();
+            ImportReceiptViewModel = new ImportReceiptViewModel();
             SaleOrderViewModel = new SaleOrderViewModel();
             ProductViewModel = new ProductViewModel();
             SupplierViewModel = new SupplierViewModel();

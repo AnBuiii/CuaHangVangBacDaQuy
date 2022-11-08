@@ -12,6 +12,9 @@
     <DataTemplate DataType="{x:Type viewModel:AccountViewModel}">
         <view:AccountView />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type viewModel:ImportReceiptViewModel}">
+        <view:ImportReceiptView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type viewModel:MakeOrderViewModel}">
         <view:MakeOderView/>
     </DataTemplate>
@@ -27,4 +30,5 @@
     <DataTemplate DataType="{x:Type viewModel:SaleOrderViewModel}">
         <view:SaleOrderView />
     </DataTemplate>
+    
 </ResourceDictionary>

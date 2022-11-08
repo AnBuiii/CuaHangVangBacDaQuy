@@ -14,6 +14,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
     {
         #region
         // các biến cho view chính này
+
+        
+
         private ObservableCollection<PhieuMua> _PhieuMuaList;
         public ObservableCollection<PhieuMua> PhieuMuaList
         {
@@ -25,7 +28,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 OnPropertyChanged();
             }
         }
-
+       
+        private readonly OpenDiaLog openDiaLog;  //tham chiếu để tắt bật dialog có view này
 
 
         //Các biến cho việc chọn nhà nhà cung cấp
@@ -212,9 +216,11 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         #endregion
 
+        //constructor cho việc tạo phiếu mua hàng mới 
         public AddOrEditImportReceiptViewModel()
         {
 
+           
             //for select supplier
             SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
             IsOpenAddSupplierDialog = new OpenDiaLog() { IsOpen = false };

@@ -160,6 +160,7 @@
     <Compile Include="viewmodels\Converter\DecimalConverter.cs" />
     <Compile Include="viewmodels\Converter\CaculateInventoryConverter.cs" />
     <Compile Include="viewmodels\Converter\IntoMoneyConverter.cs" />
+    <Compile Include="viewmodels\Converter\TotalPriceOfAReceipt.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditCustomerViewModel.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditImportReceiptViewModel.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditProductViewModel.cs" />

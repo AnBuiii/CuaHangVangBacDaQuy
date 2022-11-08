@@ -39,7 +39,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 if (EditedProduct != null)
                 {
                     ProductName = value.TenSP;
-                    ProductPrice = value.DonGia;
+                    ProductPrice = (decimal)value.DonGia;
                     SelectedTypeProduct = value.LoaiSanPham;
                     SelectedUnit = value.DonVi;
                 }
@@ -63,8 +63,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
 
-        private decimal? _ProductPrice;
-        public decimal? ProductPrice
+        private decimal _ProductPrice = 0;
+        public decimal ProductPrice
         {
             get => _ProductPrice;
             set

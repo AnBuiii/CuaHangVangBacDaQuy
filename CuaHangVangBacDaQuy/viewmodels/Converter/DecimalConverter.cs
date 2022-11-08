@@ -13,10 +13,13 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
     {
 
         //Convert số đơn giá từ model ra view
+        private decimal PastValue = 0;
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {          
             if ( value == null||(decimal)value == 0) return "";
-            return value;
+            PastValue = (decimal)value;
+            string str = PastValue.ToString("#,##0.");
+            return str;
         }
 
         //Convert số đơn giá từ view vào model
@@ -24,14 +27,20 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
            
-            if (value == null) return 0;
-            //MessageBox.Show(value.GetType().ToString());
+            if (value == null||value.ToString().Count() == 0) return 0;
+            
+            string str = value as string;
 
-            if (CheckField.checkNumber((string)value))
+          
+            str = str.Replace(",", "");
+            //MessageBox.Show(str);
+            if (CheckField.CheckNumber(str))
             {
-                if (System.Convert.ToInt64(value) < 922337203685477) // giới hạn money trong sql
+                
+               // MessageBox.Show(str);
+                if (System.Convert.ToDecimal(str) < 922337203685477) // giới hạn money trong sql
                 {
-                     return value;
+                     return decimal.Parse(str);
                 }
                 else
                 {
@@ -39,7 +48,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
 
                 }
             }
-           return null;
+            
+           return PastValue;
 
         }
     }

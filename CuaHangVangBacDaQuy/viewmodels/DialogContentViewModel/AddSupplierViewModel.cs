@@ -182,7 +182,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         bool CheckValidPhoneNumber()
         {
-            if (!CheckField.checkPhone(SupplierPhoneNumber))
+            if (!CheckField.CheckPhone(SupplierPhoneNumber))
             {
 
                 MessageBox.Show("Vui lòng nhập đúng định dạng số điện thoại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);

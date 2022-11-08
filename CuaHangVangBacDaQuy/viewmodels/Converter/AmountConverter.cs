@@ -24,7 +24,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
             
             if (value == null) return 0;
 
-            if (CheckField.checkNumber((string)value))
+            if (CheckField.CheckNumber((string)value))
             {
                 if (System.Convert.ToInt64(value) <= 2147483647) // giới hạn int trong sql
                 {

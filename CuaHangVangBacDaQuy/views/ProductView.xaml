@@ -136,7 +136,7 @@
                         <Binding Path="Height" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}" ></Binding>
                     </ScrollViewer.MaxHeight>-->
                     <DataGrid ItemsSource="{Binding ProductsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedProduct, Mode=OneWayToSource}"
+                              SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"
@@ -151,13 +151,13 @@
                                                 Binding="{Binding TenSP}"
                                                 IsReadOnly="True" />
                             <DataGridTextColumn Header="Đơn giá"
-                                                Binding="{Binding DonGia}"
+                                                Binding="{Binding DonGia, Converter={StaticResource DecimalConverterKey}}"
                                                 IsReadOnly="True" />
                             <DataGridTextColumn Header="Loại sản phẩm"
-                                                Binding="{Binding LoaiSanPham.TenLoaiSP}"
+                                                Binding="{Binding LoaiSanPham.TenLoaiSP,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 IsReadOnly="True" />
                             <DataGridTextColumn Header="Đơn vị"
-                                                Binding="{Binding DonVi.TenDV}"
+                                                Binding="{Binding DonVi.TenDV,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 IsReadOnly="True" />
 
                             <DataGridTemplateColumn x:Name="editBtn">

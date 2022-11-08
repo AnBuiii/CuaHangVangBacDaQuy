@@ -41,7 +41,12 @@ namespace CuaHangVangBacDaQuy.models
         public virtual ICollection<ChiTietPhieuBan> ChiTietPhieuBans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuMua> ChiTietPhieuMuas { get; set; }
-        public virtual DonVi DonVi { get; set; }
-        public virtual LoaiSanPham LoaiSanPham { get; set; }
+       
+        private  DonVi _Donvi;
+        public virtual DonVi DonVi { get =>_Donvi; set { _Donvi = value;OnPropertyChanged(); } }
+
+        private LoaiSanPham _LoaiSanPham;
+        public virtual LoaiSanPham LoaiSanPham { get => _LoaiSanPham; set { _LoaiSanPham = value; OnPropertyChanged(); } }
+       
     }
 }

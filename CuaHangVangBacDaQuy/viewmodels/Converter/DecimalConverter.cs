@@ -33,7 +33,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
 
           
             str = str.Replace(",", "");
-            //MessageBox.Show(str);
+            
             if (CheckField.CheckNumber(str))
             {
                 

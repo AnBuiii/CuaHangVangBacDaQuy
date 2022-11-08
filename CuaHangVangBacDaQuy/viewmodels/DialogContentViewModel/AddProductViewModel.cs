@@ -110,7 +110,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             CancelCommand = new RelayCommand<AddCustomerUC>((p) => true, p => CheckCloseDiaLog());
             SaveCommand = new RelayCommand<AddCustomerUC>((p) => CheckEmptyFieldDialog(), p => ActionEditProduct());
 
-
         }
 
         //constructor dùng cho thêm sản phẩm mới từ màn hình tạo đơn mua hàng mới(danh sách sản phẩm là list các sản phẩm được chọn để tạo đơn trong datagridview )
@@ -185,7 +184,12 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             editedProduct.DonGia = ProductPrice;
             editedProduct.MaLoaiSP = SelectedTypeProduct.MaLoaiSP;
             editedProduct.MaDV = SelectedUnit.MaDV;
+            
             DataProvider.Ins.DB.SaveChanges();
+            EditedProduct.TenSP = ProductName;
+            EditedProduct.DonGia = ProductPrice;
+            EditedProduct.LoaiSanPham = SelectedTypeProduct;
+            EditedProduct.DonVi = SelectedUnit;
         }
 
 

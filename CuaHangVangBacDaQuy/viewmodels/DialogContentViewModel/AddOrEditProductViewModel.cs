@@ -1,5 +1,6 @@
 ﻿using CuaHangVangBacDaQuy.models;
 using CuaHangVangBacDaQuy.views.userControl;
+using CuaHangVangBacDaQuy.views.userControlDialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,10 +12,10 @@ using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
-    public class AddProductViewModel:BaseViewModel
+    public class AddOrEditProductViewModel:BaseViewModel
     {
         private readonly ObservableCollection<SanPham> ProductList;
-        private readonly ObservableCollection<ProductAdded> ProductAddedList;
+        private readonly ObservableCollection<ChiTietPhieuMua> ProductAddedList;
 
         private ObservableCollection<LoaiSanPham> _TypeProductList;
         public ObservableCollection<LoaiSanPham> TypeProductList { get => _TypeProductList; set { _TypeProductList = value; OnPropertyChanged(); } }
@@ -77,13 +78,13 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         public ICommand CancelCommand { get; set; }
 
 
-        public AddProductViewModel()
+        public AddOrEditProductViewModel()
         {
 
         }
 
         //constructor dùng cho thêm sản phẩm mới từ màn hình quản lý sản phẩm
-        public AddProductViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<SanPham> productsList)
+        public AddOrEditProductViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<SanPham> productsList)
         {
 
             TypeProductList = new ObservableCollection<LoaiSanPham>(DataProvider.Ins.DB.LoaiSanPhams);
@@ -91,15 +92,15 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             TilteView = tilteView;
             openDiaLog = isOpenDialog;
             ProductList = productsList;
-            CancelCommand = new RelayCommand<AddProductUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddProductUC>((p) => CheckEmptyFieldDialog(), p => ActionAddProduct());
+            CancelCommand = new RelayCommand<AddOrEditProductUC>((p) => true, p => CheckCloseDiaLog());
+            SaveCommand = new RelayCommand<AddOrEditProductUC>((p) => CheckEmptyFieldDialog(), p => ActionAddProduct());
 
 
 
         }
 
         //constructor dùng cho chỉnh sủa sản phẩm mới từ màn hình quản lý sản phẩm
-        public AddProductViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<SanPham> productsList, ref SanPham editedProduct)
+        public AddOrEditProductViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<SanPham> productsList, ref SanPham editedProduct)
         {
             TypeProductList = new ObservableCollection<LoaiSanPham>(DataProvider.Ins.DB.LoaiSanPhams);
             UnitList = new ObservableCollection<DonVi>(DataProvider.Ins.DB.DonVis);
@@ -107,13 +108,13 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             openDiaLog = isOpenDialog;
             ProductList = productsList;
             EditedProduct = editedProduct;
-            CancelCommand = new RelayCommand<AddCustomerUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddCustomerUC>((p) => CheckEmptyFieldDialog(), p => ActionEditProduct());
+            CancelCommand = new RelayCommand<AddOrEditCustomerUC>((p) => true, p => CheckCloseDiaLog());
+            SaveCommand = new RelayCommand<AddOrEditCustomerUC>((p) => CheckEmptyFieldDialog(), p => ActionEditProduct());
 
         }
 
         //constructor dùng cho thêm sản phẩm mới từ màn hình tạo đơn mua hàng mới(danh sách sản phẩm là list các sản phẩm được chọn để tạo đơn trong datagridview )
-        public AddProductViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<ProductAdded> productsAddedList)
+        public AddOrEditProductViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<ChiTietPhieuMua> productsAddedList)
         {
 
             TypeProductList = new ObservableCollection<LoaiSanPham>(DataProvider.Ins.DB.LoaiSanPhams);
@@ -121,8 +122,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             TilteView = tilteView;
             openDiaLog = isOpenDialog;
             ProductAddedList = productsAddedList;
-            CancelCommand = new RelayCommand<AddProductUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddProductUC>((p) => CheckEmptyFieldDialog(), p => ActionAddProduct());
+            CancelCommand = new RelayCommand<AddOrEditProductUC>((p) => true, p => CheckCloseDiaLog());
+            SaveCommand = new RelayCommand<AddOrEditProductUC>((p) => CheckEmptyFieldDialog(), p => ActionAddProduct());
 
         }
 
@@ -138,7 +139,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         private void ActionAddProduct()
         {
-           
+
             var newProduct = new SanPham()
             {
                 MaSP = Guid.NewGuid().ToString(),
@@ -146,34 +147,34 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 DonGia = ProductPrice,
                 MaLoaiSP = SelectedTypeProduct.MaLoaiSP,
                 MaDV = SelectedUnit.MaDV,
-                
+
             };
 
             DataProvider.Ins.DB.SanPhams.Add(newProduct);
             DataProvider.Ins.DB.SaveChanges();
 
             //nếu constuctor được khởi tạo từ view quản lý sản phẩm
-            if(ProductList != null)
+            if (ProductList != null)
             {
                 ProductList.Add(newProduct);
             }
 
             //nếu constuctor được khởi tạo từ view tạo đơn mua hàng
-            if(ProductAddedList != null)
+            if (ProductAddedList != null)
             {
 
-                ProductAdded productAdded = new ProductAdded(){
+                ChiTietPhieuMua productAdded = new ChiTietPhieuMua()
+                {
+                    MaSP = newProduct.MaSP,
                     SanPham = newProduct,
-                    Amount = 0,
-                    IntoMoney = 0,
-
-                };            
+                    SoLuong = 0
+                };
                 ProductAddedList.Add(productAdded);
             }
             openDiaLog.IsOpen = false;
 
-
         }
+        
 
         private void ActionEditProduct()
         {

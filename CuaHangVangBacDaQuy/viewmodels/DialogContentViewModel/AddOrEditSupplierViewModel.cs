@@ -1,5 +1,6 @@
 ﻿using CuaHangVangBacDaQuy.models;
 using CuaHangVangBacDaQuy.views.userControl;
+using CuaHangVangBacDaQuy.views.userControlDialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +12,7 @@ using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
-    public class AddSupplierViewModel:BaseViewModel
+    public class AddOrEditSupplierViewModel:BaseViewModel
     {
         private readonly ObservableCollection<NhaCungCap> SuppliersList;
         private readonly ObservableCollection<NhaCungCap> SelectedSuppliersList;
@@ -75,13 +76,13 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         public ICommand CancelCommand { get; set; }
 
 
-        public AddSupplierViewModel()
+        public AddOrEditSupplierViewModel()
         {
 
         }
 
         //constructor used for add new supplier 
-        public AddSupplierViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList)
+        public AddOrEditSupplierViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList)
         {
 
 
@@ -89,21 +90,21 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             openDiaLog = isOpenDialog;
             SuppliersList = suppliersList;
 
-            CancelCommand = new RelayCommand<AddSupplierUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddSupplierUC>((p) => checkEmptyFieldDialog(), p => ActionAddSupplier());
+            CancelCommand = new RelayCommand<AddOrEditSupplierUC>((p) => true, p => CheckCloseDiaLog());
+            SaveCommand = new RelayCommand<AddOrEditSupplierUC>((p) => checkEmptyFieldDialog(), p => ActionAddSupplier());
 
 
         }
 
         //constructor used for edit supplier
-        public AddSupplierViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList, ref NhaCungCap editedSupplier)
+        public AddOrEditSupplierViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList, ref NhaCungCap editedSupplier)
         {
             TitleView = tilteView;
             openDiaLog = isOpenDialog;
             SuppliersList = suppliersList;
             EditedSupplier = editedSupplier;
-            CancelCommand = new RelayCommand<AddSupplierUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddSupplierUC>((p) => checkEmptyFieldDialog(), p => ActionEditCustomer());
+            CancelCommand = new RelayCommand<AddOrEditSupplierUC>((p) => true, p => CheckCloseDiaLog());
+            SaveCommand = new RelayCommand<AddOrEditSupplierUC>((p) => checkEmptyFieldDialog(), p => ActionEditCustomer());
         }
 
 

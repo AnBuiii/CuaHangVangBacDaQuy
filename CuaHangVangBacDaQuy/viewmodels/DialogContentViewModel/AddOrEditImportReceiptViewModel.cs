@@ -1,19 +1,16 @@
 ﻿using CuaHangVangBacDaQuy.models;
-using CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-
-namespace CuaHangVangBacDaQuy.viewmodels
+namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
-    public class MakeOrderViewModel : BaseViewModel
+    public class AddOrEditImportReceiptViewModel:BaseViewModel
     {
         #region
         // các biến cho view chính này
@@ -198,7 +195,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         //tính tổng tiền hóa đơn
 
-        private decimal? _TotalMoney ;
+        private decimal? _TotalMoney;
         public decimal? TotalMoney
         {
             get => _TotalMoney;
@@ -215,12 +212,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         #endregion
 
-        public MakeOrderViewModel()
+        public AddOrEditImportReceiptViewModel()
         {
 
-           //for select supplier
+            //for select supplier
             SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
-            IsOpenAddSupplierDialog = new OpenDiaLog() { IsOpen = false };           
+            IsOpenAddSupplierDialog = new OpenDiaLog() { IsOpen = false };
             AddSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { OpenDialogAddSupplier(); });
             RemoveSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { SelectedSuppliersList.Clear(); });
 
@@ -229,7 +226,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             IsOpenAddProductDialog = new OpenDiaLog() { IsOpen = false };
             AddProductCommand = new RelayCommand<MakeOrderViewModel>(p => true, p => { OpenDialogAddProduct(); });
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct());
-            CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());           
+            CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
         }
 
 
@@ -252,7 +249,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             //(bool)value ? parameter : Binding.DoNothin
 
-           TotalMoney = (TotalMoney == null) ? 0 : SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia);
+            TotalMoney = (TotalMoney == null) ? 0 : SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia);
 
         }
 
@@ -265,8 +262,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
 
         }
-      
 
     }
-
 }

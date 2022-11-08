@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CuaHangVangBacDaQuy.views.userControl
+namespace CuaHangVangBacDaQuy.views
 {
     /// <summary>
-    /// Interaction logic for AddProductUC.xaml
+    /// Interaction logic for ImportReceiptView.xaml
     /// </summary>
-    public partial class AddProductUC : UserControl
+    public partial class ImportReceiptView : UserControl
     {
-        public AddProductUC()
+        public ImportReceiptView()
         {
             InitializeComponent();
         }

@@ -46,13 +46,13 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
         }
 
-        private AddCustomerViewModel _ContentAddCustomer;
-        public AddCustomerViewModel ContentAddCustomer
+        private AddOrEditCustomerViewModel _ContentAddOrEditCustomer;
+        public AddOrEditCustomerViewModel ContentAddOrEditCustomer
         {
-            get => _ContentAddCustomer;
+            get => _ContentAddOrEditCustomer;
             set
             {
-                _ContentAddCustomer = value;
+                _ContentAddOrEditCustomer = value;
                 OnPropertyChanged();
                
             }
@@ -95,12 +95,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void addNewCustomer()
         {
-            ContentAddCustomer = new AddCustomerViewModel("Thêm khách hàng", ref _IsOpenDiaLog, ref _CustomerList);
+            ContentAddOrEditCustomer = new AddOrEditCustomerViewModel("Thêm khách hàng", ref _IsOpenDiaLog, ref _CustomerList);
         }
 
         private void EditCustomer()
         {
-            ContentAddCustomer = new AddCustomerViewModel("Sửa thông tin khách hàng", ref _IsOpenDiaLog, ref _CustomerList, ref _SelectedCustomer);
+            ContentAddOrEditCustomer = new AddOrEditCustomerViewModel("Sửa thông tin khách hàng", ref _IsOpenDiaLog, ref _CustomerList, ref _SelectedCustomer);
           
         }
         void loadCustomer(CustomerView view)

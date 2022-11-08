@@ -10,16 +10,19 @@
     <viewModel:AccountViewModel x:Key="AccountVM" />
     <viewModel:LoginViewModel x:Key="LoginVM" />
     <viewModel:MakeOrderViewModel x:Key="MakeOrderVM" />
+    <viewModel:ImportReceiptViewModel x:Key="ImportReceiptVM"/>
     <viewModel:ProductViewModel x:Key="ProductVM" />
     <viewModel:SupplierViewModel x:Key="SupplierVM" />
     <viewModel:CustomerViewModel x:Key="CustomerVM"/>
     <viewModel:SaleOrderViewModel x:Key="SaleOrderVM" />
-    <contentDialogViewModel:AddCustomerViewModel x:Key="AddCustomerVM"/>
-    <contentDialogViewModel:AddProductViewModel x:Key="AddProductVM"/>
-    <contentDialogViewModel:AddSupplierViewModel x:Key="AddSupplierViewModel"/>
+    <contentDialogViewModel:AddOrEditCustomerViewModel x:Key="AddOrEditCustomerVM"/>
+    <contentDialogViewModel:AddOrEditProductViewModel x:Key="AddOrEditProductVM"/>
+    <contentDialogViewModel:AddOrEditSupplierViewModel x:Key="AddOrEditSupplierVM"/>
+    <contentDialogViewModel:AddOrEditImportReceiptViewModel x:Key="AddOrEditImportReceiptVM"/>
     <converter:GenderConverter x:Key="genderConverterKey"/>
     <converter:AmountConverter x:Key="AmountConverterKey"/>
     <converter:DecimalConverter x:Key="DecimalConverterKey"/>
     <converter:CaculateInventoryConverter x:Key="CaculateInventoryConverterKey"/>
+    <converter:IntoMoneyConverter x:Key="IntoMoneyConverterKey"/>
 
 </ResourceDictionary>

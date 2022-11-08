@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:uc="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:ucDialog="clr-namespace:CuaHangVangBacDaQuy.views.userControlDialog"
              DataContext="{StaticResource SupplierVM}"
              x:Name="ProductUC"
              mc:Ignorable="d"
@@ -33,7 +34,7 @@
                                    DialogTheme="Inherit"
                                    IsOpen="{Binding IsOpenDiaLog.IsOpen}">
             <materialDesign:DialogHost.DialogContent>
-                <uc:AddSupplierUC DataContext="{Binding ContentAddSupplier}"></uc:AddSupplierUC>
+                <ucDialog:AddOrEditSupplierUC DataContext="{Binding ContentAddSupplier}"/>
             </materialDesign:DialogHost.DialogContent>
 
         </materialDesign:DialogHost>

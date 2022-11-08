@@ -11,10 +11,14 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
     public class AmountConverter : IValueConverter
     {
 
+        //giá trị nhập trước đó
+        private int PastValue = 0;
+
         // Convert số lượng nhập từ model ra view
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {       
             if(value == null || (int)value == 0) return "";
+            PastValue = (int)value;
             return value;
         }
 
@@ -22,7 +26,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             
-            if (value == null) return 0;
+            if (value == null|| value.ToString() == "") return 0;
 
             if (CheckField.CheckNumber((string)value))
             {
@@ -36,7 +40,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
                 }
             }
             
-            return 0;
+            return PastValue;
                    
         }
 

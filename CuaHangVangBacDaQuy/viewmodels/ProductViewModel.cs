@@ -63,8 +63,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
             set { _IsOpenProductDialog = value; OnPropertyChanged(); }
         }
 
-        private AddProductViewModel _ContentAddProuduct;
-        public AddProductViewModel ContentAddProduct
+        private AddOrEditProductViewModel _ContentAddProuduct;
+        public AddOrEditProductViewModel ContentAddProduct
         {
             get => _ContentAddProuduct;
             set
@@ -145,11 +145,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public void AddnewProduct()
         {
 
-            ContentAddProduct = new AddProductViewModel("Thêm sản phẩm mới", ref _IsOpenProductDialog, ref _ProducstList);
+            ContentAddProduct = new AddOrEditProductViewModel("Thêm sản phẩm mới", ref _IsOpenProductDialog, ref _ProducstList);
         }
         public void EditProduct()
         {
-            ContentAddProduct = new AddProductViewModel("Chỉnh sửa thông tin sản phẩm", ref _IsOpenProductDialog, ref _ProducstList, ref _SelectedProduct);
+            ContentAddProduct = new AddOrEditProductViewModel("Chỉnh sửa thông tin sản phẩm", ref _IsOpenProductDialog, ref _ProducstList, ref _SelectedProduct);
         }
         public void DeleteProduct()
         {

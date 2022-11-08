@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="CuaHangVangBacDaQuy.views.userControl.AddSupplierUC"
+﻿<UserControl x:Class="CuaHangVangBacDaQuy.views.userControlDialog.AddOrEditSupplierUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
+             xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views.userControlDialog"
              mc:Ignorable="d" 
-            
+           
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -16,7 +16,7 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              Name="makeOderView"
-            DataContext="{StaticResource AddSupplierViewModel}"
+            DataContext="{StaticResource AddOrEditSupplierVM}"
              d:DesignHeight="487.982" d:DesignWidth="382.844"
              >
     <Grid>

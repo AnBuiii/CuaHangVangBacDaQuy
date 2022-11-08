@@ -159,9 +159,12 @@
     <Compile Include="viewmodels\Converter\AmountConverter.cs" />
     <Compile Include="viewmodels\Converter\DecimalConverter.cs" />
     <Compile Include="viewmodels\Converter\CaculateInventoryConverter.cs" />
-    <Compile Include="viewmodels\DialogContentViewModel\AddCustomerViewModel.cs" />
-    <Compile Include="viewmodels\DialogContentViewModel\AddProductViewModel.cs" />
-    <Compile Include="viewmodels\DialogContentViewModel\AddSupplierViewModel.cs" />
+    <Compile Include="viewmodels\Converter\IntoMoneyConverter.cs" />
+    <Compile Include="viewmodels\DialogContentViewModel\AddOrEditCustomerViewModel.cs" />
+    <Compile Include="viewmodels\DialogContentViewModel\AddOrEditImportReceiptViewModel.cs" />
+    <Compile Include="viewmodels\DialogContentViewModel\AddOrEditProductViewModel.cs" />
+    <Compile Include="viewmodels\DialogContentViewModel\AddOrEditSupplierViewModel.cs" />
+    <Compile Include="viewmodels\ImportReceiptViewModel.cs" />
     <Compile Include="viewmodels\SaleOrderViewModel.cs" />
     <Compile Include="viewmodels\Converter\GenderConverter.cs" />
     <Compile Include="viewmodels\CustomerViewModel.cs" />
@@ -172,6 +175,9 @@
     <Compile Include="viewmodels\SupplierViewModel.cs" />
     <Compile Include="views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\ImportReceiptView.xaml.cs">
+      <DependentUpon>ImportReceiptView.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\SaleOrderView.xaml.cs">
       <DependentUpon>SaleOrderView.xaml</DependentUpon>
@@ -195,16 +201,19 @@
     <Compile Include="views\SupplierView.xaml.cs">
       <DependentUpon>SupplierView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\userControl\AddCustomerUC.xaml.cs">
-      <DependentUpon>AddCustomerUC.xaml</DependentUpon>
+    <Compile Include="views\userControlDialog\AddOrEditCustomerUC.xaml.cs">
+      <DependentUpon>AddOrEditCustomerUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\userControl\AddProductUC.xaml.cs">
-      <DependentUpon>AddProductUC.xaml</DependentUpon>
+    <Compile Include="views\userControlDialog\AddOrEditImportReceiptUC.xaml.cs">
+      <DependentUpon>AddOrEditImportReceiptUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\userControl\AddSupplierUC.xaml.cs">
-      <DependentUpon>AddSupplierUC.xaml</DependentUpon>
+    <Compile Include="views\userControlDialog\AddOrEditProductUC.xaml.cs">
+      <DependentUpon>AddOrEditProductUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\userControl\ControlBarUC.xaml.cs">
+    <Compile Include="views\userControlDialog\AddOrEditSupplierUC.xaml.cs">
+      <DependentUpon>AddOrEditSupplierUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\userControlDialog\ControlBarUC.xaml.cs">
       <DependentUpon>ControlBarUC.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomStyle\CustomStyleDictionary.xaml">
@@ -216,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\AccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\ImportReceiptView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -271,19 +284,23 @@
     </Page>
     <Page Include="views\SupplierView.xaml">
     </Page>
-    <Page Include="views\userControl\AddCustomerUC.xaml">
+    <Page Include="views\userControlDialog\AddOrEditCustomerUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\userControl\AddProductUC.xaml">
+    <Page Include="views\userControlDialog\AddOrEditImportReceiptUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\userControl\AddSupplierUC.xaml">
+    <Page Include="views\userControlDialog\AddOrEditProductUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\userControl\ControlBarUC.xaml">
+    <Page Include="views\userControlDialog\AddOrEditSupplierUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\userControlDialog\ControlBarUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

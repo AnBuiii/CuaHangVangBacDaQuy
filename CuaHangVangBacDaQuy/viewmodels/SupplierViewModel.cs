@@ -37,8 +37,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
         }
 
-        private AddSupplierViewModel _ContentAddSupplier;
-        public AddSupplierViewModel ContentAddSupplier
+        private AddOrEditSupplierViewModel _ContentAddSupplier;
+        public AddOrEditSupplierViewModel ContentAddSupplier
         {
             get => _ContentAddSupplier;
             set
@@ -82,12 +82,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
 
            
-            ContentAddSupplier = new AddSupplierViewModel("Thêm nhà cung cấp mới", ref _IsOpenDiaLog, ref _SuppliersList);
+            ContentAddSupplier = new AddOrEditSupplierViewModel("Thêm nhà cung cấp mới", ref _IsOpenDiaLog, ref _SuppliersList);
         }
 
         private void EditSupplier()
         {
-            ContentAddSupplier = new AddSupplierViewModel("Chỉnh sửa thông tin nhà cung cấp", ref _IsOpenDiaLog, ref _SuppliersList, ref _SelectedSupplier);
+            ContentAddSupplier = new AddOrEditSupplierViewModel("Chỉnh sửa thông tin nhà cung cấp", ref _IsOpenDiaLog, ref _SuppliersList, ref _SelectedSupplier);
          
         }
     }

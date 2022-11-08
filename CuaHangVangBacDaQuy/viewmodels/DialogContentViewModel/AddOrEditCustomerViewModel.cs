@@ -1,5 +1,6 @@
 ﻿using CuaHangVangBacDaQuy.models;
 using CuaHangVangBacDaQuy.views.userControl;
+using CuaHangVangBacDaQuy.views.userControlDialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +12,7 @@ using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
-    public class AddCustomerViewModel : BaseViewModel
+    public class AddOrEditCustomerViewModel : BaseViewModel
     {
         private  ObservableCollection<KhachHang> CustomerList;
 
@@ -74,11 +75,11 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         public ICommand CancelCommand { get; set; }
 
 
-        public AddCustomerViewModel()
+        public AddOrEditCustomerViewModel()
         {
 
         }
-        public AddCustomerViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<KhachHang> customersList)
+        public AddOrEditCustomerViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<KhachHang> customersList)
         {
            
 
@@ -86,20 +87,20 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             openDiaLog = isOpenDialog;
             CustomerList = customersList;
 
-            CancelCommand = new RelayCommand<AddCustomerUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddCustomerUC>((p) => CheckEmptyFieldDialog(), p => ActionAddCustomer());
+            CancelCommand = new RelayCommand<AddOrEditCustomerUC>((p) => true, p => CheckCloseDiaLog());
+            SaveCommand = new RelayCommand<AddOrEditCustomerUC>((p) => CheckEmptyFieldDialog(), p => ActionAddCustomer());
           
 
         }
 
-        public AddCustomerViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<KhachHang> customersList, ref KhachHang editedCustomer)
+        public AddOrEditCustomerViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<KhachHang> customersList, ref KhachHang editedCustomer)
         {
             TilteView = tilteView;
             openDiaLog = isOpenDialog;
             CustomerList = customersList;
             EditedCustomer = editedCustomer;
-            CancelCommand = new RelayCommand<AddCustomerUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddCustomerUC>((p) => CheckEmptyFieldDialog(), p => ActionEditCustomer());
+            CancelCommand = new RelayCommand<AddOrEditCustomerUC>((p) => true, p => CheckCloseDiaLog());
+            SaveCommand = new RelayCommand<AddOrEditCustomerUC>((p) => CheckEmptyFieldDialog(), p => ActionEditCustomer());
            
             
         }

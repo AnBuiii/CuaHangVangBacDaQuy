@@ -27,11 +27,4 @@
     <DataTemplate DataType="{x:Type viewModel:SaleOrderViewModel}">
         <view:SaleOrderView />
     </DataTemplate>
-    <DataTemplate DataType="{x:Type contentDialogViewModel:AddCustomerViewModel}">
-        <viewUC:AddCustomerUC/>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type contentDialogViewModel:AddProductViewModel}">
-        <viewUC:AddProductUC/>
-    </DataTemplate>
- 
 </ResourceDictionary>

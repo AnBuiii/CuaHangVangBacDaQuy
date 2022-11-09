@@ -18,6 +18,7 @@
              Name="makeOderView"
             DataContext="{StaticResource AddOrEditSupplierVM}"
              d:DesignHeight="487.982" d:DesignWidth="382.844"
+            
              >
     <Grid>
         <Grid  Margin="16px"

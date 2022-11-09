@@ -19,24 +19,29 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
         {       
             if(value == null || (int)value == 0) return "";
             PastValue = (int)value;
-            return value;
+            return (int)value;
         }
 
         //Convert số lượng nhập hàng từ view vào model
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            
+           
             if (value == null|| value.ToString() == "") return 0;
+            string str = value as string;
+            str = str.Replace(",", "");
 
-            if (CheckField.CheckNumber((string)value))
+            if (CheckField.CheckNumber(str))
             {
-                if (System.Convert.ToInt64(value) <= 2147483647) // giới hạn int trong sql
+                
+                if (System.Convert.ToInt64(str) <= 2147483647) // giới hạn int trong sql
                 {
                     return value;
                 }
                 else
                 {
-                    MessageBox.Show("Giá trị nhập quá lớn!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                   
+                    MessageBox.Show(str +  " Giá trị nhập quá lớn! ", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error) ;
+                    return PastValue;
                 }
             }
             

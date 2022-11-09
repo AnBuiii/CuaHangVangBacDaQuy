@@ -219,10 +219,12 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         #endregion
 
         //constructor cho việc tạo phiếu mua hàng mới 
+
+
         public AddOrEditImportReceiptViewModel()
         {
-            InitializeValueToSelect();
-
+            
+            
         }
 
         public AddOrEditImportReceiptViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuMua> phieuMuaList)

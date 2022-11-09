@@ -1,5 +1,7 @@
 ﻿using CuaHangVangBacDaQuy.models;
 using CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel;
+using CuaHangVangBacDaQuy.views.userControlDialog;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,18 +52,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
 
 
-        private AddOrEditImportReceiptViewModel _ContentAddOrEditImportReceipt;
-        public AddOrEditImportReceiptViewModel ContentAddOrEditImportReceipt
-        {
-            get => _ContentAddOrEditImportReceipt;
-            set
-            {
-                _ContentAddOrEditImportReceipt = value;
-                OnPropertyChanged();
+        private AddOrEditImportReceiptUC _addOrEditImportReceiptUC;
+        public AddOrEditImportReceiptUC addOrEditImportReceiptUC { get => _addOrEditImportReceiptUC; set { _addOrEditImportReceiptUC = value; OnPropertyChanged(); } }
 
-            }
-        }
-
+        private AddOrEditImportReceiptViewModel ContentAddOrEditImportReceipt;
+       
         private OpenDiaLog _IsOpenMakeReceiptDialog;
         public OpenDiaLog IsOpenMakeReceiptDialog
         {
@@ -71,11 +66,19 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public ICommand AddImportReceiptCommand { get; set; }
         public ICommand EditCommand { get; set; }
-        #endregion 
+        #endregion
 
+
+        private object MainDataTemplate;
+        public ImportReceiptViewModel(ref object mainDataTemplate)
+        {   
+            MainDataTemplate = mainDataTemplate;
+        }
         public ImportReceiptViewModel()
         {
-            IsOpenMakeReceiptDialog = new OpenDiaLog() { IsOpen = false };
+
+            
+           IsOpenMakeReceiptDialog = new OpenDiaLog() { IsOpen = false };
             PurchaseOrdersList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
             AddImportReceiptCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => ActionDiaLog("Add"));
             EditCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => ActionDiaLog("Edit"));
@@ -88,22 +91,30 @@ namespace CuaHangVangBacDaQuy.viewmodels
             switch (caseDiaLog)
             {
                 case "Add":
-                    AddNewSupplier();
+                    AddNewImportReceipt();
                     break;
 
                 case "Edit":
-                    EditSupplier();
+                    EditImportReceipt();
                     break;
             }
         }
 
-        private void AddNewSupplier()
+        private void AddNewImportReceipt()
         {
+            MainDataTemplate = new AddOrEditImportReceiptViewModel("Đơn nhập hàng mới", ref _IsOpenMakeReceiptDialog, ref _PurchaseOrdersList);
+
 
             ContentAddOrEditImportReceipt = new AddOrEditImportReceiptViewModel("Đơn nhập hàng mới", ref _IsOpenMakeReceiptDialog, ref _PurchaseOrdersList);
+            addOrEditImportReceiptUC = new AddOrEditImportReceiptUC
+            {
+                DataContext = ContentAddOrEditImportReceipt
+            };
+
+            //ContentAddOrEditImportReceipt = 
         }
 
-        private void EditSupplier()
+        private void EditImportReceipt()
         {
             //ContentAddSupplier = new AddOrEditSupplierViewModel("Chỉnh sửa thông tin nhà cung cấp", ref _IsOpenDiaLog, ref _SuppliersList, ref _SelectedSupplier);
 

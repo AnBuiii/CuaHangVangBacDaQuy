@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
@@ -73,28 +74,32 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+        
+
 
 
         public AddOrEditSupplierViewModel()
         {
-
+           
+           
         }
 
         //constructor used for add new supplier 
         public AddOrEditSupplierViewModel(string titleView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList)
         {
 
-            
+           
             TitleView = titleView;
             openDiaLog = isOpenDialog;
             SuppliersList = suppliersList;
-            MessageBox.Show(TitleView);
             CancelCommand = new RelayCommand<AddOrEditSupplierUC>((p) => true, p => CheckCloseDiaLog());
             SaveCommand = new RelayCommand<AddOrEditSupplierUC>((p) => checkEmptyFieldDialog(), p => ActionAddSupplier());
+            
 
 
         }
 
+        
         //constructor used for edit supplier
         public AddOrEditSupplierViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList, ref NhaCungCap editedSupplier)
         {
@@ -104,6 +109,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             EditedSupplier = editedSupplier;
             CancelCommand = new RelayCommand<AddOrEditSupplierUC>((p) => true, p => CheckCloseDiaLog());
             SaveCommand = new RelayCommand<AddOrEditSupplierUC>((p) => checkEmptyFieldDialog(), p => ActionEditCustomer());
+          
         }
 
 

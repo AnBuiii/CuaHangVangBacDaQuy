@@ -79,6 +79,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         {
 
         }
+
+        
         public AddOrEditCustomerViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<KhachHang> customersList)
         {
            
@@ -104,6 +106,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
            
             
         }
+
+        
 
 
         bool CheckEmptyFieldDialog()

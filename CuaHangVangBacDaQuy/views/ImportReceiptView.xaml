@@ -27,11 +27,12 @@
         <!--Dialog add or edit Import Receipt-->
         <materialDesign:DialogHost 
                                        Identifier="AccountDialog"
-                                       CloseOnClickAway="True"
+                                       CloseOnClickAway="False"                                       
                                        DialogTheme="Inherit"
+                                       VerticalAlignment="Center"
                                        IsOpen="{Binding IsOpenMakeReceiptDialog.IsOpen}">
             <materialDesign:DialogHost.DialogContent >
-                <ucDialog:AddOrEditImportReceiptUC DataContext="{Binding ContentAddOrEditImportReceipt}"/>
+                <ucDialog:AddOrEditImportReceiptUC  DataContext="{Binding ContentAddOrEditImportReceipt}"/>
             </materialDesign:DialogHost.DialogContent>
         </materialDesign:DialogHost>
         <!--end Diaglog-->
@@ -130,7 +131,7 @@
                                  Margin="5"
                                  VerticalAlignment="Stretch" >
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <DataGrid ItemsSource="{Binding PhieuMuaList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    <DataGrid ItemsSource="{Binding PurchaseOrdersList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding SelectedPurchaseOder}"
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
@@ -172,5 +173,5 @@
             </materialDesign:Card>
         </Grid>
     </Grid>
-    
+
 </UserControl>

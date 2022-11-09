@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CuaHangVangBacDaQuy"
                     xmlns:view ="clr-namespace:CuaHangVangBacDaQuy.views"
-                     xmlns:viewUC ="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
+                     xmlns:viewUC ="clr-namespace:CuaHangVangBacDaQuy.views.userControlDialog"
                     xmlns:contentDialogViewModel="clr-namespace:CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel"
                     xmlns:viewModel="clr-namespace:CuaHangVangBacDaQuy.viewmodels">
     
@@ -15,9 +15,9 @@
     <DataTemplate DataType="{x:Type viewModel:ImportReceiptViewModel}">
         <view:ImportReceiptView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type viewModel:MakeOrderViewModel}">
+    <!--<DataTemplate DataType="{x:Type viewModel:MakeOrderViewModel}">
         <view:MakeOderView/>
-    </DataTemplate>
+    </DataTemplate>-->
     <DataTemplate DataType="{x:Type viewModel:ProductViewModel}">
         <view:ProductView />
     </DataTemplate>
@@ -30,5 +30,8 @@
     <DataTemplate DataType="{x:Type viewModel:SaleOrderViewModel}">
         <view:SaleOrderView />
     </DataTemplate>
-    
+
+    <DataTemplate DataType="{x:Type contentDialogViewModel:AddOrEditImportReceiptViewModel}">
+        <viewUC:AddOrEditImportReceiptUC/>
+    </DataTemplate>
 </ResourceDictionary>

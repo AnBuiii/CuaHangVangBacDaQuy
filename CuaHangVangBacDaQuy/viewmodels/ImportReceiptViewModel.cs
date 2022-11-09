@@ -10,21 +10,20 @@ using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels
 {
-    public class ImportReceiptViewModel:BaseViewModel
+    public class ImportReceiptViewModel : BaseViewModel
     {
 
         //Các biến cho thao tác trên view này
         #region các biến cho phiếu mua hàng 
 
 
-        private ObservableCollection<PhieuMua> _PhieuMuaList;
-        public ObservableCollection<PhieuMua> PhieuMuaList
+        private ObservableCollection<PhieuMua> _PurchaseOrdersList;
+        public ObservableCollection<PhieuMua> PurchaseOrdersList
         {
-            get => _PhieuMuaList;
+            get => _PurchaseOrdersList;
             set
             {
-
-                _PhieuMuaList = value;
+                _PurchaseOrdersList = value;
                 OnPropertyChanged();
             }
         }
@@ -71,14 +70,42 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
 
         public ICommand AddImportReceiptCommand { get; set; }
+        public ICommand EditCommand { get; set; }
         #endregion 
 
         public ImportReceiptViewModel()
         {
             IsOpenMakeReceiptDialog = new OpenDiaLog() { IsOpen = false };
-            AddImportReceiptCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { IsOpenMakeReceiptDialog.IsOpen = true; });
-            PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
+            PurchaseOrdersList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
+            AddImportReceiptCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => ActionDiaLog("Add"));
+            EditCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => ActionDiaLog("Edit"));
 
+        }
+
+        private void ActionDiaLog(string caseDiaLog)
+        {
+            IsOpenMakeReceiptDialog.IsOpen = true;
+            switch (caseDiaLog)
+            {
+                case "Add":
+                    AddNewSupplier();
+                    break;
+
+                case "Edit":
+                    EditSupplier();
+                    break;
+            }
+        }
+
+        private void AddNewSupplier()
+        {
+
+            ContentAddOrEditImportReceipt = new AddOrEditImportReceiptViewModel("Đơn nhập hàng mới", ref _IsOpenMakeReceiptDialog, ref _PurchaseOrdersList);
+        }
+
+        private void EditSupplier()
+        {
+            //ContentAddSupplier = new AddOrEditSupplierViewModel("Chỉnh sửa thông tin nhà cung cấp", ref _IsOpenDiaLog, ref _SuppliersList, ref _SelectedSupplier);
 
         }
     }

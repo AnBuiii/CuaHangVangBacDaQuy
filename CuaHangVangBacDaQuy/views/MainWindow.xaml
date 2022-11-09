@@ -352,12 +352,12 @@
                     <Grid Grid.Row="2"
                           Grid.RowSpan="2"
                           Margin="4, 0, 0, 4">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                       
                             <ContentControl x:Name="contentView"
                                         Grid.Row="0"
                                         Content="{Binding DataTemplate}" />
 
-                        </ScrollViewer>
+                       
                       
 
                     </Grid>

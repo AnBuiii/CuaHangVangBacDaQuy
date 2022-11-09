@@ -1,10 +1,12 @@
 ﻿using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.views.userControlDialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -14,8 +16,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
     {
         #region
         // các biến cho view chính này
-
-        
 
         private ObservableCollection<PhieuMua> _PhieuMuaList;
         public ObservableCollection<PhieuMua> PhieuMuaList
@@ -29,10 +29,14 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
         }
        
-        private readonly OpenDiaLog openDiaLog;  //tham chiếu để tắt bật dialog có view này
+        private readonly OpenDiaLog OpenThisDiaLog;  //tham chiếu để tắt bật dialog có view này
+        private string _TitleView;
+        public string TitleView { get =>_TitleView; set { _TitleView = value; OnPropertyChanged(); } }
 
+        public ICommand SaveCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
 
-        //Các biến cho việc chọn nhà nhà cung cấp
+        //Các biến cho việc chọn nhà cung cấp
 
         #region 
 
@@ -96,6 +100,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
 
         //Các biến cho việc chọn sản phẩm
+
         #region 
 
         private ObservableCollection<ChiTietPhieuMua> _SelectedProductList;
@@ -188,17 +193,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
 
-
-        public ICommand AddProductCommand { get; set; }
-        public ICommand RemoveSelectedProductCommand { get; set; }
-
-
-        #endregion
-
-
-
-        //tính tổng tiền hóa đơn
-
         private decimal? _TotalMoney;
         public decimal? TotalMoney
         {
@@ -206,21 +200,47 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             set
             {
-
                 _TotalMoney = value;
                 OnPropertyChanged();
             }
         }
 
-        public ICommand CaculateTotalMoneyCommand { get; set; }
+        public ICommand AddProductCommand { get; set; }
+        public ICommand RemoveSelectedProductCommand { get; set; }
+        public ICommand CaculateTotalMoneyCommand { get; set; } // dùng để tính lại tổng tiền hóa đơn khi nhập số lượng sản phẩm
+
+
+        #endregion
+
+
+
+
 
         #endregion
 
         //constructor cho việc tạo phiếu mua hàng mới 
         public AddOrEditImportReceiptViewModel()
         {
+            InitializeValueToSelect();
 
+        }
+
+        public AddOrEditImportReceiptViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuMua> phieuMuaList)
+        {
+            InitializeValueToSelect();
+            TitleView = titleView;
+            OpenThisDiaLog = openDiaLog;
+            PhieuMuaList = phieuMuaList;
+            SaveCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p =>AddNewImportReceipt());
+            CancelCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => CheckCloseDiaLog());
            
+           
+
+        }
+        // ///
+        #region funtion for Select Supplier and product
+        private void InitializeValueToSelect()
+        {
             //for select supplier
             SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
             IsOpenAddSupplierDialog = new OpenDiaLog() { IsOpen = false };
@@ -234,8 +254,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct());
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
         }
-
-
 
         public void OpenDialogAddSupplier()
         {
@@ -268,6 +286,50 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
 
         }
+        #endregion
+
+
+        #region Funtion for creating or editing the Receipt
+
+
+        private void AddNewImportReceipt()
+        {
+            if (!CheckValidFieldInDialog()) return;
+            
+
+        }
+
+        private bool CheckValidFieldInDialog()
+        {
+            if(SelectedSuppliersList == null || SelectedSuppliersList.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn nhà cung cấp!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            } 
+            if(SelectedProductList != null || SelectedSuppliersList.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn sản phẩm nhập kho!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        private void CheckCloseDiaLog()
+        {
+
+            if (MessageBox.Show("Những thay đổi của bạn sẽ không được lưu?", "",
+                 MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+
+                OpenThisDiaLog.IsOpen = false;
+
+            }
+
+
+        }
+        #endregion
+
+
 
     }
 }

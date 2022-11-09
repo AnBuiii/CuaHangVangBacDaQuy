@@ -81,14 +81,14 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
         //constructor used for add new supplier 
-        public AddOrEditSupplierViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList)
+        public AddOrEditSupplierViewModel(string titleView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList)
         {
 
-
-            TitleView = tilteView;
+            
+            TitleView = titleView;
             openDiaLog = isOpenDialog;
             SuppliersList = suppliersList;
-
+            MessageBox.Show(TitleView);
             CancelCommand = new RelayCommand<AddOrEditSupplierUC>((p) => true, p => CheckCloseDiaLog());
             SaveCommand = new RelayCommand<AddOrEditSupplierUC>((p) => checkEmptyFieldDialog(), p => ActionAddSupplier());
 

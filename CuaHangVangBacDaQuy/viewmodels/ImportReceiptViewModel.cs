@@ -74,8 +74,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
             
            IsOpenMakeReceiptDialog = new OpenDiaLog() { IsOpen = false };
             PurchaseOrdersList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
-            AddImportReceiptCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => ActionDiaLog("Add"));
-            EditCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => ActionDiaLog("Edit"));
+            AddImportReceiptCommand = new RelayCommand<ImportReceiptViewModel>((p) => true, p => ActionDiaLog("Add"));
+            EditCommand = new RelayCommand<ImportReceiptViewModel>((p) => true, p => ActionDiaLog("Edit"));
 
         }
 
@@ -105,18 +105,16 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 DataContext = ContentAddOrEditImportReceipt
             };
 
-            //ContentAddOrEditImportReceipt = 
         }
 
         private void EditImportReceipt()
         {
 
-            ContentAddOrEditImportReceipt = new AddOrEditImportReceiptViewModel("Đơn nhập hàng mới", ref _IsOpenMakeReceiptDialog, ref _PurchaseOrdersList, ref _SelectedPurchaseOder);
+            ContentAddOrEditImportReceipt = new AddOrEditImportReceiptViewModel("Chỉnh sửa đơn mua hàng", ref _IsOpenMakeReceiptDialog, ref _PurchaseOrdersList, ref _SelectedPurchaseOder);
             addOrEditImportReceiptUC = new AddOrEditImportReceiptUC
             {
                 DataContext = ContentAddOrEditImportReceipt
             };
-            //ContentAddSupplier = new AddOrEditSupplierViewModel("Chỉnh sửa thông tin nhà cung cấp", ref _IsOpenDiaLog, ref _SuppliersList, ref _SelectedSupplier);
 
         }
     }

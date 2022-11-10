@@ -111,10 +111,10 @@ namespace CuaHangVangBacDaQuy.viewmodels
             
             PhieuBanList = new ObservableCollection<PhieuBan>(DataProvider.Ins.DB.PhieuBans);
             CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
-            AddCommand = new RelayCommand<MakeOderView>(p => true, p => Add());
+            AddCommand = new RelayCommand<SaleOrderView>(p => true, p => Add());
             EditCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Edit());
-            SaveAddCommand = new RelayCommand<MakeOderView>(p => true, p => SaveAdd());
-            SelectCustomerNextCommand = new RelayCommand<MakeOderView>(
+            SaveAddCommand = new RelayCommand<SaleOrderView>(p => true, p => SaveAdd());
+            SelectCustomerNextCommand = new RelayCommand<SaleOrderView>(
                 p =>
                 {
                     if(SelectedItem != null)

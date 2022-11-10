@@ -9,7 +9,6 @@
     <viewModel:HomeViewModel x:Key="HomeVM" />
     <viewModel:AccountViewModel x:Key="AccountVM" />
     <viewModel:LoginViewModel x:Key="LoginVM" />
-    <viewModel:MakeOrderViewModel x:Key="MakeOrderVM" />
     <viewModel:ImportReceiptViewModel x:Key="ImportReceiptVM"/>
     <viewModel:ProductViewModel x:Key="ProductVM" />
     <viewModel:SupplierViewModel x:Key="SupplierVM" />

@@ -172,7 +172,6 @@
     <Compile Include="viewmodels\HomeViewModel.cs" />
     <Compile Include="viewmodels\LoginViewModel.cs" />
     <Compile Include="viewmodels\MainViewModel.cs" />
-    <Compile Include="viewmodels\MakeOrderViewModel.cs" />
     <Compile Include="viewmodels\SupplierViewModel.cs" />
     <Compile Include="views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
@@ -192,9 +191,6 @@
     <Compile Include="viewmodels\ProductViewModel.cs" />
     <Compile Include="views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="views\MakeOderView.xaml.cs">
-      <DependentUpon>MakeOderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\ProductView.xaml.cs">
       <DependentUpon>ProductView.xaml</DependentUpon>
@@ -276,8 +272,6 @@
     <Page Include="views\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="views\MakeOderView.xaml">
     </Page>
     <Page Include="views\ProductView.xaml">
       <SubType>Designer</SubType>

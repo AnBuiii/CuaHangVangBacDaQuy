@@ -52,7 +52,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 if (SelectedImportReceipt != null)
                 {
                     SelectedSupplier = SelectedImportReceipt.NhaCungCap;
-                    //MessageBox.Show(SelectedImportReceipt.ChiTietPhieuMuas.Count.ToString());
                     SelectedProductList = new ObservableCollection<ChiTietPhieuMua>(SelectedImportReceipt.ChiTietPhieuMuas);
                     TotalMoney = SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia);
 
@@ -60,7 +59,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
         }
 
-        private NhaCungCap ChangedSuppliersList;
+        private ObservableCollection<ChiTietPhieuMua> InsertProductsList;
         private ObservableCollection<ChiTietPhieuMua> DeletedProductsList;
 
 
@@ -177,15 +176,27 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                     if (SelectedProductList.Where(x => x.SanPham == SelectedProductItem).Count() == 0)
                     {
                         ChiTietPhieuMua productAdded = new ChiTietPhieuMua()
-                        {
+                        {  
                             MaSP = SelectedProductItem.MaSP,
                             SanPham = SelectedProductItem,
                             SoLuong = 0
                         };
-
+                        
                         SelectedProductList.Add(productAdded);
-                        SelectedProductItem = null;
+                        // nếu là thêm sản phẩm vào phiếu đang chỉnh sửa
+                        if (SelectedImportReceipt != null && DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu && p.MaSP == SelectedProductItem.MaSP).Count() == 0) 
+                        {
 
+                            //ChiTietPhieuMua insertProduct = new ChiTietPhieuMua()
+                            //{
+                            //    MaSP = SelectedProductItem.MaSP,
+                            //    SanPham = SelectedProductItem,
+                            //    SoLuong = 0
+                            //};
+                            
+                            InsertProductsList.Add(productAdded);
+                        }
+                        SelectedProductItem = null;
 
                     }
 
@@ -278,7 +289,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         public AddOrEditImportReceiptViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuMua> phieuMuaList, ref PhieuMua selectedImportReceipt)
         {
-            ChangedSuppliersList = new NhaCungCap();
+            InsertProductsList = new ObservableCollection<ChiTietPhieuMua>();
             DeletedProductsList = new ObservableCollection<ChiTietPhieuMua>();
             SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
             SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
@@ -354,8 +365,16 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
 
                         ChiTietPhieuMua deletedProduct = SelectedProductDataGrid;
-                        DeletedProductsList.Add(deletedProduct);
+                       
+                        if (InsertProductsList.Contains(deletedProduct))
+                        {
+                            InsertProductsList.Remove(deletedProduct);
+                        }
+                        else
+                        DeletedProductsList.Add(deletedProduct);                       
+
                         SelectedProductList.Remove(SelectedProductDataGrid);
+                       
                         CaculateTotalMoney();
 
                         break;
@@ -419,7 +438,22 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 DataProvider.Ins.DB.ChiTietPhieuMuas.Remove(selectedProduct);
 
             }
-          
+            MessageBox.Show(InsertProductsList.Count().ToString());
+            foreach (var item in InsertProductsList)
+            {
+
+                ChiTietPhieuMua newDetailImportReceitpt = new ChiTietPhieuMua()
+                {
+                    MaChiTietPhieu = Guid.NewGuid().ToString(),
+                    MaPhieu = SelectedImportReceipt.MaPhieu,
+                    MaSP = item.MaSP,
+                    SoLuong = item.SoLuong,
+                };
+
+                DataProvider.Ins.DB.ChiTietPhieuMuas.Add(newDetailImportReceitpt);
+
+            }
+
 
             DataProvider.Ins.DB.SaveChanges();
             SelectedImportReceipt.ChiTietPhieuMuas = new ObservableCollection<ChiTietPhieuMua>(DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu));

@@ -130,7 +130,7 @@
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"
-                              AutoGenerateColumns="False" MaxHeight="300">
+                              AutoGenerateColumns="False" MaxHeight="680">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Mã phiếu"
                                                 Binding="{Binding MaPhieu}"

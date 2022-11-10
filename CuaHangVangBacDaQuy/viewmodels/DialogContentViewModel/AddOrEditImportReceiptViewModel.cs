@@ -419,11 +419,12 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 DataProvider.Ins.DB.ChiTietPhieuMuas.Remove(selectedProduct);
 
             }
-            editedImportReceipt.MaPhieu = editedImportReceipt.MaPhieu;
+          
 
             DataProvider.Ins.DB.SaveChanges();
-            //PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
-           
+            SelectedImportReceipt.ChiTietPhieuMuas = new ObservableCollection<ChiTietPhieuMua>(DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu));
+            editedImportReceipt.MaPhieu = editedImportReceipt.MaPhieu;
+          
         }
 
         private bool CheckValidFieldInDialog()

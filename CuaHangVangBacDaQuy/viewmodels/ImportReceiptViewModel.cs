@@ -38,7 +38,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                 _SelectedPurchaseOder = value;
                 OnPropertyChanged();
-                if (SelectedPurchaseOder != null)
+               // if (SelectedPurchaseOder != null)
                 {
                     //SelectedSupplier = SelectedPurchaseOder.NhaCungCap;
                     //SelectedProductList = new ObservableCollection<ProductAdded>();
@@ -68,12 +68,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand EditCommand { get; set; }
         #endregion
 
-
-        private object MainDataTemplate;
-        public ImportReceiptViewModel(ref object mainDataTemplate)
-        {   
-            MainDataTemplate = mainDataTemplate;
-        }
         public ImportReceiptViewModel()
         {
 
@@ -102,7 +96,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void AddNewImportReceipt()
         {
-            MainDataTemplate = new AddOrEditImportReceiptViewModel("Đơn nhập hàng mới", ref _IsOpenMakeReceiptDialog, ref _PurchaseOrdersList);
+            
 
 
             ContentAddOrEditImportReceipt = new AddOrEditImportReceiptViewModel("Đơn nhập hàng mới", ref _IsOpenMakeReceiptDialog, ref _PurchaseOrdersList);
@@ -116,6 +110,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void EditImportReceipt()
         {
+
+            ContentAddOrEditImportReceipt = new AddOrEditImportReceiptViewModel("Đơn nhập hàng mới", ref _IsOpenMakeReceiptDialog, ref _PurchaseOrdersList, ref _SelectedPurchaseOder);
+            addOrEditImportReceiptUC = new AddOrEditImportReceiptUC
+            {
+                DataContext = ContentAddOrEditImportReceipt
+            };
             //ContentAddSupplier = new AddOrEditSupplierViewModel("Chỉnh sửa thông tin nhà cung cấp", ref _IsOpenDiaLog, ref _SuppliersList, ref _SelectedSupplier);
 
         }

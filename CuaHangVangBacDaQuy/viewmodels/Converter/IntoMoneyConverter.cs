@@ -13,10 +13,11 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if(values != null && values.Length > 0)
+            if(values != null && values.Length > 0 && values[1] != null)
             {
                int amount = (int)values[0];
-               decimal unitPrice = (decimal)values[1];
+                //MessageBox.Show(values[1].ToString());
+                decimal unitPrice = (values[1] == null)? 0: decimal.Parse(values[1].ToString());
                 decimal intoMoney = amount * unitPrice;
                 return intoMoney.ToString("#,##0.");
             }

@@ -39,12 +39,12 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
                 }
                 else
                 {
-                   
-                    MessageBox.Show(str +  " Giá trị nhập quá lớn! ", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error) ;
+                    // MessageBox.Show(" Giá trị nhập quá lớn! ", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+
                     return PastValue;
                 }
             }
-            
+          
             return PastValue;
                    
         }

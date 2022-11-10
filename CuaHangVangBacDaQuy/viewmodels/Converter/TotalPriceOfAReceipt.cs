@@ -13,8 +13,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string supplierCode = value as string;
-            List<ChiTietPhieuMua> detailReceiptList = new List<ChiTietPhieuMua>(DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p=>p.MaPhieu == supplierCode));
+            string receiptCode = value as string;
+            List<ChiTietPhieuMua> detailReceiptList = new List<ChiTietPhieuMua>(DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p=>p.MaPhieu == receiptCode));
             decimal? totalMoney = detailReceiptList.Sum(p => p.SoLuong * p.SanPham.DonGia);
             decimal result = (decimal)((totalMoney == null) ? 0 : totalMoney);
             return  result.ToString("#,##0.");

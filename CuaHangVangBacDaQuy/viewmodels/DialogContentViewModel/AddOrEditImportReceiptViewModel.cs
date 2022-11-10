@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
-    public class AddOrEditImportReceiptViewModel:BaseViewModel
+    public class AddOrEditImportReceiptViewModel : BaseViewModel
     {
         #region
         // các biến cho view chính này
@@ -28,13 +28,55 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 OnPropertyChanged();
             }
         }
-       
+
+
+        private decimal? _TotalMoney;
+        public decimal? TotalMoney
+        {
+            get => _TotalMoney;
+
+            set
+            {
+                _TotalMoney = value;
+                OnPropertyChanged();
+            }
+        }
+        private PhieuMua _SelectedImportReceipt;
+        public PhieuMua SelectedImportReceipt
+        {
+            get => _SelectedImportReceipt;
+            set
+            {
+                _SelectedImportReceipt = value;
+                OnPropertyChanged();
+                if (SelectedImportReceipt != null)
+                {
+                    SelectedSupplier = SelectedImportReceipt.NhaCungCap;
+                    //MessageBox.Show(SelectedImportReceipt.ChiTietPhieuMuas.Count.ToString());
+                    SelectedProductList = new ObservableCollection<ChiTietPhieuMua>(SelectedImportReceipt.ChiTietPhieuMuas);
+                    TotalMoney = SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia);
+
+                }
+            }
+        }
+
+        private NhaCungCap ChangedSuppliersList;
+        private ObservableCollection<ChiTietPhieuMua> DeletedProductsList;
+
+
+
         private readonly OpenDiaLog OpenThisDiaLog;  //tham chiếu để tắt bật dialog có view này
         private string _TitleView;
-        public string TitleView { get =>_TitleView; set { _TitleView = value; OnPropertyChanged(); } }
+        public string TitleView { get => _TitleView; set { _TitleView = value; OnPropertyChanged(); } }
 
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+
+
+
+
+        public ICommand RemoveSelectedProductCommand { get; set; }
+        public ICommand CaculateTotalMoneyCommand { get; set; } // dùng để tính lại tổng tiền hóa đơn khi nhập số lượng sản phẩm
 
         //Các biến cho việc chọn nhà cung cấp
 
@@ -192,54 +234,68 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
         }
 
-
-        private decimal? _TotalMoney;
-        public decimal? TotalMoney
-        {
-            get => _TotalMoney;
-
-            set
-            {
-                _TotalMoney = value;
-                OnPropertyChanged();
-            }
-        }
-
         public ICommand AddProductCommand { get; set; }
-        public ICommand RemoveSelectedProductCommand { get; set; }
-        public ICommand CaculateTotalMoneyCommand { get; set; } // dùng để tính lại tổng tiền hóa đơn khi nhập số lượng sản phẩm
-
-
-        #endregion
-
-
 
 
 
         #endregion
 
-        //constructor cho việc tạo phiếu mua hàng mới 
+
+
+
+
+        #endregion
+
+
 
 
         public AddOrEditImportReceiptViewModel()
         {
-            
-            
-        }
 
+
+        }
+        //constructor cho việc tạo phiếu mua hàng mới 
         public AddOrEditImportReceiptViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuMua> phieuMuaList)
         {
-            InitializeValueToSelect();
+
+            SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
+            SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
+
             TitleView = titleView;
             OpenThisDiaLog = openDiaLog;
             PhieuMuaList = phieuMuaList;
-            SaveCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p =>AddNewImportReceipt());
+
+
+            SaveCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => AddNewImportReceipt());
             CancelCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => CheckCloseDiaLog());
-           
-           
+            RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct("UNSAVED"));
+            CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
+
+
 
         }
-        // ///
+        // constructor cho việc chỉnh sửa phiếu mua hàng
+
+        public AddOrEditImportReceiptViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuMua> phieuMuaList, ref PhieuMua selectedImportReceipt)
+        {
+            ChangedSuppliersList = new NhaCungCap();
+            DeletedProductsList = new ObservableCollection<ChiTietPhieuMua>();
+            SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
+            SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
+            TitleView = titleView;
+            OpenThisDiaLog = openDiaLog;
+            PhieuMuaList = phieuMuaList;
+            SelectedImportReceipt = selectedImportReceipt;
+
+
+            SaveCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => EditImportReceipt());
+            CancelCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => CheckCloseDiaLog());
+            RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct("SAVED"));
+            CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
+
+
+
+        }
         #region funtion for Select Supplier and product
         private void InitializeValueToSelect()
         {
@@ -253,7 +309,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
             IsOpenAddProductDialog = new OpenDiaLog() { IsOpen = false };
             AddProductCommand = new RelayCommand<MakeOrderViewModel>(p => true, p => { OpenDialogAddProduct(); });
-            RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct());
+            //RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct());
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
         }
 
@@ -275,17 +331,38 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         {
             //(bool)value ? parameter : Binding.DoNothin
 
+
             TotalMoney = (TotalMoney == null) ? 0 : SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia);
 
         }
 
-        void RemoveSelectedProduct()
+        void RemoveSelectedProduct(string caseRemove)
         {
-            if (SelectedProductDataGrid != null)
+            switch (caseRemove)
             {
-                SelectedProductList.Remove(SelectedProductDataGrid);
-                CaculateTotalMoney();
+                case "UNSAVED":
+                    {
+                        if (SelectedProductDataGrid != null)
+                        {
+                            SelectedProductList.Remove(SelectedProductDataGrid);
+                            CaculateTotalMoney();
+                        }
+                        break;
+                    }
+                case "SAVED":
+                    {
+
+
+                        ChiTietPhieuMua deletedProduct = SelectedProductDataGrid;
+                        DeletedProductsList.Add(deletedProduct);
+                        SelectedProductList.Remove(SelectedProductDataGrid);
+                        CaculateTotalMoney();
+
+                        break;
+                    }
+
             }
+
 
         }
         #endregion
@@ -297,18 +374,66 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         private void AddNewImportReceipt()
         {
             if (!CheckValidFieldInDialog()) return;
-            
 
+            PhieuMua newImportReceipt = new PhieuMua()
+            {
+                MaPhieu = (DataProvider.Ins.DB.PhieuMuas.Count() + 1).ToString(),
+                NgayLap = DateTime.Now,
+                MaNCC = SelectedSupplier.MaNCC,
+
+            };
+
+            DataProvider.Ins.DB.PhieuMuas.Add(newImportReceipt);
+
+
+
+            //Chi tiet phieu
+            foreach (var item in SelectedProductList)
+            {
+                ChiTietPhieuMua newDetailImportReceitpt = new ChiTietPhieuMua()
+                {
+                    MaChiTietPhieu   = Guid.NewGuid().ToString(),
+                    MaPhieu = newImportReceipt.MaPhieu,
+                    MaSP = item.MaSP,
+                    SoLuong = item.SoLuong,
+                };
+
+                DataProvider.Ins.DB.ChiTietPhieuMuas.Add(newDetailImportReceitpt);
+
+            }
+            DataProvider.Ins.DB.SaveChanges();
+            PhieuMuaList.Add(newImportReceipt);
+            OpenThisDiaLog.IsOpen = false;
+
+        }
+        private void EditImportReceipt()
+        {
+            OpenThisDiaLog.IsOpen = false;
+            var editedImportReceipt = DataProvider.Ins.DB.PhieuMuas.Where(i => i.MaPhieu == SelectedImportReceipt.MaPhieu).SingleOrDefault();
+            editedImportReceipt.MaNCC = SelectedSuppliersList.First().MaNCC;
+           
+
+            foreach (var item in DeletedProductsList)
+            {
+                var selectedProduct = DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == item.MaPhieu && p.MaSP == item.MaSP).SingleOrDefault();
+                DataProvider.Ins.DB.ChiTietPhieuMuas.Remove(selectedProduct);
+
+            }
+            editedImportReceipt.MaPhieu = editedImportReceipt.MaPhieu;
+
+            DataProvider.Ins.DB.SaveChanges();
+            //PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
+           
         }
 
         private bool CheckValidFieldInDialog()
         {
-            if(SelectedSuppliersList == null || SelectedSuppliersList.Count == 0)
+            if (SelectedSuppliersList == null || SelectedSuppliersList.Count == 0)
             {
                 MessageBox.Show("Vui lòng chọn nhà cung cấp!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
-            } 
-            if(SelectedProductList != null || SelectedSuppliersList.Count == 0)
+            }
+            if (SelectedProductList == null || SelectedProductList.Count == 0)
             {
                 MessageBox.Show("Vui lòng chọn sản phẩm nhập kho!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;

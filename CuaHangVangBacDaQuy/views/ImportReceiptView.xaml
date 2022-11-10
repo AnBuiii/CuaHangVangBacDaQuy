@@ -145,7 +145,7 @@
                                                 Binding="{Binding NhaCungCap.TenNCC}"
                                                 IsReadOnly="True" />
                                 <DataGridTextColumn Header="Giá trị"
-                                                Binding="{Binding MaPhieu, Converter={StaticResource TotalPriceOfAReceiptConverterKey}}"
+                                                Binding="{Binding MaPhieu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalPriceOfAReceiptConverterKey}}"
                                                 IsReadOnly="True" />
                                 <DataGridTemplateColumn>
                                     <DataGridTemplateColumn.CellTemplate>

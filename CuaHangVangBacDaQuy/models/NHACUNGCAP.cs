@@ -35,6 +35,10 @@ namespace CuaHangVangBacDaQuy.models
        
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuMua> PhieuMuas { get; set; }
+
+        private ICollection<PhieuMua> _PhieuMuas { get; set; }
+        public virtual ICollection<PhieuMua> PhieuMuas { get => _PhieuMuas; set { _PhieuMuas = value; OnPropertyChanged(); } }
+      
+
     }
 }

@@ -257,7 +257,7 @@
                                                 <materialDesign:ColorZone Padding="8"
                                                                       Mode="Light">
                                                     <DockPanel>
-                                                        <StackPanel DockPanel.Dock="Right"
+                                                        <!--<StackPanel DockPanel.Dock="Right"
                                                                 Orientation="Horizontal">
                                                             <Button IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                                                 Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryDarkButton}"
@@ -272,7 +272,7 @@
                                                                     DockPanel.Dock="Right"
                                                                     VerticalAlignment="Center"
                                                                     Text="Nhà cung cấp mới" />
-                                                        </StackPanel>
+                                                        </StackPanel>-->
                                                         <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                                                 Margin="16,0,0,0"
                                                                 VerticalAlignment="Center"
@@ -382,7 +382,7 @@
                                             <Grid Grid.Row="0">
                                                 <materialDesign:ColorZone Padding="8"
                                                                       Mode="Light">
-                                                    <DockPanel>
+                                                    <!--<DockPanel>
                                                         <StackPanel DockPanel.Dock="Right"
                                                                 Orientation="Horizontal">
 
@@ -407,7 +407,7 @@
                                                                 FontWeight="Bold"
                                                                 Foreground="{StaticResource PrimaryHueDarkBrush}"
                                                                 Text="Thông tin sản phẩm" />
-                                                    </DockPanel>
+                                                    </DockPanel>-->
                                                 </materialDesign:ColorZone>
                                             </Grid>
 
@@ -521,7 +521,7 @@
                                                             </DataGridTemplateColumn>
 
                                                             <DataGridTextColumn Header="Đơn giá"
-                                                                            Binding="{Binding SanPham.DonGia, Converter={StaticResource DecimalConverterKey}}"
+                                                                            Binding="{Binding SanPham.DonGia,  Converter={StaticResource DecimalConverterKey}}"
                                                                             IsReadOnly="True" />
 
 
@@ -533,7 +533,7 @@
                                                                     >
                                                                 <DataGridTextColumn.Binding >
                                                                     <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource IntoMoneyConverterKey}" >
-                                                                        <Binding Path="SoLuong"/>
+                                                                        <Binding Path="SoLuong"/> 
                                                                         <Binding Path="SanPham.DonGia"/>
                                                                     </MultiBinding>
                                                                 </DataGridTextColumn.Binding>
@@ -603,7 +603,7 @@
                                                                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                                                             Margin="16,0,0,0"
                                                                             VerticalAlignment="Center"
-                                                                            Text="{Binding TotalMoney, Converter={StaticResource DecimalConverterKey}}" />
+                                                                            Text="{Binding TotalMoney, Converter={StaticResource DecimalConverterKey}, UpdateSourceTrigger=PropertyChanged}" />
                                                                 </StackPanel>
                                                             </StackPanel>
 
@@ -611,12 +611,12 @@
                                                     </materialDesign:ColorZone>
                                                 </Grid>
 
-                                                <Grid Grid.Row="1" Margin="0, 48, 16, 16" VerticalAlignment="Center">
+                                                <Grid Grid.Row="1" Margin="0, 8, 16, 16" VerticalAlignment="Center">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                                         <Button 
                                                     Height="35"
                                            
-                                            Margin="0, 0, 48, 0"
+                                            Margin="0, 0, 32, 0"
                                             HorizontalAlignment="Right"
                                             Style="{StaticResource MaterialDesignRaisedButton}"
                                              Command="{Binding CancelCommand}"  >

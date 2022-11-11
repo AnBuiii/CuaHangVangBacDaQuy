@@ -65,8 +65,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
             IsOpenMakeSaleOrderDialog = new OpenDiaLog() { IsOpen = false };
             SaleOrdersList = new ObservableCollection<PhieuBan>(DataProvider.Ins.DB.PhieuBans);
-            AddImportReceiptCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => ActionDiaLog("Add"));
-            EditCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => ActionDiaLog("Edit"));
+            AddImportReceiptCommand = new RelayCommand<SaleOrderViewModel>((p) => true, p => ActionDiaLog("Add"));
+            EditCommand = new RelayCommand<SaleOrderViewModel>((p) => true, p => ActionDiaLog("Edit"));
 
         }
 

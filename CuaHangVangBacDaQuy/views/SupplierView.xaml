@@ -139,6 +139,9 @@
                               AutoGenerateColumns="False"
                                MaxHeight="680">
                             <DataGrid.Columns>
+                                <DataGridTextColumn Header="Mã nhà cung cấp"
+                                                Binding="{Binding MaNCC}"
+                                                IsReadOnly="True" />
                                 <DataGridTextColumn Header="Tên nhà cung cấp"
                                                 Binding="{Binding TenNCC}"
                                                 IsReadOnly="True" />

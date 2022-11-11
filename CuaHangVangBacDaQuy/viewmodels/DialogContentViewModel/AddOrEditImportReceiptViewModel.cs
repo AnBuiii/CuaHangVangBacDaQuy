@@ -1,4 +1,4 @@
-﻿using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.models;
 using CuaHangVangBacDaQuy.views.userControlDialog;
 using System;
 using System.Collections.Generic;
@@ -186,14 +186,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                         // nếu là thêm sản phẩm vào phiếu đang chỉnh sửa
                         if (SelectedImportReceipt != null && DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu && p.MaSP == SelectedProductItem.MaSP).Count() == 0) 
                         {
-
-                            //ChiTietPhieuMua insertProduct = new ChiTietPhieuMua()
-                            //{
-                            //    MaSP = SelectedProductItem.MaSP,
-                            //    SanPham = SelectedProductItem,
-                            //    SoLuong = 0
-                            //};
-                            
                             InsertProductsList.Add(productAdded);
                         }
                         SelectedProductItem = null;
@@ -279,6 +271,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             SaveCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => AddNewImportReceipt());
             CancelCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => CheckCloseDiaLog());
+            RemoveSelectedSupplierCommand = new RelayCommand<AddOrEditImportReceiptViewModel>((p) => true, p => { SelectedSuppliersList.Clear(); });
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct("UNSAVED"));
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
 
@@ -301,6 +294,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             SaveCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => EditImportReceipt());
             CancelCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => CheckCloseDiaLog());
+            RemoveSelectedSupplierCommand = new RelayCommand<AddOrEditImportReceiptViewModel>((p) => true, p => { SelectedSuppliersList.Clear(); });
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct("SAVED"));
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
 

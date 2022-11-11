@@ -97,18 +97,16 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 DataContext = ContentAddOrEditImportReceipt
             };
 
-            //ContentAddOrEditImportReceipt = 
         }
 
         private void EditImportReceipt()
         {
 
-            ContentAddOrEditImportReceipt = new AddOrEditImportReceiptViewModel("Đơn nhập hàng mới", ref _IsOpenMakeReceiptDialog, ref _ImportReceiptsList, ref _SelectedImportReceipt);
+            ContentAddOrEditImportReceipt = new AddOrEditImportReceiptViewModel("Chỉnh sửa đơn mua hàng", ref _IsOpenMakeReceiptDialog, ref _ImportReceiptsList, ref _SelectedImportReceipt);
             addOrEditImportReceiptUC = new AddOrEditImportReceiptUC
             {
                 DataContext = ContentAddOrEditImportReceipt
             };
-            //ContentAddSupplier = new AddOrEditSupplierViewModel("Chỉnh sửa thông tin nhà cung cấp", ref _IsOpenDiaLog, ref _SuppliersList, ref _SelectedSupplier);
 
         }
     }

@@ -359,9 +359,8 @@
     <Resource Include="Image\icon-user-default.png" />
     <Resource Include="Image\Image-supplier.jpg" />
     <Resource Include="Image\Image-Diamond.png" />
-    <Resource Include="Image\Image-Diamond2.jpeg" />
     <Resource Include="Image\Image-Diamond4.jpeg" />
-    <Resource Include="Image\Image-jewels.jpg" />
+    <Resource Include="Image\starblink_transparent.png" />
     <Content Include="models\VDBQModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>VDBQModel.edmx</DependentUpon>

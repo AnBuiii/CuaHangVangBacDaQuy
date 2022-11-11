@@ -153,10 +153,31 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
         public void DeleteProduct()
         {
-            DataProvider.Ins.DB.SanPhams.Attach(SelectedProduct);
-            DataProvider.Ins.DB.SanPhams.Remove(SelectedProduct);
+
+            var deletedProduct = DataProvider.Ins.DB.SanPhams.Where(c => c.MaSP == SelectedProduct.MaSP).SingleOrDefault();
+            if (DataProvider.Ins.DB.ChiTietPhieuMuas.Where(d => d.SanPham.MaSP == deletedProduct.MaSP).Count() > 0)
+            {
+                MessageBox.Show("Sản phẩm " + deletedProduct.TenSP + " đã từng được nhập vào kho, vui lòng kiểm tra thông đơn mua hàng trước khi xóa sản phẩm!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (DataProvider.Ins.DB.ChiTietPhieuBans.Where(d => d.SanPham.MaSP == deletedProduct.MaSP).Count() > 0)
+            {
+                MessageBox.Show("Sản phẩm " + deletedProduct.TenSP + " đã từng được bán, vui lòng kiểm tra thông đơn bán hàng trước khi xóa sản phẩm!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (MessageBox.Show("Bạn có chắc chắc muốn xóa khách hàng" + deletedProduct.TenSP+ " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                return;
+            }
+            DataProvider.Ins.DB.SanPhams.Remove(deletedProduct);
             DataProvider.Ins.DB.SaveChanges();
-            ProductsList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
+            ProductsList.Remove(SelectedProduct);
+
+
+            /* DataProvider.Ins.DB.SanPhams.Attach(SelectedProduct);
+             DataProvider.Ins.DB.SanPhams.Remove(SelectedProduct);
+             DataProvider.Ins.DB.SaveChanges();
+             ProductsList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);*/
         }
        
     }

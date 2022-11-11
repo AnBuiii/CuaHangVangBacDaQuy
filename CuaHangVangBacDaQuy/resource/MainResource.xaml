@@ -9,7 +9,6 @@
     <viewModel:HomeViewModel x:Key="HomeVM" />
     <viewModel:AccountViewModel x:Key="AccountVM" />
     <viewModel:LoginViewModel x:Key="LoginVM" />
-    <viewModel:MakeOrderViewModel x:Key="MakeOrderVM" />
     <viewModel:ImportReceiptViewModel x:Key="ImportReceiptVM"/>
     <viewModel:ProductViewModel x:Key="ProductVM" />
     <viewModel:SupplierViewModel x:Key="SupplierVM" />
@@ -21,6 +20,7 @@
     <contentDialogViewModel:AddOrEditSupplierViewModel x:Key="AddOrEditSupplierVM"/>
     <contentDialogViewModel:AddOrEditImportReceiptViewModel x:Key="AddOrEditImportReceiptVM"/>
     <contentDialogViewModel:AddOrEditSaleOrderViewModel x:Key="AddOrEditSaleOrderVM"/>
+    <contentDialogViewModel:AddOrEditAccountViewModel x:Key ="AddOrEditAccountVM"/>
 
     <converter:GenderConverter x:Key="genderConverterKey"/>
     <converter:AmountConverter x:Key="AmountConverterKey"/>

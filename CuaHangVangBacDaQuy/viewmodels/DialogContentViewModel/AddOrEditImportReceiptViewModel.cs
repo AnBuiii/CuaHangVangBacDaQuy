@@ -313,13 +313,13 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             //for select supplier
             SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
             IsOpenAddSupplierDialog = new OpenDiaLog() { IsOpen = false };
-            AddSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { OpenDialogAddSupplier(); });
-            RemoveSelectedSupplierCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => { SelectedSuppliersList.Clear(); });
+            AddSupplierCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => { OpenDialogAddSupplier(); });
+            RemoveSelectedSupplierCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => { SelectedSuppliersList.Clear(); });
 
             //for select product
             SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
             IsOpenAddProductDialog = new OpenDiaLog() { IsOpen = false };
-            AddProductCommand = new RelayCommand<MakeOrderViewModel>(p => true, p => { OpenDialogAddProduct(); });
+            AddProductCommand = new RelayCommand<AddOrEditImportReceiptUC>(p => true, p => { OpenDialogAddProduct(); });
             //RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct());
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
         }

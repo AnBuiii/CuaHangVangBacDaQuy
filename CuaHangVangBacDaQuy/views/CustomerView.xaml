@@ -208,13 +208,14 @@
                                                 Background="{StaticResource PrimaryHueDarkBrush}"
                                                
                                                 Style="{StaticResource MaterialDesignRaisedButton}"
-                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteCommand}"
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteCustomerCommand}"
                                                 CommandParameter="{Binding ElementName=deleteBtn}">
                                                     <materialDesign:PackIcon Kind="Delete" />
                                                 </Button>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
+                                    
                                 </DataGrid.Columns>
 
 

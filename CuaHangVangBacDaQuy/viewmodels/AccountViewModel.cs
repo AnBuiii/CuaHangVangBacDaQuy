@@ -1,5 +1,7 @@
 ﻿using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel;
 using CuaHangVangBacDaQuy.views;
+using CuaHangVangBacDaQuy.views.userControlDialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +9,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 
@@ -30,19 +34,20 @@ namespace CuaHangVangBacDaQuy.viewmodels
         private string _TenNguoiDung;
         public string TenNguoiDung { get => _TenNguoiDung; set { _TenNguoiDung = value; OnPropertyChanged(); } }
 
-        private NguoiDung _SelectedItem;
-        public NguoiDung SelectedItem
+        private NguoiDung _SelectedAccount;
+        public NguoiDung SelectedAccount
         {
-            get => _SelectedItem;
+            get => _SelectedAccount;
             set
             {
-                _SelectedItem = value;
+                
+                _SelectedAccount = value;
                 OnPropertyChanged();
-                if (SelectedItem != null)
-                {
-                    TenDangNhap = SelectedItem.TenDangNhap;
-                    SelectedQuyenHan = SelectedItem.QuyenHan;
-                    TenNguoiDung = SelectedItem.TenND;
+                if (SelectedAccount != null)
+                { 
+                    TenDangNhap = SelectedAccount.TenDangNhap;
+                    SelectedQuyenHan = SelectedAccount.QuyenHan;
+                    TenNguoiDung = SelectedAccount.TenND;
                 }
             }
         }
@@ -51,6 +56,13 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private string _ConfirmPassword;
         public string ConfirmPassword { get => _ConfirmPassword; set { _ConfirmPassword = value; OnPropertyChanged(); } }
+
+        private OpenDiaLog _IsOpenDialogAccount;
+        public OpenDiaLog IsOpenDialogAccount { get => _IsOpenDialogAccount; set { _IsOpenDialogAccount = value; OnPropertyChanged(); } }
+        private AddOrEditAccountUC _addOrEditAccountUC;
+        public AddOrEditAccountUC addOrEditAccountUC { get => _addOrEditAccountUC; set { _addOrEditAccountUC = value; OnPropertyChanged(); } }
+
+        private AddOrEditAccountViewModel addOrEditAccountViewModel;
         #endregion
 
         #region Commands
@@ -59,6 +71,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand EditCommand { get; set; }
         public ICommand ChangePasswordCommand { get; set; }
         public ICommand SavePasswordCommand { get; set; }
+        public ICommand DeleteAccountCommand { get; set; }
+
         #endregion
 
 
@@ -66,10 +80,15 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public bool IsOpenDialog { get => _IsOpenDialog; set { _IsOpenDialog = value; OnPropertyChanged(); } }
         public AccountViewModel()
         {
+            
             NguoiDungList = new ObservableCollection<NguoiDung>(DataProvider.Ins.DB.NguoiDungs);
             QuyenHanList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
+            IsOpenDialogAccount = new OpenDiaLog() { IsOpen = false };
 
-            AddCommand = new RelayCommand<object>((p) =>
+            AddCommand = new RelayCommand<AccountView>(p => true, p => ActionDialog("Add"));
+            EditCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => ActionDialog("Edit"));
+            DeleteAccountCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => DeletedAccount());
+            /*AddCommand = new RelayCommand<object>((p) =>
             {
                 if (SelectedQuyenHan == null)
                     return false;
@@ -125,12 +144,46 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 NguoiDungList = new ObservableCollection<NguoiDung>(DataProvider.Ins.DB.NguoiDungs);
                 IsOpenDialog = false;
 
-            });
+            });*/
+
 
         }
+
+        private void ActionDialog(string caseDiaglog)
+        {
+            IsOpenDialogAccount.IsOpen = true;
+            switch (caseDiaglog)
+            {
+                case "Add":
+                    AddNewAccount();
+                    break;
+                case "Edit":
+                    EditAccount();
+                    break;
+
+            }
+        }
+        private void AddNewAccount()
+        {
+            addOrEditAccountViewModel = new AddOrEditAccountViewModel("Thêm tài khoản mới", ref _IsOpenDialogAccount, ref _NguoiDungList);
+            addOrEditAccountUC = new AddOrEditAccountUC()
+            {
+                DataContext = addOrEditAccountViewModel
+            };
+        }
+        private void EditAccount()
+        {
+            if (SelectedAccount == null) {MessageBox.Show("null");  IsOpenDialogAccount.IsOpen = false; return; }
+            addOrEditAccountViewModel = new AddOrEditAccountViewModel("Chỉnh sửa thông tin tài khoản", ref _IsOpenDialogAccount, ref _NguoiDungList, ref _SelectedAccount);
+            addOrEditAccountUC = new AddOrEditAccountUC()
+            {
+                DataContext = addOrEditAccountViewModel
+            };
+        }
+
         private bool isItemSelected()
         {
-            if (string.IsNullOrEmpty(TenDangNhap) || SelectedItem == null)
+            if (string.IsNullOrEmpty(TenDangNhap) || SelectedAccount == null)
                 return false;
 
             var displayList = DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == TenDangNhap);
@@ -156,6 +209,26 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 hash.Append(bytes[i].ToString("x2"));
             }
             return hash.ToString();
+        }
+
+        private void DeletedAccount()
+        {
+            if (SelectedAccount == null) { MessageBox.Show("null"); IsOpenDialogAccount.IsOpen = false; return; }
+            var deletedCustomer = DataProvider.Ins.DB.NguoiDungs.Where(c => c.MaND == SelectedAccount.MaND).SingleOrDefault();
+           
+            if(deletedCustomer.MaND == 1)
+            {
+                MessageBox.Show("Đây là tài khoản mặc định, không thể xóa!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            if (MessageBox.Show("Bạn có chắc chắc muốn xóa tài khoản" + deletedCustomer.TenDangNhap + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                return;
+            }
+            DataProvider.Ins.DB.NguoiDungs.Remove(deletedCustomer);
+            DataProvider.Ins.DB.SaveChanges();
+            NguoiDungList.Remove(SelectedAccount);
+
+
         }
 
     }

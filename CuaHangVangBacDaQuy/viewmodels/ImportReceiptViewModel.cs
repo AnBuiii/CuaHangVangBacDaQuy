@@ -1,5 +1,6 @@
 ﻿using CuaHangVangBacDaQuy.models;
 using CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel;
+using CuaHangVangBacDaQuy.views;
 using CuaHangVangBacDaQuy.views.userControlDialog;
 using MaterialDesignThemes.Wpf;
 using System;
@@ -65,8 +66,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
             
            IsOpenMakeReceiptDialog = new OpenDiaLog() { IsOpen = false };
             ImportReceiptsList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
-            AddImportReceiptCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => ActionDiaLog("Add"));
-            EditCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => ActionDiaLog("Edit"));
+            AddImportReceiptCommand = new RelayCommand<ImportReceiptView>((p) => true, p => ActionDiaLog("Add"));
+            EditCommand = new RelayCommand<ImportReceiptView>((p) => true, p => ActionDiaLog("Edit"));
 
         }
 

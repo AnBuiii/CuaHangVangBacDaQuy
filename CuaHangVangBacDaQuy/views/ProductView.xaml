@@ -140,6 +140,7 @@
                               IsReadOnly="False"
                               CanUserAddRows="False"
                               AutoGenerateColumns="False"
+                              SelectionMode="Single"
                               MaxHeight="680"
                               >
                             <DataGrid.Columns>

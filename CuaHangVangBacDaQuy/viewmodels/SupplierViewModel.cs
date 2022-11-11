@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -52,8 +53,9 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand EditCommand { get; set; }
 
         public ICommand AddCommand { get; set; }
-        #endregion
-        #region Command
+
+        public ICommand DeleteSupplierCommand { get; set; }
+      
         #endregion
         public SupplierViewModel()
         {
@@ -61,6 +63,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             SuppliersList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
             AddCommand = new RelayCommand<SupplierViewModel>((p) => true, p => ActionDiaLog("Add"));
             EditCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => ActionDiaLog("Edit"));
+            DeleteSupplierCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => DeledteCustomer());
         }
 
         private void ActionDiaLog(string caseDiaLog)
@@ -89,6 +92,24 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             ContentAddSupplier = new AddOrEditSupplierViewModel("Chỉnh sửa thông tin nhà cung cấp", ref _IsOpenDiaLog, ref _SuppliersList, ref _SelectedSupplier);
          
+        }
+
+        private void DeledteCustomer()
+        {
+            var deletedSupplier = DataProvider.Ins.DB.NhaCungCaps.Where(c => c.MaNCC == SelectedSupplier.MaNCC).SingleOrDefault();
+            if (DataProvider.Ins.DB.PhieuMuas.Where(s => s.NhaCungCap.MaNCC == deletedSupplier.MaNCC).Count() > 0)
+            {
+                MessageBox.Show("Nhà cung cấp " + deletedSupplier.TenNCC + " đã từng giao dịch, vui lòng xóa đơn mua hàng trước khi xóa thông tin khách hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (MessageBox.Show("Bạn có chắc chắc muốn xóa nhà cung cấp" + deletedSupplier.TenNCC + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                return;
+            }
+            DataProvider.Ins.DB.NhaCungCaps.Remove(deletedSupplier);
+            DataProvider.Ins.DB.SaveChanges();
+            SuppliersList.Remove(SelectedSupplier);
+
         }
     }
 }

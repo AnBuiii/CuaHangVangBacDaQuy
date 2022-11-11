@@ -13,7 +13,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if(values != null && values.Length > 0 && values[1] != null)
+            if(values != null && values.Length > 0 && values[1] != null && values[0] != null)
             {
                int amount = (int)values[0];
                 //MessageBox.Show(values[1].ToString());
@@ -22,7 +22,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
                 return intoMoney.ToString("#,##0.");
             }
             ;
-            return 0;
+            return "0";
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

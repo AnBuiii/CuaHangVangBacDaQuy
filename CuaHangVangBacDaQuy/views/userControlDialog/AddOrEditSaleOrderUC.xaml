@@ -9,7 +9,7 @@
              xmlns:models="clr-namespace:CuaHangVangBacDaQuy.models"
              xmlns:acb="http://wpfcontrols.com/" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
-             d:DesignHeight="755.332" d:DesignWidth="1136.154"
+             d:DesignHeight="787.332" d:DesignWidth="1145.754"
               TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -372,7 +372,7 @@
                                                 <RowDefinition Height="auto"></RowDefinition>
                                                 <RowDefinition Height="auto"></RowDefinition>
                                                 <RowDefinition Height="auto"></RowDefinition>
-                                                <RowDefinition Height="auto"></RowDefinition>
+
 
                                             </Grid.RowDefinitions>
                                             <Grid Grid.Row="0">
@@ -414,7 +414,7 @@
                                                 </materialDesign:ColorZone>
                                             </Grid>
 
-                                            <Grid Grid.Row="2">
+                                            <Grid Grid.Row="1">
                                                 <materialDesign:ColorZone Padding="32, 0, 0, 0"
                                                                       Mode="Light">
                                                     <Grid>
@@ -471,7 +471,7 @@
 
                                             </Grid>
                                             <!--Phần grid này để hiện thị thông tin các món hạng được mua sau khi tạo hoặc tìm kiếm-->
-                                            <Grid Grid.Row="3"
+                                            <Grid Grid.Row="2"
                                               MinHeight="270"
                                               MaxHeight="270">
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0, 0, 16, 0">
@@ -565,7 +565,7 @@
                                                 </ScrollViewer>
                                             </Grid>
 
-                                            <Grid Grid.Row="4">
+                                            <Grid Grid.Row="3">
 
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="auto"></RowDefinition>

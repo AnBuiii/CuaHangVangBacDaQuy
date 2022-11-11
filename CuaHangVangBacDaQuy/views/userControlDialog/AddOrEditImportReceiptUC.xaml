@@ -376,7 +376,7 @@
                                                 <RowDefinition Height="auto"></RowDefinition>
                                                 <RowDefinition Height="auto"></RowDefinition>
                                                 <RowDefinition Height="auto"></RowDefinition>
-                                                <RowDefinition Height="auto"></RowDefinition>
+                                               
 
                                             </Grid.RowDefinitions>
                                             <Grid Grid.Row="0">
@@ -419,7 +419,7 @@
                                                 </materialDesign:ColorZone>
                                             </Grid>
 
-                                            <Grid Grid.Row="2">
+                                            <Grid Grid.Row="1">
                                                 <materialDesign:ColorZone Padding="32, 0, 0, 0"
                                                                       Mode="Light">
                                                     <Grid>
@@ -476,7 +476,7 @@
 
                                             </Grid>
                                             <!--Phần grid này để hiện thị thông tin các món hạng được mua sau khi tạo hoặc tìm kiếm-->
-                                            <Grid Grid.Row="3"
+                                            <Grid Grid.Row="2"
                                               MinHeight="270"
                                               MaxHeight="270">
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0, 0, 16, 0">
@@ -485,8 +485,10 @@
                                                           CanUserResizeColumns="False"
                                                           IsReadOnly="False"
                                                           CanUserAddRows="False"
+                                                              CanUserSortColumns="True"
                                                           AutoGenerateColumns="False"
-                                                          x:Name="produtDataGrid">
+                                                          x:Name="produtDataGrid"
+                                                              >
                                                         <DataGrid.Columns>
                                                             <DataGridTextColumn Header="Mã sản phẩm"
                                                                             Binding="{Binding SanPham.MaSP}"
@@ -538,13 +540,20 @@
                                                                     IsReadOnly="True"
                                                                     CanUserReorder="True"
                                                                     CanUserSort="True"
+                                                                   
+                                                             
                                                                     >
-                                                                <DataGridTextColumn.Binding >
-                                                                    <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource IntoMoneyConverterKey}" >
+                                                       
+
+                                                                <DataGridTextColumn.Binding>
+                                                                    <MultiBinding  UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource IntoMoneyConverterKey}" >
                                                                         <Binding Path="SoLuong"/> 
                                                                         <Binding Path="SanPham.DonGia"/>
                                                                     </MultiBinding>
                                                                 </DataGridTextColumn.Binding>
+                                                                  
+
+
                                                             </DataGridTextColumn>
 
 
@@ -570,7 +579,7 @@
                                                 </ScrollViewer>
                                             </Grid>
 
-                                            <Grid Grid.Row="4">
+                                            <Grid Grid.Row="3">
 
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="auto"></RowDefinition>

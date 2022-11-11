@@ -440,7 +440,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 DataProvider.Ins.DB.ChiTietPhieuMuas.Remove(selectedProduct);
 
             }
-            MessageBox.Show(InsertProductsList.Count().ToString());
+           
             foreach (var item in InsertProductsList)
             {
 

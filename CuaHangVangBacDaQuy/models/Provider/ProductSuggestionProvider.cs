@@ -1,4 +1,5 @@
 ﻿using AutoCompleteTextBox.Editors;
+using CuaHangVangBacDaQuy.viewmodels.Converter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,16 +19,16 @@ namespace CuaHangVangBacDaQuy.models.Provider
                 if (string.IsNullOrWhiteSpace(filter)) return null;
                 return
                     ProductList
-                        .FirstOrDefault(state => string.Equals(state.TenSP, filter, StringComparison.CurrentCultureIgnoreCase));
+                        .FirstOrDefault(product => string.Equals(product.TenSP, filter, StringComparison.CurrentCultureIgnoreCase));
             }
 
             public IEnumerable<SanPham> GetSuggestions(string filter)
             {
                 if (string.IsNullOrWhiteSpace(filter)) return null;
-                 System.Threading.Thread.Sleep(300);
+                // System.Threading.Thread.Sleep(300);
                 return
                     ProductList
-                        .Where(state => state.TenSP.IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) > -1)
+                        .Where(product => product.TenSP.IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) > -1 && CaculateInventoryConverter.CaculateInventory(product.MaSP) > 0)
                         .ToList();
             }
 
@@ -42,8 +43,8 @@ namespace CuaHangVangBacDaQuy.models.Provider
 
             public ProductSuggestionProvider()
             {
-                var products = DataProvider.Ins.DB.SanPhams;
-                ProductList = products;
+                ProductList = DataProvider.Ins.DB.SanPhams;
+                 
             }
         }
     }

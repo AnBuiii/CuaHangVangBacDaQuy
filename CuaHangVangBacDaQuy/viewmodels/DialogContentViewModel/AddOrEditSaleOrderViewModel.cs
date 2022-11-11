@@ -1,4 +1,5 @@
-using CuaHangVangBacDaQuy.models;
+﻿using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.viewmodels.Converter;
 using CuaHangVangBacDaQuy.views.userControlDialog;
 using System;
 using System.Collections.Generic;
@@ -12,19 +13,19 @@ using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
-    public class AddOrEditImportReceiptViewModel : BaseViewModel
+    public class AddOrEditSaleOrderViewModel:BaseViewModel
     {
         #region
         // các biến cho view chính này
 
-        private ObservableCollection<PhieuMua> _PhieuMuaList;
-        public ObservableCollection<PhieuMua> PhieuMuaList
+        private ObservableCollection<PhieuBan> _SaleOrdersList;
+        public ObservableCollection<PhieuBan> SaleOrdersList
         {
-            get => _PhieuMuaList;
+            get => _SaleOrdersList;
             set
             {
 
-                _PhieuMuaList = value;
+                _SaleOrdersList = value;
                 OnPropertyChanged();
             }
         }
@@ -41,26 +42,26 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 OnPropertyChanged();
             }
         }
-        private PhieuMua _SelectedImportReceipt;
-        public PhieuMua SelectedImportReceipt
+        private PhieuBan _SelectedSaleOrder;
+        public PhieuBan SelectedSaleOrder
         {
-            get => _SelectedImportReceipt;
+            get => _SelectedSaleOrder;
             set
             {
-                _SelectedImportReceipt = value;
+                _SelectedSaleOrder = value;
                 OnPropertyChanged();
-                if (SelectedImportReceipt != null)
+                if (SelectedSaleOrder != null)
                 {
-                    SelectedSupplier = SelectedImportReceipt.NhaCungCap;
-                    SelectedProductList = new ObservableCollection<ChiTietPhieuMua>(SelectedImportReceipt.ChiTietPhieuMuas);
+                    SelectedCustomer = SelectedSaleOrder.KhachHang;
+                    SelectedProductList = new ObservableCollection<ChiTietPhieuBan>(SelectedSaleOrder.ChiTietPhieuBans);
                     TotalMoney = SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia);
 
                 }
             }
         }
 
-        private ObservableCollection<ChiTietPhieuMua> InsertProductsList;
-        private ObservableCollection<ChiTietPhieuMua> DeletedProductsList;
+        private ObservableCollection<ChiTietPhieuBan> InsertProductsList;
+        private ObservableCollection<ChiTietPhieuBan> DeletedProductsList;
 
 
 
@@ -81,31 +82,31 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         #region 
 
-        private ObservableCollection<NhaCungCap> _SelectedSuppliersList;
-        public ObservableCollection<NhaCungCap> SelectedSuppliersList
+        private ObservableCollection<KhachHang> _SelectedCustomersList;
+        public ObservableCollection<KhachHang> SelectedCustomersList
         {
-            get => _SelectedSuppliersList;
-            set { _SelectedSuppliersList = value; OnPropertyChanged(); }
+            get => _SelectedCustomersList;
+            set { _SelectedCustomersList = value; OnPropertyChanged(); }
         }
 
 
-        private NhaCungCap _SelectedSupplier;
-        public NhaCungCap SelectedSupplier
+        private KhachHang _SelectedCustomer;
+        public KhachHang SelectedCustomer
         {
             get
             {
-                return _SelectedSupplier;
+                return _SelectedCustomer;
             }
             set
             {
-                _SelectedSupplier = value;
+                _SelectedCustomer = value;
                 OnPropertyChanged();
 
 
-                if (value != null && !SelectedSuppliersList.Contains(value))
+                if (value != null && !SelectedCustomersList.Contains(value))
                 {
-                    SelectedSuppliersList?.Clear();
-                    SelectedSuppliersList.Add(value);
+                    SelectedCustomersList?.Clear();
+                    SelectedCustomersList.Add(value);
 
                 }
 
@@ -144,8 +145,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         #region 
 
-        private ObservableCollection<ChiTietPhieuMua> _SelectedProductList;
-        public ObservableCollection<ChiTietPhieuMua> SelectedProductList
+        private ObservableCollection<ChiTietPhieuBan> _SelectedProductList;
+        public ObservableCollection<ChiTietPhieuBan> SelectedProductList
         {
             get => _SelectedProductList;
             set
@@ -175,17 +176,18 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
                     if (SelectedProductList.Where(x => x.SanPham == SelectedProductItem).Count() == 0)
                     {
-                        ChiTietPhieuMua productAdded = new ChiTietPhieuMua()
-                        {  
+                        ChiTietPhieuBan productAdded = new ChiTietPhieuBan()
+                        {
                             MaSP = SelectedProductItem.MaSP,
                             SanPham = SelectedProductItem,
                             SoLuong = 0
                         };
-                        
+
                         SelectedProductList.Add(productAdded);
                         // nếu là thêm sản phẩm vào phiếu đang chỉnh sửa
-                        if (SelectedImportReceipt != null && DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu && p.MaSP == SelectedProductItem.MaSP).Count() == 0) 
+                        if (SelectedSaleOrder != null && DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaPhieu == SelectedSaleOrder.MaPhieu && p.MaSP == SelectedProductItem.MaSP).Count() == 0)
                         {
+
                             InsertProductsList.Add(productAdded);
                         }
                         SelectedProductItem = null;
@@ -201,8 +203,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
 
 
-        private ChiTietPhieuMua _SelectedProductDataGrid;
-        public ChiTietPhieuMua SelectedProductDataGrid
+        private ChiTietPhieuBan _SelectedProductDataGrid;
+        public ChiTietPhieuBan SelectedProductDataGrid
         {
             get
             {
@@ -249,96 +251,55 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         #endregion
 
-
-
-
-        public AddOrEditImportReceiptViewModel()
+        public AddOrEditSaleOrderViewModel()
         {
 
 
         }
-        //constructor cho việc tạo phiếu mua hàng mới 
-        public AddOrEditImportReceiptViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuMua> phieuMuaList)
+        //constructor cho việc tạo phiếu bán hàng mới 
+        public AddOrEditSaleOrderViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuBan> saleOrdersList)
         {
 
-            SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
-            SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
+            SelectedCustomersList = new ObservableCollection<KhachHang>();
+            SelectedProductList = new ObservableCollection<ChiTietPhieuBan>();
 
             TitleView = titleView;
             OpenThisDiaLog = openDiaLog;
-            PhieuMuaList = phieuMuaList;
+            SaleOrdersList = saleOrdersList;
 
 
-            SaveCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => AddNewImportReceipt());
+            SaveCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => AddNewImportReceipt());
             CancelCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => CheckCloseDiaLog());
-            RemoveSelectedSupplierCommand = new RelayCommand<AddOrEditImportReceiptViewModel>((p) => true, p => { SelectedSuppliersList.Clear(); });
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct("UNSAVED"));
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
 
 
 
         }
-        // constructor cho việc chỉnh sửa phiếu mua hàng
+        // constructor cho việc chỉnh sửa phiếu bán hàng
 
-        public AddOrEditImportReceiptViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuMua> phieuMuaList, ref PhieuMua selectedImportReceipt)
+        public AddOrEditSaleOrderViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuBan> saleOrdersList, ref PhieuBan selectedSaleOrder)
         {
-            InsertProductsList = new ObservableCollection<ChiTietPhieuMua>();
-            DeletedProductsList = new ObservableCollection<ChiTietPhieuMua>();
-            SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
-            SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
+            InsertProductsList = new ObservableCollection<ChiTietPhieuBan>();
+            DeletedProductsList = new ObservableCollection<ChiTietPhieuBan>();
+            SelectedCustomersList = new ObservableCollection<KhachHang>();
+            SelectedProductList = new ObservableCollection<ChiTietPhieuBan>();
             TitleView = titleView;
             OpenThisDiaLog = openDiaLog;
-            PhieuMuaList = phieuMuaList;
-            SelectedImportReceipt = selectedImportReceipt;
+            SaleOrdersList = saleOrdersList;
+            SelectedSaleOrder = selectedSaleOrder;
 
 
-            SaveCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => EditImportReceipt());
-            CancelCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => CheckCloseDiaLog());
-            RemoveSelectedSupplierCommand = new RelayCommand<AddOrEditImportReceiptViewModel>((p) => true, p => { SelectedSuppliersList.Clear(); });
+            SaveCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => EditImportReceipt());
+            CancelCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => CheckCloseDiaLog());
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct("SAVED"));
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
 
 
 
         }
-        #region funtion for Select Supplier and product
-        private void InitializeValueToSelect()
-        {
-            //for select supplier
-            SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
-            IsOpenAddSupplierDialog = new OpenDiaLog() { IsOpen = false };
-            AddSupplierCommand = new RelayCommand<AddOrEditImportReceiptViewModel>((p) => true, p => { OpenDialogAddSupplier(); });
-            RemoveSelectedSupplierCommand = new RelayCommand<AddOrEditImportReceiptViewModel>((p) => true, p => { SelectedSuppliersList.Clear(); });
 
-            //for select product
-            SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
-            IsOpenAddProductDialog = new OpenDiaLog() { IsOpen = false };
-            AddProductCommand = new RelayCommand<AddOrEditImportReceiptViewModel>(p => true, p => { OpenDialogAddProduct(); });
-            //RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct());
-            CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
-        }
-
-        public void OpenDialogAddSupplier()
-        {
-
-            ContentAddSupplier = new AddOrEditSupplierViewModel("Thêm nhà cung cấp mới", ref _IsOpenAddSupplierDialog, ref _SelectedSuppliersList);
-            IsOpenAddSupplierDialog.IsOpen = true;
-        }
-
-        public void OpenDialogAddProduct()
-        {
-
-            ContentAddProduct = new AddOrEditProductViewModel("Thêm sản phẩm mới", ref _IsOpenAddProductDialog, ref _SelectedProductList);
-            IsOpenAddProductDialog.IsOpen = true;
-        }
-
-       
-
-        #endregion
-
-
-
-        #region Funtion for creating or editing the Receipt
+        #region Funtion for creating or editing the SaleOrder
         void RemoveSelectedProduct(string caseRemove)
         {
             switch (caseRemove)
@@ -356,7 +317,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                     {
 
 
-                        ChiTietPhieuMua deletedProduct = SelectedProductDataGrid;
+                        ChiTietPhieuBan deletedProduct = SelectedProductDataGrid;
 
                         if (InsertProductsList.Contains(deletedProduct))
                         {
@@ -386,80 +347,96 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         }
 
+        bool CheckProductStock()
+        {
+            foreach (var product in SelectedProductList)
+            {
+                if(CaculateInventoryConverter.CaculateInventory(product.MaSP) <= 0)
+                {
+                    MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " đã hết hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private void AddNewImportReceipt()
         {
-            if (!CheckValidFieldInDialog()) return;
+            
 
-            PhieuMua newImportReceipt = new PhieuMua()
+            if (!CheckValidFieldInDialog()) return;
+            if(!CheckProductStock()) return;
+
+            PhieuBan newSaleOrder = new PhieuBan()
             {
-                MaPhieu = (DataProvider.Ins.DB.PhieuMuas.Count() + 1).ToString(),
+                MaPhieu = (DataProvider.Ins.DB.PhieuBans.Count() + 1).ToString(),
                 NgayLap = DateTime.Now,
-                MaNCC = SelectedSupplier.MaNCC,
+                MaKH = SelectedCustomer.MaKH,
 
             };
 
-            DataProvider.Ins.DB.PhieuMuas.Add(newImportReceipt);
+            DataProvider.Ins.DB.PhieuBans.Add(newSaleOrder);
 
 
 
             //Chi tiet phieu
             foreach (var item in SelectedProductList)
             {
-                ChiTietPhieuMua newDetailImportReceitpt = new ChiTietPhieuMua()
+                ChiTietPhieuBan newDetailSaleOrder = new ChiTietPhieuBan()
                 {
-                    MaChiTietPhieu   = Guid.NewGuid().ToString(),
-                    MaPhieu = newImportReceipt.MaPhieu,
+                    MaChiTietPhieu = Guid.NewGuid().ToString(),
+                    MaPhieu = newSaleOrder.MaPhieu,
                     MaSP = item.MaSP,
                     SoLuong = item.SoLuong,
                 };
 
-                DataProvider.Ins.DB.ChiTietPhieuMuas.Add(newDetailImportReceitpt);
+                DataProvider.Ins.DB.ChiTietPhieuBans.Add(newDetailSaleOrder);
 
             }
             DataProvider.Ins.DB.SaveChanges();
-            PhieuMuaList.Add(newImportReceipt);
+            SaleOrdersList.Add(newSaleOrder);
             OpenThisDiaLog.IsOpen = false;
 
         }
         private void EditImportReceipt()
         {
             OpenThisDiaLog.IsOpen = false;
-            var editedImportReceipt = DataProvider.Ins.DB.PhieuMuas.Where(i => i.MaPhieu == SelectedImportReceipt.MaPhieu).SingleOrDefault();
-            editedImportReceipt.MaNCC = SelectedSuppliersList.First().MaNCC;
-           
+            var editedSaleOrder = DataProvider.Ins.DB.PhieuBans.Where(i => i.MaPhieu == SelectedSaleOrder.MaPhieu).SingleOrDefault();
+            editedSaleOrder.MaKH = SelectedCustomersList.First().MaKH;
+
 
             foreach (var item in DeletedProductsList)
             {
-                var selectedProduct = DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == item.MaPhieu && p.MaSP == item.MaSP).SingleOrDefault();
-                DataProvider.Ins.DB.ChiTietPhieuMuas.Remove(selectedProduct);
+                var selectedProduct = DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaPhieu == item.MaPhieu && p.MaSP == item.MaSP).SingleOrDefault();
+                DataProvider.Ins.DB.ChiTietPhieuBans.Remove(selectedProduct);
 
             }
-           
+         
             foreach (var item in InsertProductsList)
             {
 
-                ChiTietPhieuMua newDetailImportReceitpt = new ChiTietPhieuMua()
+                ChiTietPhieuBan newDetailSaleOrder = new ChiTietPhieuBan()
                 {
                     MaChiTietPhieu = Guid.NewGuid().ToString(),
-                    MaPhieu = SelectedImportReceipt.MaPhieu,
+                    MaPhieu = SelectedSaleOrder.MaPhieu,
                     MaSP = item.MaSP,
                     SoLuong = item.SoLuong,
                 };
 
-                DataProvider.Ins.DB.ChiTietPhieuMuas.Add(newDetailImportReceitpt);
+                DataProvider.Ins.DB.ChiTietPhieuBans.Add(newDetailSaleOrder);
 
             }
 
 
             DataProvider.Ins.DB.SaveChanges();
-            SelectedImportReceipt.ChiTietPhieuMuas = new ObservableCollection<ChiTietPhieuMua>(DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu));
-            editedImportReceipt.MaPhieu = editedImportReceipt.MaPhieu;
-          
+            SelectedSaleOrder.ChiTietPhieuBans = new ObservableCollection<ChiTietPhieuBan>(DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaPhieu == SelectedSaleOrder.MaPhieu));
+            editedSaleOrder.MaPhieu = editedSaleOrder.MaPhieu;
+
         }
 
         private bool CheckValidFieldInDialog()
         {
-            if (SelectedSuppliersList == null || SelectedSuppliersList.Count == 0)
+            if (SelectedCustomersList == null || SelectedCustomersList.Count == 0)
             {
                 MessageBox.Show("Vui lòng chọn nhà cung cấp!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
@@ -486,8 +463,5 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         }
         #endregion
-
-
-
     }
 }

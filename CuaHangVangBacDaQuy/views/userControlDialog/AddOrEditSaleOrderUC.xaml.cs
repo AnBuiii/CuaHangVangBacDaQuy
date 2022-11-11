@@ -1,5 +1,4 @@
-﻿using CuaHangVangBacDaQuy.views;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CuaHangVangBacDaQuy
+namespace CuaHangVangBacDaQuy.views.userControlDialog
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddOrEditSaleOrderUC.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddOrEditSaleOrderUC : UserControl
     {
-        public MainWindow()
+        public AddOrEditSaleOrderUC()
         {
-            //Test UI ở đây
-            // UserWindow userWindow = new UserWindow();
-            //userWindow.Show();
-           
+            InitializeComponent();
         }
     }
 }

@@ -22,44 +22,114 @@
         
         Name="loginWindow"
         Title="Đăng nhập"
-        Height="200"
-        Width="380"
+        Height="800"
+        Width="1200"
         DataContext ="{StaticResource LoginVM}">
+
     <Grid>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
+
         <Grid Grid.Row="0">
-            <!--<uc:ControlBarUC Tag="{Binding Title, ElementName=loginWindow}"/>-->
+            <uc:ControlBarUC Tag="{Binding Title, ElementName=loginWindow}"/>
         </Grid>
-        <materialDesign:Card Grid.Row="1"
+        
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Background="{StaticResource PrimaryDarkBrushTheme}">
+                <StackPanel HorizontalAlignment="Center">
+                    <Label VerticalAlignment="Top" HorizontalAlignment="Center" Content="{materialDesign:PackIcon Kind=DiamondStone, Size=400}"/>
+                    <TextBlock  HorizontalAlignment="Center" Text="Jewelry Store" FontSize="60" TextWrapping="Wrap" FontWeight="Black"/>
+                </StackPanel>
+
+                <Image Source="\Image\starblink_transparent.png" Margin="10,-67,290,545"/>
+                <Image Source="\Image\starblink_transparent.png" Margin="405,382,41,309" />
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, -100,0,0">
+                            <Label Content="{materialDesign:PackIcon Kind=DiamondStone, Size=60}" VerticalAlignment="Center"></Label>
+                            <TextBlock Text="Jewelry Store" FontSize="36" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <TextBlock Text="Tài khoản" Margin="0 8" FontSize="16"/>
+                            <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Text="{Binding UserName}">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Command="{Binding LoginCommand}"
+                                        Key="Return" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <TextBlock Text="Mật khẩu" Margin="0 8" FontSize="16"/>
+                            <PasswordBox x:Name="FloatingPasswordBox"
+                                 materialDesign:HintAssist.Hint="Mật khẩu"
+                                 Style="{StaticResource MaterialDesignOutlinedPasswordBox}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PasswordChanged">
+                                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
+                                                       CommandParameter="{Binding ElementName=FloatingPasswordBox}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <PasswordBox.InputBindings>
+                                    <KeyBinding Command="{Binding LoginCommand}"
+                                        CommandParameter="{Binding ElementName=loginWindow}"
+                                        Key="Return" />
+                                </PasswordBox.InputBindings>
+                            </PasswordBox>
+                        </StackPanel>
+                        
+                        <Button Grid.Column="0"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Margin="0, 32,0,0"
+                            FontSize="16"
+                            ToolTip="Resource name: MaterialDesignRaisedButton"
+                            Content="Đăng nhập"
+                            Command="{Binding LoginCommand}"
+                            CommandParameter="{Binding ElementName=loginWindow}" />
+                    </StackPanel>
+                </Grid>
+                <!--<materialDesign:Card Grid.Row="1"
                              Width="330"
                              Height="150"
                              HorizontalAlignment="Center"
-                             VerticalAlignment="Center">
-            <Grid>
-                <Grid.Resources>
-                    <Style TargetType="Grid">
-                        <Setter Property="Margin"
+                             VerticalAlignment="Bottom">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="Grid">
+                                <Setter Property="Margin"
                                 Value="15 5 15 0"></Setter>
-                    </Style>
-                </Grid.Resources>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              Text="{Binding UserName}">
-                        <TextBox.InputBindings>
-                            <KeyBinding Command="{Binding LoginCommand}"
+                                <TextBox.InputBindings>
+                                    <KeyBinding Command="{Binding LoginCommand}"
                                         Key="Return" />
-                        </TextBox.InputBindings>
-                    </TextBox>
-                </Grid>
+                                </TextBox.InputBindings>
+                            </TextBox>
+                        </Grid>
                 <Grid Grid.Row="1">
                     <PasswordBox x:Name="FloatingPasswordBox"
                                  materialDesign:HintAssist.Hint="Mật khẩu"
@@ -100,6 +170,16 @@
                             CommandParameter="{Binding ElementName=loginWindow}" />
                 </Grid>
             </Grid>
-        </materialDesign:Card>
+            </materialDesign:Card>-->
+        </Grid>
+
+         
+        </Grid>
+
+       
+    
+      
+
     </Grid>
+  
 </Window>

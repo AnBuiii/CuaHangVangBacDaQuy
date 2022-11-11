@@ -51,9 +51,11 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" Command="" />
+                    <!--<ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" Command="" />-->
                     <TextBlock Margin="16,0,0,0"
                                VerticalAlignment="Center"
+                               FontSize="16"
+                               FontWeight="Bold"
                                 Text="{Binding Tag, ElementName=ucControlBar}" />
                 </StackPanel>
             </DockPanel>

@@ -1,5 +1,7 @@
 ﻿using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel;
 using CuaHangVangBacDaQuy.views;
+using CuaHangVangBacDaQuy.views.userControlDialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,179 +15,106 @@ namespace CuaHangVangBacDaQuy.viewmodels
 {
     public class SaleOrderViewModel : BaseViewModel
     {
-        #region Commands
-        public ICommand LoadedCommand { get; set; }
-        public ICommand AddProductCommand { get; set; }
-        public ICommand AddCommand { get; set; }
+        //Các biến cho thao tác trên view này
+        #region các biến cho phiếu bán hàng
+
+
+        private ObservableCollection<PhieuBan> _SaleOrderssList;
+        public ObservableCollection<PhieuBan> SaleOrdersList
+        {
+            get => _SaleOrderssList;
+            set
+            {
+                _SaleOrderssList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private PhieuBan _SelectedSaleOrder;
+        public PhieuBan SelectedSaleOrder
+        {
+            get => _SelectedSaleOrder;
+            set
+            {
+                _SelectedSaleOrder = value;
+                OnPropertyChanged();
+               
+            }
+        }
+
+
+        private AddOrEditSaleOrderUC _addOrEditSaleOrderUC;
+        public AddOrEditSaleOrderUC addOrEditSaleOrderUC { get => _addOrEditSaleOrderUC; set { _addOrEditSaleOrderUC = value; OnPropertyChanged(); } }
+
+        private AddOrEditSaleOrderViewModel ContentAddOrEditSaleOrder;
+
+        private OpenDiaLog _IsOpenMakeSaleOrderDialog;
+        public OpenDiaLog IsOpenMakeSaleOrderDialog
+        {
+            get { return _IsOpenMakeSaleOrderDialog; }
+            set { _IsOpenMakeSaleOrderDialog = value; OnPropertyChanged(); }
+        }
+
+        public ICommand AddImportReceiptCommand { get; set; }
         public ICommand EditCommand { get; set; }
-        public ICommand SaveAddCommand { get; set; }
-        public ICommand SelectCustomerNextCommand { get; set; }
         #endregion
-        #region Params
-        private ObservableCollection<PhieuBan> _PhieuBanList;
-        public ObservableCollection<PhieuBan> PhieuBanList { get => _PhieuBanList; set { _PhieuBanList = value; OnPropertyChanged(); } }
-        private List<TonKho> _TonKhoList;
-        public List<TonKho> TonKhoList { get => _TonKhoList; set { _TonKhoList = value; OnPropertyChanged(); } }
-        private ObservableCollection<KhachHang> _CustomerList;
-        public ObservableCollection<KhachHang> CustomerList { get => _CustomerList; set { _CustomerList = value; OnPropertyChanged(); } }
-
-        private PhieuBan _SelectedItem;
-        public PhieuBan SelectedItem
-        {
-            get => _SelectedItem;
-            set
-            {
-                _SelectedItem = value;
-                OnPropertyChanged();
-                if(SelectedItem != null)
-                {
-                    SelectedCustomer = SelectedItem.KhachHang;
-                    ChiTietPhieuBans = SelectedItem.ChiTietPhieuBans.ToList();
-                    InitTonKhoList();
-                }
-            }
-        }
-
-        private KhachHang _SelectedCustomer;
-        public KhachHang SelectedCustomer
-        {
-            get => _SelectedCustomer;
-            
-            set
-            {
-                _SelectedCustomer = value;
-                OnPropertyChanged();   
-            }
-        }
-        private List<ChiTietPhieuBan> _chiTietPhieuBans;
-        public List<ChiTietPhieuBan> ChiTietPhieuBans
-        {
-            get => _chiTietPhieuBans;
-            set
-            {
-                _chiTietPhieuBans = value;
-                OnPropertyChanged();
-            }
-        }
-        private ChiTietPhieuBan _SelectedChiTietPhieuBans;
-        public ChiTietPhieuBan SelectedChiTietPhieuBans
-        {
-            get => _SelectedChiTietPhieuBans;
-            set
-            {
-                _SelectedChiTietPhieuBans = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-
-
-        private string _MaSanPham;
-        public string MaSanPham { get => _MaSanPham; set { _MaSanPham = value; OnPropertyChanged(); } }
-        private string _MaNhaCC;
-        public string NhaCC { get => _MaNhaCC; set { _MaNhaCC = value; OnPropertyChanged(); } }
-        private string _NgayLP;
-        public string NgayLP { get => _NgayLP; set { _NgayLP = value; OnPropertyChanged(); } }
-
-        
-        #endregion
-        private bool _IsOpenSelectProductDialog;
-        public bool IsOpenSelectProductDialog
-        {
-            get { return _IsOpenSelectProductDialog; }
-            set { _IsOpenSelectProductDialog = value; OnPropertyChanged(); }
-        }
-        private bool _IsOpenSelectCustomerDialog;
-        public bool IsOpenSelectCustomerDialog
-        {
-            get { return _IsOpenSelectCustomerDialog; }
-            set { _IsOpenSelectCustomerDialog = value; OnPropertyChanged(); }
-        }
-
 
         public SaleOrderViewModel()
         {
-            IsOpenSelectProductDialog = false;
-            IsOpenSelectCustomerDialog = false;
-            
-            PhieuBanList = new ObservableCollection<PhieuBan>(DataProvider.Ins.DB.PhieuBans);
-            CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
-            AddCommand = new RelayCommand<SaleOrderView>(p => true, p => Add());
-            EditCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Edit());
-            SaveAddCommand = new RelayCommand<SaleOrderView>(p => true, p => SaveAdd());
-            SelectCustomerNextCommand = new RelayCommand<SaleOrderView>(
-                p =>
-                {
-                    if(SelectedItem != null)
-                    {
-                        if (SelectedItem.KhachHang == null) return false;
-                    }
-                    
-                    return true;
 
-                },
-                p =>
-                {
-                    IsOpenSelectCustomerDialog = false;
-                    IsOpenSelectProductDialog = true;
-                }
-            );
-        }
-        public void SaveAdd()
-        {
-            //lưu vào database
-            //notify UI
 
-        }
-        private void Add()
-        {
-            //SelectedItem = new PhieuBan();
-            //IsOpenSelectProductDialog = true;
-            //if(SelectedChiTietPhieuBans != null)
-            //{
-            //    SelectedChiTietPhieuBans.SoLuong = 3;
-            //}
-            DataProvider.Ins.DB.SaveChanges();
-            InitTonKhoList();
-        }
-        private void Edit()
-        {
-            IsOpenSelectCustomerDialog = true;
-            SelectedCustomer = SelectedItem.KhachHang;
-            IsOpenSelectCustomerDialog = true;
+            IsOpenMakeSaleOrderDialog = new OpenDiaLog() { IsOpen = false };
+            SaleOrdersList = new ObservableCollection<PhieuBan>(DataProvider.Ins.DB.PhieuBans);
+            AddImportReceiptCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => ActionDiaLog("Add"));
+            EditCommand = new RelayCommand<MakeOrderViewModel>((p) => true, p => ActionDiaLog("Edit"));
 
         }
 
-        private void InitTonKhoList()
+
+
+
+
+
+        private void ActionDiaLog(string caseDiaLog)
         {
-            TonKhoList = new List<TonKho>();
-            int i = 1;
-            foreach (var item in DataProvider.Ins.DB.SanPhams)
+            IsOpenMakeSaleOrderDialog.IsOpen = true;
+            switch (caseDiaLog)
             {
-                var MuaList = DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaSP == item.MaSP);
-                var BanList = DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaSP == item.MaSP);
+                case "Add":
+                    AddNewSaleOrder();
+                    break;
 
-                int sumMua = 0;
-                int sumBan = 0;
-
-                if (MuaList != null && MuaList.Count() > 0)
-                {
-                    sumMua = (int)MuaList.Sum(p => p.SoLuong);
-                }
-                if (BanList != null && BanList.Count() > 0)
-                {
-                    sumBan = (int)BanList.Sum(p => p.SoLuong);
-                }
-
-                TonKho tonkho = new TonKho();
-                tonkho.Stt = i;
-                tonkho.Count = sumMua - sumBan;
-                tonkho.SanPham = item;
-
-                TonKhoList.Add(tonkho);
-                i++;
+                case "Edit":
+                    EditSaleOrder();
+                    break;
             }
+        }
+
+        private void AddNewSaleOrder()
+        {
+
+
+
+            ContentAddOrEditSaleOrder = new AddOrEditSaleOrderViewModel("Phiếu bán hàng mới", ref _IsOpenMakeSaleOrderDialog, ref _SaleOrderssList);
+
+            addOrEditSaleOrderUC = new AddOrEditSaleOrderUC { 
+                DataContext = ContentAddOrEditSaleOrder
+            };
+
+          
+        }
+
+        private void EditSaleOrder()
+        {
+
+           ContentAddOrEditSaleOrder = new AddOrEditSaleOrderViewModel("Chỉnh sửa phiếu bán hàng", ref _IsOpenMakeSaleOrderDialog, ref _SaleOrderssList, ref _SelectedSaleOrder);
+
+            addOrEditSaleOrderUC = new AddOrEditSaleOrderUC
+            {
+                DataContext = ContentAddOrEditSaleOrder
+            };
+           
+
         }
     }
 }

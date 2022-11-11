@@ -1,17 +1,16 @@
-﻿<UserControl x:Class="CuaHangVangBacDaQuy.views.userControlDialog.AddOrEditImportReceiptUC"
+﻿<UserControl x:Class="CuaHangVangBacDaQuy.views.userControlDialog.AddOrEditSaleOrderUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views.userControlDialog"
-             xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
-             xmlns:acb="http://wpfcontrols.com/"
-              xmlns:models="clr-namespace:CuaHangVangBacDaQuy.models"
+             xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views.userControlDialog" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:providers="clr-namespace:CuaHangVangBacDaQuy.models.Provider"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             xmlns:models="clr-namespace:CuaHangVangBacDaQuy.models"
+             xmlns:acb="http://wpfcontrols.com/" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="787.332" d:DesignWidth="1145.754"
+              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
@@ -19,14 +18,11 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              Tag="Tạo đơn hàng mới"
-             Name="makeImportReceiptView"
-            
-             DataContext="{StaticResource AddOrEditImportReceiptVM}">
-
-
+             Name="makeOderView"      
+             DataContext="{StaticResource AddOrEditSaleOrderVM}">
     <UserControl.Resources>
-        <!--item template cho listBox nhà cung cấp-->
-        <DataTemplate DataType="{x:Type models:NhaCungCap}" >
+        <!--item template cho listBox Khách hàng-->
+        <DataTemplate DataType="{x:Type models:KhachHang}" >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80" />
@@ -38,7 +34,7 @@
 
                 <Border Grid.Column="0"
                                                     Padding="5">
-                    <Image Source="\Image\Image-supplier.jpg"></Image>
+                    <Image Source="\Image\icon-user-default.png"></Image>
                 </Border>
 
                 <Grid Grid.Column="1">
@@ -51,7 +47,7 @@
                     <TextBlock Grid.Row="0"
                                                            FontSize="16"
                                                            Margin="5,0,0,0"
-                                                           Text="{Binding TenNCC}" />
+                                                           Text="{Binding TenKH}" />
                     <TextBlock Grid.Row="1"
                                                            FontSize="14"
                                                            Margin="5,0,0,0"
@@ -96,9 +92,9 @@
         </DataTemplate>
 
 
-        <providers:SupplierSuggesionProvider x:Key="SupplierSuggesionProvider" />
+        <providers:CustomerSuggestionProvider x:Key="CustomerSuggestionProvider" />
         <!--item template cho AutoCompleteComboBox nhà cung cấp-->
-        <DataTemplate x:Key="SupplierItemTemplate">
+        <DataTemplate x:Key="CustomerItemTemplate">
 
             <Grid Grid.IsSharedSizeScope="True">
 
@@ -119,7 +115,7 @@
 
                     <Border Grid.Column="0"
                             CornerRadius="200">
-                        <Image Source="\Image\Image-supplier.jpg"></Image>
+                        <Image Source="\Image\icon-user-default.png"></Image>
                     </Border>
 
                     <Grid Grid.Column="1">
@@ -129,7 +125,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0"
                                    Margin="5,0,0,0"
-                                   Text="{Binding TenNCC}" />
+                                   Text="{Binding TenKH}" />
                         <TextBlock Grid.Row="1"
                                    Margin="5,0,0,0"
                                    Foreground="DarkGray"
@@ -168,7 +164,7 @@
 
                 <TextBlock Grid.Column="3"
                            VerticalAlignment="Center"
-                           Text="Tồn kho: "
+                           Text="Còn: "
                            FontStyle="Italic"
                            Foreground="DarkGray" />
 
@@ -279,7 +275,7 @@
                                                                 FontSize="18"
                                                                 FontWeight="Bold"
                                                                 Foreground="{StaticResource PrimaryHueDarkBrush}"
-                                                                Text="Thông tin nhà cung cấp" />
+                                                                Text="Thông tin khách hàng" />
                                                     </DockPanel>
                                                 </materialDesign:ColorZone>
                                             </Grid>
@@ -314,10 +310,10 @@
                                                                              HorizontalAlignment="Stretch"
                                                                              CharacterCasing="Normal"
                                                                              DisplayMember="Name"
-                                                                             ItemTemplate="{StaticResource ResourceKey=SupplierItemTemplate}"
+                                                                             ItemTemplate="{StaticResource ResourceKey=CustomerItemTemplate}"
                                                                              MaxLength="50"
-                                                                             Provider="{StaticResource ResourceKey=SupplierSuggesionProvider}"
-                                                                             SelectedItem="{Binding SelectedSupplier, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                                                             Provider="{StaticResource ResourceKey=CustomerSuggestionProvider}"
+                                                                             SelectedItem="{Binding SelectedCustomer, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                                                                              Watermark="Tìm kiếm nhà cung cấp"
                                                                              Style="{StaticResource MaterialAutoCompleteComboBox}">
 
@@ -352,7 +348,7 @@
 
 
 
-                                                <ListBox ItemsSource="{Binding  SelectedSuppliersList}"/>
+                                                <ListBox ItemsSource="{Binding SelectedCustomersList}"/>
 
 
                                             </Grid>
@@ -376,13 +372,12 @@
                                                 <RowDefinition Height="auto"></RowDefinition>
                                                 <RowDefinition Height="auto"></RowDefinition>
                                                 <RowDefinition Height="auto"></RowDefinition>
-                                               
+
 
                                             </Grid.RowDefinitions>
                                             <Grid Grid.Row="0">
                                                 <materialDesign:ColorZone Padding="8"
                                                                       Mode="Light">
-
                                                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                                                 Margin="16,0,0,0"
                                                                 VerticalAlignment="Center"
@@ -485,10 +480,8 @@
                                                           CanUserResizeColumns="False"
                                                           IsReadOnly="False"
                                                           CanUserAddRows="False"
-                                                              CanUserSortColumns="True"
                                                           AutoGenerateColumns="False"
-                                                          x:Name="produtDataGrid"
-                                                              >
+                                                          x:Name="produtDataGrid">
                                                         <DataGrid.Columns>
                                                             <DataGridTextColumn Header="Mã sản phẩm"
                                                                             Binding="{Binding SanPham.MaSP}"
@@ -540,20 +533,13 @@
                                                                     IsReadOnly="True"
                                                                     CanUserReorder="True"
                                                                     CanUserSort="True"
-                                                                   
-                                                             
                                                                     >
-                                                       
-
-                                                                <DataGridTextColumn.Binding>
-                                                                    <MultiBinding  UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource IntoMoneyConverterKey}" >
-                                                                        <Binding Path="SoLuong"/> 
+                                                                <DataGridTextColumn.Binding >
+                                                                    <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource IntoMoneyConverterKey}" >
+                                                                        <Binding Path="SoLuong"/>
                                                                         <Binding Path="SanPham.DonGia"/>
                                                                     </MultiBinding>
                                                                 </DataGridTextColumn.Binding>
-                                                                  
-
-
                                                             </DataGridTextColumn>
 
 
@@ -715,6 +701,4 @@
             </Grid>
         </ScrollViewer>
     </Grid>
-   
-   
 </UserControl>

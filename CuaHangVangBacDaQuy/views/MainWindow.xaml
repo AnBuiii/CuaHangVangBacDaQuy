@@ -36,7 +36,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <!--<uc:ControlBarUC Tag="{Binding Title, ElementName=mainwindow}" />-->
+            <uc:ControlBarUC Tag="{Binding Title, ElementName=mainwindow}" />
         </Grid>
         <Grid Grid.Row="1">
            
@@ -59,15 +59,23 @@
                         <ToggleButton x:Name="btnMenu"
                                       Grid.Column="1"
                                       VerticalAlignment="Center"
-                                      Style="{DynamicResource iToggleButtonStyle}"
+                                      Style="{DynamicResource  MaterialDesignFloatingActionButton}"
                                       HorizontalAlignment="Left"
                                       BorderThickness="0"
                                       Foreground="White"
                                       Background="Transparent"
                                       Margin="8 0 0 0"
                                       Height="40"
-                                      Width="40"
+                                      Width="40"                                                                        
                                       Content="{materialDesign:PackIcon Kind=DiamondStone, Size=40}">
+                            <ToggleButton.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="0" x:Name="MyRotateTransform"/>
+                                    <TranslateTransform X="0" Y="0" x:Name="MyTranslateTransform"/>
+                                   
+                                </TransformGroup>
+                                                          
+                            </ToggleButton.RenderTransform>
                             <ToggleButton.Triggers>
                                 <EventTrigger RoutedEvent="ToggleButton.Unchecked">
                                     <BeginStoryboard>
@@ -77,6 +85,18 @@
                                                              BeginTime="0:0:0"
                                                              From="250"
                                                              To="55"
+                                                             Duration="0:0:0.2">
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="MyTranslateTransform"
+                                                             Storyboard.TargetProperty="(TranslateTransform.Y)"
+                                                             From="40"
+                                                             To="0"
+                                                             Duration="0:0:0.2">
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="MyRotateTransform"
+                                                             Storyboard.TargetProperty="(RotateTransform.Angle)"
+                                                             From="-90"
+                                                             To="0"
                                                              Duration="0:0:0.2">
                                             </DoubleAnimation>
                                         </Storyboard>
@@ -89,16 +109,29 @@
                                                              Storyboard.TargetProperty="Width"
                                                              BeginTime="0:0:0"
                                                              From="55"
-                                                             To="250"
+                                                             To="250"                                                            
                                                              Duration="0:0:0.2">
                                             </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="MyTranslateTransform"
+                                                             Storyboard.TargetProperty="(TranslateTransform.Y)"
+                                                             From="0"
+                                                             To="40"
+                                                             Duration="0:0:0.2">
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="MyRotateTransform"
+                                                             Storyboard.TargetProperty="(RotateTransform.Angle)"
+                                                             From="0"
+                                                             To="-90"
+                                                             Duration="0:0:0.2">
+                                            </DoubleAnimation>
+                                            
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </EventTrigger>
                             </ToggleButton.Triggers>
                         </ToggleButton>
 
-                        <Label Content="Jewelry store "
+                        <Label Content="Jewelry Store "
                                FontWeight="Bold"
                                FontSize="18"
                                Foreground="White"
@@ -169,7 +202,7 @@
                                 <Grid Grid.Column="1">
                                     <TextBlock FontSize="14"
                                                FontWeight="Regular"
-                                               VerticalAlignment="Center">Bán hàng</TextBlock>
+                                               VerticalAlignment="Center">Mua hàng</TextBlock>
                                 </Grid>
                             </Grid>
                         </Button>
@@ -191,7 +224,7 @@
                                 <Grid Grid.Column="1">
                                     <TextBlock FontSize="14"
                                                FontWeight="Regular"
-                                               VerticalAlignment="Center">Mua hàng</TextBlock>
+                                               VerticalAlignment="Center">Bán hàng</TextBlock>
                                 </Grid>
                             </Grid>
                         </Button>
@@ -340,12 +373,12 @@
                                            FontSize="18" />
                             </StackPanel>
                         </Button>
-                        <Button x:Name="btnClose"
+                        <!--<Button x:Name="btnClose"
                                 Margin="4"
                                 Background="{DynamicResource btnClose}"
                                 Tag="IsCloseButton"
                                 Command="{Binding CloseWindowCommand}"
-                                Content="{materialDesign:PackIcon Kind= Close}" />
+                                Content="{materialDesign:PackIcon Kind= Close}" />-->
                     </StackPanel>
                     <!-- End: Button Close | Title -->
                     <Grid Grid.Row="1" />

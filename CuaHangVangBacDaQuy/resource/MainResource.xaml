@@ -20,12 +20,15 @@
     <contentDialogViewModel:AddOrEditProductViewModel x:Key="AddOrEditProductVM"/>
     <contentDialogViewModel:AddOrEditSupplierViewModel x:Key="AddOrEditSupplierVM"/>
     <contentDialogViewModel:AddOrEditImportReceiptViewModel x:Key="AddOrEditImportReceiptVM"/>
-    
+    <contentDialogViewModel:AddOrEditSaleOrderViewModel x:Key="AddOrEditSaleOrderVM"/>
+
     <converter:GenderConverter x:Key="genderConverterKey"/>
     <converter:AmountConverter x:Key="AmountConverterKey"/>
     <converter:DecimalConverter x:Key="DecimalConverterKey"/>
     <converter:CaculateInventoryConverter x:Key="CaculateInventoryConverterKey"/>
     <converter:IntoMoneyConverter x:Key="IntoMoneyConverterKey"/>
     <converter:TotalPriceOfAReceipt x:Key="TotalPriceOfAReceiptConverterKey"/>
+    <converter:TotalPriceOfASaleOrder x:Key="TotalPriceOfASaleOrderKey"/>
+    
 
 </ResourceDictionary>

@@ -77,8 +77,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -129,6 +131,7 @@
       <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="models\ProductAdded.cs" />
+    <Compile Include="models\Provider\CustomerSuggestionProvider.cs" />
     <Compile Include="models\Provider\ProductSuggestionProvider.cs" />
     <Compile Include="models\Provider\SupplierSuggesionProvider.cs" />
     <Compile Include="models\QuyenHan.cs">
@@ -161,9 +164,11 @@
     <Compile Include="viewmodels\Converter\CaculateInventoryConverter.cs" />
     <Compile Include="viewmodels\Converter\IntoMoneyConverter.cs" />
     <Compile Include="viewmodels\Converter\TotalPriceOfAReceipt.cs" />
+    <Compile Include="viewmodels\Converter\TotalPriceOfASaleOrder.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditCustomerViewModel.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditImportReceiptViewModel.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditProductViewModel.cs" />
+    <Compile Include="viewmodels\DialogContentViewModel\AddOrEditSaleOrderViewModel.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditSupplierViewModel.cs" />
     <Compile Include="viewmodels\ImportReceiptViewModel.cs" />
     <Compile Include="viewmodels\SaleOrderViewModel.cs" />
@@ -210,6 +215,9 @@
     </Compile>
     <Compile Include="views\userControlDialog\AddOrEditProductUC.xaml.cs">
       <DependentUpon>AddOrEditProductUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\userControlDialog\AddOrEditSaleOrderUC.xaml.cs">
+      <DependentUpon>AddOrEditSaleOrderUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\userControlDialog\AddOrEditSupplierUC.xaml.cs">
       <DependentUpon>AddOrEditSupplierUC.xaml</DependentUpon>
@@ -294,6 +302,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\userControlDialog\AddOrEditProductUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\userControlDialog\AddOrEditSaleOrderUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -36,7 +36,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <!--<uc:ControlBarUC Tag="{Binding Title, ElementName=mainwindow}" />-->
+            <uc:ControlBarUC Tag="{Binding Title, ElementName=mainwindow}" />
         </Grid>
         <Grid Grid.Row="1">
            
@@ -340,12 +340,12 @@
                                            FontSize="18" />
                             </StackPanel>
                         </Button>
-                        <Button x:Name="btnClose"
+                        <!--<Button x:Name="btnClose"
                                 Margin="4"
                                 Background="{DynamicResource btnClose}"
                                 Tag="IsCloseButton"
                                 Command="{Binding CloseWindowCommand}"
-                                Content="{materialDesign:PackIcon Kind= Close}" />
+                                Content="{materialDesign:PackIcon Kind= Close}" />-->
                     </StackPanel>
                     <!-- End: Button Close | Title -->
                     <Grid Grid.Row="1" />

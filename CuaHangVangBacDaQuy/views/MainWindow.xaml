@@ -47,7 +47,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid x:Name="GridNav"
-                      Width="200"
+                      Width="55"
                       Grid.Column="0"
                       Background="{StaticResource PrimaryDarkBrushTheme}">
                     <Grid.RowDefinitions>
@@ -202,7 +202,7 @@
                                 <Grid Grid.Column="1">
                                     <TextBlock FontSize="14"
                                                FontWeight="Regular"
-                                               VerticalAlignment="Center">Bán hàng</TextBlock>
+                                               VerticalAlignment="Center">Mua hàng</TextBlock>
                                 </Grid>
                             </Grid>
                         </Button>
@@ -224,7 +224,7 @@
                                 <Grid Grid.Column="1">
                                     <TextBlock FontSize="14"
                                                FontWeight="Regular"
-                                               VerticalAlignment="Center">Mua hàng</TextBlock>
+                                               VerticalAlignment="Center">Bán hàng</TextBlock>
                                 </Grid>
                             </Grid>
                         </Button>

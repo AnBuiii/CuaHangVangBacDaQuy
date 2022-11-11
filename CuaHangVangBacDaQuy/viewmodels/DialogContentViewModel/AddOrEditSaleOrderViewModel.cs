@@ -1,4 +1,5 @@
 ﻿using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.viewmodels.Converter;
 using CuaHangVangBacDaQuy.views.userControlDialog;
 using System;
 using System.Collections.Generic;
@@ -187,13 +188,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                         if (SelectedSaleOrder != null && DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaPhieu == SelectedSaleOrder.MaPhieu && p.MaSP == SelectedProductItem.MaSP).Count() == 0)
                         {
 
-                            //ChiTietPhieuMua insertProduct = new ChiTietPhieuMua()
-                            //{
-                            //    MaSP = SelectedProductItem.MaSP,
-                            //    SanPham = SelectedProductItem,
-                            //    SoLuong = 0
-                            //};
-
                             InsertProductsList.Add(productAdded);
                         }
                         SelectedProductItem = null;
@@ -353,9 +347,25 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         }
 
+        bool CheckProductStock()
+        {
+            foreach (var product in SelectedProductList)
+            {
+                if(CaculateInventoryConverter.CaculateInventory(product.MaSP) <= 0)
+                {
+                    MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " đã hết hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private void AddNewImportReceipt()
         {
+            
+
             if (!CheckValidFieldInDialog()) return;
+            if(!CheckProductStock()) return;
 
             PhieuBan newSaleOrder = new PhieuBan()
             {

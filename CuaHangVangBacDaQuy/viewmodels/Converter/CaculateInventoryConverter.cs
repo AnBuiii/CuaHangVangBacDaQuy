@@ -32,7 +32,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
             return Binding.DoNothing;
         }
 
-        private int CaculateInventory(string productCode)
+        public static int CaculateInventory(string productCode)
         {
             var MuaList = DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaSP == productCode);
             var BanList = DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaSP == productCode);

@@ -12,7 +12,8 @@ namespace CuaHangVangBacDaQuy.models
     using CuaHangVangBacDaQuy.viewmodels;
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class SanPham:BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -47,6 +48,7 @@ namespace CuaHangVangBacDaQuy.models
 
         private LoaiSanPham _LoaiSanPham;
         public virtual LoaiSanPham LoaiSanPham { get => _LoaiSanPham; set { _LoaiSanPham = value; OnPropertyChanged(); } }
-       
+      
+
     }
 }

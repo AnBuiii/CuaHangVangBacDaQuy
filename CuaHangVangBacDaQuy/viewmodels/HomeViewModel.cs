@@ -16,10 +16,10 @@ namespace CuaHangVangBacDaQuy.viewmodels
         private ObservableCollection<TonKho> _TonKhoList;
         public ObservableCollection<TonKho> TonKhoList { get => _TonKhoList; set { _TonKhoList = value; OnPropertyChanged(); } }
 
-        private DateTime _StartTotalImportDay;
+        private DateTime _StartTotalImportDay = DateTime.MinValue;
         public DateTime StartTotalImportDay { get => _StartTotalImportDay; set { _StartTotalImportDay = value; OnPropertyChanged(); } }
 
-        private DateTime _EndTotalImportDay;
+        private DateTime _EndTotalImportDay = DateTime.MaxValue;
         public DateTime EndTotalImportDay { get => _EndTotalImportDay; set { _EndTotalImportDay = value; OnPropertyChanged(); } }
 
         private DateTime _StartProductImportDay;

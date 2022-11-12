@@ -51,6 +51,7 @@
                                         Width="100"
                                         SelectedDate="{Binding StartTotalImportDay}"
                                         materialDesign:HintAssist.Hint="Ngày bắt đầu"
+                                        
                                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                         </Grid>
                         <Grid Grid.Column="1">

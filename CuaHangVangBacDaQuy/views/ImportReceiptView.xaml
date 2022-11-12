@@ -123,14 +123,15 @@
 
                     <materialDesign:Card Grid.Row="1"
                                  Margin="5"
+                                 Height="auto"
                                  VerticalAlignment="Stretch" >
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <DataGrid ItemsSource="{Binding ImportReceiptsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedImportReceipt}"
+                              SelectedItem="{Binding SelectedImportReceipt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"
-                              AutoGenerateColumns="False" MaxHeight="680">
+                              AutoGenerateColumns="False" MaxHeight="640">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Mã phiếu"
                                                 Binding="{Binding MaPhieu}"

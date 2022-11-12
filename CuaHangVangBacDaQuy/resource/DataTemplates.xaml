@@ -32,6 +32,6 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type contentDialogViewModel:AddOrEditImportReceiptViewModel}">
-        <viewUC:AddOrEditImportReceiptUC/>
+        <viewUC:AddOrEditImportReceiptUC />
     </DataTemplate>
 </ResourceDictionary>

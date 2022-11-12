@@ -388,6 +388,7 @@
                        
                             <ContentControl x:Name="contentView"
                                         Grid.Row="0"
+                                         
                                         Content="{Binding DataTemplate}" />
 
                        

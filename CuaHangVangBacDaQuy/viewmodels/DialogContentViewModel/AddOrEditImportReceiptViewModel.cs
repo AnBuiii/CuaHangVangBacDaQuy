@@ -419,6 +419,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             DataProvider.Ins.DB.SaveChanges();
             PhieuMuaList.Add(newImportReceipt);
             OpenThisDiaLog.IsOpen = false;
+           
 
         }
         private void EditImportReceipt()
@@ -446,7 +447,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                     SoLuong = item.SoLuong,
                 };
 
-                DataProvider.Ins.DB.ChiTietPhieuMuas.Add(newDetailImportReceitpt);
+              
 
             }
 
@@ -454,7 +455,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             DataProvider.Ins.DB.SaveChanges();
             SelectedImportReceipt.ChiTietPhieuMuas = new ObservableCollection<ChiTietPhieuMua>(DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu));
             editedImportReceipt.MaPhieu = editedImportReceipt.MaPhieu;
-          
+           
         }
 
         private bool CheckValidFieldInDialog()
@@ -480,10 +481,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             {
 
                 OpenThisDiaLog.IsOpen = false;
+               
 
             }
-
-
         }
         #endregion
 

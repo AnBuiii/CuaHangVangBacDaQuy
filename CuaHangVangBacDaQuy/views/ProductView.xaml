@@ -19,8 +19,6 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              >
-
-
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded" >
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"
@@ -41,8 +39,8 @@
             <!--content View product-->
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <materialDesign:Card Grid.Row="0"
                                  Margin="5">
@@ -128,7 +126,8 @@
 
                 <materialDesign:Card Grid.Row="1"
                                  Margin="5"
-                                
+                                Height="auto"
+                                     VerticalAlignment="Stretch"
                                  >
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <!--<ScrollViewer.MaxHeight>
@@ -183,7 +182,7 @@
                                                
                                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteCommand}"
-                                                CommandParameter="{Binding ElementName=deleteBtn}">
+                                                >
                                                 <materialDesign:PackIcon Kind="Delete" />
                                             </Button>
                                         </DataTemplate>

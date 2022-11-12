@@ -57,7 +57,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        
                     </Grid.RowDefinitions>
 
                     <!--các element binding từ selected item-->
@@ -155,7 +155,7 @@
                     </materialDesign:Card>
 
 
-                    <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
+                    <materialDesign:Card Grid.Row="1" Margin="5" VerticalAlignment="Stretch">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
 
                             <DataGrid ItemsSource="{Binding CustomerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

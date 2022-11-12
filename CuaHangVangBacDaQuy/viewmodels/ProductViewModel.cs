@@ -162,10 +162,10 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
             if (DataProvider.Ins.DB.ChiTietPhieuBans.Where(d => d.SanPham.MaSP == deletedProduct.MaSP).Count() > 0)
             {
-                MessageBox.Show("Sản phẩm " + deletedProduct.TenSP + " đã từng được bán, vui lòng kiểm tra thông đơn bán hàng trước khi xóa sản phẩm!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Sản phẩm " + deletedProduct.TenSP + " đã từng được bán, vui lòng kiểm tra thông tin đơn bán hàng trước khi xóa sản phẩm!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            if (MessageBox.Show("Bạn có chắc chắc muốn xóa khách hàng" + deletedProduct.TenSP+ " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if (MessageBox.Show("Bạn có chắc chắc muốn xóa sản phẩm " + deletedProduct.TenSP+ " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 return;
             }

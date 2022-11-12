@@ -102,7 +102,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 MessageBox.Show("Nhà cung cấp " + deletedSupplier.TenNCC + " đã từng giao dịch, vui lòng xóa đơn mua hàng trước khi xóa thông tin khách hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            if (MessageBox.Show("Bạn có chắc chắc muốn xóa nhà cung cấp" + deletedSupplier.TenNCC + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if (MessageBox.Show("Bạn có chắc chắc muốn xóa nhà cung cấp " + deletedSupplier.TenNCC + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 return;
             }

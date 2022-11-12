@@ -16,7 +16,25 @@ namespace CuaHangVangBacDaQuy.viewmodels
     public class MainViewModel : BaseViewModel
     {
 
-        private object _dataTemplate;
+
+       
+            private static MainViewModel _ins;
+            public static MainViewModel Ins
+            {
+                get
+                {
+                    if (_ins == null) 
+                        _ins = new MainViewModel();
+
+                    return _ins;
+                }
+                set
+                {
+                    _ins = value;
+                }
+            }
+
+            private object _dataTemplate;
         public object DataTemplate
         {
             get => _dataTemplate;
@@ -31,9 +49,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public AccountViewModel AccountViewModel { get; set; }
         public ImportReceiptViewModel ImportReceiptViewModel { get; set; }      
         public SaleOrderViewModel SaleOrderViewModel { get; set; }
+        
         public CustomerViewModel CustomerViewModel { get; set; }
         public ProductViewModel ProductViewModel { get; set; }
         public SupplierViewModel SupplierViewModel { get; set; }
+
+        public AddOrEditImportReceiptViewModel AddOrEditImportReceiptViewModel { get; set; }
         #endregion
 
         #region Command
@@ -95,29 +116,33 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 DataTemplate = AccountViewModel;
             });
 
-            LoadedWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                isLoaded = true;
-                if (p == null)
-                    return;
-                p.Hide();
-                LoginWindow loginWindow = new LoginWindow();
-                loginWindow.ShowDialog();
-
-                if (loginWindow.DataContext == null)
-                    return;
-                var loginVM = loginWindow.DataContext as LoginViewModel;
-
-                if (loginVM.IsLogin)
+             LoadedWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
                 {
-                    p.Show();
-                    //LoadTonKhoData();
-                }
-                else
-                {
-                    p.Close();
-                }
-            });
+                    isLoaded = true;
+                    if (p == null)
+                        return;
+                    p.DataContext = Ins;
+                    p.Hide();
+                    LoginWindow loginWindow = new LoginWindow();
+                    loginWindow.ShowDialog();
+
+                    if (loginWindow.DataContext == null)
+                        return;
+                    var loginVM = loginWindow.DataContext as LoginViewModel;
+
+                    if (loginVM.IsLogin)
+                    {
+                        p.Show();
+
+                        //LoadTonKhoData();
+                    }
+                    else
+                    {
+                        p.Close();
+                    }
+                });
+            
+            
 
         }
         public void InitNavBar()
@@ -129,6 +154,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             ProductViewModel = new ProductViewModel();
             SupplierViewModel = new SupplierViewModel();
             CustomerViewModel = new CustomerViewModel();
+            AddOrEditImportReceiptViewModel = new AddOrEditImportReceiptViewModel();
             //viewmodel init
             
         }

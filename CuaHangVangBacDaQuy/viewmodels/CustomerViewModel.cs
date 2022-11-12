@@ -114,7 +114,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 MessageBox.Show("Khách hàng " + deletedCustomer.TenKH + " đã từng giao dịch, vui lòng xóa đơn bán hàng trước khi xóa thông tin nhà cung cấp!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            if(MessageBox.Show("Bạn có chắc chắc muốn xóa khách hàng" + deletedCustomer.TenKH + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if(MessageBox.Show("Bạn có chắc chắc muốn xóa khách hàng " + deletedCustomer.TenKH + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 return;
             }

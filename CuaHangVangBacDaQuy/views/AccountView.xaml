@@ -261,9 +261,9 @@
                                     <DataGridTextColumn Header="Tên đăng nhập"
                                                 Binding="{Binding TenDangNhap}"
                                                 IsReadOnly="True" />
-                                    <DataGridTextColumn Header="Mật khẩu"
+                                    <!--<DataGridTextColumn Header="Mật khẩu"
                                                 Binding="{Binding MatKhau}"
-                                                IsReadOnly="True" />
+                                                IsReadOnly="True" />-->
                                     <DataGridTextColumn Header="Quyền"
                                                 Binding="{Binding  QuyenHan.TenQH}"
                                                 IsReadOnly="True" />

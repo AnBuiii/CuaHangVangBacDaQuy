@@ -9,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels
@@ -67,7 +69,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
            IsOpenMakeReceiptDialog = new OpenDiaLog() { IsOpen = false };
             ImportReceiptsList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
             AddImportReceiptCommand = new RelayCommand<ImportReceiptView>((p) => true, p => ActionDiaLog("Add"));
-            EditCommand = new RelayCommand<ImportReceiptView>((p) => true, p => ActionDiaLog("Edit"));
+            EditCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => ActionDiaLog("Edit"));
 
         }
 
@@ -88,10 +90,14 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void AddNewImportReceipt()
         {
-            
 
 
+           
             ContentAddOrEditImportReceipt = new AddOrEditImportReceiptViewModel("Đơn nhập hàng mới", ref _IsOpenMakeReceiptDialog, ref _ImportReceiptsList);
+            //MainViewModel.Ins.DataTemplate = new AddOrEditImportReceiptUC
+            //                                    {
+            //                                         DataContext = ContentAddOrEditImportReceipt
+            //                                    } ;
             addOrEditImportReceiptUC = new AddOrEditImportReceiptUC
             {
                 DataContext = ContentAddOrEditImportReceipt
@@ -103,6 +109,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
 
             ContentAddOrEditImportReceipt = new AddOrEditImportReceiptViewModel("Chỉnh sửa đơn mua hàng", ref _IsOpenMakeReceiptDialog, ref _ImportReceiptsList, ref _SelectedImportReceipt);
+
+            //MainViewModel.Ins.DataTemplate = new AddOrEditImportReceiptUC
+            //                                    {
+            //                                         DataContext = ContentAddOrEditImportReceipt
+            //                                    } ;
             addOrEditImportReceiptUC = new AddOrEditImportReceiptUC
             {
                 DataContext = ContentAddOrEditImportReceipt

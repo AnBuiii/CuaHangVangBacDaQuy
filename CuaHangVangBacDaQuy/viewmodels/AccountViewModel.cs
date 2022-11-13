@@ -73,9 +73,27 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand SavePasswordCommand { get; set; }
         public ICommand DeleteAccountCommand { get; set; }
 
+        public ICommand SearchCommand { get; set; }
+
         #endregion
 
+        private List<string> _searchTypes;
+        public List<string> SearchTypes { get { return _searchTypes; } set { _searchTypes = value; OnPropertyChanged(); } }
+        private string _selectedSearchType;
+        public string SelectedSearchType { get { return _selectedSearchType; } set { _selectedSearchType = value; OnPropertyChanged(); } }
 
+        private string _contentSearch;
+        public string ContentSearch
+        {
+            get { return _contentSearch; }
+            set
+            {
+                _contentSearch = value;
+                OnPropertyChanged();
+                //if (ContentSearch == "")
+                //    Load(false);
+            }
+        }
         private bool _IsOpenDialog;
         public bool IsOpenDialog { get => _IsOpenDialog; set { _IsOpenDialog = value; OnPropertyChanged(); } }
         public AccountViewModel()
@@ -84,7 +102,9 @@ namespace CuaHangVangBacDaQuy.viewmodels
             NguoiDungList = new ObservableCollection<NguoiDung>(DataProvider.Ins.DB.NguoiDungs);
             QuyenHanList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
             IsOpenDialogAccount = new OpenDiaLog() { IsOpen = false };
-
+            SearchTypes = new List<string> { "Mã người dùng", "Tên hiển thị", "Tên đăng nhập", };
+            SelectedSearchType = SearchTypes[1];
+            SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
             AddCommand = new RelayCommand<AccountView>(p => true, p => ActionDialog("Add"));
             EditCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => ActionDialog("Edit"));
             DeleteAccountCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => DeletedAccount());
@@ -147,6 +167,31 @@ namespace CuaHangVangBacDaQuy.viewmodels
             });*/
 
 
+        }
+
+
+        private void Search()
+        {
+            switch (SelectedSearchType)
+            {
+                case "Mã người dùng":
+                    NguoiDungList = new ObservableCollection<NguoiDung>(
+                        DataProvider.Ins.DB.NguoiDungs.Where(
+                            x => x.MaND.ToString().Contains(ContentSearch)));
+                    break;
+                case "Tên hiển thị":
+                    NguoiDungList = new ObservableCollection<NguoiDung>(
+                         DataProvider.Ins.DB.NguoiDungs.Where(
+                             x => x.TenND.ToString().Contains(ContentSearch)));
+                    break;
+                case "Tên đăng nhập":
+                    NguoiDungList = new ObservableCollection<NguoiDung>(
+                         DataProvider.Ins.DB.NguoiDungs.Where(
+                             x => x.TenDangNhap.ToString().Contains(ContentSearch)));
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void ActionDialog(string caseDiaglog)

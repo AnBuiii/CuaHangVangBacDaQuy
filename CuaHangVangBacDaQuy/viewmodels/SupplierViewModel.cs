@@ -31,8 +31,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                 _contentSearch = value;
                 OnPropertyChanged();
-                //if (ContentSearch == "")
-                //    Load(false);
             }
         }
         private OpenDiaLog _IsOpenDiaLog;
@@ -77,7 +75,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public SupplierViewModel()
         {
             IsOpenDiaLog = new OpenDiaLog() { IsOpen = false };
-            SearchTypes = new List<string> { "Mã nhà cung cấp", "Tên sản phẩm", "Địa chỉ", "Số điện thoại", };
+            SearchTypes = new List<string> { "Mã nhà cung cấp", "Tên nhà cung cấp", "Địa chỉ", "Số điện thoại", };
             SelectedSearchType = SearchTypes[1];
             SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
             SuppliersList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
@@ -95,7 +93,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                         DataProvider.Ins.DB.NhaCungCaps.Where(
                             x => x.MaNCC.ToString().Contains(ContentSearch)));
                     break;
-                case "Tên sản phẩm":
+                case "Tên nhà cung cấp":
                     SuppliersList = new ObservableCollection<NhaCungCap>(
                          DataProvider.Ins.DB.NhaCungCaps.Where(
                              x => x.TenNCC.ToString().Contains(ContentSearch)));

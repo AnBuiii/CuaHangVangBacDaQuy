@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
-    public class AddOrEditProductViewModel:BaseViewModel
+    public class AddOrEditProductViewModel : BaseViewModel
     {
         private readonly ObservableCollection<SanPham> ProductList;
         private readonly ObservableCollection<ChiTietPhieuMua> ProductAddedList;
@@ -74,13 +74,17 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
         }
 
+        public string ProductCode;
+
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
 
         public AddOrEditProductViewModel()
         {
-
+            TypeProductList = new ObservableCollection<LoaiSanPham>(DataProvider.Ins.DB.LoaiSanPhams);
+            UnitList = new ObservableCollection<DonVi>(DataProvider.Ins.DB.DonVis);
+            ProductList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
         }
 
         //constructor dùng cho thêm sản phẩm mới từ màn hình quản lý sản phẩm
@@ -133,13 +137,35 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             if (string.IsNullOrWhiteSpace(ProductName) || string.IsNullOrEmpty(ProductPrice.ToString()) || ProductPrice.ToString() == "0" || SelectedTypeProduct == null || SelectedUnit == null) return false;
             return true;
         }
-
-        private void ActionAddProduct()
+        bool ValidProductCheck()
         {
+            if (ProductPrice < 0) return false;
+            if (EditedProduct == null)
+            {
+                if (DataProvider.Ins.DB.SanPhams.Where(x => x.TenSP == ProductName).Count() > 0) return false;
+            }
+            else
+            {
+                if(ProductName != EditedProduct.TenSP)
+                {
+                    if (DataProvider.Ins.DB.SanPhams.Where(x => x.TenSP == ProductName).Count() > 0) return false;
+                }
+                
+            }
+            return true;
 
+            //return ((EditedProduct == null && DataProvider.Ins.DB.SanPhams.Where(x => x.TenSP == ProductName).Count() == 0) || ()) && ProductPrice > 0;
+
+        }
+
+        public void ActionAddProduct()
+        {
+            if (!ValidProductCheck() || !CheckEmptyFieldDialog()) return;
+
+            if (ProductCode == "") ProductCode = Guid.NewGuid().ToString();
             var newProduct = new SanPham()
             {
-                MaSP = Guid.NewGuid().ToString(),
+                MaSP = ProductCode,
                 TenSP = ProductName,
                 DonGia = ProductPrice,
                 MaLoaiSP = SelectedTypeProduct.MaLoaiSP,
@@ -168,21 +194,22 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 };
                 ProductAddedList.Add(productAdded);
             }
-            openDiaLog.IsOpen = false;
+            if (openDiaLog != null) openDiaLog.IsOpen = false;
 
         }
-        
 
-        private void ActionEditProduct()
+
+        public void ActionEditProduct()
         {
-           
-            openDiaLog.IsOpen = false;
+            if (!ValidProductCheck() || !CheckEmptyFieldDialog()) return;
+
+            if (openDiaLog != null) openDiaLog.IsOpen = false;
             var editedProduct = DataProvider.Ins.DB.SanPhams.Where(x => x.MaSP == EditedProduct.MaSP).SingleOrDefault();
             editedProduct.TenSP = ProductName;
             editedProduct.DonGia = ProductPrice;
             editedProduct.MaLoaiSP = SelectedTypeProduct.MaLoaiSP;
             editedProduct.MaDV = SelectedUnit.MaDV;
-            
+
             DataProvider.Ins.DB.SaveChanges();
             EditedProduct.TenSP = ProductName;
             EditedProduct.DonGia = ProductPrice;
@@ -191,7 +218,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
 
-       
+
         private void CheckCloseDiaLog()
         {
 

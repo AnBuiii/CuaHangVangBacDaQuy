@@ -40,11 +40,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
             get => _SelectedAccount;
             set
             {
-                
+
                 _SelectedAccount = value;
                 OnPropertyChanged();
                 if (SelectedAccount != null)
-                { 
+                {
                     TenDangNhap = SelectedAccount.TenDangNhap;
                     SelectedQuyenHan = SelectedAccount.QuyenHan;
                     TenNguoiDung = SelectedAccount.TenND;
@@ -98,7 +98,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public bool IsOpenDialog { get => _IsOpenDialog; set { _IsOpenDialog = value; OnPropertyChanged(); } }
         public AccountViewModel()
         {
-            
+
             NguoiDungList = new ObservableCollection<NguoiDung>(DataProvider.Ins.DB.NguoiDungs);
             QuyenHanList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
             IsOpenDialogAccount = new OpenDiaLog() { IsOpen = false };
@@ -218,7 +218,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
         private void EditAccount()
         {
-            if (SelectedAccount == null) {MessageBox.Show("null");  IsOpenDialogAccount.IsOpen = false; return; }
+            if (SelectedAccount == null) { MessageBox.Show("null"); IsOpenDialogAccount.IsOpen = false; return; }
             addOrEditAccountViewModel = new AddOrEditAccountViewModel("Chỉnh sửa thông tin tài khoản", ref _IsOpenDialogAccount, ref _NguoiDungList, ref _SelectedAccount);
             addOrEditAccountUC = new AddOrEditAccountUC()
             {
@@ -260,8 +260,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             if (SelectedAccount == null) { MessageBox.Show("null"); IsOpenDialogAccount.IsOpen = false; return; }
             var deletedCustomer = DataProvider.Ins.DB.NguoiDungs.Where(c => c.MaND == SelectedAccount.MaND).SingleOrDefault();
-           
-            if(deletedCustomer.MaND == 1)
+
+            if (deletedCustomer.MaND == 1)
             {
                 MessageBox.Show("Đây là tài khoản mặc định, không thể xóa!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
             }

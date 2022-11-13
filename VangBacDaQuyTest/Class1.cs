@@ -1,20 +1,21 @@
-﻿
-using CuaHangVangBacDaQuy.viewmodels;
+﻿using CuaHangVangBacDaQuy.viewmodels;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CuaHangVangBacDaQuyTests
+namespace VangBacDaQuyTest
 {
     [TestFixture]
-    public class EncodeTest
+    public class Class1
     {
-        
+
         [SetUp]
         public void SetUp()
         {
-            
+
 
         }
         #region testcase
@@ -25,7 +26,7 @@ namespace CuaHangVangBacDaQuyTests
 
         public void Encode(string input, string expect)
         {
-            if(input == null) { input = ""; }
+            if (input == null) { input = ""; }
             string encode1 = LoginViewModel.Base64Encode(input);
             string output = LoginViewModel.MD5Hash(encode1);
             Assert.AreEqual(expect, output);

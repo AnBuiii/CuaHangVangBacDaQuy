@@ -241,7 +241,7 @@
                                 </ListView.View>
                             </ListView>-->
                             <DataGrid ItemsSource="{Binding NguoiDungList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      SelectedItem="{Binding SelectedAccount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"      
+                                      SelectedItem="{Binding SelectedAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"      
                               CanUserResizeColumns="False"
                               IsReadOnly="False"
                               CanUserAddRows="False"

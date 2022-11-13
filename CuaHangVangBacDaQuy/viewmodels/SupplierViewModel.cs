@@ -18,7 +18,23 @@ namespace CuaHangVangBacDaQuy.viewmodels
         private ObservableCollection<NhaCungCap> _SuppliersList;
         public ObservableCollection<NhaCungCap> SuppliersList { get => _SuppliersList; set { _SuppliersList = value; OnPropertyChanged(); } }
 
+        private List<string> _searchTypes;
+        public List<string> SearchTypes { get { return _searchTypes; } set { _searchTypes = value; OnPropertyChanged(); } }
+        private string _selectedSearchType;
+        public string SelectedSearchType { get { return _selectedSearchType; } set { _selectedSearchType = value; OnPropertyChanged(); } }
 
+        private string _contentSearch;
+        public string ContentSearch
+        {
+            get { return _contentSearch; }
+            set
+            {
+                _contentSearch = value;
+                OnPropertyChanged();
+                //if (ContentSearch == "")
+                //    Load(false);
+            }
+        }
         private OpenDiaLog _IsOpenDiaLog;
         public OpenDiaLog IsOpenDiaLog
         {
@@ -55,15 +71,38 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand AddCommand { get; set; }
 
         public ICommand DeleteSupplierCommand { get; set; }
-      
+
+        public ICommand SearchCommand { get; set; }
         #endregion
         public SupplierViewModel()
         {
             IsOpenDiaLog = new OpenDiaLog() { IsOpen = false };
+            SearchTypes = new List<string> { "Mã sản phẩm", "Tên sản phẩm", };
+            SelectedSearchType = SearchTypes[1];
+            SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
             SuppliersList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
             AddCommand = new RelayCommand<SupplierViewModel>((p) => true, p => ActionDiaLog("Add"));
             EditCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => ActionDiaLog("Edit"));
             DeleteSupplierCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => DeledteCustomer());
+        }
+
+        private void Search()
+        {
+            switch (SelectedSearchType)
+            {
+                case "Mã sản phẩm":
+                    SuppliersList = new ObservableCollection<NhaCungCap>(
+                        DataProvider.Ins.DB.NhaCungCaps.Where(
+                            x => x.MaNCC.ToString().Contains(ContentSearch)));
+                    break;
+                case "Tên sản phẩm":
+                    SuppliersList = new ObservableCollection<NhaCungCap>(
+                         DataProvider.Ins.DB.NhaCungCaps.Where(
+                             x => x.TenNCC.ToString().Contains(ContentSearch)));
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void ActionDiaLog(string caseDiaLog)

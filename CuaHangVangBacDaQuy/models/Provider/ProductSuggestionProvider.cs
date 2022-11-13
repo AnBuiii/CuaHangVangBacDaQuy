@@ -9,43 +9,43 @@ using System.Threading.Tasks;
 
 namespace CuaHangVangBacDaQuy.models.Provider
 {
-  
-        public class ProductSuggestionProvider : IComboSuggestionProvider
+
+    public class ProductSuggestionProvider : IComboSuggestionProvider
+    {
+        public IEnumerable<SanPham> ProductList { get; set; }
+
+        public SanPham GetExactSuggestion(string filter)
         {
-            public IEnumerable<SanPham> ProductList { get; set; }
+            if (string.IsNullOrWhiteSpace(filter)) return null;
+            return
+                ProductList
+                    .FirstOrDefault(product => string.Equals(product.TenSP, filter, StringComparison.CurrentCultureIgnoreCase));
+        }
 
-            public SanPham GetExactSuggestion(string filter)
-            {
-                if (string.IsNullOrWhiteSpace(filter)) return null;
-                return
-                    ProductList
-                        .FirstOrDefault(product => string.Equals(product.TenSP, filter, StringComparison.CurrentCultureIgnoreCase));
-            }
+        public IEnumerable<SanPham> GetSuggestions(string filter)
+        {
+            if (string.IsNullOrWhiteSpace(filter)) return null;
+            // System.Threading.Thread.Sleep(300);
+            return
+                ProductList
+                    .Where(product => product.TenSP.IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) > -1 && CaculateInventoryConverter.CaculateInventory(product.MaSP) > 0)
+                    .ToList();
+        }
 
-            public IEnumerable<SanPham> GetSuggestions(string filter)
-            {
-                if (string.IsNullOrWhiteSpace(filter)) return null;
-                // System.Threading.Thread.Sleep(300);
-                return
-                    ProductList
-                        .Where(product => product.TenSP.IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) > -1 && CaculateInventoryConverter.CaculateInventory(product.MaSP) > 0)
-                        .ToList();
-            }
+        IEnumerable IComboSuggestionProvider.GetSuggestions(string filter)
+        {
+            return GetSuggestions(filter);
+        }
+        IEnumerable IComboSuggestionProvider.GetFullCollection()
+        {
+            return ProductList.ToList();
+        }
 
-            IEnumerable IComboSuggestionProvider.GetSuggestions(string filter)
-            {
-                return GetSuggestions(filter);
-            }
-            IEnumerable IComboSuggestionProvider.GetFullCollection()
-            {
-                return ProductList.ToList();
-            }
+        public ProductSuggestionProvider()
+        {
+            ProductList = DataProvider.Ins.DB.SanPhams;
 
-            public ProductSuggestionProvider()
-            {
-                ProductList = DataProvider.Ins.DB.SanPhams;
-                 
-            }
         }
     }
+}
 

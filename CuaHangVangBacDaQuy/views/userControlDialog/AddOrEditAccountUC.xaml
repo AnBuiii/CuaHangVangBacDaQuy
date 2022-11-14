@@ -16,11 +16,10 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              Name="makeOderView"
             DataContext="{StaticResource AddOrEditAccountVM}"
-             d:DesignHeight="429.164" d:DesignWidth="382.844">
+             d:DesignHeight="550" d:DesignWidth="382.844">
     <Grid>
-        <Grid  Margin="16px"
-                           Width="350"
-                           Height="400">
+        <Grid  Margin="16,10,17,10"
+                           Width="350">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -29,7 +28,8 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
-              
+                <RowDefinition Height="auto"></RowDefinition>
+
 
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
@@ -79,8 +79,29 @@
                 </StackPanel>
             </Grid>
 
+            <Grid Grid.Row="3" >
 
-            <Grid Grid.Row="3"
+                <StackPanel>
+                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                            VerticalAlignment="Center"
+                                            Text="Tên hiển thị"></TextBlock>
+
+                    <TextBox Height="52" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                              Foreground="Black"
+                             
+                                             FontSize="16"
+                                             FontWeight="Medium"
+                                         MinWidth="100"
+                                         VerticalAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         BorderThickness="0.5"
+                                         BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                         Text="{Binding AccountName1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="4"
                               Margin="0, 16, 0, 0">
                 <StackPanel>
 
@@ -101,12 +122,12 @@
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Row="4">
+            <Grid Grid.Row="5">
                 <StackPanel>
                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                 VerticalAlignment="Center"
                                 Text="Quyền hạn" />
-                    
+
                     <ComboBox 
                                               FontSize="16"
                                               ItemsSource="{Binding JurisdictionsList }"
@@ -117,14 +138,14 @@
                                               
                                   />
                 </StackPanel>
-               
+
             </Grid>
 
-            <Grid Grid.Row="5"
+            <Grid Grid.Row="6"
                               Margin="0, 16, 0, 0">
                 <Separator Margin="5"></Separator>
             </Grid>
-            <Grid Grid.Row="6"
+            <Grid Grid.Row="7"
                               Margin="0, 16, 0, 0">
 
                 <StackPanel  Orientation="Horizontal"

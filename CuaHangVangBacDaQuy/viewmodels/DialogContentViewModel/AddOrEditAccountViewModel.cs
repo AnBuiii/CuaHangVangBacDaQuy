@@ -33,7 +33,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 if (EditedAccount != null)
                 {
 
-                    AccountName = EditedAccount.TenDangNhap;                  
+                    AccountName = EditedAccount.TenDangNhap;
+                    AccountName1 = EditedAccount.TenND;
                     PasswordAccount = EditedAccount.MatKhau;
                     SelectedJurisdiction = EditedAccount.QuyenHan;
 
@@ -58,7 +59,15 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
         }
 
-
+        private string _AccountName1;
+        public string AccountName1
+        {
+            get => _AccountName1;
+            set
+            {
+                _AccountName1 = value; OnPropertyChanged();
+            }
+        }
 
 
         private string _PasswordAccount;
@@ -79,8 +88,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         //constructor used for add new account
         public AddOrEditAccountViewModel(string titleView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NguoiDung> accountsList)
         {
-
-
             TitleView = titleView;
             openDiaLog = isOpenDialog;
             AccountsList = accountsList;
@@ -123,6 +130,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             var newAccount = new NguoiDung()
             {
                 TenDangNhap = AccountName,
+                TenND = AccountName1,
                 //MatKhau = MD5Hash(Base64Encode(PasswordAccount)),
                 MaQH = SelectedJurisdiction.MaQH,
                 MatKhau = PasswordAccount
@@ -141,6 +149,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             openDiaLog.IsOpen = false;
             var account = DataProvider.Ins.DB.NguoiDungs.Where(x => x.MaND == EditedAccount.MaND).SingleOrDefault();
             account.TenDangNhap = AccountName;
+            account.TenND = AccountName1;
             account.MatKhau = PasswordAccount;
             account.MaQH = SelectedJurisdiction.MaQH;
             DataProvider.Ins.DB.SaveChanges();

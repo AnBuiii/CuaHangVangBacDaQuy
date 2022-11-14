@@ -101,12 +101,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
                 if (MuaList != null && MuaList.Count() > 0)
                 {
-                    sumMua = (int)MuaList.Sum(p => p.SoLuong);
-                    foreach(var x in MuaList)
-                    {
-                        MessageBox.Show(x.PhieuMua.NgayLap.ToString() + "  " + EndTotalImportDay.ToString());
-                    }
-                   
+                    sumMua = (int)MuaList.Sum(p => p.SoLuong);                  
                 }
                 if (BanList != null && BanList.Count() > 0)
                 {

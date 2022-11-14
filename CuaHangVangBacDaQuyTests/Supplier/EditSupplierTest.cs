@@ -1,4 +1,5 @@
 ﻿using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.viewmodels;
 using CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
@@ -14,65 +15,72 @@ namespace CuaHangVangBacDaQuyTests.Supplier
     internal class EditSupplierTest
     {
         private AddOrEditSupplierViewModel viewModel;
+        private readonly List<string> supplierNames = new List<string> { null, "  ", "(@#$%", "An Bùi", "An", "Phong" };
+        private readonly List<string> supplierAddresses = new List<string> { null, " ", "(@#$%", "Hồ Chí Minh" };
+        private readonly List<string> supplierPhones = new List<string> { null, " ", "123123", "01", "0923234345" };
+
+
         [SetUp]
         public void SetUp()
         {
             viewModel = new AddOrEditSupplierViewModel();
         }
-
         //null check
-        [TestCase(null, 0, 1, 1, false)]
-        [TestCase("Kim cương", null, 1, 1, false)]
-        [TestCase("Kim cương", 1, null, 1, false)]
-        [TestCase("Kim cương", 1, 1, null, false)]
-        //productname check
-        [TestCase("Nhẫn 101", 1, 1, 1, true)]
-        [TestCase("Nhẫn 102", 1, 1, 1, false)]
-        [TestCase("Vòng 111", 1, 1, 1, true)]
-        [TestCase("Kim cương", 1, 1, 1, true)]
-        //product price check
-        [TestCase("Kim cương", -1, 1, 1, false)]
-        [TestCase("Kim cương", 0, 1, 1, false)]
-        [TestCase("Kim cương", 1000000, 1, 1, true)]
-        //product type check
-        [TestCase("Kim cương", 1, 0, 1, false)]
-        [TestCase("Kim cương", 1, 5, 1, true)]
-        [TestCase("Kim cương", 1, 6, 1, false)]
-        //product unit check
-        [TestCase("Kim cương", 1, 1, 0, false)]
-        [TestCase("Kim cương", 1, 1, 4, true)]
-        [TestCase("Kim cương", 1, 1, 5, false)]
+        [TestCase(0, 3, 4, false)]
+        [TestCase(5, 0, 4, false)]
+        [TestCase(5, 3, 0, false)]
+        // empty check
+        [TestCase(1, 3, 4, false)]
+        [TestCase(5, 1, 4, false)]
+        [TestCase(5, 3, 1, false)]
+
+        [TestCase(2, 2, 2, false)]
+        [TestCase(2, 2, 3, false)]
+        [TestCase(2, 2, 4, true)]
+
+        [TestCase(2, 3, 2, false)]
+        [TestCase(2, 3, 3, false)]
+        [TestCase(2, 3, 4, true)]
+
+        [TestCase(3, 2, 2, false)]
+        [TestCase(3, 2, 3, false)]
+        [TestCase(3, 2, 4, true)]
+
+        [TestCase(3, 3, 2, false)]
+        [TestCase(3, 3, 3, false)]
+        [TestCase(3, 3, 4, true)]
+
+        [TestCase(4, 2, 2, false)]
+        [TestCase(4, 2, 3, false)]
+        [TestCase(4, 2, 4, true)]
+
+        [TestCase(4, 3, 2, false)]
+        [TestCase(4, 3, 3, false)]
+        [TestCase(4, 3, 4, true)]
 
 
-        public void EditProduct(string productName, decimal productPrice, int typeCode, int unitCode, bool expect)
+        public void EditSupplier(int nameIdx, int addressIdx, int phoneIdx, bool expect)
         {
-            SanPham hm = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
-            SanPham preEdit = new SanPham() { TenSP = hm.TenSP, DonGia = hm.DonGia, MaDV = hm.MaDV, MaLoaiSP = hm.MaLoaiSP };
-           
-            //viewModel.EditedProduct = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
-            //viewModel.ProductName = productName;
-            //viewModel.ProductPrice = productPrice;
-            //viewModel.SelectedTypeProduct = viewModel.TypeProductList.Where(x => x.MaLoaiSP == typeCode).FirstOrDefault();
-            //viewModel.SelectedUnit = viewModel.UnitList.Where(x => x.MaDV == unitCode).FirstOrDefault();
-            //viewModel.ActionEditProduct();
+            NhaCungCap hm = DataProvider.Ins.DB.NhaCungCaps.FirstOrDefault();
+            NhaCungCap preEdit = new NhaCungCap() { TenNCC = hm.TenNCC, DiaChi = hm.DiaChi, SoDT = hm.SoDT };
 
-            //SanPham sanPham = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
-            //Assert.AreEqual(expect, sanPham.TenSP == productName && sanPham.DonGia == productPrice && sanPham.MaLoaiSP == typeCode && sanPham.MaDV == unitCode);
+            viewModel.EditedSupplier = hm;
+            viewModel.SupplierName = supplierNames[nameIdx];
+            viewModel.SupplierAddress = supplierAddresses[addressIdx];
+            viewModel.SupplierPhoneNumber = supplierPhones[phoneIdx];
+            viewModel.ActionEditSupplier();
 
-            //viewModel.EditedProduct = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
-            //viewModel.ProductName = preEdit.TenSP;
-            //viewModel.ProductPrice = (decimal)preEdit.DonGia;
-            //viewModel.SelectedTypeProduct = viewModel.TypeProductList.Where(x => x.MaLoaiSP == preEdit.MaLoaiSP).FirstOrDefault();
-            //viewModel.SelectedUnit = viewModel.UnitList.Where(x => x.MaDV == preEdit.MaDV).FirstOrDefault();
-            //viewModel.ActionEditProduct();
+            NhaCungCap a = DataProvider.Ins.DB.NhaCungCaps.FirstOrDefault();
+            Assert.AreEqual(expect, a.TenNCC == supplierNames[nameIdx] && a.DiaChi == supplierAddresses[addressIdx] && a.SoDT == supplierPhones[phoneIdx]);
 
-            //if (a != null)
-            //{
-            //    DataProvider.Ins.DB.SanPhams.Attach(a);
-            //    DataProvider.Ins.DB.SanPhams.Remove(a);
-            //    DataProvider.Ins.DB.SaveChanges();
-            //}
-            //Assert.AreEqual(expect, a != null);
+
+            viewModel.EditedSupplier = DataProvider.Ins.DB.NhaCungCaps.FirstOrDefault();
+            viewModel.SupplierName = preEdit.TenNCC;
+            viewModel.SupplierAddress = preEdit.DiaChi;
+            viewModel.SupplierPhoneNumber = preEdit.SoDT;
+            viewModel.ActionEditSupplier();
+
+
 
         }
     }

@@ -66,13 +66,7 @@ namespace CuaHangVangBacDaQuyTests.Product
             viewModel.SelectedUnit = viewModel.UnitList.Where(x => x.MaDV == preEdit.MaDV).FirstOrDefault();
             viewModel.ActionEditProduct();
 
-            //if (a != null)
-            //{
-            //    DataProvider.Ins.DB.SanPhams.Attach(a);
-            //    DataProvider.Ins.DB.SanPhams.Remove(a);
-            //    DataProvider.Ins.DB.SaveChanges();
-            //}
-            //Assert.AreEqual(expect, a != null);
+
 
         }
     }

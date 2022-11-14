@@ -32,7 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>2</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -80,9 +80,9 @@
     <Compile Include="Account\LoginTest.cs" />
     <Compile Include="MakeOrder\MakeOrderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Supplier\AddProductTest.cs" />
-    <Compile Include="Supplier\EditProductTest.cs" />
-    <Compile Include="Supplier\FindProductTest.cs" />
+    <Compile Include="Supplier\AddSupplierTest.cs" />
+    <Compile Include="Supplier\EditSupplierTest.cs" />
+    <Compile Include="Supplier\FindSupplierTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

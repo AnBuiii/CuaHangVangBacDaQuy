@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 namespace CuaHangVangBacDaQuyTests.Supplier
 {
     [TestFixture]
-    internal class EditProductTest
+    internal class EditSupplierTest
     {
-        private AddOrEditProductViewModel viewModel;
+        private AddOrEditSupplierViewModel viewModel;
         [SetUp]
         public void SetUp()
         {
-            viewModel = new AddOrEditProductViewModel();
+            viewModel = new AddOrEditSupplierViewModel();
         }
 
         //null check
@@ -49,22 +49,22 @@ namespace CuaHangVangBacDaQuyTests.Supplier
             SanPham hm = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
             SanPham preEdit = new SanPham() { TenSP = hm.TenSP, DonGia = hm.DonGia, MaDV = hm.MaDV, MaLoaiSP = hm.MaLoaiSP };
            
-            viewModel.EditedProduct = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
-            viewModel.ProductName = productName;
-            viewModel.ProductPrice = productPrice;
-            viewModel.SelectedTypeProduct = viewModel.TypeProductList.Where(x => x.MaLoaiSP == typeCode).FirstOrDefault();
-            viewModel.SelectedUnit = viewModel.UnitList.Where(x => x.MaDV == unitCode).FirstOrDefault();
-            viewModel.ActionEditProduct();
+            //viewModel.EditedProduct = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
+            //viewModel.ProductName = productName;
+            //viewModel.ProductPrice = productPrice;
+            //viewModel.SelectedTypeProduct = viewModel.TypeProductList.Where(x => x.MaLoaiSP == typeCode).FirstOrDefault();
+            //viewModel.SelectedUnit = viewModel.UnitList.Where(x => x.MaDV == unitCode).FirstOrDefault();
+            //viewModel.ActionEditProduct();
 
-            SanPham sanPham = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
-            Assert.AreEqual(expect, sanPham.TenSP == productName && sanPham.DonGia == productPrice && sanPham.MaLoaiSP == typeCode && sanPham.MaDV == unitCode);
+            //SanPham sanPham = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
+            //Assert.AreEqual(expect, sanPham.TenSP == productName && sanPham.DonGia == productPrice && sanPham.MaLoaiSP == typeCode && sanPham.MaDV == unitCode);
 
-            viewModel.EditedProduct = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
-            viewModel.ProductName = preEdit.TenSP;
-            viewModel.ProductPrice = (decimal)preEdit.DonGia;
-            viewModel.SelectedTypeProduct = viewModel.TypeProductList.Where(x => x.MaLoaiSP == preEdit.MaLoaiSP).FirstOrDefault();
-            viewModel.SelectedUnit = viewModel.UnitList.Where(x => x.MaDV == preEdit.MaDV).FirstOrDefault();
-            viewModel.ActionEditProduct();
+            //viewModel.EditedProduct = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
+            //viewModel.ProductName = preEdit.TenSP;
+            //viewModel.ProductPrice = (decimal)preEdit.DonGia;
+            //viewModel.SelectedTypeProduct = viewModel.TypeProductList.Where(x => x.MaLoaiSP == preEdit.MaLoaiSP).FirstOrDefault();
+            //viewModel.SelectedUnit = viewModel.UnitList.Where(x => x.MaDV == preEdit.MaDV).FirstOrDefault();
+            //viewModel.ActionEditProduct();
 
             //if (a != null)
             //{

@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Media3D;
 
 namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
-    public class AddOrEditSupplierViewModel:BaseViewModel
+    public class AddOrEditSupplierViewModel : BaseViewModel
     {
         private readonly ObservableCollection<NhaCungCap> SuppliersList;
-        
+
         private NhaCungCap _EditedSupplier;
         public NhaCungCap EditedSupplier
         {
@@ -29,11 +30,11 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
                 if (EditedSupplier != null)
                 {
-                  
-                        SupplierName = EditedSupplier.TenNCC;
-                        SupplierAddress = EditedSupplier.DiaChi;
-                        SupplierPhoneNumber = EditedSupplier.SoDT;
-                                         
+
+                    SupplierName = EditedSupplier.TenNCC;
+                    SupplierAddress = EditedSupplier.DiaChi;
+                    SupplierPhoneNumber = EditedSupplier.SoDT;
+
 
                 }
             }
@@ -72,34 +73,36 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         private string _SupplierPhoneNumber;
         public string SupplierPhoneNumber { get => _SupplierPhoneNumber; set { _SupplierPhoneNumber = value; OnPropertyChanged(); } }
 
+        public int supplierCode;
+
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
-        
+
 
 
 
         public AddOrEditSupplierViewModel()
         {
-           
-           
+
+
         }
 
         //constructor used for add new supplier 
         public AddOrEditSupplierViewModel(string titleView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList)
         {
 
-           
+
             TitleView = titleView;
             openDiaLog = isOpenDialog;
             SuppliersList = suppliersList;
             CancelCommand = new RelayCommand<AddOrEditSupplierUC>((p) => true, p => CheckCloseDiaLog());
             SaveCommand = new RelayCommand<AddOrEditSupplierUC>((p) => checkEmptyFieldDialog(), p => ActionAddSupplier());
-            
+
 
 
         }
 
-        
+
         //constructor used for edit supplier
         public AddOrEditSupplierViewModel(string tilteView, ref OpenDiaLog isOpenDialog, ref ObservableCollection<NhaCungCap> suppliersList, ref NhaCungCap editedSupplier)
         {
@@ -108,8 +111,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             SuppliersList = suppliersList;
             EditedSupplier = editedSupplier;
             CancelCommand = new RelayCommand<AddOrEditSupplierUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddOrEditSupplierUC>((p) => checkEmptyFieldDialog(), p => ActionEditCustomer());
-          
+            SaveCommand = new RelayCommand<AddOrEditSupplierUC>((p) => checkEmptyFieldDialog(), p => ActionEditSupplier());
+
         }
 
 
@@ -127,41 +130,55 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         //}
 
 
-       
+
 
 
         bool checkEmptyFieldDialog()
         {
 
-            if (string.IsNullOrEmpty(SupplierName) || string.IsNullOrEmpty(SupplierAddress) || string.IsNullOrEmpty(SupplierPhoneNumber))
+            if (string.IsNullOrWhiteSpace(SupplierName) || string.IsNullOrWhiteSpace(SupplierAddress) || string.IsNullOrWhiteSpace(SupplierPhoneNumber))
             {
                 return false;
             }
             return true;
         }
 
-        private void ActionAddSupplier()
+        public void ActionAddSupplier()
         {
-            if (!CheckValidPhoneNumber() || !CheckExistPhoneNumer()) return;
+            if (!checkEmptyFieldDialog()) return;
+            if (!CheckValidPhoneNumber() || !ValidCustomerCheck()) return;
 
             var newSup = new NhaCungCap()
             {
                 TenNCC = SupplierName,
                 DiaChi = SupplierAddress,
-                SoDT = SupplierPhoneNumber,               
+                SoDT = SupplierPhoneNumber,
 
             };
 
             DataProvider.Ins.DB.NhaCungCaps.Add(newSup);
-            DataProvider.Ins.DB.SaveChanges();           
-            SuppliersList.Add(newSup);                     
-            openDiaLog.IsOpen = false;
+            DataProvider.Ins.DB.SaveChanges();
+
+            if (openDiaLog != null)
+            {
+                SuppliersList.Add(newSup);
+                openDiaLog.IsOpen = false;
+            }
+            supplierCode = DataProvider.Ins.DB.NhaCungCaps.Where(x => x.TenNCC == SupplierName).FirstOrDefault().MaNCC;
+
+
         }
 
-        private void ActionEditCustomer()
+        public void ActionEditSupplier()
         {
-            if (!CheckValidPhoneNumber()) return;
-            openDiaLog.IsOpen = false;
+            if (!checkEmptyFieldDialog()) return;
+            if (!CheckValidPhoneNumber() || !ValidCustomerCheck()) return;
+
+            if(openDiaLog != null)
+            {
+
+                openDiaLog.IsOpen = false;
+            }
             var supplier = DataProvider.Ins.DB.NhaCungCaps.Where(x => x.MaNCC == EditedSupplier.MaNCC).SingleOrDefault();
             supplier.TenNCC = SupplierName;
             supplier.DiaChi = SupplierAddress;
@@ -169,13 +186,43 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             DataProvider.Ins.DB.SaveChanges();
         }
 
+        bool ValidCustomerCheck()
+        {
+
+            if (EditedSupplier == null)
+            {
+                if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.TenNCC == SupplierName).Count() > 0) return false;
+                if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.SoDT == SupplierPhoneNumber).Count() > 0) return false;
+            }
+            else
+            {
+                if (SupplierName != EditedSupplier.TenNCC)
+                {
+                    if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.TenNCC == SupplierName).Count() > 0) return false;
+                }
+                if(SupplierPhoneNumber != EditedSupplier.SoDT)
+                {
+
+                    if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.SoDT == SupplierPhoneNumber).Count() > 0) return false;
+                }
+
+
+            }
+            return true;
+
+            //return ((EditedProduct == null && DataProvider.Ins.DB.SanPhams.Where(x => x.TenSP == ProductName).Count() == 0) || ()) && ProductPrice > 0;
+
+        }
 
         bool CheckValidPhoneNumber()
         {
             if (!CheckField.CheckPhone(SupplierPhoneNumber))
             {
+                if (SuppliersList != null)
+                {
+                    MessageBox.Show("Vui lòng nhập đúng định dạng số điện thoại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                MessageBox.Show("Vui lòng nhập đúng định dạng số điện thoại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 return false;
             }
             return true;
@@ -203,7 +250,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 openDiaLog.IsOpen = false;
 
             }
-         
+
 
         }
     }

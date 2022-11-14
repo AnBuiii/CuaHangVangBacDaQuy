@@ -12,16 +12,16 @@ namespace CuaHangVangBacDaQuyTests.Supplier
     [TestFixture]
     internal class AddSupplierTest
     {
-        private AddOrEditProductViewModel viewModel;
-        private readonly List<string> supplierName = new List<string> { null, "  ", "(@#$%", "An Bùi", "An", "Phong" };
-        private readonly List<string> supplierAddress = new List<string> { null, " ", "(@#$%", "Hồ Chí Minh" };
-        private readonly List<string> supplierPhone = new List<string> { null, " ", "123123", "01", "0123234345" };
+        private AddOrEditSupplierViewModel viewModel;
+        private readonly List<string> supplierNames = new List<string> { null, "  ", "(@#$%", "An Bùi", "An", "Phong" };
+        private readonly List<string> supplierAddresses = new List<string> { null, " ", "(@#$%", "Hồ Chí Minh" };
+        private readonly List<string> supplierPhones = new List<string> { null, " ", "123123", "01", "0923234345" };
 
 
         [SetUp]
         public void SetUp()
         {
-            viewModel = new AddOrEditProductViewModel();
+            viewModel = new AddOrEditSupplierViewModel();
         }
         // null check
         [TestCase(0, 3, 4, false)]
@@ -57,38 +57,24 @@ namespace CuaHangVangBacDaQuyTests.Supplier
         [TestCase(4, 3, 4, true)]
 
 
-
-
-
-
-
-
-
         public void AddSupplier(int nameIdx, int addressIdx, int phoneIdx, bool expect)
         {
+            viewModel.SupplierName = supplierNames[nameIdx];
+            viewModel.SupplierAddress = supplierAddresses[addressIdx];
+            viewModel.SupplierPhoneNumber = supplierPhones[phoneIdx];
+            viewModel.ActionAddSupplier();
 
-            //string code = Guid.NewGuid().ToString();
-            //viewModel.
+            int code = viewModel.supplierCode;
 
+            NhaCungCap a = DataProvider.Ins.DB.NhaCungCaps.Where(x => x.MaNCC == code).FirstOrDefault();
 
-
-            //string productCode = Guid.NewGuid().ToString();
-            //addOrEditProductViewModel.ProductCode = productCode;
-            //addOrEditProductViewModel.ProductName = productName;
-            //addOrEditProductViewModel.ProductPrice = productPrice;
-            //addOrEditProductViewModel.SelectedTypeProduct = addOrEditProductViewModel.TypeProductList.Where(x => x.MaLoaiSP == typeCode).FirstOrDefault();
-            //addOrEditProductViewModel.SelectedUnit = addOrEditProductViewModel.UnitList.Where(x => x.MaDV == unitCode).FirstOrDefault();
-            //addOrEditProductViewModel.ActionAddProduct();
-            //SanPham a = DataProvider.Ins.DB.SanPhams.Where(x => x.MaSP == productCode).FirstOrDefault();
-
-            //if (a != null)
-            //{
-            //    DataProvider.Ins.DB.SanPhams.Attach(a);
-            //    DataProvider.Ins.DB.SanPhams.Remove(a);
-            //    DataProvider.Ins.DB.SaveChanges();
-            //}
-            //Assert.AreEqual(expect, a != null);
-
+            if (a != null)
+            {
+                DataProvider.Ins.DB.NhaCungCaps.Attach(a);
+                DataProvider.Ins.DB.NhaCungCaps.Remove(a);
+                DataProvider.Ins.DB.SaveChanges();
+            }
+            Assert.AreEqual(expect, a != null);
         }
 
     }

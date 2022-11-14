@@ -40,11 +40,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
             get => _SelectedAccount;
             set
             {
-                
+
                 _SelectedAccount = value;
                 OnPropertyChanged();
                 if (SelectedAccount != null)
-                { 
+                {
                     TenDangNhap = SelectedAccount.TenDangNhap;
                     SelectedQuyenHan = SelectedAccount.QuyenHan;
                     TenNguoiDung = SelectedAccount.TenND;
@@ -73,18 +73,38 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand SavePasswordCommand { get; set; }
         public ICommand DeleteAccountCommand { get; set; }
 
+        public ICommand SearchCommand { get; set; }
+
         #endregion
 
+        private List<string> _searchTypes;
+        public List<string> SearchTypes { get { return _searchTypes; } set { _searchTypes = value; OnPropertyChanged(); } }
+        private string _selectedSearchType;
+        public string SelectedSearchType { get { return _selectedSearchType; } set { _selectedSearchType = value; OnPropertyChanged(); } }
 
+        private string _contentSearch;
+        public string ContentSearch
+        {
+            get { return _contentSearch; }
+            set
+            {
+                _contentSearch = value;
+                OnPropertyChanged();
+                //if (ContentSearch == "")
+                //    Load(false);
+            }
+        }
         private bool _IsOpenDialog;
         public bool IsOpenDialog { get => _IsOpenDialog; set { _IsOpenDialog = value; OnPropertyChanged(); } }
         public AccountViewModel()
         {
-            
+
             NguoiDungList = new ObservableCollection<NguoiDung>(DataProvider.Ins.DB.NguoiDungs);
             QuyenHanList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
             IsOpenDialogAccount = new OpenDiaLog() { IsOpen = false };
-
+            SearchTypes = new List<string> { "Mã người dùng", "Tên hiển thị", "Tên đăng nhập", };
+            SelectedSearchType = SearchTypes[1];
+            SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
             AddCommand = new RelayCommand<AccountView>(p => true, p => ActionDialog("Add"));
             EditCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => ActionDialog("Edit"));
             DeleteAccountCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => DeletedAccount());
@@ -149,6 +169,31 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         }
 
+
+        private void Search()
+        {
+            switch (SelectedSearchType)
+            {
+                case "Mã người dùng":
+                    NguoiDungList = new ObservableCollection<NguoiDung>(
+                        DataProvider.Ins.DB.NguoiDungs.Where(
+                            x => x.MaND.ToString().Contains(ContentSearch)));
+                    break;
+                case "Tên hiển thị":
+                    NguoiDungList = new ObservableCollection<NguoiDung>(
+                         DataProvider.Ins.DB.NguoiDungs.Where(
+                             x => x.TenND.ToString().Contains(ContentSearch)));
+                    break;
+                case "Tên đăng nhập":
+                    NguoiDungList = new ObservableCollection<NguoiDung>(
+                         DataProvider.Ins.DB.NguoiDungs.Where(
+                             x => x.TenDangNhap.ToString().Contains(ContentSearch)));
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void ActionDialog(string caseDiaglog)
         {
             IsOpenDialogAccount.IsOpen = true;
@@ -173,7 +218,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
         private void EditAccount()
         {
-            if (SelectedAccount == null) {MessageBox.Show("null");  IsOpenDialogAccount.IsOpen = false; return; }
+            if (SelectedAccount == null) { MessageBox.Show("null"); IsOpenDialogAccount.IsOpen = false; return; }
             addOrEditAccountViewModel = new AddOrEditAccountViewModel("Chỉnh sửa thông tin tài khoản", ref _IsOpenDialogAccount, ref _NguoiDungList, ref _SelectedAccount);
             addOrEditAccountUC = new AddOrEditAccountUC()
             {
@@ -215,8 +260,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             if (SelectedAccount == null) { MessageBox.Show("null"); IsOpenDialogAccount.IsOpen = false; return; }
             var deletedCustomer = DataProvider.Ins.DB.NguoiDungs.Where(c => c.MaND == SelectedAccount.MaND).SingleOrDefault();
-           
-            if(deletedCustomer.MaND == 1)
+
+            if (deletedCustomer.MaND == 1)
             {
                 MessageBox.Show("Đây là tài khoản mặc định, không thể xóa!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
             }

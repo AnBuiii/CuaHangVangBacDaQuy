@@ -103,7 +103,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
         }
 
-        private void Search()
+        public void Search()
         {
             switch (SelectedSearchType)
             {

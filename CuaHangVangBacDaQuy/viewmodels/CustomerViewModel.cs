@@ -46,6 +46,24 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
         }
 
+        private List<string> _searchTypes;
+        public List<string> SearchTypes { get { return _searchTypes; } set { _searchTypes = value; OnPropertyChanged(); } }
+        private string _selectedSearchType;
+        public string SelectedSearchType { get { return _selectedSearchType; } set { _selectedSearchType = value; OnPropertyChanged(); } }
+
+        private string _contentSearch;
+        public string ContentSearch
+        {
+            get { return _contentSearch; }
+            set
+            {
+                _contentSearch = value;
+                OnPropertyChanged();
+                //if (ContentSearch == "")
+                //    Load(false);
+            }
+        }
+
         private AddOrEditCustomerViewModel _ContentAddOrEditCustomer;
         public AddOrEditCustomerViewModel ContentAddOrEditCustomer
         {
@@ -64,15 +82,19 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand AddCommand { get; set; }
 
         public ICommand DeleteCustomerCommand { get; set; }
-        
 
-        
+        public ICommand SearchCommand { get; set; }
+
+
         #endregion
 
         public CustomerViewModel()
         {
 
             IsOpenDiaLog = new OpenDiaLog() { IsOpen = false };
+            SearchTypes = new List<string> { "Mã khách hàng", "Tên khách hàng", "Địa chỉ", "Số điện thoại", };
+            SelectedSearchType = SearchTypes[1];
+            SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
             CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);         
             AddCommand = new RelayCommand<CustomerView>((p) => true, p =>  ActionDiaLog("Add"));
             EditCommand = new RelayCommand<DataGridTemplateColumn>((p)=>true, p=> ActionDiaLog("Edit"));
@@ -80,6 +102,34 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         }
 
+        private void Search()
+        {
+            switch (SelectedSearchType)
+            {
+                case "Mã khách hàng":
+                    CustomerList = new ObservableCollection<KhachHang>(
+                        DataProvider.Ins.DB.KhachHangs.Where(
+                            x => x.MaKH.ToString().Contains(ContentSearch)));
+                    break;
+                case "Tên khách hàng":
+                    CustomerList = new ObservableCollection<KhachHang>(
+                         DataProvider.Ins.DB.KhachHangs.Where(
+                             x => x.TenKH.ToString().Contains(ContentSearch)));
+                    break;
+                case "Địa chỉ":
+                    CustomerList = new ObservableCollection<KhachHang>(
+                         DataProvider.Ins.DB.KhachHangs.Where(
+                             x => x.DiaChi.ToString().Contains(ContentSearch)));
+                    break;
+                case "Số điện thoại":
+                    CustomerList = new ObservableCollection<KhachHang>(
+                         DataProvider.Ins.DB.KhachHangs.Where(
+                             x => x.SoDT.ToString().Contains(ContentSearch)));
+                    break;
+                default:
+                    break;
+            }
+        }
 
         private void ActionDiaLog(string caseDiaLog)
         {

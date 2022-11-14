@@ -41,6 +41,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 OnPropertyChanged();
             }
         }
+        
         private PhieuMua _SelectedImportReceipt;
         public PhieuMua SelectedImportReceipt
         {

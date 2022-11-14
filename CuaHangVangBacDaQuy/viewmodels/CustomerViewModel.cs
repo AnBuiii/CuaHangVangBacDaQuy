@@ -21,7 +21,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         private ObservableCollection<KhachHang> _CustomerList;
         public ObservableCollection<KhachHang> CustomerList
         {
-            get  => _CustomerList; 
+            get => _CustomerList;
             set { _CustomerList = value; OnPropertyChanged(); }
         }
 
@@ -30,19 +30,19 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public OpenDiaLog IsOpenDiaLog
         {
             get { return _IsOpenDiaLog; }
-            set { _IsOpenDiaLog = value; OnPropertyChanged(); } 
+            set { _IsOpenDiaLog = value; OnPropertyChanged(); }
         }
-        
+
         private KhachHang _SelectedCustomer;
         public KhachHang SelectedCustomer
         {
             get => _SelectedCustomer;
             set
             {
-                  _SelectedCustomer = value;
+                _SelectedCustomer = value;
                 OnPropertyChanged();
-              
-                
+
+
             }
         }
 
@@ -59,8 +59,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                 _contentSearch = value;
                 OnPropertyChanged();
-                //if (ContentSearch == "")
-                //    Load(false);
+                if (ContentSearch == null)
+                    _contentSearch = "";
             }
         }
 
@@ -72,13 +72,13 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                 _ContentAddOrEditCustomer = value;
                 OnPropertyChanged();
-               
+
             }
         }
 
-        
+
         public ICommand EditCommand { get; set; }
-       
+
         public ICommand AddCommand { get; set; }
 
         public ICommand DeleteCustomerCommand { get; set; }
@@ -95,21 +95,21 @@ namespace CuaHangVangBacDaQuy.viewmodels
             SearchTypes = new List<string> { "Mã khách hàng", "Tên khách hàng", "Địa chỉ", "Số điện thoại", };
             SelectedSearchType = SearchTypes[1];
             SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
-            CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);         
-            AddCommand = new RelayCommand<CustomerView>((p) => true, p =>  ActionDiaLog("Add"));
-            EditCommand = new RelayCommand<DataGridTemplateColumn>((p)=>true, p=> ActionDiaLog("Edit"));
+            CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
+            AddCommand = new RelayCommand<CustomerView>((p) => true, p => ActionDiaLog("Add"));
+            EditCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => ActionDiaLog("Edit"));
             DeleteCustomerCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => DeledteCustomer());
 
         }
 
-        private void Search()
+        public void Search()
         {
             switch (SelectedSearchType)
             {
-                case "Mã khách hàng":
+                case "Giới tính":
                     CustomerList = new ObservableCollection<KhachHang>(
                         DataProvider.Ins.DB.KhachHangs.Where(
-                            x => x.MaKH.ToString().Contains(ContentSearch)));
+                            x => x.GioiTinh.ToString().Contains(ContentSearch)));
                     break;
                 case "Tên khách hàng":
                     CustomerList = new ObservableCollection<KhachHang>(
@@ -154,17 +154,18 @@ namespace CuaHangVangBacDaQuy.viewmodels
         private void EditCustomer()
         {
             ContentAddOrEditCustomer = new AddOrEditCustomerViewModel("Sửa thông tin khách hàng", ref _IsOpenDiaLog, ref _CustomerList, ref _SelectedCustomer);
-          
+
         }
 
         private void DeledteCustomer()
         {
             var deletedCustomer = DataProvider.Ins.DB.KhachHangs.Where(c => c.MaKH == SelectedCustomer.MaKH).SingleOrDefault();
-            if(DataProvider.Ins.DB.PhieuBans.Where(s => s.MaKH == deletedCustomer.MaKH).Count() > 0){
+            if (DataProvider.Ins.DB.PhieuBans.Where(s => s.MaKH == deletedCustomer.MaKH).Count() > 0)
+            {
                 MessageBox.Show("Khách hàng " + deletedCustomer.TenKH + " đã từng giao dịch, vui lòng xóa đơn bán hàng trước khi xóa thông tin nhà cung cấp!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            if(MessageBox.Show("Bạn có chắc chắc muốn xóa khách hàng " + deletedCustomer.TenKH + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if (MessageBox.Show("Bạn có chắc chắc muốn xóa khách hàng " + deletedCustomer.TenKH + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 return;
             }
@@ -176,7 +177,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
         void loadCustomer(CustomerView view)
         {
-            
+
         }
 
     }

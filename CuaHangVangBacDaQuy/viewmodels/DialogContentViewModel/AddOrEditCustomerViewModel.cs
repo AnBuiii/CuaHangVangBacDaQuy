@@ -119,7 +119,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             return true;
         }
 
-        private void ActionAddCustomer()
+        public void ActionAddCustomer()
         {
             if (!CheckValidPhoneNumber() || !CheckExistPhoneNumer()) return;
 
@@ -141,7 +141,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         }
 
-        private void ActionEditCustomer()
+        public void ActionEditCustomer()
         {
             if (!CheckValidPhoneNumber()) return;
             openDiaLog.IsOpen = false;

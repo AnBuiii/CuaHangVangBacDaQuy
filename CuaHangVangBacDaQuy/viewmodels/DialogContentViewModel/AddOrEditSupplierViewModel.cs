@@ -230,16 +230,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         }
 
-        bool CheckExistPhoneNumer()
-        {
-
-            if (SuppliersList.Where(p => p.SoDT == SupplierPhoneNumber).Count() > 0)
-            {
-                MessageBox.Show("Số điện thoại đã tồn tại!", "", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            return true;
-        }
+       
         private void CheckCloseDiaLog()
         {
 

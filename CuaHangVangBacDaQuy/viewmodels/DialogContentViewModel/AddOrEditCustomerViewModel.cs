@@ -71,6 +71,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         private string _PhoneNumber;
         public string PhoneNumber { get => _PhoneNumber; set { _PhoneNumber = value; OnPropertyChanged(); } }
 
+        public int customerCode;
+
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
@@ -107,12 +109,38 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             
         }
 
-        
+        bool ValidCustomerCheck()
+        {
+
+            if (EditedCustomer == null)
+            {
+                if (DataProvider.Ins.DB.KhachHangs.Where(x => x.TenKH == CustomerName).Count() > 0) return false;
+                if (DataProvider.Ins.DB.KhachHangs.Where(x => x.SoDT == PhoneNumber).Count() > 0) return false;
+            }
+            else
+            {
+                if (CustomerName != EditedCustomer.TenKH)
+                {
+                    if (DataProvider.Ins.DB.KhachHangs.Where(x => x.TenKH == CustomerName).Count() > 0) return false;
+                }
+                if (PhoneNumber != EditedCustomer.SoDT)
+                {
+
+                    if (DataProvider.Ins.DB.KhachHangs.Where(x => x.SoDT == PhoneNumber).Count() > 0) return false;
+                }
+
+
+            }
+            return true;
+
+            //return ((EditedProduct == null && DataProvider.Ins.DB.SanPhams.Where(x => x.TenSP == ProductName).Count() == 0) || ()) && ProductPrice > 0;
+
+        }
 
 
         bool CheckEmptyFieldDialog()
         {
-            if (string.IsNullOrEmpty(CustomerName) || string.IsNullOrEmpty(Gender) || string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(PhoneNumber))
+            if (string.IsNullOrWhiteSpace(CustomerName) || string.IsNullOrWhiteSpace(Gender) || string.IsNullOrWhiteSpace(Address) || string.IsNullOrWhiteSpace(PhoneNumber))
             {
                 return false;
             }
@@ -121,7 +149,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         public void ActionAddCustomer()
         {
-            if (!CheckValidPhoneNumber() || !CheckExistPhoneNumer()) return;
+            if (!CheckEmptyFieldDialog()) return;
+            if (!CheckValidPhoneNumber() || !ValidCustomerCheck()) return;
 
             var newCus = new KhachHang()
             {
@@ -135,30 +164,46 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
            
             DataProvider.Ins.DB.KhachHangs.Add(newCus);
             DataProvider.Ins.DB.SaveChanges();
-            CustomerList.Add(newCus);
-            openDiaLog.IsOpen= false;
+            if(openDiaLog != null)
+            {
+                CustomerList.Add(newCus);
+                openDiaLog.IsOpen = false;
+            }
+            customerCode = DataProvider.Ins.DB.KhachHangs.Where(x => x.TenKH == CustomerName).FirstOrDefault().MaKH;
+
+
 
 
         }
 
         public void ActionEditCustomer()
         {
-            if (!CheckValidPhoneNumber()) return;
-            openDiaLog.IsOpen = false;
+            if (!CheckEmptyFieldDialog()) return;
+            if (!CheckValidPhoneNumber() || !ValidCustomerCheck()) return;
+
+            if (openDiaLog != null)
+            {
+
+                openDiaLog.IsOpen = false;
+            }
             var customer = DataProvider.Ins.DB.KhachHangs.Where(x => x.MaKH == EditedCustomer.MaKH).SingleOrDefault();          
             customer.TenKH = CustomerName;
             customer.GioiTinh = Gender;
             customer.DiaChi = Address;
+            customer.SoDT = PhoneNumber;
             DataProvider.Ins.DB.SaveChanges();
         }
 
-        
+
         bool CheckValidPhoneNumber()
         {
             if (!CheckField.CheckPhone(PhoneNumber))
             {
+                if (CustomerList != null)
+                {
+                    MessageBox.Show("Vui lòng nhập đúng định dạng số điện thoại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                MessageBox.Show("Vui lòng nhập đúng định dạng số điện thoại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 return false;
             }
             return true;

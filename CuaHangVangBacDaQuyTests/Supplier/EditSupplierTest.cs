@@ -80,8 +80,6 @@ namespace CuaHangVangBacDaQuyTests.Supplier
             viewModel.SupplierPhoneNumber = preEdit.SoDT;
             viewModel.ActionEditSupplier();
 
-
-
         }
     }
 }

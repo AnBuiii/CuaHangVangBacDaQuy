@@ -1,15 +1,16 @@
-﻿
-using CuaHangVangBacDaQuy.models;
+﻿using CuaHangVangBacDaQuy.models;
 using CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CuaHangVangBacDaQuyTests.Customer
 {
-
     [TestFixture]
-    internal class AddCustomerTest
+    internal class EditCustomerTest
     {
         private AddOrEditCustomerViewModel viewModel;
         private readonly List<string> customerNames = new List<string> { null, "  ", "(@#$%", "An", "Ai đó" };
@@ -77,26 +78,29 @@ namespace CuaHangVangBacDaQuyTests.Customer
 
 
 
-        public void AddCustomer(int nameIdx, int genderIdx, int addressIdx, int phoneIdx, bool expect)
+        public void EditCustomer(int nameIdx, int genderIdx, int addressIdx, int phoneIdx, bool expect)
         {
+            KhachHang hm = DataProvider.Ins.DB.KhachHangs.FirstOrDefault();
+            KhachHang preEdit = new KhachHang() { TenKH = hm.TenKH, DiaChi = hm.DiaChi, SoDT = hm.SoDT, GioiTinh = hm.GioiTinh };
+
+            viewModel.EditedCustomer = hm;
             viewModel.CustomerName = customerNames[nameIdx];
-            viewModel.Gender = customerGenders[genderIdx];
             viewModel.Address = customerAddresses[addressIdx];
+            viewModel.Gender = customerGenders[genderIdx];
             viewModel.PhoneNumber = customerPhones[phoneIdx];
-            viewModel.ActionAddCustomer();
+            viewModel.ActionEditCustomer();
 
-            int code = viewModel.customerCode;
+            KhachHang a = DataProvider.Ins.DB.KhachHangs.FirstOrDefault();
+            Assert.AreEqual(expect, a.TenKH == customerNames[nameIdx] && a.DiaChi == customerAddresses[addressIdx] && a.SoDT == customerPhones[phoneIdx]);
 
-            KhachHang  a = DataProvider.Ins.DB.KhachHangs.Where(x => x.MaKH == code).FirstOrDefault();
 
-            if (a != null)
-            {
-                DataProvider.Ins.DB.KhachHangs.Attach(a);
-                DataProvider.Ins.DB.KhachHangs.Remove(a);
-                DataProvider.Ins.DB.SaveChanges();
-            }
-            Assert.AreEqual(expect, a != null);
+            viewModel.EditedCustomer = DataProvider.Ins.DB.KhachHangs.FirstOrDefault();
+            viewModel.CustomerName = preEdit.TenKH;
+            viewModel.Address = preEdit.DiaChi;
+            viewModel.Gender = preEdit.GioiTinh;
+            viewModel.PhoneNumber = preEdit.SoDT;
+            viewModel.ActionEditCustomer();
+
         }
-
     }
 }

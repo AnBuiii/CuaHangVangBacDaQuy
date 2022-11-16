@@ -162,7 +162,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         {
             if (!ValidProductCheck() || !CheckEmptyFieldDialog()) return;
 
-            if (ProductCode == "") ProductCode = Guid.NewGuid().ToString();
+            if(string.IsNullOrEmpty(ProductCode)) ProductCode = Guid.NewGuid().ToString();
             var newProduct = new SanPham()
             {
                 MaSP = ProductCode,

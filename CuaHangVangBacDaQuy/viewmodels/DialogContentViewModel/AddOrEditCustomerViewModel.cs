@@ -158,7 +158,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 GioiTinh = Gender,
                 DiaChi = Address,
                 SoDT = PhoneNumber,
-                NgayDK = System.DateTime.Now
+                NgayDK = DateTime.Now
 
             };
            

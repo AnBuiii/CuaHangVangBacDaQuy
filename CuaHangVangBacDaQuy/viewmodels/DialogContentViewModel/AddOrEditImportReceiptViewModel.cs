@@ -41,7 +41,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 OnPropertyChanged();
             }
         }
-        
+
         private PhieuMua _SelectedImportReceipt;
         public PhieuMua SelectedImportReceipt
         {
@@ -177,15 +177,15 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                     if (SelectedProductList.Where(x => x.SanPham == SelectedProductItem).Count() == 0)
                     {
                         ChiTietPhieuMua productAdded = new ChiTietPhieuMua()
-                        {  
+                        {
                             MaSP = SelectedProductItem.MaSP,
                             SanPham = SelectedProductItem,
-                            SoLuong = 0
+                            SoLuong = 1
                         };
-                        
+
                         SelectedProductList.Add(productAdded);
                         // nếu là thêm sản phẩm vào phiếu đang chỉnh sửa
-                        if (SelectedImportReceipt != null && DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu && p.MaSP == SelectedProductItem.MaSP).Count() == 0) 
+                        if (SelectedImportReceipt != null && DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu && p.MaSP == SelectedProductItem.MaSP).Count() == 0)
                         {
                             InsertProductsList.Add(productAdded);
                         }
@@ -333,7 +333,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             IsOpenAddProductDialog.IsOpen = true;
         }
 
-       
+
 
         #endregion
 
@@ -393,7 +393,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             PhieuMua newImportReceipt = new PhieuMua()
             {
-                MaPhieu = (DataProvider.Ins.DB.PhieuMuas.Count() + 1).ToString(),
+                MaPhieu = Guid.NewGuid().ToString(),
                 NgayLap = DateTime.Now,
                 MaNCC = SelectedSupplier.MaNCC,
 
@@ -408,7 +408,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             {
                 ChiTietPhieuMua newDetailImportReceitpt = new ChiTietPhieuMua()
                 {
-                    MaChiTietPhieu   = Guid.NewGuid().ToString(),
+                    MaChiTietPhieu = Guid.NewGuid().ToString(),
                     MaPhieu = newImportReceipt.MaPhieu,
                     MaSP = item.MaSP,
                     SoLuong = item.SoLuong,
@@ -419,16 +419,18 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
             DataProvider.Ins.DB.SaveChanges();
             PhieuMuaList.Add(newImportReceipt);
+            PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
             OpenThisDiaLog.IsOpen = false;
-           
+
 
         }
         private void EditImportReceipt()
         {
+            if (!CheckValidFieldInDialog()) return;
             OpenThisDiaLog.IsOpen = false;
             var editedImportReceipt = DataProvider.Ins.DB.PhieuMuas.Where(i => i.MaPhieu == SelectedImportReceipt.MaPhieu).SingleOrDefault();
             editedImportReceipt.MaNCC = SelectedSuppliersList.First().MaNCC;
-           
+
 
             foreach (var item in DeletedProductsList)
             {
@@ -436,7 +438,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 DataProvider.Ins.DB.ChiTietPhieuMuas.Remove(selectedProduct);
 
             }
-           
+            DataProvider.Ins.DB.SaveChanges();
+
             foreach (var item in InsertProductsList)
             {
 
@@ -448,7 +451,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                     SoLuong = item.SoLuong,
                 };
 
-              
+                DataProvider.Ins.DB.ChiTietPhieuMuas.Add(newDetailImportReceitpt);
+
+
 
             }
 
@@ -456,7 +461,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             DataProvider.Ins.DB.SaveChanges();
             SelectedImportReceipt.ChiTietPhieuMuas = new ObservableCollection<ChiTietPhieuMua>(DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu));
             editedImportReceipt.MaPhieu = editedImportReceipt.MaPhieu;
-           
+            PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
+
         }
 
         private bool CheckValidFieldInDialog()
@@ -482,7 +488,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             {
 
                 OpenThisDiaLog.IsOpen = false;
-               
+
 
             }
         }

@@ -28,7 +28,7 @@ namespace CuaHangVangBacDaQuy.models.Provider
             // System.Threading.Thread.Sleep(300);
             return
                 ProductList
-                    .Where(product => product.TenSP.IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) > -1 && CaculateInventoryConverter.CaculateInventory(product.MaSP) > 0)
+                    .Where(product => product.TenSP.IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) > -1 )
                     .ToList();
         }
 

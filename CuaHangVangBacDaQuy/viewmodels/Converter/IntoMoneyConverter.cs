@@ -17,7 +17,17 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
             {
                int amount = (int)values[0];
                 //MessageBox.Show(values[1].ToString());
-                decimal unitPrice = (values[1] == null)? 0: decimal.Parse(values[1].ToString());
+                decimal unitPrice = 0;
+                if(values[1] != null)
+                {
+                    decimal t;
+                    if (decimal.TryParse(values[1].ToString(), out t))
+                    {
+                        unitPrice = (values[1] == null) ? 0 : decimal.Parse(values[1].ToString());
+                    }
+                }
+             
+                
                 decimal intoMoney = amount * unitPrice;
                 return intoMoney.ToString("#,##0.");
             }

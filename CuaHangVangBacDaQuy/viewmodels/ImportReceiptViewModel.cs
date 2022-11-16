@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -60,6 +61,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public ICommand AddImportReceiptCommand { get; set; }
         public ICommand EditCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
         #endregion
 
         public ImportReceiptViewModel()
@@ -70,6 +72,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             ImportReceiptsList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
             AddImportReceiptCommand = new RelayCommand<ImportReceiptView>((p) => true, p => ActionDiaLog("Add"));
             EditCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => ActionDiaLog("Edit"));
+            DeleteCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => DeleteImportReceipt());
 
         }
 
@@ -102,6 +105,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                 DataContext = ContentAddOrEditImportReceipt
             };
+            //Thread.Sleep(1000);
+            //ImportReceiptsList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
 
         }
 
@@ -118,7 +123,29 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                 DataContext = ContentAddOrEditImportReceipt
             };
-
+            //Thread.Sleep(1000);
+            //ImportReceiptsList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
         }
+
+        public void DeleteImportReceipt()
+        {
+            if (MessageBox.Show("Bạn có chắc chắc muốn xóa phiếu mua " + SelectedImportReceipt.MaPhieu + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                return;
+            }
+            ObservableCollection<ChiTietPhieuMua> deleteChiTietPhieuMuas = new ObservableCollection<ChiTietPhieuMua>(DataProvider.Ins.DB.ChiTietPhieuMuas.Where(x=> x.MaPhieu == SelectedImportReceipt.MaPhieu));
+            foreach(ChiTietPhieuMua ctphieu in deleteChiTietPhieuMuas)
+            {
+                DataProvider.Ins.DB.ChiTietPhieuMuas.Remove(ctphieu);
+                DataProvider.Ins.DB.SaveChanges();
+            }
+            DataProvider.Ins.DB.PhieuMuas.Remove(SelectedImportReceipt);
+            DataProvider.Ins.DB.SaveChanges();
+            ImportReceiptsList.Remove(SelectedImportReceipt);
+            //Thread.Sleep(1000);
+            //ImportReceiptsList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
+        }
+
+       
     }
 }

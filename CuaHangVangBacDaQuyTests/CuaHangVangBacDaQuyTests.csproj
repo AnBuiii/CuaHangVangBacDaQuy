@@ -71,6 +71,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Account\AddAccountTest.cs" />
+    <Compile Include="Account\EditAccountTest.cs" />
+    <Compile Include="Account\FindAccountTest.cs" />
     <Compile Include="Customer\AddCustomerTest.cs" />
     <Compile Include="Customer\EditCustomerTest.cs" />
     <Compile Include="Customer\FindCustomerTest.cs" />

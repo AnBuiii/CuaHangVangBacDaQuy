@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,10 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
     public class AddOrEditAccountViewModel:BaseViewModel
     {
         private readonly ObservableCollection<NguoiDung> AccountsList;
-        private ObservableCollection<QuyenHan> _JurisdictionsList;
-        public ObservableCollection<QuyenHan> JurisdictionsList { get => _JurisdictionsList; set { _JurisdictionsList = value; OnPropertyChanged(); } }
-        private QuyenHan _SelectedJurisdiction;
-        public  QuyenHan SelectedJurisdiction { get => _SelectedJurisdiction; set { _SelectedJurisdiction = value; OnPropertyChanged(); } }
+        private ObservableCollection<QuyenHan> _PermissionsList;
+        public ObservableCollection<QuyenHan> PermissionsList { get => _PermissionsList; set { _PermissionsList = value; OnPropertyChanged(); } }
+        private QuyenHan _SelectedPermission;
+        public  QuyenHan SelectedPermission { get => _SelectedPermission; set { _SelectedPermission = value; OnPropertyChanged(); } }
 
         private NguoiDung _EditedAccount;
         public NguoiDung EditedAccount
@@ -33,10 +34,10 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 if (EditedAccount != null)
                 {
 
-                    AccountName = EditedAccount.TenDangNhap;
-                    AccountName1 = EditedAccount.TenND;
+                    AccountUsername = EditedAccount.TenDangNhap;
+                    AccountName = EditedAccount.TenND;
                     PasswordAccount = EditedAccount.MatKhau;
-                    SelectedJurisdiction = EditedAccount.QuyenHan;
+                    SelectedPermission = EditedAccount.QuyenHan;
 
 
                 }
@@ -59,15 +60,17 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
         }
 
-        private string _AccountName1;
-        public string AccountName1
+        private string _AccountUsername;
+        public string AccountUsername
         {
-            get => _AccountName1;
+            get => _AccountUsername;
             set
             {
-                _AccountName1 = value; OnPropertyChanged();
+                _AccountUsername = value; OnPropertyChanged();
             }
         }
+
+        public int accountCode;
 
 
         private string _PasswordAccount;
@@ -75,13 +78,14 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+        public ICommand ChangePasswordCommand { get; set; }
 
 
 
 
         public AddOrEditAccountViewModel()
         {
-
+            PermissionsList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
 
         }
 
@@ -91,11 +95,10 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             TitleView = titleView;
             openDiaLog = isOpenDialog;
             AccountsList = accountsList;
-            JurisdictionsList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
+            PermissionsList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
             CancelCommand = new RelayCommand<AddOrEditAccountUC>((p) => true, p => CheckCloseDiaLog());
             SaveCommand = new RelayCommand<AddOrEditAccountUC>((p) => CheckEmptyFieldDialog(), p => ActionAddAccount());
-
-
+            ChangePasswordCommand = new RelayCommand<AddOrEditAccountUC>((p) => CheckEmptyFieldDialog(), p => ActionChangePassword());
 
         }
 
@@ -106,7 +109,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             TitleView = tilteView;
             openDiaLog = isOpenDialog;
             AccountsList = suppliersList;
-            JurisdictionsList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
+            PermissionsList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
             EditedAccount = editedAccount;
             CancelCommand = new RelayCommand<AddOrEditAccountUC>((p) => true, p => CheckCloseDiaLog());
             SaveCommand = new RelayCommand<AddOrEditAccountUC>((p) => CheckEmptyFieldDialog(), p => ActionEditAccount());
@@ -114,46 +117,89 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
 
-        bool CheckEmptyFieldDialog()
+        bool ValidAccountCheck()
         {
 
-            if (string.IsNullOrEmpty(AccountName) || string.IsNullOrEmpty(PasswordAccount))
+            if (EditedAccount == null)
+            {
+                //if (DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenND == AccountName).Count() > 0) return false;
+                if (DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == AccountUsername).Count() > 0) return false;
+            }
+            else
+            {
+                if (AccountName != EditedAccount.TenND)
+                {
+                    //if (DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenND == AccountName).Count() > 0) return false;
+                }
+                if (AccountUsername != EditedAccount.TenDangNhap)
+                {
+
+                    if (DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == AccountUsername).Count() > 0) return false;
+                }
+
+
+            }
+            return true;
+
+            //return ((EditedProduct == null && DataProvider.Ins.DB.SanPhams.Where(x => x.TenSP == ProductName).Count() == 0) || ()) && ProductPrice > 0;
+
+        }
+
+
+        bool CheckEmptyFieldDialog()
+        {
+            if (string.IsNullOrWhiteSpace(AccountName) || string.IsNullOrWhiteSpace(AccountUsername) || string.IsNullOrWhiteSpace(PasswordAccount) || SelectedPermission == null)
             {
                 return false;
             }
             return true;
         }
 
-        private void ActionAddAccount()
+        public void ActionAddAccount()
         {
-
+            if (!CheckEmptyFieldDialog()) return;
+            if (!ValidAccountCheck()) return;
             var newAccount = new NguoiDung()
             {
-                TenDangNhap = AccountName,
-                TenND = AccountName1,
-                //MatKhau = MD5Hash(Base64Encode(PasswordAccount)),
-                MaQH = SelectedJurisdiction.MaQH,
-                MatKhau = PasswordAccount
+                TenDangNhap = AccountUsername,
+                TenND = AccountName,
+                MatKhau = MD5Hash(Base64Encode(PasswordAccount)),
+                MaQH = SelectedPermission.MaQH
 
             };
 
             DataProvider.Ins.DB.NguoiDungs.Add(newAccount);
             DataProvider.Ins.DB.SaveChanges();
-            AccountsList.Add(newAccount);
-            openDiaLog.IsOpen = false;
+            if(openDiaLog != null)
+            {
+                AccountsList.Add(newAccount);
+                openDiaLog.IsOpen = false;
+            }
+            accountCode = DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == AccountUsername).FirstOrDefault().MaND;
         }
 
-        private void ActionEditAccount()
+        public void ActionEditAccount()
         {
-           
-            openDiaLog.IsOpen = false;
+            if (!CheckEmptyFieldDialog()) return;
+            if (!ValidAccountCheck()) return;
+            if(openDiaLog != null)
+            {
+                openDiaLog.IsOpen = false;
+            }
+            
             var account = DataProvider.Ins.DB.NguoiDungs.Where(x => x.MaND == EditedAccount.MaND).SingleOrDefault();
-            account.TenDangNhap = AccountName;
-            account.TenND = AccountName1;
-            account.MatKhau = PasswordAccount;
-            account.MaQH = SelectedJurisdiction.MaQH;
+            account.TenDangNhap = AccountUsername;
+            account.TenND = AccountName;
+            account.MatKhau = MD5Hash(Base64Encode(PasswordAccount));
+            account.MaQH = SelectedPermission.MaQH;
             DataProvider.Ins.DB.SaveChanges();
         }
+
+        public void ActionChangePassword()
+        {
+            MessageBox.Show("asd");
+        }
+
 
 
         private void CheckCloseDiaLog()

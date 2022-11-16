@@ -102,7 +102,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             NguoiDungList = new ObservableCollection<NguoiDung>(DataProvider.Ins.DB.NguoiDungs);
             QuyenHanList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
             IsOpenDialogAccount = new OpenDiaLog() { IsOpen = false };
-            SearchTypes = new List<string> { "Mã người dùng", "Tên hiển thị", "Tên đăng nhập", };
+            SearchTypes = new List<string> { "Quyền hạn", "Tên người dùng", "Tên đăng nhập", };
             SelectedSearchType = SearchTypes[1];
             SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
             AddCommand = new RelayCommand<AccountView>(p => true, p => ActionDialog("Add"));
@@ -170,16 +170,16 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
 
 
-        private void Search()
+        public void Search()
         {
             switch (SelectedSearchType)
             {
-                case "Mã người dùng":
+                case "Quyền hạn":
                     NguoiDungList = new ObservableCollection<NguoiDung>(
                         DataProvider.Ins.DB.NguoiDungs.Where(
-                            x => x.MaND.ToString().Contains(ContentSearch)));
+                            x => x.QuyenHan.TenQH.ToString().Contains(ContentSearch)));
                     break;
-                case "Tên hiển thị":
+                case "Tên người dùng":
                     NguoiDungList = new ObservableCollection<NguoiDung>(
                          DataProvider.Ins.DB.NguoiDungs.Where(
                              x => x.TenND.ToString().Contains(ContentSearch)));

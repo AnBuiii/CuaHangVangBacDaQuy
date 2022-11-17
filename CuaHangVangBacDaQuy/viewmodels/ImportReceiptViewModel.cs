@@ -53,8 +53,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                 _contentSearch = value;
                 OnPropertyChanged();
-                //if (ContentSearch == "")
-                //    Load(false);
+                if (ContentSearch == null)
+                    _contentSearch = "";
             }
         }
         private string _selectedSearchType;

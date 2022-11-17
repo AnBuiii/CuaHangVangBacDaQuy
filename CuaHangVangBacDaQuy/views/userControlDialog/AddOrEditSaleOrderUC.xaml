@@ -314,7 +314,7 @@
                                                                              MaxLength="50"
                                                                              Provider="{StaticResource ResourceKey=CustomerSuggestionProvider}"
                                                                              SelectedItem="{Binding SelectedCustomer, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                                                                             Watermark="Tìm kiếm nhà cung cấp"
+                                                                             Watermark="Tìm kiếm khách hàng"
                                                                              Style="{StaticResource MaterialAutoCompleteComboBox}">
 
 

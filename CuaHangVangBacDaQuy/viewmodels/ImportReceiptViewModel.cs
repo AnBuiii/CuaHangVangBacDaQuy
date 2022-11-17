@@ -45,6 +45,23 @@ namespace CuaHangVangBacDaQuy.viewmodels
                
             }
         }
+        private string _contentSearch;
+        public string ContentSearch
+        {
+            get { return _contentSearch; }
+            set
+            {
+                _contentSearch = value;
+                OnPropertyChanged();
+                //if (ContentSearch == "")
+                //    Load(false);
+            }
+        }
+        private string _selectedSearchType;
+        public string SelectedSearchType { get { return _selectedSearchType; } set { _selectedSearchType = value; OnPropertyChanged(); } }
+
+        private List<string> _searchTypes;
+        public List<string> SearchTypes { get { return _searchTypes; } set { _searchTypes = value; OnPropertyChanged(); } }
 
 
         private AddOrEditImportReceiptUC _addOrEditImportReceiptUC;
@@ -59,9 +76,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
             set { _IsOpenMakeReceiptDialog = value; OnPropertyChanged(); }
         }
 
+
+
         public ICommand AddImportReceiptCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
         #endregion
 
         public ImportReceiptViewModel()
@@ -71,8 +91,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
            IsOpenMakeReceiptDialog = new OpenDiaLog() { IsOpen = false };
             ImportReceiptsList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
             AddImportReceiptCommand = new RelayCommand<ImportReceiptView>((p) => true, p => ActionDiaLog("Add"));
+            SearchTypes = new List<string> { "Mã phiếu", "Nhà cung cấp", };
+            SelectedSearchType = SearchTypes[1];
             EditCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => ActionDiaLog("Edit"));
             DeleteCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => DeleteImportReceipt());
+            SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
 
         }
 
@@ -145,7 +168,25 @@ namespace CuaHangVangBacDaQuy.viewmodels
             //Thread.Sleep(1000);
             //ImportReceiptsList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
         }
+        public void Search()
+        {
+            switch (SelectedSearchType)
+            {
+                case "Mã phiếu":
+                    ImportReceiptsList = new ObservableCollection<PhieuMua>(
+                        DataProvider.Ins.DB.PhieuMuas.Where(
+                            x => x.MaPhieu.ToString().Contains(ContentSearch)));
+                    break;
+                case "Tên nhà cung cấp":
+                    ImportReceiptsList = new ObservableCollection<PhieuMua>(
+                         DataProvider.Ins.DB.PhieuMuas.Where(
+                             x => x.NhaCungCap.TenNCC.ToString().Contains(ContentSearch)));
+                    break;
+                default:
+                    break;
+            }
+        }
 
-       
+
     }
 }

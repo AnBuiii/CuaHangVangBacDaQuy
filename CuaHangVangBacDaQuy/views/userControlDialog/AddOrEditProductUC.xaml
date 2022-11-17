@@ -83,7 +83,7 @@
                                                              VerticalAlignment="Center"
                                                              Margin="10,10,20,-18" />
                         <TextBox materialDesign:HintAssist.Hint="Đơn giá"
-                                             Text="{Binding ProductPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource ResourceKey=DecimalConverterKey}}"
+                                             Text="{Binding ProductPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                              Foreground="Black"
                                              FontSize="16"

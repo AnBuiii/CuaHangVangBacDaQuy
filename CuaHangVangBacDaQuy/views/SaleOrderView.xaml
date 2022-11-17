@@ -743,10 +743,10 @@
                                 <DataGridTextColumn Header="Ngày lập phiếu"
                                                 Binding="{Binding NgayLap}"
                                                 IsReadOnly="True" />
-                                <DataGridTextColumn Header="Mã đối tác cung ứng"
+                                <DataGridTextColumn Header="Mã khách hàng"
                                                 Binding="{Binding MaKH}"
                                                 IsReadOnly="True" />
-                                <DataGridTextColumn Header="Tên đối tác cung ứng"
+                                <DataGridTextColumn Header="Tên khách hàng"
                                                 Binding="{Binding KhachHang.TenKH}"
                                                 IsReadOnly="True" />
                                 <DataGridTextColumn Header="Giá trị"
@@ -762,6 +762,20 @@
                                                 Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.EditCommand}"
                                                 CommandParameter="{Binding ElementName=editBtn}">
                                                 <materialDesign:PackIcon Kind="Edit" />
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Width="40"
+                                                    Padding="0"
+                                                    Background="{StaticResource PrimaryHueDarkBrush}"
+                                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                                    Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteCommand}"
+                                                  >
+                                                <materialDesign:PackIcon Kind="Delete" />
                                             </Button>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>

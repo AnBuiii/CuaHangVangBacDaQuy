@@ -356,6 +356,12 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                     MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " đã hết hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
+
+                if (CaculateInventoryConverter.CaculateInventory(product.MaSP) < product.SoLuong)
+                {
+                    MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " không đủ hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
             }
             return true;
         }
@@ -369,7 +375,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             PhieuBan newSaleOrder = new PhieuBan()
             {
-                MaPhieu = (DataProvider.Ins.DB.PhieuBans.Count() + 1).ToString(),
+                MaPhieu = Guid.NewGuid().ToString(),
                 NgayLap = DateTime.Now,
                 MaKH = SelectedCustomer.MaKH,
 

@@ -1,5 +1,8 @@
 ﻿using CuaHangVangBacDaQuy.models;
 using CuaHangVangBacDaQuy.views;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,45 +19,95 @@ namespace CuaHangVangBacDaQuy.viewmodels
         private ObservableCollection<TonKho> _TonKhoList;
         public ObservableCollection<TonKho> TonKhoList { get => _TonKhoList; set { _TonKhoList = value; OnPropertyChanged(); } }
 
-        private DateTime _StartTotalImportDay = DateTime.MinValue;
-        public DateTime StartTotalImportDay { get => _StartTotalImportDay; set { _StartTotalImportDay = value; OnPropertyChanged(); } }
+        private ObservableCollection<SanPham> _SanPhamList;
+        public ObservableCollection<SanPham> SanPhamList { get => _SanPhamList; set { _SanPhamList = value; OnPropertyChanged(); } }
 
-        private DateTime _EndTotalImportDay = DateTime.MaxValue;
-        public DateTime EndTotalImportDay { get => _EndTotalImportDay; set { _EndTotalImportDay = value; OnPropertyChanged(); } }
+        private ObservableCollection<KhachHang> _KhachHangList;
+        public ObservableCollection<KhachHang> KhachHangList { get => _KhachHangList; set { _KhachHangList = value; OnPropertyChanged(); } }
 
-        private DateTime _StartProductImportDay;
-        public DateTime StartProductImportDay { get => _StartProductImportDay; set { _StartProductImportDay = value; OnPropertyChanged(); } }
+        private ObservableCollection<NhaCungCap> _NCCList;
+        public ObservableCollection<NhaCungCap> NCCList { get => _NCCList; set { _NCCList = value; OnPropertyChanged(); } }
 
-        private DateTime _EndProductmportDay;
-        public DateTime EndProductmportDay { get => _EndProductmportDay; set { _EndProductmportDay = value; OnPropertyChanged(); } }
+        private decimal _ImportVolume;
+        public decimal ImportVolume { get => _ImportVolume; set { _ImportVolume = value; OnPropertyChanged(); } }
 
-        private long _ImportVolume;
-        public long ImportVolume { get => _ImportVolume; set { _ImportVolume = value; OnPropertyChanged(); } }
+        private decimal _ExportVolume;
+        public decimal ExportVolume { get => _ExportVolume; set { _ExportVolume = value; OnPropertyChanged(); } }
 
-        private long _ExportVolume;
-        public long ExportVolume { get => _ExportVolume; set { _ExportVolume = value; OnPropertyChanged(); } }
+        private decimal _Inventory;
+        public decimal Inventory { get => _Inventory; set { _Inventory = value; OnPropertyChanged(); } }
 
-        private long _Inventory;
-        public long Inventory { get => _Inventory; set { _Inventory = value; OnPropertyChanged(); } }
+        private SeriesCollection _SeriesCollection;
+        public SeriesCollection SeriesCollection
+        {
+            get => _SeriesCollection;
+            set { _SeriesCollection = value; OnPropertyChanged(); }
+        }
+
+        private int _OutOfStockCount;
+        public int OutOfStockCount
+        {
+            get => _OutOfStockCount; set { _OutOfStockCount = value; OnPropertyChanged(); }
+        }
+
+        private KhachHang _KhachHangTop;
+        public KhachHang KhachHangTop
+        {
+            get => _KhachHangTop; set { _KhachHangTop = value; OnPropertyChanged(); }
+        }
+
+        private decimal _KhachHangValueTop;
+        public decimal KhachHangValueTop
+        {
+            get => _KhachHangValueTop; set { _KhachHangValueTop = value; OnPropertyChanged(); }
+        }
+
+        private NhaCungCap _NCCTop;
+        public NhaCungCap NCCTop
+        {
+            get => _NCCTop; 
+            set
+            {
+                _NCCTop = value; OnPropertyChanged();
+            }
+        }
+        private decimal _NCCValueTop;
+        public decimal NCCValueTop
+        {
+            get => _NCCValueTop; set { _NCCValueTop = value; OnPropertyChanged(); }
+        }
+
+
+
 
         public ICommand LoadHomeView { get; set; }
 
-        public ICommand FilterTotalImportCommand { get; set; }
-        public ICommand FilterProductImportCommand { get; set; }
-
         public HomeViewModel()
         {
-            LoadHomeView = new RelayCommand<HomeView>((p) => true, (p) => LoadingHomeView(p));
-            FilterTotalImportCommand = new RelayCommand<HomeView>(p => true, p => InventoryManagementByDay());
+            LoadHomeView = new RelayCommand<HomeView>((p) => true, (p) => LoadingHomeView(p, GetImportVolume()));
+
+
         }
 
-        private void LoadingHomeView(HomeView view)
+        private decimal GetImportVolume()
+        {
+            return ImportVolume;
+        }
+
+
+        private void LoadingHomeView(HomeView view, decimal importVolume)
         {
             TonKhoList = new ObservableCollection<TonKho>();
-
-            var SanPhamList = DataProvider.Ins.DB.SanPhams;
+            SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
+            NCCList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
+            KhachHangList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
             ImportVolume = 0;
             ExportVolume = 0;
+            OutOfStockCount = 0;
+            KhachHangTop = new KhachHang();
+            KhachHangValueTop = 0;
+            NCCTop = new NhaCungCap();
+            NCCValueTop = 0;
             int i = 1;
             foreach (var item in SanPhamList)
             {
@@ -64,59 +117,83 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 int sumMua = 0;
                 int sumBan = 0;
 
+                decimal moneyMua = 0;
+                decimal moneyBan = 0;
+
                 if (MuaList != null && MuaList.Count() > 0)
                 {
                     sumMua = (int)MuaList.Sum(p => p.SoLuong);
+                    moneyMua = (decimal)((decimal)MuaList.Sum(p => p.SoLuong) * item.DonGia);
                 }
                 if (BanList != null && BanList.Count() > 0)
                 {
                     sumBan = (int)BanList.Sum(p => p.SoLuong);
+                    moneyBan = (decimal)((decimal)BanList.Sum(p => p.SoLuong) * item.DonGia);
                 }
+                if (sumMua == sumBan) OutOfStockCount++;
 
-                ImportVolume += sumMua;
-                ExportVolume += sumBan;
+                ImportVolume += moneyMua;
+                ExportVolume += moneyBan;
 
-                TonKho tonkho = new TonKho();
-                tonkho.Stt = i;
-                tonkho.Count = sumMua - sumBan;
-                tonkho.SanPham = item;
+                TonKho tonkho = new TonKho
+                {
+                    Stt = i,
+                    Count = sumMua - sumBan,
+                    SanPham = item
+                };
 
                 TonKhoList.Add(tonkho);
                 i++;
             }
             Inventory = ImportVolume - ExportVolume;
-        }
-        private void InventoryManagementByDay()
-        {
-            var SanPhamList = DataProvider.Ins.DB.SanPhams;
-            ImportVolume = 0;
-            ExportVolume = 0;
-            foreach (var item in SanPhamList)
+
+            foreach (KhachHang khachHang in KhachHangList)
             {
-                var MuaList = DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaSP == item.MaSP && p.PhieuMua.NgayLap >= StartTotalImportDay && p.PhieuMua.NgayLap <= EndTotalImportDay);
-                var BanList = DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaSP == item.MaSP && p.PhieuBan.NgayLap >= StartTotalImportDay && p.PhieuBan.NgayLap <= EndTotalImportDay);
-
-                int sumMua = 0;
-                int sumBan = 0;
-
-                if (MuaList != null && MuaList.Count() > 0)
+                decimal khachHangValue = 0;
+                foreach (ChiTietPhieuBan ct in DataProvider.Ins.DB.ChiTietPhieuBans.Where(x => x.PhieuBan.KhachHang.MaKH == khachHang.MaKH))
                 {
-                    sumMua = (int)MuaList.Sum(p => p.SoLuong);                  
+                    khachHangValue += (decimal)((decimal)ct.SoLuong * ct.SanPham.DonGia);
                 }
-                if (BanList != null && BanList.Count() > 0)
+                if (khachHangValue > KhachHangValueTop)
                 {
-                    sumBan = (int)BanList.Sum(p => p.SoLuong);
+                    KhachHangTop = khachHang;
+                    KhachHangValueTop = khachHangValue;
                 }
-
-                ImportVolume += sumMua;
-                ExportVolume += sumBan;                              
             }
-            Inventory = ImportVolume - ExportVolume;
+
+            foreach (NhaCungCap ncc in NCCList)
+            {
+                decimal nccValue = 0;
+                foreach (ChiTietPhieuMua ct in DataProvider.Ins.DB.ChiTietPhieuMuas.Where(x => x.PhieuMua.NhaCungCap.MaNCC == ncc.MaNCC))
+                {
+                    nccValue += (decimal)((decimal)ct.SoLuong * ct.SanPham.DonGia);
+                }
+                if (nccValue > NCCValueTop)
+                {
+                    NCCTop= ncc;
+                    NCCValueTop = nccValue;
+                }
+            }
+
+            SeriesCollection = new SeriesCollection();
+            foreach (TonKho ton in TonKhoList)
+            {
+                SeriesCollection.Add(new PieSeries
+                {
+                    Title = ton.SanPham.TenSP,
+                    Values = new ChartValues<ObservableValue> { new ObservableValue(ton.Count) },
+                    DataLabels = true
+                }
+                );
+
+            }
+
         }
+
 
 
     }
-    
+
 
 
 }

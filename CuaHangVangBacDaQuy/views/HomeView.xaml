@@ -7,8 +7,8 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
-             
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -23,7 +23,7 @@
             <i:InvokeCommandAction Command="{Binding LoadHomeView }" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -37,40 +37,6 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0"
-                          Margin="5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="0">
-                            <DatePicker VerticalAlignment="Center"
-                                        HorizontalAlignment="Left"
-                                        Width="100"
-                                        SelectedDate="{Binding StartTotalImportDay}"
-                                        materialDesign:HintAssist.Hint="Ngày bắt đầu"
-                                        
-                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <DatePicker VerticalAlignment="Center"
-                                        HorizontalAlignment="Left"
-                                        Width="100"
-                                        SelectedDate="{Binding EndTotalImportDay}"
-                                        materialDesign:HintAssist.Hint="Ngày kết thúc"
-                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                        </Grid>
-                        <Grid Grid.Column="2">
-                            <Button Style="{StaticResource MaterialDesignRaisedButton}"
-                                    Margin="5"
-                                    Width="100"
-                                    Content="Lọc"
-                                    Command="{Binding FilterTotalImportCommand}"
-                                    ToolTip="Resource name: MaterialDesignRaisedButton"></Button>
-                        </Grid>
-                    </Grid>
                     <Grid Grid.Row="1">
                         <Separator Margin="5"></Separator>
                     </Grid>
@@ -79,6 +45,7 @@
                             <ColumnDefinition Width="auto"></ColumnDefinition>
                             <ColumnDefinition Width="auto"></ColumnDefinition>
                             <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
@@ -92,30 +59,61 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0"
-                                               Margin="16 16 16 4"
-                                               Text="Lượng nhập">
-
-                                    </TextBlock>
+                                    <Grid Grid.Row="0" Margin="8 8 8 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   FontSize="16"
+                                                   FontWeight="Bold"
+                                                   Text="Doanh số" />
+                                        <TextBlock Grid.Column="1"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="{Binding Inventory}" />
+                                    </Grid>
                                     <Separator Grid.Row="1"
-                                               Style="{StaticResource MaterialDesignLightSeparator}" />
-                                    <TextBlock Grid.Row="2"
-                                               Margin="16 0 16 8"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Left"
-                                               Text="{Binding ImportVolume}">
-                                    </TextBlock>
-                                    <materialDesign:PopupBox HorizontalAlignment="Right"
-                                                             Padding="2 0 2 0">
-                                        <StackPanel>
-                                            <!--đưa gì vào thì đưa-->
-                                        </StackPanel>
-                                    </materialDesign:PopupBox>
+                                               Style="{StaticResource MaterialDesignDarkSeparator}" />
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Text="Tổng bán" />
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="{Binding ExportVolume}" />
+                                    </Grid>
+                                    <Grid Grid.Row="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Text="Tổng mua" />
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="{Binding ImportVolume}" />
+                                    </Grid>
                                 </Grid>
                             </materialDesign:Card>
                         </Grid>
-
                         <Grid Grid.Column="1">
                             <materialDesign:Card Background="#03a9f4"
                                                  Margin="5"
@@ -127,30 +125,62 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0"
-                                               Margin="16 16 16 4"
-                                               Text="Lượng xuất">
-
-                                    </TextBlock>
+                                    <Grid Grid.Row="0"
+                                          Margin="8 8 8 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   FontSize="16"
+                                                   FontWeight="Bold"
+                                                   Text="Sản phẩm" />
+                                        <TextBlock Grid.Column="1"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="{Binding SanPhamList.Count}" />
+                                    </Grid>
                                     <Separator Grid.Row="1"
-                                               Style="{StaticResource MaterialDesignLightSeparator}" />
-                                    <TextBlock Grid.Row="2"
-                                               Margin="16 0 16 8"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Left"
-                                               Text="{Binding ExportVolume}">
-                                    </TextBlock>
-                                    <materialDesign:PopupBox HorizontalAlignment="Right"
-                                                             Padding="2 0 2 0">
-                                        <StackPanel>
-                                            <!--đưa gì vào thì đưa-->
-                                        </StackPanel>
-                                    </materialDesign:PopupBox>
+                                               Style="{StaticResource MaterialDesignDarkSeparator}" />
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Text="Sản phẩm hết hàng" />
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="0" />
+                                    </Grid>
+                                    <Grid Grid.Row="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Text="Tổng chi" />
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="0" />
+                                    </Grid>
                                 </Grid>
                             </materialDesign:Card>
                         </Grid>
-
                         <Grid Grid.Column="2">
                             <materialDesign:Card Background="#03a9f4"
                                                  Margin="5"
@@ -162,29 +192,264 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0"
-                                               Margin="16 16 16 4"
-                                               Text="Tồn kho">
-
-                                    </TextBlock>
+                                    <Grid Grid.Row="0"
+                                          Margin="8 8 8 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   FontSize="16"
+                                                   FontWeight="Bold"
+                                                   Text="Khách hàng" />
+                                        <TextBlock Grid.Column="1"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="0" />
+                                    </Grid>
                                     <Separator Grid.Row="1"
-                                               Style="{StaticResource MaterialDesignLightSeparator}" />
-                                    <TextBlock Grid.Row="2"
-                                               Margin="16 0 16 8"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Left"
-                                               Text="{Binding Inventory}">
-                                    </TextBlock>
-                                    <materialDesign:PopupBox HorizontalAlignment="Right"
-                                                             Padding="2 0 2 0">
-                                        <StackPanel>
-                                            <!--đưa gì vào thì đưa-->
-                                        </StackPanel>
-                                    </materialDesign:PopupBox>
+                                               Style="{StaticResource MaterialDesignDarkSeparator}" />
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Row ="2"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Text="Top doanh so" />
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="0" />
+                                    </Grid>
+                                    <Grid Grid.Row="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Text="Tổng chi" />
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="0" />
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Card>
+                        <Grid Grid.Column="2">
+                            <materialDesign:Card Background="#03a9f4"
+                                                 Margin="5"
+                                                 Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                                 Padding="0"
+                                                 Width="200">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0"
+                                          Margin="8 8 8 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   FontSize="16"
+                                                   FontWeight="Bold"
+                                                   Text="Khách hàng" />
+                                        <TextBlock Grid.Column="1"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="{Binding KhachHangList.Count}" />
+                                    </Grid>
+                                    <Separator Grid.Row="1"
+                                               Style="{StaticResource MaterialDesignDarkSeparator}" />
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Row ="2"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding KhachHangTop.TenKH}" />
+                                        <!--<TextBlock Grid.Column="1"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="0" />-->
+                                    </Grid>
+                                    <Grid Grid.Row="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding KhachHangValueTop}" />
+                                        <!--<TextBlock Grid.Column="1"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="0" />-->
+                                    </Grid>
                                 </Grid>
                             </materialDesign:Card>
                         </Grid>
+                        </Grid>
+                        <Grid Grid.Column="3">
+                            <materialDesign:Card Background="#03a9f4"
+                                                 Margin="5"
+                                                 Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                                 Padding="0"
+                                                 Width="200">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0"
+                                          Margin="8 8 8 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   FontSize="16"
+                                                   FontWeight="Bold"
+                                                   Text="Khách hàng" />
+                                        <TextBlock Grid.Column="1"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="0" />
+                                    </Grid>
+                                    <Separator Grid.Row="1"
+                                               Style="{StaticResource MaterialDesignDarkSeparator}" />
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Row="2"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Text="Top doanh so" />
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="0" />
+                                    </Grid>
+                                    <Grid Grid.Row="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Text="Tổng chi" />
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="8 4"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="0" />
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Card>
+                            <Grid Grid.Column="2">
+                                <materialDesign:Card Background="#03a9f4"
+                                                     Margin="5"
+                                                     Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                                     Padding="0"
+                                                     Width="200">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0"
+                                              Margin="8 8 8 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Left"
+                                                       FontSize="16"
+                                                       FontWeight="Bold"
+                                                       Text="Nhà cung cấp" />
+                                            <TextBlock Grid.Column="1"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Right"
+                                                       Text="{Binding NCCList.Count}" />
+                                        </Grid>
+                                        <Separator Grid.Row="1"
+                                                   Style="{StaticResource MaterialDesignDarkSeparator}" />
+                                        <Grid Grid.Row="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Row="2"
+                                                       Margin="8 4"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Left"
+                                                       Text="{Binding NCCTop.TenNCC}" />
+                                            <TextBlock Grid.Column="1"
+                                                       Margin="8 4"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Right"
+                                                       Text="0" />
+                                        </Grid>
+                                        <Grid Grid.Row="3">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0"
+                                                       Margin="8 4"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Left"
+                                                       Text="{Binding NCCValueTop}" />
+                                            <!--<TextBlock Grid.Column="1"
+                                                       Margin="8 4"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Right"
+                                                       Text="0" />-->
+                                        </Grid>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </Grid>
+                        </Grid>
+
                     </Grid>
                 </Grid>
             </materialDesign:Card>
@@ -199,54 +464,40 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0"
-                      Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-
-                    <Grid Grid.Column="0">
-                        <DatePicker VerticalAlignment="Center"
-                                    HorizontalAlignment="Left"
-                                    Width="100"
-                                    materialDesign:HintAssist.Hint="Ngày bắt đầu"
-                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <DatePicker VerticalAlignment="Center"
-                                    HorizontalAlignment="Left"
-                                    Width="100"
-                                    materialDesign:HintAssist.Hint="Ngày kết thúc"
-                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <Button Style="{StaticResource MaterialDesignRaisedButton}"
-                                Margin="5"
-                                Width="100"
-                                Content="Lọc"
-                                ToolTip="Resource name: MaterialDesignRaisedButton"></Button>
-                    </Grid>
-                </Grid>
+               
 
                 <Grid Grid.Row="1">
                     <Separator></Separator>
                 </Grid>
                 <Grid Grid.Row="2">
-                    <ListView ItemsSource="{Binding TonKhoList}"
-                               MaxHeight="680">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <ListView Grid.Column="0"
+                              ItemsSource="{Binding TonKhoList}"
+                              MaxHeight="680">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="STT"
                                                 DisplayMemberBinding="{Binding Stt}"></GridViewColumn>
                                 <GridViewColumn Header="Tên vật tư"
                                                 DisplayMemberBinding="{Binding SanPham.TenSP}"></GridViewColumn>
-                                <GridViewColumn Header="Số lượng tồn"
+                                <GridViewColumn Header="Số lượng trong kho"
                                                 DisplayMemberBinding="{Binding Count}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <Grid Grid.Column="1">
+                        <lvc:PieChart Grid.Row="2"
+                                      x:Name="lvc"
+                                      Margin="10"
+                                      Series="{Binding SeriesCollection}"
+                                      LegendLocation="Right"
+                                      Hoverable="False">
+
+                        </lvc:PieChart>
+                    </Grid>
                 </Grid>
             </Grid>
         </materialDesign:Card>

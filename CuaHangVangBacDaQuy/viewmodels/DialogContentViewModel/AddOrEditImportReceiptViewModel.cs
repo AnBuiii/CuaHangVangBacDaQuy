@@ -256,7 +256,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         public AddOrEditImportReceiptViewModel()
         {
 
-
+            SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
+            SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
         }
         //constructor cho việc tạo phiếu mua hàng mới 
         public AddOrEditImportReceiptViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuMua> phieuMuaList)
@@ -387,13 +388,17 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         }
 
-        private void AddNewImportReceipt()
+        public string code;
+        public  void AddNewImportReceipt()
         {
             if (!CheckValidFieldInDialog()) return;
+            if (string.IsNullOrEmpty(code)){
+                code = Guid.NewGuid().ToString();
+            }
 
             PhieuMua newImportReceipt = new PhieuMua()
             {
-                MaPhieu = Guid.NewGuid().ToString(),
+                MaPhieu = code,
                 NgayLap = DateTime.Now,
                 MaNCC = SelectedSupplier.MaNCC,
 
@@ -418,9 +423,14 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             }
             DataProvider.Ins.DB.SaveChanges();
-            PhieuMuaList.Add(newImportReceipt);
-            PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
-            OpenThisDiaLog.IsOpen = false;
+            
+            if(OpenThisDiaLog != null)
+            {
+                PhieuMuaList.Add(newImportReceipt);
+                PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
+                OpenThisDiaLog.IsOpen = false;
+            }
+            
 
 
         }

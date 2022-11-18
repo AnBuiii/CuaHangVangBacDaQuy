@@ -152,9 +152,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public void DeleteImportReceipt()
         {
-            if (MessageBox.Show("Bạn có chắc chắc muốn xóa phiếu mua " + SelectedImportReceipt.MaPhieu + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if(IsOpenMakeReceiptDialog != null)
             {
-                return;
+                if (MessageBox.Show("Bạn có chắc chắc muốn xóa phiếu mua " + SelectedImportReceipt.MaPhieu + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                    return;
+                }
             }
             ObservableCollection<ChiTietPhieuMua> deleteChiTietPhieuMuas = new ObservableCollection<ChiTietPhieuMua>(DataProvider.Ins.DB.ChiTietPhieuMuas.Where(x=> x.MaPhieu == SelectedImportReceipt.MaPhieu));
             foreach(ChiTietPhieuMua ctphieu in deleteChiTietPhieuMuas)

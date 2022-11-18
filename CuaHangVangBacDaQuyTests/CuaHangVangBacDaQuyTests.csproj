@@ -77,6 +77,8 @@
     <Compile Include="Customer\AddCustomerTest.cs" />
     <Compile Include="Customer\EditCustomerTest.cs" />
     <Compile Include="Customer\FindCustomerTest.cs" />
+    <Compile Include="MakeOrder\AddMakeOrderTest.cs" />
+    <Compile Include="MakeOrder\DeleteMakeOrderTest.cs" />
     <Compile Include="Product\EditProductTest.cs" />
     <Compile Include="Product\CheckInventoryTest.cs" />
     <Compile Include="Account\EncodeTest.cs" />

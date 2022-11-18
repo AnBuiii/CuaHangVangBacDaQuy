@@ -20,7 +20,7 @@ namespace CuaHangVangBacDaQuyTests.Customer
             viewModel = new CustomerViewModel();
         }
 
-        [TestCase(0, 0, 3)]
+        [TestCase(0, 0, 6)]
         [TestCase(0, 1, 0)]
         [TestCase(0, 2, 0)]
         [TestCase(0, 3, 0)]
@@ -28,7 +28,7 @@ namespace CuaHangVangBacDaQuyTests.Customer
         [TestCase(0, 5, 1)]
         [TestCase(0, 6, 1)]
 
-        [TestCase(1, 0, 3)]
+        [TestCase(1, 0, 6)]
         [TestCase(1, 1, 1)]
         [TestCase(1, 2, 1)]
         [TestCase(1, 3, 0)]
@@ -36,15 +36,15 @@ namespace CuaHangVangBacDaQuyTests.Customer
         [TestCase(1, 5, 0)]
         [TestCase(1, 6, 0)]
 
-        [TestCase(2, 0, 3)]
+        [TestCase(2, 0, 6)]
         [TestCase(2, 1, 0)]
         [TestCase(2, 2, 0)]
-        [TestCase(2, 3, 3)]
+        [TestCase(2, 3, 4)]
         [TestCase(2, 4, 0)]
         [TestCase(2, 5, 0)]
         [TestCase(2, 6, 0)]
 
-        [TestCase(3, 0, 3)]
+        [TestCase(3, 0, 6)]
         [TestCase(3, 1, 0)]
         [TestCase(3, 2, 0)]
         [TestCase(3, 3, 0)]

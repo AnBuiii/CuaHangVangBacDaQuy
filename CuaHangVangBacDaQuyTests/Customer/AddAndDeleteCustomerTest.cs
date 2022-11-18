@@ -9,13 +9,13 @@ namespace CuaHangVangBacDaQuyTests.Customer
 {
 
     [TestFixture]
-    internal class AddCustomerTest
+    internal class AddAndDeleteCustomerTest
     {
         private AddOrEditCustomerViewModel viewModel;
         private readonly List<string> customerNames = new List<string> { null, "  ", "(@#$%", "An", "Ai đó" };
         private readonly List<string> customerGenders = new List<string> { null, "Nam", "Nữ" };
         private readonly List<string> customerAddresses = new List<string> { null, " ", "(@#$%", "Hồ Chí Minh" };
-        private readonly List<string> customerPhones = new List<string> { null, " ", "123123", "01", "0923234345" };
+        private readonly List<string> customerPhones = new List<string> { null, " ", "123123", "01", "0923234346" };
 
 
         [SetUp]
@@ -49,17 +49,17 @@ namespace CuaHangVangBacDaQuyTests.Customer
 
         [TestCase(3, 1, 2, 2, false)]
         [TestCase(3, 1, 2, 3, false)]
-        [TestCase(3, 1, 2, 4, false)]
+        [TestCase(3, 1, 2, 4, true)]
         [TestCase(3, 1, 3, 2, false)]
         [TestCase(3, 1, 3, 3, false)]
-        [TestCase(3, 1, 3, 4, false)]
+        [TestCase(3, 1, 3, 4, true)]
 
         [TestCase(3, 2, 2, 2, false)]
         [TestCase(3, 2, 2, 3, false)]
-        [TestCase(3, 2, 2, 4, false)]
+        [TestCase(3, 2, 2, 4, true)]
         [TestCase(3, 2, 3, 2, false)]
         [TestCase(3, 2, 3, 3, false)]
-        [TestCase(3, 2, 3, 4, false)]
+        [TestCase(3, 2, 3, 4, true)]
 
         [TestCase(4, 1, 2, 2, false)]
         [TestCase(4, 1, 2, 3, false)]
@@ -77,7 +77,7 @@ namespace CuaHangVangBacDaQuyTests.Customer
 
 
 
-        public void AddCustomer(int nameIdx, int genderIdx, int addressIdx, int phoneIdx, bool expect)
+        public void AddAndDeleteCustomer(int nameIdx, int genderIdx, int addressIdx, int phoneIdx, bool expect)
         {
             viewModel.CustomerName = customerNames[nameIdx];
             viewModel.Gender = customerGenders[genderIdx];
@@ -96,6 +96,7 @@ namespace CuaHangVangBacDaQuyTests.Customer
                 DataProvider.Ins.DB.SaveChanges();
             }
             Assert.AreEqual(expect, a != null);
+            Assert.AreEqual(true, DataProvider.Ins.DB.KhachHangs.Where(x => x.MaKH == code).FirstOrDefault() == null);
         }
 
     }

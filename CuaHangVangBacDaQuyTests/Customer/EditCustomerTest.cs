@@ -50,17 +50,17 @@ namespace CuaHangVangBacDaQuyTests.Customer
 
         [TestCase(3, 1, 2, 2, false)]
         [TestCase(3, 1, 2, 3, false)]
-        [TestCase(3, 1, 2, 4, false)]
+        [TestCase(3, 1, 2, 4, true)]
         [TestCase(3, 1, 3, 2, false)]
         [TestCase(3, 1, 3, 3, false)]
-        [TestCase(3, 1, 3, 4, false)]
+        [TestCase(3, 1, 3, 4, true)]
 
         [TestCase(3, 2, 2, 2, false)]
         [TestCase(3, 2, 2, 3, false)]
-        [TestCase(3, 2, 2, 4, false)]
+        [TestCase(3, 2, 2, 4, true)]
         [TestCase(3, 2, 3, 2, false)]
         [TestCase(3, 2, 3, 3, false)]
-        [TestCase(3, 2, 3, 4, false)]
+        [TestCase(3, 2, 3, 4, true)]
 
         [TestCase(4, 1, 2, 2, false)]
         [TestCase(4, 1, 2, 3, false)]

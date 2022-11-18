@@ -10,7 +10,7 @@ using System.Linq;
 namespace CuaHangVangBacDaQuyTests.Supplier
 {
     [TestFixture]
-    internal class AddSupplierTest
+    internal class AddAndDeleteSupplierTest
     {
         private AddOrEditSupplierViewModel viewModel;
         private readonly List<string> supplierNames = new List<string> { null, "  ", "(@#$%", "An Bùi", "An", "Phong" };
@@ -57,7 +57,7 @@ namespace CuaHangVangBacDaQuyTests.Supplier
         [TestCase(4, 3, 4, true)]
 
 
-        public void AddSupplier(int nameIdx, int addressIdx, int phoneIdx, bool expect)
+        public void AddAndDeleteSupplier(int nameIdx, int addressIdx, int phoneIdx, bool expect)
         {
             viewModel.SupplierName = supplierNames[nameIdx];
             viewModel.SupplierAddress = supplierAddresses[addressIdx];
@@ -75,6 +75,7 @@ namespace CuaHangVangBacDaQuyTests.Supplier
                 DataProvider.Ins.DB.SaveChanges();
             }
             Assert.AreEqual(expect, a != null);
+            Assert.AreEqual(true, DataProvider.Ins.DB.NhaCungCaps.Where(x => x.MaNCC == code).FirstOrDefault() == null); 
         }
 
     }

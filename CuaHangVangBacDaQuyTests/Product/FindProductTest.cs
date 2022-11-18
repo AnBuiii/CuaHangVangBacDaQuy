@@ -1,5 +1,6 @@
 ﻿using CuaHangVangBacDaQuy.viewmodels;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace CuaHangVangBacDaQuyTests.Product
 {
@@ -7,47 +8,47 @@ namespace CuaHangVangBacDaQuyTests.Product
     internal class FindProductTest
     {
         private ProductViewModel productViewModel;
+        private readonly List<string> typeSearchs = new List<string> { "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Đơn vị" };
+        private readonly List<string> textSearchs = new List<string> { null, "0", "1", "2", "Đá Topaz", "Nhẫn SJC 20", "Vàng Tây", "Nhẫn", "Vòng tay", "Đá quý", "cái", "lượng", "chỉ" };
         [SetUp]
         public void SetUp()
         {
             productViewModel = new ProductViewModel();
         }
-        
 
+        [TestCase(3, 0, 0)]
+        [TestCase(0, 1, 13)]
 
-        [TestCase("Mã sản phẩm", "",12)]
-        [TestCase("Mã sản phẩm", "0", 3)]
-        [TestCase("Mã sản phẩm", "1", 4)]
-        [TestCase("Mã sản phẩm", "2", 3)]
-        [TestCase("Mã sản phẩm", "Nhẫn 101", 0)]
-        [TestCase("Mã sản phẩm", "Vòng 101", 0)]
+        [TestCase(0, 2, 10)]
+        [TestCase(0, 3, 12)]
+        [TestCase(0, 4, 0)]
+        [TestCase(0, 5, 0)]
 
-        [TestCase("Tên sản phẩm", "", 12)]
-        [TestCase("Tên sản phẩm", "Nhẫn 101", 1)]
-        [TestCase("Tên sản phẩm", "Vòng 101", 1)]
-        [TestCase("Tên sản phẩm", "Vàng tây", 1)]
-        [TestCase("Tên sản phẩm", "Nhẫn", 4)]
-        /*
-        [TestCase("Loại sản phẩm", "Vàng tấy", 4)]
-        [TestCase("Loại sản phẩm", "Nhẫn", 4)]
-        [TestCase("Loại sản phẩm", "Vòng tay", 4)]
-        [TestCase("Loại sản phẩm", "Đá quý", 4)]
-        [TestCase("Loại sản phẩm", "Nhẫn", 4)]
+        [TestCase(1, 4, 1)]
+        [TestCase(1, 5, 1)]
+        [TestCase(1, 6, 0)]
+        [TestCase(1, 7, 3)]
 
-        [TestCase("Đơn vị", "", 4)]
-        [TestCase("Đơn vị", "Đá quý", 4)]
-        [TestCase("Đơn vị", "cái", 4)]
-        [TestCase("Đơn vị", "lượng", 4)]
-        [TestCase("Đơn vị", "chỉ", 4)]
-        */
+        [TestCase(2, 6, 0)]
+        [TestCase(2, 7, 6)]
+        [TestCase(2, 8, 1)]
+        [TestCase(2, 9, 5)]
+
+        [TestCase(3, 7, 0)]
+        [TestCase(3, 8, 0)]
+        [TestCase(3, 9, 0)]
+        [TestCase(3, 10, 6)]
 
 
 
-        public void FindProduct(string typeSearch, string textSearch, int expect)
+
+        public void FindProduct(int typeSearch, int textSearch, int expect)
         {
-            
-            productViewModel.SelectedSearchType = typeSearch;
-            productViewModel.ContentSearch = textSearch;
+            string a = typeSearchs[typeSearch];
+            string b = textSearchs[textSearch];
+
+            productViewModel.SelectedSearchType = a;
+            productViewModel.ContentSearch = b;
             productViewModel.Search();
             Assert.AreEqual(expect, productViewModel.ProductsList.Count);
         }

@@ -93,7 +93,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ProductViewModel()
         {
             IsOpenProductDialog = new OpenDiaLog() { IsOpen = false };
-            SearchTypes = new List<string> { "Mã sản phẩm", "Tên sản phẩm", };
+            SearchTypes = new List<string> { "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Đơn vị"};
             SelectedSearchType = SearchTypes[1];
             ProductsList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
             LoadedCommand = new RelayCommand<ProductView>(p => true, p => Loaded(p));          
@@ -116,6 +116,16 @@ namespace CuaHangVangBacDaQuy.viewmodels
                     ProductsList = new ObservableCollection<SanPham>(
                          DataProvider.Ins.DB.SanPhams.Where(
                              x => x.TenSP.ToString().Contains(ContentSearch)));
+                    break;
+                case "Loại sản phẩm":
+                    ProductsList = new ObservableCollection<SanPham>(
+                         DataProvider.Ins.DB.SanPhams.Where(
+                             x => x.LoaiSanPham.TenLoaiSP.ToString().Contains(ContentSearch)));
+                    break;
+                case "Đơn vị":
+                    ProductsList = new ObservableCollection<SanPham>(
+                         DataProvider.Ins.DB.SanPhams.Where(
+                             x => x.DonVi.TenDV.ToString().Contains(ContentSearch)));
                     break;
                 default:
                     break;

@@ -25,17 +25,17 @@ namespace CuaHangVangBacDaQuyTests.ImportOrder
             viewModel = new ImportReceiptViewModel();
         }
 
-        [TestCase(0, 0, 10)]
-        [TestCase(0, 1, 8)]
+        [TestCase(0, 0, 11)]
+        [TestCase(0, 1, 9)]
         [TestCase(0, 2, 9)]
         [TestCase(0, 3, 0)]
         [TestCase(0, 4, 0)]
 
-        [TestCase(1, 0, 10)]
-        [TestCase(1, 1, 5)]
+        [TestCase(1, 0, 11)]
+        [TestCase(1, 1, 6)]
         [TestCase(1, 2, 0)]
         [TestCase(1, 3, 2)]
-        [TestCase(1, 4, 3)]
+        [TestCase(1, 4, 4)]
 
         public void FindImportOrder(int typeSearchIdx, int textSearchIdx, int expect)
         {

@@ -27,20 +27,20 @@ namespace CuaHangVangBacDaQuyTests.Product
         [TestCase("Kim cương", 1, 1, null, false)]
         //productname check
         [TestCase("Nhẫn 101", 1, 1, 1, true)]
-        [TestCase("Nhẫn 102", 1, 1, 1, false)]
+        [TestCase("Nhẫn 102", 1, 1, 1, true)]
         [TestCase("Vòng 111", 1, 1, 1, true)]
-        [TestCase("Kim cương", 1, 1, 1, true)]
+        [TestCase("Kim cương", 1, 1, 1, false)]
         //product price check
         [TestCase("Kim cương", -1, 1, 1, false)]
         [TestCase("Kim cương", 0, 1, 1, false)]
-        [TestCase("Kim cương", 1000000, 1, 1, true)]
+        [TestCase("Kim cương", 1000000, 1, 1, false)]
         //product type check
         [TestCase("Kim cương", 1, 0, 1, false)]
-        [TestCase("Kim cương", 1, 5, 1, true)]
+        [TestCase("Kim cương", 1, 5, 1, false)]
         [TestCase("Kim cương", 1, 6, 1, false)]
         //product unit check
         [TestCase("Kim cương", 1, 1, 0, false)]
-        [TestCase("Kim cương", 1, 1, 4, true)]
+        [TestCase("Kim cương", 1, 1, 4, false)]
         [TestCase("Kim cương", 1, 1, 5, false)]
 
 

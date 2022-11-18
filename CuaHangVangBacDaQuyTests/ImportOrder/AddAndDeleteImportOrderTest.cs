@@ -56,6 +56,7 @@ namespace CuaHangVangBacDaQuyTests.ImportOrder
             string a = supplierNames[supplierIdx];
             string b = products[productIdx];
             viewModel.code = code;
+            viewModel2.isTest = true;
             viewModel.SelectedSupplier = DataProvider.Ins.DB.NhaCungCaps.Where(x => x.TenNCC == a).FirstOrDefault();          
             viewModel.SelectedProductList = new ObservableCollection<ChiTietPhieuMua>() {
                 new ChiTietPhieuMua() {

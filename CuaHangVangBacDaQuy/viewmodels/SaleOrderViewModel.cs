@@ -141,12 +141,17 @@ namespace CuaHangVangBacDaQuy.viewmodels
            
 
         }
+        public bool isTest;
         public void DeleteSaleOrder()
         {
-            if (MessageBox.Show("Bạn có chắc chắc muốn xóa phiếu mua " + SelectedSaleOrder.MaPhieu + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if (!isTest)
             {
-                return;
+                if (MessageBox.Show("Bạn có chắc chắc muốn xóa phiếu mua " + SelectedSaleOrder.MaPhieu + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                    return;
+                }
             }
+            
             ObservableCollection<ChiTietPhieuBan> deleteChiTietPhieuBans = new ObservableCollection<ChiTietPhieuBan>(DataProvider.Ins.DB.ChiTietPhieuBans.Where(x => x.MaPhieu == SelectedSaleOrder.MaPhieu));
             foreach (ChiTietPhieuBan ctphieu in deleteChiTietPhieuBans)
             {

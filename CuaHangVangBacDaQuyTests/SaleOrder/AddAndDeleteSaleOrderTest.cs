@@ -42,6 +42,7 @@ namespace CuaHangVangBacDaQuyTests.SaleOrder
         [TestCase(1, 3, 2, true)]
         [TestCase(1, 3, 3, true)]
         [TestCase(1, 3, 4, false)]
+
         [TestCase(2, 1, 2, true)]
         [TestCase(2, 1, 3, true)]
         [TestCase(2, 1, 4, false)]
@@ -60,6 +61,7 @@ namespace CuaHangVangBacDaQuyTests.SaleOrder
             string a = supplierNames[supplierIdx];
             string b = products[productIdx];
             viewModel.code = code;
+            viewModel2.isTest = true;
             viewModel.SelectedCustomer = DataProvider.Ins.DB.KhachHangs.Where(x => x.TenKH == a).FirstOrDefault();
             viewModel.SelectedProductList = new ObservableCollection<ChiTietPhieuBan>() {
                 new ChiTietPhieuBan() {

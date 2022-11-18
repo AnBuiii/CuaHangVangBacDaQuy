@@ -20,17 +20,17 @@ namespace CuaHangVangBacDaQuyTests.SaleOrder
             viewModel = new SaleOrderViewModel();
         }
 
-        [TestCase(0, 0, 10)]
-        [TestCase(0, 1, 8)]
-        [TestCase(0, 2, 9)]
+        [TestCase(0, 0, 9)]
+        [TestCase(0, 1, 6)]
+        [TestCase(0, 2, 8)]
         [TestCase(0, 3, 0)]
         [TestCase(0, 4, 0)]
 
-        [TestCase(1, 0, 10)]
+        [TestCase(1, 0, 9)]
         [TestCase(1, 1, 0)]
         [TestCase(1, 2, 0)]
         [TestCase(1, 3, 2)]
-        [TestCase(1, 4, 3)]
+        [TestCase(1, 4, 2)]
 
         public void FindSaleOrder(int typeSearchIdx, int textSearchIdx, int expect)
         {

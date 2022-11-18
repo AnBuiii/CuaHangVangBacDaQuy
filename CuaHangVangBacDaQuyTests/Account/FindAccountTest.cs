@@ -27,9 +27,9 @@ namespace CuaHangVangBacDaQuyTests.Account
         [TestCase(0, 4, 0)]
 
         [TestCase(1, 0, 3)]
-        [TestCase(1, 1, 1)]
-        [TestCase(1, 2, 1)]
-        [TestCase(1, 3, 1)]
+        [TestCase(1, 1, 0)]
+        [TestCase(1, 2, 0)]
+        [TestCase(1, 3, 0)]
         [TestCase(1, 4, 0)]
 
         [TestCase(2, 0, 3)]
@@ -38,7 +38,7 @@ namespace CuaHangVangBacDaQuyTests.Account
         [TestCase(2, 3, 1)]
         [TestCase(2, 4, 0)]
 
-        public void FindCustomer(int typeSearchIdx, int textSearchIdx, int expect)
+        public void FindAccount(int typeSearchIdx, int textSearchIdx, int expect)
         {
 
             viewModel.SelectedSearchType = typeSearchs[typeSearchIdx];

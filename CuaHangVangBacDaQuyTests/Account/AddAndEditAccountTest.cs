@@ -7,7 +7,7 @@ using System.Linq;
 namespace CuaHangVangBacDaQuyTests.Account
 {
     [TestFixture]
-    internal class AddAccountTest
+    internal class AddAndEditAccountTest
     {
         private AddOrEditAccountViewModel viewModel;
         private readonly List<string> accountUsernames = new List<string> { null, "(@#$%", "admin", "hm" };
@@ -56,7 +56,7 @@ namespace CuaHangVangBacDaQuyTests.Account
 
 
 
-        public void AddAccount(int usernameIdx, int namesIdx, int passwordIdx, int permissionsIdx, bool expect)
+        public void AddAndEditAccount(int usernameIdx, int namesIdx, int passwordIdx, int permissionsIdx, bool expect)
         {
             viewModel.AccountUsername = accountUsernames[usernameIdx];
             viewModel.AccountName = accountNames[namesIdx];
@@ -75,6 +75,7 @@ namespace CuaHangVangBacDaQuyTests.Account
                 DataProvider.Ins.DB.SaveChanges();
             }
             Assert.AreEqual(expect, a != null);
+            Assert.AreEqual(true, DataProvider.Ins.DB.NguoiDungs.Where(x => x.MaND == code).FirstOrDefault() == null);
         }
     }
 }

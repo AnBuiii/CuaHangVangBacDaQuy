@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CuaHangVangBacDaQuyTests.MakeOrder
+namespace CuaHangVangBacDaQuyTests.ImportOrder
 {
 
 
     [TestFixture]
-    internal class FindMakeOrderTest
+    internal class FindImportOrderTest
     {
 
         private ImportReceiptViewModel viewModel;
@@ -37,7 +37,7 @@ namespace CuaHangVangBacDaQuyTests.MakeOrder
         [TestCase(1, 3, 2)]
         [TestCase(1, 4, 3)]
 
-        public void FindMakeOrder(int typeSearchIdx, int textSearchIdx, int expect)
+        public void FindImportOrder(int typeSearchIdx, int textSearchIdx, int expect)
         {
 
             viewModel.SelectedSearchType = typeSearchs[typeSearchIdx];

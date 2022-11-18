@@ -9,7 +9,7 @@ using System.Linq;
 namespace CuaHangVangBacDaQuyTests.Product
 {
     [TestFixture]
-    internal class AddProductTest
+    internal class AddAndDeleteProductTest
     {
         private ProductViewModel productViewModel;
         private AddOrEditProductViewModel addOrEditProductViewModel;
@@ -21,26 +21,26 @@ namespace CuaHangVangBacDaQuyTests.Product
         }
         //null check
         [TestCase(null, 0, 1, 1, false)]
-        [TestCase("Kim cương", null, 1, 1, false)]
-        [TestCase("Kim cương", 1, null, 1, false)]
-        [TestCase("Kim cương", 1, 1, null, false)]
+        [TestCase("Vòng 111", null, 1, 1, false)]
+        [TestCase("Vòng 111", 1, null, 1, false)]
+        [TestCase("Vòng 111", 1, 1, null, false)]
         //productname check
-        [TestCase("Nhẫn 101", 1, 1, 1, false)]
+        [TestCase("Nhẫn 101", 1, 1, 1, true)]
         [TestCase("Nhẫn 102", 1, 1, 1, false)]
+        [TestCase("Nhẫn bạc", 1, 1, 1, true)] 
         [TestCase("Vòng 111", 1, 1, 1, true)]
-        [TestCase("Kim cương", 1, 1, 1, true)]
         //product price check
-        [TestCase("Kim cương", -1, 1, 1, false)]
-        [TestCase("Kim cương", 0, 1, 1, false)]
-        [TestCase("Kim cương", 1000000, 1, 1, true)]
+        [TestCase("Vòng 111", -1, 1, 1, false)]
+        [TestCase("Vòng 111", 0, 1, 1, false)]
+        [TestCase("Vòng 111", 1000000, 1, 1, true)]
         //product type check
-        [TestCase("Kim cương", 1, 0, 1, false)]
-        [TestCase("Kim cương", 1, 5, 1, true)]
-        [TestCase("Kim cương", 1, 6, 1, false)]
+        [TestCase("Vòng 111", 1, 0, 1, false)]
+        [TestCase("Vòng 111", 1, 5, 1, true)]
+        [TestCase("Vòng 111", 1, 6, 1, false)]
         //product unit check
-        [TestCase("Kim cương", 1, 1, 0, false)]
-        [TestCase("Kim cương", 1, 1, 4, true)]
-        [TestCase("Kim cương", 1, 1, 5, false)]
+        [TestCase("Vòng 111", 1, 1, 0, false)]
+        [TestCase("Vòng 111", 1, 1, 4, true)]
+        [TestCase("Vòng 111", 1, 1, 5, false)]
 
 
 
@@ -56,15 +56,16 @@ namespace CuaHangVangBacDaQuyTests.Product
             addOrEditProductViewModel.SelectedTypeProduct = addOrEditProductViewModel.TypeProductList.Where(x => x.MaLoaiSP == typeCode).FirstOrDefault();
             addOrEditProductViewModel.SelectedUnit = addOrEditProductViewModel.UnitList.Where(x => x.MaDV == unitCode).FirstOrDefault();
             addOrEditProductViewModel.ActionAddProduct();
-            SanPham a = DataProvider.Ins.DB.SanPhams.Where(x => x.MaSP == productCode).FirstOrDefault();
+            SanPham preDeleteCheck = DataProvider.Ins.DB.SanPhams.Where(x => x.MaSP == productCode).FirstOrDefault();
           
-            if (a != null)
+            if (preDeleteCheck != null)
             {
-                DataProvider.Ins.DB.SanPhams.Attach(a);
-                DataProvider.Ins.DB.SanPhams.Remove(a);
+                DataProvider.Ins.DB.SanPhams.Attach(preDeleteCheck);
+                DataProvider.Ins.DB.SanPhams.Remove(preDeleteCheck);
                 DataProvider.Ins.DB.SaveChanges();
             }
-            Assert.AreEqual(expect, a != null);
+            Assert.AreEqual(expect, preDeleteCheck != null);
+            Assert.AreEqual(true, DataProvider.Ins.DB.SanPhams.Where(x => x.MaSP == productCode).FirstOrDefault() == null);
 
         }
 

@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
-    public class AddOrEditSaleOrderViewModel:BaseViewModel
+    public class AddOrEditSaleOrderViewModel : BaseViewModel
     {
         #region
         // các biến cho view chính này
@@ -254,6 +254,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         public AddOrEditSaleOrderViewModel()
         {
 
+            SelectedCustomersList = new ObservableCollection<KhachHang>();
+            SelectedProductList = new ObservableCollection<ChiTietPhieuBan>();
 
         }
         //constructor cho việc tạo phiếu bán hàng mới 
@@ -268,8 +270,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             SaleOrdersList = saleOrdersList;
 
 
-            SaveCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => AddNewImportReceipt());
-            CancelCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => CheckCloseDiaLog());
+            SaveCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => AddNewSaleOrder());
+            CancelCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => CheckCloseDiaLog());
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct("UNSAVED"));
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
 
@@ -290,7 +292,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             SelectedSaleOrder = selectedSaleOrder;
 
 
-            SaveCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => EditImportReceipt());
+            SaveCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => EditSaleOrder());
             CancelCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => CheckCloseDiaLog());
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct("SAVED"));
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
@@ -351,31 +353,41 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         {
             foreach (var product in SelectedProductList)
             {
-                if(CaculateInventoryConverter.CaculateInventory(product.MaSP) <= 0)
+                if (CaculateInventoryConverter.CaculateInventory(product.MaSP) <= 0)
                 {
-                    MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " đã hết hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    if (product.SanPham != null)
+                        MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " đã hết hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
 
                 if (CaculateInventoryConverter.CaculateInventory(product.MaSP) < product.SoLuong)
                 {
-                    MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " không đủ hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    if (product.SanPham != null)
+                    {
+                        MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " không đủ hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+
                     return false;
                 }
             }
             return true;
         }
-
-        private void AddNewImportReceipt()
+        public string code;
+        public void AddNewSaleOrder()
         {
-            
+
 
             if (!CheckValidFieldInDialog()) return;
-            if(!CheckProductStock()) return;
+            if (!CheckProductStock()) return;
+
+            if (string.IsNullOrEmpty(code))
+            {
+                code = Guid.NewGuid().ToString();
+            }
 
             PhieuBan newSaleOrder = new PhieuBan()
             {
-                MaPhieu = Guid.NewGuid().ToString(),
+                MaPhieu = code,
                 NgayLap = DateTime.Now,
                 MaKH = SelectedCustomer.MaKH,
 
@@ -400,11 +412,15 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             }
             DataProvider.Ins.DB.SaveChanges();
-            SaleOrdersList.Add(newSaleOrder);
-            OpenThisDiaLog.IsOpen = false;
+            if (OpenThisDiaLog != null)
+            {
+                SaleOrdersList.Add(newSaleOrder);
+                OpenThisDiaLog.IsOpen = false;
+            }
+
 
         }
-        private void EditImportReceipt()
+        public void EditSaleOrder()
         {
             OpenThisDiaLog.IsOpen = false;
             var editedSaleOrder = DataProvider.Ins.DB.PhieuBans.Where(i => i.MaPhieu == SelectedSaleOrder.MaPhieu).SingleOrDefault();
@@ -417,7 +433,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 DataProvider.Ins.DB.ChiTietPhieuBans.Remove(selectedProduct);
 
             }
-         
+
             foreach (var item in InsertProductsList)
             {
 
@@ -444,7 +460,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         {
             if (SelectedCustomersList == null || SelectedCustomersList.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn nhà cung cấp!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Vui lòng chọn khách hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
             if (SelectedProductList == null || SelectedProductList.Count == 0)

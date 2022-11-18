@@ -10,10 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace CuaHangVangBacDaQuyTests.MakeOrder
+namespace CuaHangVangBacDaQuyTests.ImportOrder
 {
     [TestFixture]
-    internal class AddMakeOrderTest
+    internal class AddAndDeleteImportOrderTest
     {
         private AddOrEditImportReceiptViewModel viewModel;
         private ImportReceiptViewModel viewModel2;
@@ -35,22 +35,22 @@ namespace CuaHangVangBacDaQuyTests.MakeOrder
         //[TestCase(2, 3, 0, true)]
         //[TestCase(2, 3, 1, true)]
 
-        [TestCase(1, 1, 1, true)]
         [TestCase(1, 1, 2, true)]
-        [TestCase(1, 2, 1, true)]
+        [TestCase(1, 1, 3, true)]
         [TestCase(1, 2, 2, true)]
-        [TestCase(1, 3, 1, true)]
+        [TestCase(1, 2, 3, true)]
         [TestCase(1, 3, 2, true)]
-        [TestCase(2, 1, 1, true)]
+        [TestCase(1, 3, 3, true)]
         [TestCase(2, 1, 2, true)]
-        [TestCase(2, 2, 1, true)]
+        [TestCase(2, 1, 3, true)]
         [TestCase(2, 2, 2, true)]
-        [TestCase(2, 3, 1, true)]
+        [TestCase(2, 2, 3, true)]
         [TestCase(2, 3, 2, true)]
+        [TestCase(2, 3, 3, true)]
 
 
 
-        public void AddMakeOrder(int supplierIdx, int productIdx, int amountIdx, bool expect)
+        public void AddAndDeleteImportOrder(int supplierIdx, int productIdx, int amountIdx, bool expect)
         {
             string code = Guid.NewGuid().ToString();
             string a = supplierNames[supplierIdx];
@@ -63,11 +63,16 @@ namespace CuaHangVangBacDaQuyTests.MakeOrder
                     SoLuong = productAmounts[amountIdx]}
             };
             viewModel.AddNewImportReceipt();
-            PhieuMua check = DataProvider.Ins.DB.PhieuMuas.Where(x => x.MaPhieu == code).FirstOrDefault();
+            PhieuMua preDeletecheck = DataProvider.Ins.DB.PhieuMuas.Where(x => x.MaPhieu == code).FirstOrDefault();
 
-            viewModel2.SelectedImportReceipt = DataProvider.Ins.DB.PhieuMuas.Where(x => x.MaPhieu == code).FirstOrDefault();
-            viewModel2.DeleteImportReceipt();
-            Assert.AreEqual(expect, check != null);
+            if(preDeletecheck != null)
+            {
+                viewModel2.SelectedImportReceipt = DataProvider.Ins.DB.PhieuMuas.Where(x => x.MaPhieu == code).FirstOrDefault();
+                viewModel2.DeleteImportReceipt();
+            }
+            
+            Assert.AreEqual(expect, preDeletecheck != null);
+            Assert.AreEqual(expect, DataProvider.Ins.DB.PhieuMuas.Where(x => x.MaPhieu == code).FirstOrDefault() == null);
 
         }
     }

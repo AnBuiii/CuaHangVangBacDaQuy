@@ -113,29 +113,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             }
         }
-
-        private AddOrEditSupplierViewModel _ContentAddSupplier;
-        public AddOrEditSupplierViewModel ContentAddSupplier
-        {
-            get => _ContentAddSupplier;
-            set
-            {
-                _ContentAddSupplier = value;
-                OnPropertyChanged();
-
-            }
-        }
-
-
-
-        private OpenDiaLog _IsOpenAddSupplierDialog;
-        public OpenDiaLog IsOpenAddSupplierDialog
-        {
-            get { return _IsOpenAddSupplierDialog; }
-            set { _IsOpenAddSupplierDialog = value; OnPropertyChanged(); }
-        }
-
-        public ICommand AddSupplierCommand { get; set; }
         public ICommand RemoveSelectedSupplierCommand { get; set; }
 
         #endregion
@@ -218,30 +195,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
 
-        private OpenDiaLog _IsOpenAddProductDialog;
-        public OpenDiaLog IsOpenAddProductDialog
-        {
-            get { return _IsOpenAddProductDialog; }
-            set { _IsOpenAddProductDialog = value; OnPropertyChanged(); }
-        }
-
-
-        private AddOrEditProductViewModel _ContentAddProduct;
-        public AddOrEditProductViewModel ContentAddProduct
-        {
-            get => _ContentAddProduct;
-            set
-            {
-                _ContentAddProduct = value;
-                OnPropertyChanged();
-
-            }
-        }
-
-        public ICommand AddProductCommand { get; set; }
-
-
-
         #endregion
 
 
@@ -303,42 +256,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
 
         }
-        #region funtion for Select Supplier and product
-        private void InitializeValueToSelect()
-        {
-            //for select supplier
-            SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
-            IsOpenAddSupplierDialog = new OpenDiaLog() { IsOpen = false };
-            AddSupplierCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => { OpenDialogAddSupplier(); });
-            RemoveSelectedSupplierCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => { SelectedSuppliersList.Clear(); });
-
-            //for select product
-            SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
-            IsOpenAddProductDialog = new OpenDiaLog() { IsOpen = false };
-            AddProductCommand = new RelayCommand<AddOrEditImportReceiptUC>(p => true, p => { OpenDialogAddProduct(); });
-            //RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct());
-            CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
-        }
-
-        public void OpenDialogAddSupplier()
-        {
-
-            ContentAddSupplier = new AddOrEditSupplierViewModel("Thêm nhà cung cấp mới", ref _IsOpenAddSupplierDialog, ref _SelectedSuppliersList);
-            IsOpenAddSupplierDialog.IsOpen = true;
-        }
-
-        public void OpenDialogAddProduct()
-        {
-
-            ContentAddProduct = new AddOrEditProductViewModel("Thêm sản phẩm mới", ref _IsOpenAddProductDialog, ref _SelectedProductList);
-            IsOpenAddProductDialog.IsOpen = true;
-        }
-
-
-
-        #endregion
-
-
 
         #region Funtion for creating or editing the Receipt
         void RemoveSelectedProduct(string caseRemove)

@@ -48,7 +48,7 @@ namespace CuaHangVangBacDaQuy.models
 
         private LoaiSanPham _LoaiSanPham;
         public virtual LoaiSanPham LoaiSanPham { get => _LoaiSanPham; set { _LoaiSanPham = value; OnPropertyChanged(); } }
-      
 
+        
     }
 }

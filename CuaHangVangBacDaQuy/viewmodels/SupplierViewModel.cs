@@ -78,7 +78,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             IsOpenDiaLog = new OpenDiaLog() { IsOpen = false };
             SearchTypes = new List<string> { "Mã nhà cung cấp", "Tên nhà cung cấp", "Địa chỉ", "Số điện thoại", };
-            SelectedSearchType = SearchTypes[1];
+            SelectedSearchType = SearchTypes[0];
             SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
             SuppliersList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
             AddCommand = new RelayCommand<SupplierViewModel>((p) => true, p => ActionDiaLog("Add"));
@@ -148,7 +148,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             var deletedSupplier = DataProvider.Ins.DB.NhaCungCaps.Where(c => c.MaNCC == SelectedSupplier.MaNCC).SingleOrDefault();
             if (DataProvider.Ins.DB.PhieuMuas.Where(s => s.NhaCungCap.MaNCC == deletedSupplier.MaNCC).Count() > 0)
             {
-                MessageBox.Show("Nhà cung cấp " + deletedSupplier.TenNCC + " đã từng giao dịch, vui lòng xóa đơn mua hàng trước khi xóa thông tin khách hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Nhà cung cấp " + deletedSupplier.TenNCC + " đã từng giao dịch, vui lòng xóa đơn mua hàng liên quan trước khi xóa nhà cung cấp!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (MessageBox.Show("Bạn có chắc chắc muốn xóa nhà cung cấp " + deletedSupplier.TenNCC + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)

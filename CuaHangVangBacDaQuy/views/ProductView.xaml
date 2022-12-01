@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:ucDialog="clr-namespace:CuaHangVangBacDaQuy.views.userControlDialog"
              DataContext="{StaticResource ProductVM}"
              x:Name="ProductUC"
@@ -17,33 +17,29 @@
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
-             FontFamily="{DynamicResource MaterialDesignFont}"
-             >
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded" >
-            <i:InvokeCommandAction Command="{Binding LoadedCommand}"
-                                   CommandParameter="{Binding ElementName=ProductUC}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+             FontFamily="{DynamicResource MaterialDesignFont}">
+
     <Grid>
         <!--DiaLog Add New Product-->
-        <materialDesign:DialogHost  VerticalAlignment="Top"
-                                   Identifier="AccountDialog"
-                                   CloseOnClickAway="True"
+        <materialDesign:DialogHost CloseOnClickAway="True"
                                    DialogTheme="Inherit"
-                                   IsOpen="{Binding IsOpenProductDialog.IsOpen}"
-                                   >
+                                   IsOpen="{Binding IsOpenProductDialog.IsOpen , Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             <materialDesign:DialogHost.DialogContent>
-                <ucDialog:AddOrEditProductUC DataContext="{Binding ContentAddProduct}"/>
+                <ucDialog:AddOrEditProductUC DataContext="{Binding ContentAddProduct}" />
             </materialDesign:DialogHost.DialogContent>
-            <!--content View product-->
+
+
+
+
+            <!--end dialog-->
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
+
                 <materialDesign:Card Grid.Row="0"
-                                 Margin="5">
+                                     Margin="5">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />
@@ -51,19 +47,19 @@
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Sản phẩm"
-                               Grid.Column="0"
-                               FontSize="24"
-                               FontWeight="Bold"
-                               HorizontalAlignment="Stretch"
-                               Margin="8 8 0 8"
-                               Foreground="{StaticResource PrimaryHueDarkBrush}"
-                               VerticalAlignment="Center" />
+                                   Grid.Column="0"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Stretch"
+                                   Margin="8 8 0 8"
+                                   Foreground="{StaticResource PrimaryHueDarkBrush}"
+                                   VerticalAlignment="Center" />
 
                         <Grid Grid.Column="1"
-                          Margin="30 0 20 0">
+                              Margin="30 0 20 0">
                             <Grid.Resources>
                                 <SolidColorBrush x:Key="PrimaryHueMidBrush"
-                                             Color="Transparent" />
+                                                 Color="Transparent" />
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width=".2*" />
@@ -72,25 +68,25 @@
                                 <ColumnDefinition Width=".2*" />
                             </Grid.ColumnDefinitions>
                             <ComboBox x:Name="cbbSearch"
-                                  BorderThickness="0.2"
-                                  Padding="8 2 2 2"
-                                  BorderBrush="{StaticResource PrimaryHueDarkBrush}"
-                                  ItemsSource="{Binding SearchTypes}"
-                                  SelectedItem="{Binding SelectedSearchType}"
-                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                  VerticalContentAlignment="Center">
+                                      BorderThickness="0.2"
+                                      Padding="8 2 2 2"
+                                      BorderBrush="{StaticResource PrimaryHueDarkBrush}"
+                                      ItemsSource="{Binding SearchTypes}"
+                                      SelectedItem="{Binding SelectedSearchType}"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                      VerticalContentAlignment="Center">
                             </ComboBox>
                             <Separator Grid.Column="1"
-                                   Background="{StaticResource PrimaryHueDarkBrush}"
-                                   Margin="8 0 8 0" />
+                                       Background="{StaticResource PrimaryHueDarkBrush}"
+                                       Margin="8 0 8 0" />
                             <TextBox Grid.Column="2"
-                                 Margin="5 0"
-                                 CaretBrush="Black"
-                                 VerticalContentAlignment="Center"
-                                 FontSize="16"
-                                 Text="{Binding ContentSearch,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                 materialDesign:HintAssist.Hint="Tìm kiếm."
-                                 BorderBrush="Transparent">
+                                     Margin="5 0"
+                                     CaretBrush="Black"
+                                     VerticalContentAlignment="Center"
+                                     FontSize="16"
+                                     Text="{Binding ContentSearch,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                     materialDesign:HintAssist.Hint="Tìm kiếm."
+                                     BorderBrush="Transparent">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="TextChanged">
                                         <i:InvokeCommandAction Command="{Binding SearchCommand}" />
@@ -98,76 +94,66 @@
                                 </i:Interaction.Triggers>
                                 <TextBox.InputBindings>
                                     <KeyBinding Command="{Binding SearchCommand}"
-                                            Key="Return" />
+                                                Key="Return" />
                                 </TextBox.InputBindings>
                             </TextBox>
                         </Grid>
 
                         <Button Grid.Column="2"
-                            HorizontalAlignment="Right"
-                            Margin="4"
-                            Padding="20 0 20 0"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Name="btNewAccount"
-                            Command="{Binding AddCommand}">
+                                HorizontalAlignment="Right"
+                                Margin="4"
+                                Padding="20 0 20 0"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Name="btNewAccount"
+                                Command="{Binding AddCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="PlusCircle"
-                                                     VerticalAlignment="Center"
-                                                     Width="16"
-                                                     Height="16" />
+                                                         VerticalAlignment="Center"
+                                                         Width="16"
+                                                         Height="16" />
                                 <Separator Margin="5" />
                                 <TextBlock Text="Thêm"
-                                       FontSize="16"
-                                       VerticalAlignment="Center" />
+                                           FontSize="16"
+                                           VerticalAlignment="Center" />
                             </StackPanel>
                         </Button>
                     </Grid>
                 </materialDesign:Card>
 
                 <materialDesign:Card Grid.Row="1"
-                                 Margin="5"
-                                Height="auto"
-                                     VerticalAlignment="Stretch"
-                                 >
+                                     Margin="5"
+                                     VerticalAlignment="Stretch">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <!--<ScrollViewer.MaxHeight>
-                        <Binding Path="Height" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}" ></Binding>
-                    </ScrollViewer.MaxHeight>-->
+
                         <DataGrid ItemsSource="{Binding ProductsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              CanUserResizeColumns="False"
-                              IsReadOnly="False"
-                              CanUserAddRows="False"
-                              AutoGenerateColumns="False"
-                              SelectionMode="Single"
-                              MaxHeight="680"
-                              >
+                                  SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  CanUserResizeColumns="False"
+                                  IsReadOnly="False"
+                                  CanUserAddRows="False"
+                                  AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Mã sản phẩm"
-                                                Binding="{Binding MaSP}"
-                                                IsReadOnly="True" />
                                 <DataGridTextColumn Header="Tên sản phẩm"
-                                                Binding="{Binding TenSP}"
-                                                IsReadOnly="True" />
+                                                    Binding="{Binding TenSP}"
+                                                    IsReadOnly="True" />
                                 <DataGridTextColumn Header="Đơn giá"
-                                                Binding="{Binding DonGia, Converter={StaticResource DecimalConverterKey}}"
-                                                IsReadOnly="True" />
+                                                    Binding="{Binding DonGia, Converter={StaticResource DecimalConverterKey}}"
+                                                    IsReadOnly="True" />
                                 <DataGridTextColumn Header="Loại sản phẩm"
-                                                Binding="{Binding LoaiSanPham.TenLoaiSP,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                IsReadOnly="True" />
+                                                    Binding="{Binding LoaiSanPham.TenLoaiSP,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsReadOnly="True" />
                                 <DataGridTextColumn Header="Đơn vị"
-                                                Binding="{Binding DonVi.TenDV,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                IsReadOnly="True" />
+                                                    Binding="{Binding DonVi.TenDV,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsReadOnly="True" />
 
                                 <DataGridTemplateColumn x:Name="editBtn">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button Width="40"
-                                                Padding="0"
-                                                Background="{StaticResource PrimaryHueDarkBrush}"
-                                                Style="{StaticResource MaterialDesignRaisedButton}"
-                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.EditCommand}"
-                                                CommandParameter="{Binding ElementName=editBtn}">
+                                                    Padding="0"
+                                                    Background="{StaticResource PrimaryHueDarkBrush}"
+                                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                                    Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.EditCommand}"
+                                                    CommandParameter="{Binding ElementName=editBtn}">
                                                 <materialDesign:PackIcon Kind="Edit" />
                                             </Button>
                                         </DataTemplate>
@@ -177,12 +163,10 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button Width="40"
-                                                Padding="0"
-                                                Background="{StaticResource PrimaryHueDarkBrush}"
-                                               
-                                                Style="{StaticResource MaterialDesignRaisedButton}"
-                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteCommand}"
-                                                >
+                                                    Padding="0"
+                                                    Background="{StaticResource PrimaryHueDarkBrush}"
+                                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                                    Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteCommand}">
                                                 <materialDesign:PackIcon Kind="Delete" />
                                             </Button>
                                         </DataTemplate>
@@ -193,9 +177,7 @@
                     </ScrollViewer>
                 </materialDesign:Card>
             </Grid>
-            <!--end View product-->
         </materialDesign:DialogHost>
-        <!--end dialog-->
-        
+
     </Grid>
 </UserControl>

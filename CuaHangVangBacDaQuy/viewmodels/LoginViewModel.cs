@@ -36,15 +36,16 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             if (p == null)
                 return;
+            if(string.IsNullOrWhiteSpace(UserName) || string.IsNullOrWhiteSpace(Password)) { MessageBox.Show("Thiếu thông tin đăng nhập"); return; }
 
             string passEncode = MD5Hash(Base64Encode(Password));
-            var accCount = DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == UserName && x.MatKhau == passEncode).Count();
+            var accCount = DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == UserName && x.MatKhau == passEncode).FirstOrDefault();
    
 
-            if (accCount > 0)
+            if (accCount != null)
             {
                 IsLogin = true;
-
+                MessageBox.Show("Xin chào " + accCount.QuyenHan.TenQH + " "+ accCount.TenND);
                 p.Close();
             }
             else

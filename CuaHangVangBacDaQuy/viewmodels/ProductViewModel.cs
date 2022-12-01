@@ -93,10 +93,9 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ProductViewModel()
         {
             IsOpenProductDialog = new OpenDiaLog() { IsOpen = false };
-            SearchTypes = new List<string> { "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Đơn vị"};
-            SelectedSearchType = SearchTypes[1];
-            ProductsList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
-            LoadedCommand = new RelayCommand<ProductView>(p => true, p => Loaded(p));          
+            SearchTypes = new List<string> { "Tên sản phẩm", "Loại sản phẩm", "Đơn vị"};
+            SelectedSearchType = SearchTypes[0];
+            ProductsList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);       
             AddCommand = new RelayCommand<CustomerView>((p) => true, p => ActionDiaLog("Add"));
             EditCommand = new RelayCommand<DataGridTemplateColumn>((p) => true, p => ActionDiaLog("Edit"));
             DeleteCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => DeleteProduct());
@@ -107,11 +106,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             switch (SelectedSearchType)
             {
-                case "Mã sản phẩm":
-                    ProductsList = new ObservableCollection<SanPham>(
-                        DataProvider.Ins.DB.SanPhams.Where(
-                            x => x.MaSP.ToString().Contains(ContentSearch)));
-                    break;
                 case "Tên sản phẩm":
                     ProductsList = new ObservableCollection<SanPham>(
                          DataProvider.Ins.DB.SanPhams.Where(
@@ -132,10 +126,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
         }
 
-        public void Loaded(ProductView weddingHallUC)
-        {
-
-        }
+       
 
         private void ActionDiaLog(string caseDiaLog)
         {
@@ -168,11 +159,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
             if (DataProvider.Ins.DB.ChiTietPhieuMuas.Where(d => d.SanPham.MaSP == deletedProduct.MaSP).Count() > 0)
             {
                 MessageBox.Show("Sản phẩm " + deletedProduct.TenSP + " đã từng được nhập vào kho, vui lòng kiểm tra thông đơn mua hàng trước khi xóa sản phẩm!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            if (DataProvider.Ins.DB.ChiTietPhieuBans.Where(d => d.SanPham.MaSP == deletedProduct.MaSP).Count() > 0)
-            {
-                MessageBox.Show("Sản phẩm " + deletedProduct.TenSP + " đã từng được bán, vui lòng kiểm tra thông tin đơn bán hàng trước khi xóa sản phẩm!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (MessageBox.Show("Bạn có chắc chắc muốn xóa sản phẩm " + deletedProduct.TenSP+ " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)

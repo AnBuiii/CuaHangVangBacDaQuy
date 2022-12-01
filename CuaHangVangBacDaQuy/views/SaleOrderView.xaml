@@ -741,11 +741,8 @@
                                                 Binding="{Binding MaPhieu}"
                                                 IsReadOnly="True" />
                                 <DataGridTextColumn Header="Ngày lập phiếu"
-                                                Binding="{Binding NgayLap}"
-                                                IsReadOnly="True" />
-                                <DataGridTextColumn Header="Mã khách hàng"
-                                                Binding="{Binding MaKH}"
-                                                IsReadOnly="True" />
+                                                    Binding="{Binding NgayLap}"
+                                                    IsReadOnly="True" />
                                 <DataGridTextColumn Header="Tên khách hàng"
                                                 Binding="{Binding KhachHang.TenKH}"
                                                 IsReadOnly="True" />

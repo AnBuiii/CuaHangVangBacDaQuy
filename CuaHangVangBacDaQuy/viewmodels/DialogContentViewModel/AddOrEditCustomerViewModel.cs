@@ -92,7 +92,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             CustomerList = customersList;
 
             CancelCommand = new RelayCommand<AddOrEditCustomerUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddOrEditCustomerUC>((p) => CheckEmptyFieldDialog(), p => ActionAddCustomer());
+            SaveCommand = new RelayCommand<AddOrEditCustomerUC>((p) => true, p => ActionAddCustomer());
           
 
         }
@@ -104,7 +104,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             CustomerList = customersList;
             EditedCustomer = editedCustomer;
             CancelCommand = new RelayCommand<AddOrEditCustomerUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddOrEditCustomerUC>((p) => CheckEmptyFieldDialog(), p => ActionEditCustomer());
+            SaveCommand = new RelayCommand<AddOrEditCustomerUC>((p) => true, p => ActionEditCustomer());
            
             
         }
@@ -114,19 +114,36 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             if (EditedCustomer == null)
             {
-                if (DataProvider.Ins.DB.KhachHangs.Where(x => x.TenKH == CustomerName).Count() > 0) return false;
-                if (DataProvider.Ins.DB.KhachHangs.Where(x => x.SoDT == PhoneNumber).Count() > 0) return false;
+                if (DataProvider.Ins.DB.KhachHangs.Where(x => x.TenKH == CustomerName).Count() > 0)
+                {
+                    if (openDiaLog != null) MessageBox.Show("Tên khách hàng không được trùng");
+                    return false;
+                }
+                if (DataProvider.Ins.DB.KhachHangs.Where(x => x.SoDT == PhoneNumber).Count() > 0)
+                {
+                    if (openDiaLog != null) MessageBox.Show("Số điện thoại không được trùng");
+                    return false;
+                }
             }
             else
             {
                 if (CustomerName != EditedCustomer.TenKH)
                 {
-                    if (DataProvider.Ins.DB.KhachHangs.Where(x => x.TenKH == CustomerName).Count() > 0) return false;
+                    
+                    if (DataProvider.Ins.DB.KhachHangs.Where(x => x.TenKH == CustomerName).Count() > 0)
+                    {
+                        if (openDiaLog != null) MessageBox.Show("Tên khách hàng không được trùng");
+                        return false;
+                    }
                 }
                 if (PhoneNumber != EditedCustomer.SoDT)
                 {
-
-                    if (DataProvider.Ins.DB.KhachHangs.Where(x => x.SoDT == PhoneNumber).Count() > 0) return false;
+                    
+                    if (DataProvider.Ins.DB.KhachHangs.Where(x => x.SoDT == PhoneNumber).Count() > 0)
+                    {
+                        if (openDiaLog != null) MessageBox.Show("Số điện thoại không được trùng");
+                        return false;
+                    }
                 }
 
 
@@ -142,6 +159,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         {
             if (string.IsNullOrWhiteSpace(CustomerName) || string.IsNullOrWhiteSpace(Gender) || string.IsNullOrWhiteSpace(Address) || string.IsNullOrWhiteSpace(PhoneNumber))
             {
+                if (openDiaLog != null) MessageBox.Show("Các thông tin không được trống");
                 return false;
             }
             return true;
@@ -166,6 +184,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             DataProvider.Ins.DB.SaveChanges();
             if(openDiaLog != null)
             {
+                MessageBox.Show("Khách hàng " + newCus.TenKH + " đã được thêm thành công");
                 CustomerList.Add(newCus);
                 openDiaLog.IsOpen = false;
             }
@@ -181,17 +200,18 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             if (!CheckEmptyFieldDialog()) return;
             if (!CheckValidPhoneNumber() || !ValidCustomerCheck()) return;
 
-            if (openDiaLog != null)
-            {
-
-                openDiaLog.IsOpen = false;
-            }
+            
             var customer = DataProvider.Ins.DB.KhachHangs.Where(x => x.MaKH == EditedCustomer.MaKH).SingleOrDefault();          
             customer.TenKH = CustomerName;
             customer.GioiTinh = Gender;
             customer.DiaChi = Address;
             customer.SoDT = PhoneNumber;
             DataProvider.Ins.DB.SaveChanges();
+            if (openDiaLog != null)
+            {
+                MessageBox.Show("Khách hàng " + customer.TenKH + " đã được sửa thành công");
+                openDiaLog.IsOpen = false;
+            }
         }
 
 

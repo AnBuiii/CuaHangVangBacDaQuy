@@ -180,7 +180,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                         {
                             MaSP = SelectedProductItem.MaSP,
                             SanPham = SelectedProductItem,
-                            SoLuong = 0
+                            SoLuong = 1
                         };
 
                         SelectedProductList.Add(productAdded);
@@ -414,6 +414,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             DataProvider.Ins.DB.SaveChanges();
             if (OpenThisDiaLog != null)
             {
+                MessageBox.Show("Phiếu bán hàng được thêm thành công. Mã phiếu: " + newSaleOrder.MaPhieu);
                 SaleOrdersList.Add(newSaleOrder);
                 OpenThisDiaLog.IsOpen = false;
             }
@@ -422,7 +423,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
         public void EditSaleOrder()
         {
-            OpenThisDiaLog.IsOpen = false;
+            if (!CheckValidFieldInDialog()) return;
+            if (!CheckProductStock()) return;
+
             var editedSaleOrder = DataProvider.Ins.DB.PhieuBans.Where(i => i.MaPhieu == SelectedSaleOrder.MaPhieu).SingleOrDefault();
             editedSaleOrder.MaKH = SelectedCustomersList.First().MaKH;
 
@@ -448,11 +451,15 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 DataProvider.Ins.DB.ChiTietPhieuBans.Add(newDetailSaleOrder);
 
             }
-
-
             DataProvider.Ins.DB.SaveChanges();
-            SelectedSaleOrder.ChiTietPhieuBans = new ObservableCollection<ChiTietPhieuBan>(DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaPhieu == SelectedSaleOrder.MaPhieu));
-            editedSaleOrder.MaPhieu = editedSaleOrder.MaPhieu;
+            if (OpenThisDiaLog != null)
+            {
+                MessageBox.Show("Phiếu bán hàng được chỉnh sửa thành công. Mã phiếu: " + editedSaleOrder.MaPhieu);
+                OpenThisDiaLog.IsOpen = false;
+                SelectedSaleOrder.ChiTietPhieuBans = new ObservableCollection<ChiTietPhieuBan>(DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaPhieu == SelectedSaleOrder.MaPhieu));
+                SelectedSaleOrder.MaPhieu = SelectedSaleOrder.MaPhieu;
+                SaleOrdersList = new ObservableCollection<PhieuBan>(DataProvider.Ins.DB.PhieuBans);
+            }
 
         }
 
@@ -465,7 +472,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
             if (SelectedProductList == null || SelectedProductList.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn sản phẩm nhập kho!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Vui lòng chọn sản phẩm xuất kho!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
             return true;

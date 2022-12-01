@@ -17,17 +17,18 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         #region
         // các biến cho view chính này
 
-        private ObservableCollection<PhieuMua> _PhieuMuaList;
-        public ObservableCollection<PhieuMua> PhieuMuaList
-        {
-            get => _PhieuMuaList;
-            set
-            {
+        //private ObservableCollection<PhieuMua> _PhieuMuaList;
+        //public ObservableCollection<PhieuMua> PhieuMuaList
+        //{
+        //    get => _PhieuMuaList;
+        //    set
+        //    {
+        //        _PhieuMuaList = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
-                _PhieuMuaList = value;
-                OnPropertyChanged();
-            }
-        }
+        private ObservableCollection<PhieuMua> PhieuMuaList;
 
 
         private decimal? _TotalMoney;
@@ -241,6 +242,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             DeletedProductsList = new ObservableCollection<ChiTietPhieuMua>();
             SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
             SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
+
             TitleView = titleView;
             OpenThisDiaLog = openDiaLog;
             PhieuMuaList = phieuMuaList;
@@ -306,10 +308,11 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
         public string code;
-        public  void AddNewImportReceipt()
+        public void AddNewImportReceipt()
         {
             if (!CheckValidFieldInDialog()) return;
-            if (string.IsNullOrEmpty(code)){
+            if (string.IsNullOrEmpty(code))
+            {
                 code = Guid.NewGuid().ToString();
             }
 
@@ -340,21 +343,22 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             }
             DataProvider.Ins.DB.SaveChanges();
-            
-            if(OpenThisDiaLog != null)
+
+            if (OpenThisDiaLog != null)
             {
+                MessageBox.Show("Phiếu mua hàng được thêm thành công. Mã phiếu: " + newImportReceipt.MaPhieu);
                 PhieuMuaList.Add(newImportReceipt);
                 PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
                 OpenThisDiaLog.IsOpen = false;
             }
-            
+
 
 
         }
         private void EditImportReceipt()
         {
             if (!CheckValidFieldInDialog()) return;
-            OpenThisDiaLog.IsOpen = false;
+
             var editedImportReceipt = DataProvider.Ins.DB.PhieuMuas.Where(i => i.MaPhieu == SelectedImportReceipt.MaPhieu).SingleOrDefault();
             editedImportReceipt.MaNCC = SelectedSuppliersList.First().MaNCC;
 
@@ -380,15 +384,17 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
                 DataProvider.Ins.DB.ChiTietPhieuMuas.Add(newDetailImportReceitpt);
 
-
-
             }
-
-
             DataProvider.Ins.DB.SaveChanges();
-            SelectedImportReceipt.ChiTietPhieuMuas = new ObservableCollection<ChiTietPhieuMua>(DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu));
-            editedImportReceipt.MaPhieu = editedImportReceipt.MaPhieu;
-            PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
+
+            if (OpenThisDiaLog != null)
+            {
+                MessageBox.Show("Phiếu mua hàng được chỉnh sửa thành công. Mã phiếu: " + editedImportReceipt.MaPhieu);
+                SelectedImportReceipt.ChiTietPhieuMuas = new ObservableCollection<ChiTietPhieuMua>(DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu));
+                SelectedImportReceipt.MaPhieu = SelectedImportReceipt.MaPhieu;
+                PhieuMuaList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
+                OpenThisDiaLog.IsOpen = false;
+            }
 
         }
 
@@ -415,7 +421,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             {
 
                 OpenThisDiaLog.IsOpen = false;
-
 
             }
         }

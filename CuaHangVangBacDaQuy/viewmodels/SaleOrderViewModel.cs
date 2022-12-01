@@ -117,29 +117,20 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void AddNewSaleOrder()
         {
-
-
-
             ContentAddOrEditSaleOrder = new AddOrEditSaleOrderViewModel("Phiếu bán hàng mới", ref _IsOpenMakeSaleOrderDialog, ref _SaleOrderssList);
 
             addOrEditSaleOrderUC = new AddOrEditSaleOrderUC { 
                 DataContext = ContentAddOrEditSaleOrder
             };
-
-          
         }
 
         private void EditSaleOrder()
         {
-
-           ContentAddOrEditSaleOrder = new AddOrEditSaleOrderViewModel("Chỉnh sửa phiếu bán hàng", ref _IsOpenMakeSaleOrderDialog, ref _SaleOrderssList, ref _SelectedSaleOrder);
-
+            ContentAddOrEditSaleOrder = new AddOrEditSaleOrderViewModel("Chỉnh sửa phiếu bán hàng", ref _IsOpenMakeSaleOrderDialog, ref _SaleOrderssList, ref _SelectedSaleOrder);
             addOrEditSaleOrderUC = new AddOrEditSaleOrderUC
             {
                 DataContext = ContentAddOrEditSaleOrder
             };
-           
-
         }
         public bool isTest;
         public void DeleteSaleOrder()

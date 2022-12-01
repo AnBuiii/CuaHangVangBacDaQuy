@@ -4,10 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:ucDialog="clr-namespace:CuaHangVangBacDaQuy.views.userControlDialog"
              DataContext="{StaticResource SupplierVM}"
-             x:Name="ProductUC"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -20,12 +19,7 @@
              FontFamily="{DynamicResource MaterialDesignFont}">
 
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedCommand}"
-                                   CommandParameter="{Binding ElementName=ProductUC}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+
     <Grid>
         <!--Dialog thêm hoặc sửa nhà cung cấp-->
         <materialDesign:DialogHost Name="dialog"
@@ -34,7 +28,7 @@
                                    DialogTheme="Inherit"
                                    IsOpen="{Binding IsOpenDiaLog.IsOpen}">
             <materialDesign:DialogHost.DialogContent>
-                <ucDialog:AddOrEditSupplierUC DataContext="{Binding ContentAddSupplier}"/>
+                <ucDialog:AddOrEditSupplierUC DataContext="{Binding ContentAddSupplier}" />
             </materialDesign:DialogHost.DialogContent>
 
             <!--content View Supplier-->
@@ -46,7 +40,7 @@
 
 
                 <materialDesign:Card Grid.Row="0"
-                                 Margin="5">
+                                     Margin="5">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />
@@ -54,19 +48,19 @@
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Nhà cung cấp"
-                               Grid.Column="0"
-                               FontSize="24"
-                               FontWeight="Bold"
-                               HorizontalAlignment="Stretch"
-                               Margin="8 8 0 8"
-                               Foreground="{StaticResource PrimaryHueDarkBrush}"
-                               VerticalAlignment="Center" />
+                                   Grid.Column="0"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Stretch"
+                                   Margin="8 8 0 8"
+                                   Foreground="{StaticResource PrimaryHueDarkBrush}"
+                                   VerticalAlignment="Center" />
 
                         <Grid Grid.Column="1"
-                          Margin="30 0 20 0">
+                              Margin="30 0 20 0">
                             <Grid.Resources>
                                 <SolidColorBrush x:Key="PrimaryHueMidBrush"
-                                             Color="Transparent" />
+                                                 Color="Transparent" />
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width=".2*" />
@@ -75,25 +69,25 @@
                                 <ColumnDefinition Width=".2*" />
                             </Grid.ColumnDefinitions>
                             <ComboBox x:Name="cbbSearch"
-                                  BorderThickness="0.2"
-                                  Padding="8 2 2 2"
-                                  BorderBrush="{StaticResource PrimaryHueDarkBrush}"
-                                  ItemsSource="{Binding SearchTypes}"
-                                  SelectedItem="{Binding SelectedSearchType}"
-                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                  VerticalContentAlignment="Center">
+                                      BorderThickness="0.2"
+                                      Padding="8 2 2 2"
+                                      BorderBrush="{StaticResource PrimaryHueDarkBrush}"
+                                      ItemsSource="{Binding SearchTypes}"
+                                      SelectedItem="{Binding SelectedSearchType}"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                      VerticalContentAlignment="Center">
                             </ComboBox>
                             <Separator Grid.Column="1"
-                                   Background="{StaticResource PrimaryHueDarkBrush}"
-                                   Margin="8 0 8 0" />
+                                       Background="{StaticResource PrimaryHueDarkBrush}"
+                                       Margin="8 0 8 0" />
                             <TextBox Grid.Column="2"
-                                 Margin="5 0"
-                                 CaretBrush="Black"
-                                 VerticalContentAlignment="Center"
-                                 FontSize="16"
-                                 Text="{Binding ContentSearch,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                 materialDesign:HintAssist.Hint="Tìm kiếm."
-                                 BorderBrush="Transparent">
+                                     Margin="5 0"
+                                     CaretBrush="Black"
+                                     VerticalContentAlignment="Center"
+                                     FontSize="16"
+                                     Text="{Binding ContentSearch,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                     materialDesign:HintAssist.Hint="Tìm kiếm."
+                                     BorderBrush="Transparent">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="TextChanged">
                                         <i:InvokeCommandAction Command="{Binding SearchCommand}" />
@@ -101,88 +95,87 @@
                                 </i:Interaction.Triggers>
                                 <TextBox.InputBindings>
                                     <KeyBinding Command="{Binding SearchCommand}"
-                                            Key="Return" />
+                                                Key="Return" />
                                 </TextBox.InputBindings>
                             </TextBox>
                         </Grid>
 
                         <Button Grid.Column="2"
-                            HorizontalAlignment="Right"
-                            Margin="4"
-                            Padding="20 0 20 0"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Name="btNewAccount"
-                            Command="{Binding AddCommand}">
+                                HorizontalAlignment="Right"
+                                Margin="4"
+                                Padding="20 0 20 0"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Name="btNewAccount"
+                                Command="{Binding AddCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="PlusCircle"
-                                                     VerticalAlignment="Center"
-                                                     Width="16"
-                                                     Height="16" />
+                                                         VerticalAlignment="Center"
+                                                         Width="16"
+                                                         Height="16" />
                                 <Separator Margin="5" />
                                 <TextBlock Text="Thêm"
-                                       FontSize="16"
-                                       VerticalAlignment="Center" />
+                                           FontSize="16"
+                                           VerticalAlignment="Center" />
                             </StackPanel>
                         </Button>
                     </Grid>
                 </materialDesign:Card>
 
                 <materialDesign:Card Grid.Row="1"
-                                 Margin="5"
-                                 VerticalAlignment="Stretch">
+                                     Margin="5"
+                                     VerticalAlignment="Stretch">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <DataGrid ItemsSource="{Binding SuppliersList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedSupplier, Mode=OneWayToSource}"
-                              CanUserResizeColumns="False"
-                              IsReadOnly="False"
-                              CanUserAddRows="False"
-                              AutoGenerateColumns="False"
-                               MaxHeight="680">
+                                  SelectedItem="{Binding SelectedSupplier, Mode=OneWayToSource}"
+                                  CanUserResizeColumns="False"
+                                  IsReadOnly="False"
+                                  CanUserAddRows="False"
+                                  AutoGenerateColumns="False"
+                                  MaxHeight="680">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Mã nhà cung cấp"
-                                                Binding="{Binding MaNCC}"
-                                                IsReadOnly="True" />
+                                                    Binding="{Binding MaNCC}"
+                                                    IsReadOnly="True" />
                                 <DataGridTextColumn Header="Tên nhà cung cấp"
-                                                Binding="{Binding TenNCC}"
-                                                IsReadOnly="True" />
+                                                    Binding="{Binding TenNCC}"
+                                                    IsReadOnly="True" />
                                 <DataGridTextColumn Header="Địa chỉ"
-                                                Binding="{Binding DiaChi}"
-                                                IsReadOnly="True" />
+                                                    Binding="{Binding DiaChi}"
+                                                    IsReadOnly="True" />
                                 <DataGridTextColumn Header="Số điện thoại"
-                                                Binding="{Binding SoDT}"
-                                                IsReadOnly="True" />
+                                                    Binding="{Binding SoDT}"
+                                                    IsReadOnly="True" />
                                 <DataGridTemplateColumn x:Name="editBtn">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button Width="40"
-                                                Padding="0"
-                                                Background="{StaticResource PrimaryHueDarkBrush}"
-                                                Style="{StaticResource MaterialDesignRaisedButton}"
-                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.EditCommand}"
-                                                CommandParameter="{Binding ElementName=editBtn}">
+                                                    Padding="0"
+                                                    Background="{StaticResource PrimaryHueDarkBrush}"
+                                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                                    Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.EditCommand}"
+                                                    CommandParameter="{Binding ElementName=editBtn}">
                                                 <materialDesign:PackIcon Kind="Edit" />
                                             </Button>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-               
+
 
                                 <DataGridTemplateColumn x:Name="deleteBtn">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button Width="40"
-                                                Padding="0"
-                                                Background="{StaticResource PrimaryHueDarkBrush}"
-                                               
-                                                Style="{StaticResource MaterialDesignRaisedButton}"
-                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteSupplierCommand}"
-                                                CommandParameter="{Binding ElementName=deleteBtn}">
+                                                    Padding="0"
+                                                    Background="{StaticResource PrimaryHueDarkBrush}"
+                                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                                    Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteSupplierCommand}"
+                                                    CommandParameter="{Binding ElementName=deleteBtn}">
                                                 <materialDesign:PackIcon Kind="Delete" />
                                             </Button>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                          
+
                             </DataGrid.Columns>
 
                         </DataGrid>
@@ -191,8 +184,8 @@
             </Grid>
             <!--end content View Supplier-->
         </materialDesign:DialogHost>
-         <!--End Dialog-->
-       
+        <!--End Dialog-->
+
     </Grid>
 
 </UserControl>

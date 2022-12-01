@@ -29,6 +29,7 @@
     <converter:IntoMoneyConverter x:Key="IntoMoneyConverterKey"/>
     <converter:TotalPriceOfAReceipt x:Key="TotalPriceOfAReceiptConverterKey"/>
     <converter:TotalPriceOfASaleOrder x:Key="TotalPriceOfASaleOrderKey"/>
-    
+    <converter:PriceConverter x:Key="PriceConverterKey" />
+
 
 </ResourceDictionary>

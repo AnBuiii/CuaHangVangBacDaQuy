@@ -1,12 +1,11 @@
 ﻿<UserControl x:Class="CuaHangVangBacDaQuy.views.userControlDialog.AddOrEditAccountUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views.userControlDialog"
-             mc:Ignorable="d" 
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             
+             mc:Ignorable="d"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -15,11 +14,12 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              Name="makeOderView"
-            DataContext="{StaticResource AddOrEditAccountVM}"
-             d:DesignHeight="550" d:DesignWidth="382.844">
+             DataContext="{StaticResource AddOrEditAccountVM}"
+             d:DesignHeight="550"
+             d:DesignWidth="382.844">
     <Grid>
         <Grid  Margin="16,10,17,10"
-                           Width="350">
+               Width="350">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -47,8 +47,8 @@
                          Command="{Binding CancelCommand}">
 
                     <materialDesign:PackIcon Kind="CloseCircleOutline"
-                                                         Height="30"
-                                                         Width="30" />
+                                             Height="30"
+                                             Width="30" />
 
                 </Button>
             </Grid>
@@ -61,64 +61,65 @@
 
                 <StackPanel>
                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                            VerticalAlignment="Center"
-                                            Text="Tên đăng nhập"></TextBlock>
+                                VerticalAlignment="Center"
+                                Text="Tên đăng nhập"></TextBlock>
 
-                    <TextBox Height="52" Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                              Foreground="Black"
-                             
-                                             FontSize="16"
-                                             FontWeight="Medium"
-                                         MinWidth="100"
-                                         VerticalAlignment="Center"
-                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                         BorderThickness="0.5"
-                                         BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                         Text="{Binding AccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Height="52"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Foreground="Black"
+                             FontSize="16"
+                             FontWeight="Medium"
+                             MinWidth="100"
+                             VerticalAlignment="Center"
+                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                             BorderThickness="0.5"
+                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                             Text="{Binding AccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Row="3" >
+            <Grid Grid.Row="3">
 
                 <StackPanel>
                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                            VerticalAlignment="Center"
-                                            Text="Tên hiển thị"></TextBlock>
+                                VerticalAlignment="Center"
+                                Text="Tên hiển thị"></TextBlock>
 
-                    <TextBox Height="52" Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                              Foreground="Black"
-                             
-                                             FontSize="16"
-                                             FontWeight="Medium"
-                                         MinWidth="100"
-                                         VerticalAlignment="Center"
-                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                         BorderThickness="0.5"
-                                         BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                         Text="{Binding AccountName1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Height="52"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Foreground="Black"
+                             FontSize="16"
+                             FontWeight="Medium"
+                             MinWidth="100"
+                             VerticalAlignment="Center"
+                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                             BorderThickness="0.5"
+                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                             Text="{Binding AccountName1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 </StackPanel>
             </Grid>
 
             <Grid Grid.Row="4"
-                              Margin="0, 16, 0, 0">
+                  Margin="0, 16, 0, 0">
                 <StackPanel>
 
 
                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                            VerticalAlignment="Center"
-                                            Text="Mật khẩu" />
-                    <TextBox  Height="52" Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                               Foreground="Black"
-                                             FontSize="16"
-                                             FontWeight="Medium"
-                                         MinWidth="100"
-                                         VerticalAlignment="Center"
-                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                         BorderThickness="0.5"
-                                         BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                                         Text="{Binding PasswordAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                VerticalAlignment="Center"
+                                Text="Mật khẩu" />
+                    <TextBox  Height="52"
+                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                              Foreground="Black"
+                              FontSize="16"
+                              FontWeight="Medium"
+                              MinWidth="100"
+                              VerticalAlignment="Center"
+                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                              BorderThickness="0.5"
+                              BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                              Text="{Binding PasswordAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </Grid>
 
@@ -128,58 +129,55 @@
                                 VerticalAlignment="Center"
                                 Text="Quyền hạn" />
 
-                    <ComboBox 
-                                              FontSize="16"
-                                              ItemsSource="{Binding JurisdictionsList }"
-                                              SelectedItem="{Binding SelectedJurisdiction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                          
-                                              Foreground="Black"
-                                                DisplayMemberPath="TenQH"
-                                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                              
-                                  />
+                    <ComboBox FontSize="16"
+                              ItemsSource="{Binding JurisdictionsList }"
+                              SelectedItem="{Binding SelectedJurisdiction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Foreground="Black"
+                              DisplayMemberPath="TenQH"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                 </StackPanel>
 
             </Grid>
 
             <Grid Grid.Row="6"
-                              Margin="0, 16, 0, 0">
+                  Margin="0, 16, 0, 0">
                 <Separator Margin="5"></Separator>
             </Grid>
             <Grid Grid.Row="7"
-                              Margin="0, 16, 0, 0">
+                  Margin="0, 16, 0, 0">
 
                 <StackPanel  Orientation="Horizontal"
-                                         HorizontalAlignment="Right">
+                             HorizontalAlignment="Right">
 
                     <Button HorizontalAlignment="Center"
-                                        Margin="0, 0, 16, 0"
-                                        Style="{StaticResource MaterialDesignRaisedButton}"
-                                        Command="{Binding CancelCommand}">
+                            Margin="0, 0, 16, 0"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding CancelCommand}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="CloseCircle"
-                                                                 Width="18"
-                                                                 Height="18"
-                                                                 VerticalAlignment="Center"
-                                                                 HorizontalAlignment="Left"
-                                                                 Margin="2 2 4 2" />
+                                                     Width="18"
+                                                     Height="18"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Left"
+                                                     Margin="2 2 4 2" />
                             <TextBlock Text="Hủy"
-                                                   FontSize="18" />
+                                       FontSize="18" />
                         </StackPanel>
                     </Button>
                     <Button Grid.Column="0"
-                                        HorizontalAlignment="Center"
-                                        Margin="4"
-                                        Style="{StaticResource MaterialDesignRaisedButton}"
-                                        Command="{Binding  SaveCommand}">
+                            HorizontalAlignment="Center"
+                            Margin="4"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding  SaveCommand}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ContentSave"
-                                                                 Width="18"
-                                                                 Height="18"
-                                                                 VerticalAlignment="Center"
-                                                                 HorizontalAlignment="Left"
-                                                                 Margin="2 2 4 2" />
+                                                     Width="18"
+                                                     Height="18"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Left"
+                                                     Margin="2 2 4 2" />
                             <TextBlock Text="Lưu"
-                                                   FontSize="18" />
+                                       FontSize="18" />
                         </StackPanel>
                     </Button>
 

@@ -96,7 +96,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             openDiaLog = isOpenDialog;
             SuppliersList = suppliersList;
             CancelCommand = new RelayCommand<AddOrEditSupplierUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddOrEditSupplierUC>((p) => checkEmptyFieldDialog(), p => ActionAddSupplier());
+            SaveCommand = new RelayCommand<AddOrEditSupplierUC>((p) => true, p => ActionAddSupplier());
 
 
 
@@ -111,7 +111,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             SuppliersList = suppliersList;
             EditedSupplier = editedSupplier;
             CancelCommand = new RelayCommand<AddOrEditSupplierUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddOrEditSupplierUC>((p) => checkEmptyFieldDialog(), p => ActionEditSupplier());
+            SaveCommand = new RelayCommand<AddOrEditSupplierUC>((p) => true, p => ActionEditSupplier());
 
         }
 
@@ -138,6 +138,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             if (string.IsNullOrWhiteSpace(SupplierName) || string.IsNullOrWhiteSpace(SupplierAddress) || string.IsNullOrWhiteSpace(SupplierPhoneNumber))
             {
+                if (openDiaLog != null) MessageBox.Show("Các thông tin không được trống");
                 return false;
             }
             return true;
@@ -161,6 +162,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             if (openDiaLog != null)
             {
+                MessageBox.Show("Nhà cung cấp " + newSup.TenNCC + " được thêm thành công");
                 SuppliersList.Add(newSup);
                 openDiaLog.IsOpen = false;
             }
@@ -174,16 +176,17 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             if (!checkEmptyFieldDialog()) return;
             if (!CheckValidPhoneNumber() || !ValidCustomerCheck()) return;
 
-            if(openDiaLog != null)
-            {
-
-                openDiaLog.IsOpen = false;
-            }
+            
             var supplier = DataProvider.Ins.DB.NhaCungCaps.Where(x => x.MaNCC == EditedSupplier.MaNCC).SingleOrDefault();
             supplier.TenNCC = SupplierName;
             supplier.DiaChi = SupplierAddress;
             supplier.SoDT = SupplierPhoneNumber;
             DataProvider.Ins.DB.SaveChanges();
+            if (openDiaLog != null)
+            {
+                MessageBox.Show("Nhà cung cấp " + supplier.TenNCC + " được sửa thành công");
+                openDiaLog.IsOpen = false;
+            }
         }
 
         bool ValidCustomerCheck()
@@ -191,19 +194,37 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             if (EditedSupplier == null)
             {
-                if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.TenNCC == SupplierName).Count() > 0) return false;
-                if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.SoDT == SupplierPhoneNumber).Count() > 0) return false;
+                if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.TenNCC == SupplierName).Count() > 0)
+                {
+                    if (openDiaLog != null) MessageBox.Show("Tên nhà cung cấp không được trùng");
+                    return false;
+                }
+                if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.SoDT == SupplierPhoneNumber).Count() > 0)
+                {
+                    if (openDiaLog != null) MessageBox.Show("Số điện thoại không được trùng");
+                    return false;
+                }
             }
             else
             {
                 if (SupplierName != EditedSupplier.TenNCC)
                 {
-                    if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.TenNCC == SupplierName).Count() > 0) return false;
+                    if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.TenNCC == SupplierName).Count() > 0)
+                    {
+                        if (openDiaLog != null)
+                            MessageBox.Show("Tên nhà cung cấp không được trùng");
+                        return false;
+                    }
                 }
-                if(SupplierPhoneNumber != EditedSupplier.SoDT)
+                if (SupplierPhoneNumber != EditedSupplier.SoDT)
                 {
 
-                    if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.SoDT == SupplierPhoneNumber).Count() > 0) return false;
+                    if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.SoDT == SupplierPhoneNumber).Count() > 0)
+                    {
+                        if (openDiaLog != null)
+                            MessageBox.Show("Số điện thoại không được trùng");
+                        return false;
+                    }
                 }
 
 
@@ -230,7 +251,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         }
 
-       
+
         private void CheckCloseDiaLog()
         {
 

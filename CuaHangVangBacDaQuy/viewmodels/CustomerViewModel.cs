@@ -93,7 +93,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
             IsOpenDiaLog = new OpenDiaLog() { IsOpen = false };
             SearchTypes = new List<string> { "Mã khách hàng", "Tên khách hàng", "Địa chỉ", "Số điện thoại", };
-            SelectedSearchType = SearchTypes[1];
+            SelectedSearchType = SearchTypes[0];
             SearchCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => Search());
             CustomerList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
             AddCommand = new RelayCommand<CustomerView>((p) => true, p => ActionDiaLog("Add"));
@@ -106,10 +106,10 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             switch (SelectedSearchType)
             {
-                case "Giới tính":
+                case "Mã khách hàng":
                     CustomerList = new ObservableCollection<KhachHang>(
                         DataProvider.Ins.DB.KhachHangs.Where(
-                            x => x.GioiTinh.ToString().Contains(ContentSearch)));
+                            x => x.MaKH.ToString().Contains(ContentSearch)));
                     break;
                 case "Tên khách hàng":
                     CustomerList = new ObservableCollection<KhachHang>(
@@ -162,7 +162,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             var deletedCustomer = DataProvider.Ins.DB.KhachHangs.Where(c => c.MaKH == SelectedCustomer.MaKH).SingleOrDefault();
             if (DataProvider.Ins.DB.PhieuBans.Where(s => s.MaKH == deletedCustomer.MaKH).Count() > 0)
             {
-                MessageBox.Show("Khách hàng " + deletedCustomer.TenKH + " đã từng giao dịch, vui lòng xóa đơn bán hàng trước khi xóa thông tin nhà cung cấp!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Khách hàng " + deletedCustomer.TenKH + " đã từng giao dịch, vui lòng xóa đơn bán hàng liên quan trước khi xóa khách hàng", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (MessageBox.Show("Bạn có chắc chắc muốn xóa khách hàng " + deletedCustomer.TenKH + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)

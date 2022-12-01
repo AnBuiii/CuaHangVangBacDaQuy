@@ -67,8 +67,17 @@ namespace CuaHangVangBacDaQuy.viewmodels
         private AddOrEditImportReceiptUC _addOrEditImportReceiptUC;
         public AddOrEditImportReceiptUC addOrEditImportReceiptUC { get => _addOrEditImportReceiptUC; set { _addOrEditImportReceiptUC = value; OnPropertyChanged(); } }
 
-        private AddOrEditImportReceiptViewModel ContentAddOrEditImportReceipt;
-       
+        private AddOrEditImportReceiptViewModel _ContentAddOrEditImportReceipt;
+        public AddOrEditImportReceiptViewModel ContentAddOrEditImportReceipt
+        {
+            get => _ContentAddOrEditImportReceipt;
+            set  {
+                _ContentAddOrEditImportReceipt = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private OpenDiaLog _IsOpenMakeReceiptDialog;
         public OpenDiaLog IsOpenMakeReceiptDialog
         {
@@ -116,38 +125,14 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void AddNewImportReceipt()
         {
-
-
-           
             ContentAddOrEditImportReceipt = new AddOrEditImportReceiptViewModel("Đơn nhập hàng mới", ref _IsOpenMakeReceiptDialog, ref _ImportReceiptsList);
-            //MainViewModel.Ins.DataTemplate = new AddOrEditImportReceiptUC
-            //                                    {
-            //                                         DataContext = ContentAddOrEditImportReceipt
-            //                                    } ;
-            addOrEditImportReceiptUC = new AddOrEditImportReceiptUC
-            {
-                DataContext = ContentAddOrEditImportReceipt
-            };
-            //Thread.Sleep(1000);
-            //ImportReceiptsList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
-
+            
         }
 
         private void EditImportReceipt()
         {
-
             ContentAddOrEditImportReceipt = new AddOrEditImportReceiptViewModel("Chỉnh sửa đơn mua hàng", ref _IsOpenMakeReceiptDialog, ref _ImportReceiptsList, ref _SelectedImportReceipt);
-
-            //MainViewModel.Ins.DataTemplate = new AddOrEditImportReceiptUC
-            //                                    {
-            //                                         DataContext = ContentAddOrEditImportReceipt
-            //                                    } ;
-            addOrEditImportReceiptUC = new AddOrEditImportReceiptUC
-            {
-                DataContext = ContentAddOrEditImportReceipt
-            };
-            //Thread.Sleep(1000);
-            //ImportReceiptsList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
+            
         }
         public bool isTest;
         public void DeleteImportReceipt()
@@ -183,7 +168,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                         DataProvider.Ins.DB.PhieuMuas.Where(
                             x => x.MaPhieu.ToString().Contains(ContentSearch)));
                     break;
-                case "Tên nhà cung cấp":
+                case "Nhà cung cấp":
                     ImportReceiptsList = new ObservableCollection<PhieuMua>(
                          DataProvider.Ins.DB.PhieuMuas.Where(
                              x => x.NhaCungCap.TenNCC.ToString().Contains(ContentSearch)));

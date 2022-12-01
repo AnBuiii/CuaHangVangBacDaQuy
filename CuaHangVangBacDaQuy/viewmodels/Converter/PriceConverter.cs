@@ -1,16 +1,15 @@
-﻿using System;
+﻿using CuaHangVangBacDaQuy.models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
-using CuaHangVangBacDaQuy.models;
+
 namespace CuaHangVangBacDaQuy.viewmodels.Converter
 {
-    public class AmountConverter : IValueConverter
+    public class PriceConverter: IValueConverter
     {
-
         //giá trị nhập trước đó
         private int PastValue = 0;
 
@@ -33,16 +32,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
             if (CheckField.CheckNumber(str))
             {
                 
-                if (System.Convert.ToInt64(str) <= 2147483647) // giới hạn int trong sql
-                {
-                    return value;
-                }
-                else
-                {
-                    // MessageBox.Show(" Giá trị nhập quá lớn! ", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                    return PastValue;
-                }
+                return value;
             }
           
             return PastValue;

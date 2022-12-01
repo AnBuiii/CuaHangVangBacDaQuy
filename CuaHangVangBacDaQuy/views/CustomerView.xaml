@@ -1,15 +1,15 @@
 ﻿<UserControl x:Class="CuaHangVangBacDaQuy.views.CustomerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views"
              xmlns:ucDialog="clr-namespace:CuaHangVangBacDaQuy.views.userControlDialog"
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-             xmlns:local1="clr-namespace:CuaHangVangBacDaQuy.views.userControl" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local1="clr-namespace:CuaHangVangBacDaQuy.views.userControl"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              DataContext="{StaticResource CustomerVM}"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -18,26 +18,18 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              Name="CustomerUC"
-           
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450"
+             d:DesignWidth="800">
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadCustomerView }" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
 
     <Grid>
-        
-        
+
+
         <!--Dialog addCustomer-->
-        <materialDesign:DialogHost 
-                                   Identifier="AccountDialog"
+        <materialDesign:DialogHost Identifier="AccountDialog"
                                    CloseOnClickAway="True"
                                    DialogTheme="Inherit"
-                                    IsOpen="{Binding IsOpenDiaLog.IsOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"                              
-                                  
-                                   >
+                                   IsOpen="{Binding IsOpenDiaLog.IsOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
 
             <materialDesign:DialogHost.DialogContent>
                 <ucDialog:AddOrEditCustomerUC DataContext="{Binding ContentAddOrEditCustomer}"></ucDialog:AddOrEditCustomerUC>
@@ -57,23 +49,10 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
-                        
                     </Grid.RowDefinitions>
-
-                    <!--các element binding từ selected item-->
-                    <!--
-            <materialDesign:Card Grid.Row="0" Margin="5">
-                <WrapPanel Margin="0 0 0 10">
-                    <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tên khách hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Địa chỉ" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <DatePicker VerticalAlignment="Center" SelectedDate="{Binding ContractDate, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="5 5 15 -7" materialDesign:HintAssist.Hint="Ngày đăng ký" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                </WrapPanel>
-            </materialDesign:Card>-->
-
-
+                    
                     <materialDesign:Card Grid.Row="0"
-                                 Margin="5">
+                                         Margin="5">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto" />
@@ -81,19 +60,19 @@
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Khách hàng"
-                               Grid.Column="0"
-                               FontSize="24"
-                               FontWeight="Bold"
-                               HorizontalAlignment="Stretch"
-                               Margin="8 8 0 8"
-                               Foreground="{StaticResource PrimaryHueDarkBrush}"
-                               VerticalAlignment="Center" />
+                                       Grid.Column="0"
+                                       FontSize="24"
+                                       FontWeight="Bold"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="8 8 0 8"
+                                       Foreground="{StaticResource PrimaryHueDarkBrush}"
+                                       VerticalAlignment="Center" />
 
                             <Grid Grid.Column="1"
-                          Margin="30 0 20 0">
+                                  Margin="30 0 20 0">
                                 <Grid.Resources>
                                     <SolidColorBrush x:Key="PrimaryHueMidBrush"
-                                             Color="Transparent" />
+                                                     Color="Transparent" />
                                 </Grid.Resources>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width=".2*" />
@@ -102,25 +81,25 @@
                                     <ColumnDefinition Width=".2*" />
                                 </Grid.ColumnDefinitions>
                                 <ComboBox x:Name="cbbSearch"
-                                  BorderThickness="0.2"
-                                  Padding="8 2 2 2"
-                                  BorderBrush="{StaticResource PrimaryHueDarkBrush}"
-                                  ItemsSource="{Binding SearchTypes}"
-                                  SelectedItem="{Binding SelectedSearchType}"
-                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                  VerticalContentAlignment="Center">
+                                          BorderThickness="0.2"
+                                          Padding="8 2 2 2"
+                                          BorderBrush="{StaticResource PrimaryHueDarkBrush}"
+                                          ItemsSource="{Binding SearchTypes}"
+                                          SelectedItem="{Binding SelectedSearchType}"
+                                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                          VerticalContentAlignment="Center">
                                 </ComboBox>
                                 <Separator Grid.Column="1"
-                                   Background="{StaticResource PrimaryHueDarkBrush}"
-                                   Margin="8 0 8 0" />
+                                           Background="{StaticResource PrimaryHueDarkBrush}"
+                                           Margin="8 0 8 0" />
                                 <TextBox Grid.Column="2"
-                                 Margin="5 0"
-                                 CaretBrush="Black"
-                                 VerticalContentAlignment="Center"
-                                 FontSize="16"
-                                 Text="{Binding ContentSearch,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                 materialDesign:HintAssist.Hint="Tìm kiếm khách hàng"
-                                 BorderBrush="Transparent">
+                                         Margin="5 0"
+                                         CaretBrush="Black"
+                                         VerticalContentAlignment="Center"
+                                         FontSize="16"
+                                         Text="{Binding ContentSearch,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Tìm kiếm khách hàng"
+                                         BorderBrush="Transparent">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="TextChanged">
                                             <i:InvokeCommandAction Command="{Binding SearchCommand}" />
@@ -128,72 +107,71 @@
                                     </i:Interaction.Triggers>
                                     <TextBox.InputBindings>
                                         <KeyBinding Command="{Binding SearchCommand}"
-                                            Key="Return" />
+                                                    Key="Return" />
                                     </TextBox.InputBindings>
                                 </TextBox>
                             </Grid>
 
                             <Button Grid.Column="2"
-                            HorizontalAlignment="Right"
-                            Margin="4"
-                            Padding="20 0 20 0"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Name="btNewAccount"
-                            Command="{Binding AddCommand}">
+                                    HorizontalAlignment="Right"
+                                    Margin="4"
+                                    Padding="20 0 20 0"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Name="btNewAccount"
+                                    Command="{Binding AddCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="PlusCircle"
-                                                     VerticalAlignment="Center"
-                                                     Width="16"
-                                                     Height="16" />
+                                                             VerticalAlignment="Center"
+                                                             Width="16"
+                                                             Height="16" />
                                     <Separator Margin="5" />
                                     <TextBlock Text="Thêm"
-                                       FontSize="16"
-                                       VerticalAlignment="Center" />
+                                               FontSize="16"
+                                               VerticalAlignment="Center" />
                                 </StackPanel>
                             </Button>
                         </Grid>
                     </materialDesign:Card>
 
 
-                    <materialDesign:Card Grid.Row="1" Margin="5" VerticalAlignment="Stretch">
+                    <materialDesign:Card Grid.Row="1"
+                                         Margin="5"
+                                         VerticalAlignment="Stretch">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
 
                             <DataGrid ItemsSource="{Binding CustomerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             SelectedItem="{Binding SelectedCustomer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              CanUserResizeColumns="False"
-                              IsReadOnly="False"
-                              CanUserAddRows="False"
-                              AutoGenerateColumns="False"
-                                   MaxHeight="680">
+                                      SelectedItem="{Binding SelectedCustomer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      CanUserResizeColumns="False"
+                                      IsReadOnly="False"
+                                      CanUserAddRows="False"
+                                      AutoGenerateColumns="False"
+                                      MaxHeight="680">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Mã khách hàng"
-                                                Binding="{Binding MaKH}"
-                                                IsReadOnly="True" />
+                                                        Binding="{Binding MaKH}"
+                                                        IsReadOnly="True" />
                                     <DataGridTextColumn Header="Tên KH"
-                                                Binding="{Binding TenKH}"
-                                                IsReadOnly="True" />
+                                                        Binding="{Binding TenKH}"
+                                                        IsReadOnly="True" />
                                     <DataGridTextColumn Header="Giới tính"
-                                                Binding="{Binding GioiTinh}"
-                                                IsReadOnly="True" />
+                                                        Binding="{Binding GioiTinh}"
+                                                        IsReadOnly="True" />
                                     <DataGridTextColumn Header="Địa chỉ"
-                                                Binding="{Binding DiaChi}"
-                                                IsReadOnly="True" />
+                                                        Binding="{Binding DiaChi}"
+                                                        IsReadOnly="True" />
                                     <DataGridTextColumn Header="Số điện thoại"
-                                                Binding="{Binding SoDT}"
-                                                IsReadOnly="True" />
-                                    <DataGridTextColumn Header="Ngày đăng ký"
-                                                Binding="{Binding NgayDK}"
-                                                IsReadOnly="True" />
+                                                        Binding="{Binding SoDT}"
+                                                        IsReadOnly="True" />
 
                                     <DataGridTemplateColumn x:Name="editBtn">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Width="40"
-                                                Padding="0"
-                                                Background="{StaticResource PrimaryHueDarkBrush}"
-                                                Style="{StaticResource MaterialDesignRaisedButton}"
-                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.EditCommand}"
-                                                CommandParameter="{Binding ElementName=editBtn}">
+                                                        Padding="0"
+                                                        Background="{StaticResource PrimaryHueDarkBrush}"
+                                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                                        Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.EditCommand}"
+                                                        CommandParameter="{Binding ElementName=editBtn}">
                                                     <materialDesign:PackIcon Kind="Edit" />
                                                 </Button>
                                             </DataTemplate>
@@ -204,18 +182,17 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Width="40"
-                                                Padding="0"
-                                                Background="{StaticResource PrimaryHueDarkBrush}"
-                                               
-                                                Style="{StaticResource MaterialDesignRaisedButton}"
-                                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteCustomerCommand}"
-                                                CommandParameter="{Binding ElementName=deleteBtn}">
+                                                        Padding="0"
+                                                        Background="{StaticResource PrimaryHueDarkBrush}"
+                                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                                        Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.DeleteCustomerCommand}"
+                                                        CommandParameter="{Binding ElementName=deleteBtn}">
                                                     <materialDesign:PackIcon Kind="Delete" />
                                                 </Button>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
-                                    
+
                                 </DataGrid.Columns>
 
 
@@ -226,9 +203,9 @@
             </Grid>
             <!--end View Customer-->
         </materialDesign:DialogHost>
-            <!--enđ Diaglog-->
-      
-      
-        
+        <!--enđ Diaglog-->
+
+
+
     </Grid>
 </UserControl>

@@ -9,29 +9,25 @@
 
 namespace CuaHangVangBacDaQuy.models
 {
-    using CuaHangVangBacDaQuy.viewmodels;
     using System;
     using System.Collections.Generic;
     
-    public partial class PhieuBan:BaseViewModel
+    public partial class PhieuBan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PhieuBan()
         {
             this.ChiTietPhieuBans = new HashSet<ChiTietPhieuBan>();
         }
-
-        private string _MaPhieu;
-        public string MaPhieu { get => _MaPhieu; set { _MaPhieu = value; OnPropertyChanged(); } }
+    
+        public string MaPhieu { get; set; }
         public Nullable<System.DateTime> NgayLap { get; set; }
-        private int _MaKH;
-        public int MaKH { get => _MaKH; set { _MaKH = value; OnPropertyChanged(); } }
-
+        public int MaKH { get; set; }
+        public int MaNV { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuBan> ChiTietPhieuBans { get; set; }
-        
-        private KhachHang _KhachHang;
-
-        public virtual KhachHang KhachHang { get => _KhachHang; set { _KhachHang = value; OnPropertyChanged(); } }
+        public virtual KhachHang KhachHang { get; set; }
+        public virtual NguoiDung NguoiDung { get; set; }
     }
 }

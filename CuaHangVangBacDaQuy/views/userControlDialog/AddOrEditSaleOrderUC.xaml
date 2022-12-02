@@ -535,9 +535,10 @@
                                                                     CanUserSort="True"
                                                                     >
                                                                 <DataGridTextColumn.Binding >
-                                                                    <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource IntoMoneyConverterKey}" >
+                                                                    <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource IntoSaleMoneyConverterKey}" >
                                                                         <Binding Path="SoLuong"/>
                                                                         <Binding Path="SanPham.DonGia"/>
+                                                                        <Binding Path="SanPham.LoaiSanPham.LoiNhuan" />
                                                                     </MultiBinding>
                                                                 </DataGridTextColumn.Binding>
                                                             </DataGridTextColumn>
@@ -577,10 +578,26 @@
                                                                           Mode="Light">
                                                         <Grid>
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="920"/>
-                                                                <ColumnDefinition/>
+                                                                <ColumnDefinition Width="auto" />
+                                                                <ColumnDefinition Width="750" />
+                                                                <ColumnDefinition Width="auto" />
                                                             </Grid.ColumnDefinitions>
-                                                            <StackPanel Grid.Column="0" >
+                                                            <StackPanel Grid.Column="0">
+                                                                <StackPanel  DockPanel.Dock="Right"
+                                                                             Orientation="Vertical"
+                                                                             HorizontalAlignment="Right">
+                                                                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                                                                Margin="16,0,0,0"
+                                                                                VerticalAlignment="Center"
+                                                                                Text="Nhân viên bán hàng: " />
+                                                                    <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                                                                Margin="16,0,0,0"
+                                                                                VerticalAlignment="Center"
+                                                                                Text="{Binding Staff.TenND}" />
+
+                                                                </StackPanel>
+                                                            </StackPanel>
+                                                            <StackPanel Grid.Column="1" >
                                                                 <StackPanel  DockPanel.Dock="Right"
                                                                          Orientation="Vertical" HorizontalAlignment="Right">
                                                                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
@@ -595,7 +612,7 @@
                                                                 </StackPanel>
                                                             </StackPanel>
 
-                                                            <StackPanel Grid.Column="1">
+                                                            <StackPanel Grid.Column="2">
                                                                 <StackPanel  DockPanel.Dock="Right"
                                                                          Orientation="Vertical" HorizontalAlignment="Left">
                                                                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"

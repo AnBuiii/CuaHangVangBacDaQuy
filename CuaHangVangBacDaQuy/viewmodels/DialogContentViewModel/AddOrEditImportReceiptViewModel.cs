@@ -30,16 +30,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         private ObservableCollection<PhieuMua> PhieuMuaList;
 
-        private NguoiDung _Staff;
-        public NguoiDung Staff
-        {
-            get => _Staff;
-            set
-            {
-                _Staff = value;
-                OnPropertyChanged();
-            }
-        }
+
         private decimal? _TotalMoney;
         public decimal? TotalMoney
         {
@@ -65,7 +56,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                     SelectedSupplier = SelectedImportReceipt.NhaCungCap;
                     SelectedProductList = new ObservableCollection<ChiTietPhieuMua>(SelectedImportReceipt.ChiTietPhieuMuas);
                     TotalMoney = SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia);
-                    Staff = SelectedImportReceipt.NguoiDung;
 
                 }
             }
@@ -234,7 +224,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             OpenThisDiaLog = openDiaLog;
             PhieuMuaList = phieuMuaList;
 
-            Staff = NguoiDung.Logged;
+
             SaveCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => AddNewImportReceipt());
             CancelCommand = new RelayCommand<AddOrEditImportReceiptUC>((p) => true, p => CheckCloseDiaLog());
             RemoveSelectedSupplierCommand = new RelayCommand<AddOrEditImportReceiptViewModel>((p) => true, p => { SelectedSuppliersList.Clear(); });
@@ -331,7 +321,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 MaPhieu = code,
                 NgayLap = DateTime.Now,
                 MaNCC = SelectedSupplier.MaNCC,
-                MaNV = Staff.MaND
 
             };
 

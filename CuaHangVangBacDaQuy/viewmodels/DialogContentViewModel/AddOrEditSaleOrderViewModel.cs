@@ -30,16 +30,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
         }
 
-        private NguoiDung _Staff;
-        public NguoiDung Staff
-        {
-            get => _Staff;
-            set
-            {
-                _Staff = value;
-                OnPropertyChanged();
-            }
-        }
 
         private decimal? _TotalMoney;
         public decimal? TotalMoney
@@ -65,7 +55,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                     SelectedCustomer = SelectedSaleOrder.KhachHang;
                     SelectedProductList = new ObservableCollection<ChiTietPhieuBan>(SelectedSaleOrder.ChiTietPhieuBans);
                     TotalMoney = SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia);
-                    Staff = SelectedSaleOrder.NguoiDung;
 
                 }
             }
@@ -279,7 +268,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             TitleView = titleView;
             OpenThisDiaLog = openDiaLog;
             SaleOrdersList = saleOrdersList;
-            Staff = NguoiDung.Logged;
 
 
             SaveCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => AddNewSaleOrder());
@@ -298,7 +286,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             DeletedProductsList = new ObservableCollection<ChiTietPhieuBan>();
             SelectedCustomersList = new ObservableCollection<KhachHang>();
             SelectedProductList = new ObservableCollection<ChiTietPhieuBan>();
-
             TitleView = titleView;
             OpenThisDiaLog = openDiaLog;
             SaleOrdersList = saleOrdersList;
@@ -403,7 +390,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 MaPhieu = code,
                 NgayLap = DateTime.Now,
                 MaKH = SelectedCustomer.MaKH,
-                MaNV = Staff.MaND
 
             };
 

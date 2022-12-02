@@ -46,7 +46,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                 IsLogin = true;
                 MessageBox.Show("Xin chào " + accCount.QuyenHan.TenQH + " "+ accCount.TenND);
-                NguoiDung.Logged = accCount;
                 p.Close();
             }
             else

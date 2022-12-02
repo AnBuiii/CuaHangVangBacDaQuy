@@ -14,13 +14,6 @@ namespace CuaHangVangBacDaQuy.models
     
     public partial class NguoiDung
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NguoiDung()
-        {
-            this.PhieuBans = new HashSet<PhieuBan>();
-            this.PhieuMuas = new HashSet<PhieuMua>();
-        }
-    
         public int MaND { get; set; }
         public string TenND { get; set; }
         public string TenDangNhap { get; set; }
@@ -28,24 +21,5 @@ namespace CuaHangVangBacDaQuy.models
         public int MaQH { get; set; }
     
         public virtual QuyenHan QuyenHan { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuBan> PhieuBans { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuMua> PhieuMuas { get; set; }
-
-        private static NguoiDung _Logged;
-        public static NguoiDung Logged
-        {
-            get
-            {
-                if (_Logged == null)
-                    _Logged = new NguoiDung();
-                return _Logged;
-            }
-            set
-            {
-                _Logged = value;
-            }
-        }
     }
 }

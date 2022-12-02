@@ -19,7 +19,7 @@ namespace CuaHangVangBacDaQuy.models
         {
             this.SanPhams = new HashSet<SanPham>();
         }
-
+    
         public int MaLoaiSP { get; set; }
         public string TenLoaiSP { get; set; }
         public Nullable<decimal> LoiNhuan { get; set; }

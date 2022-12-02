@@ -26,10 +26,12 @@
     <converter:AmountConverter x:Key="AmountConverterKey"/>
     <converter:DecimalConverter x:Key="DecimalConverterKey"/>
     <converter:CaculateInventoryConverter x:Key="CaculateInventoryConverterKey"/>
-    <converter:IntoMoneyConverter x:Key="IntoMoneyConverterKey"/>
+    <converter:IntoMoneyConverter x:Key="IntoMoneyConverterKey" />
+    <converter:IntoSaleMoneyConverter x:Key="IntoSaleMoneyConverterKey" />
     <converter:TotalPriceOfAReceipt x:Key="TotalPriceOfAReceiptConverterKey"/>
     <converter:TotalPriceOfASaleOrder x:Key="TotalPriceOfASaleOrderKey"/>
     <converter:PriceConverter x:Key="PriceConverterKey" />
+
 
 
 </ResourceDictionary>

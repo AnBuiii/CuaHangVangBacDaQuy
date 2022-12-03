@@ -6,20 +6,24 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
+using MessageBox = System.Windows.MessageBox;
 
 namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
-    public class AddOrEditAccountViewModel:BaseViewModel
+    public class AddOrEditAccountViewModel : BaseViewModel
     {
         private readonly ObservableCollection<NguoiDung> AccountsList;
         private ObservableCollection<QuyenHan> _PermissionsList;
         public ObservableCollection<QuyenHan> PermissionsList { get => _PermissionsList; set { _PermissionsList = value; OnPropertyChanged(); } }
         private QuyenHan _SelectedPermission;
-        public  QuyenHan SelectedPermission { get => _SelectedPermission; set { _SelectedPermission = value; OnPropertyChanged(); } }
+        public QuyenHan SelectedPermission { get => _SelectedPermission; set { _SelectedPermission = value; OnPropertyChanged(); } }
 
         private NguoiDung _EditedAccount;
         public NguoiDung EditedAccount
@@ -36,7 +40,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
                     AccountUsername = EditedAccount.TenDangNhap;
                     AccountName = EditedAccount.TenND;
-                    PasswordAccount = EditedAccount.MatKhau;
+                    PasswordAccount = "";
                     SelectedPermission = EditedAccount.QuyenHan;
 
 
@@ -45,6 +49,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
         private readonly OpenDiaLog openDiaLog;
+
+
 
         private string _TitleView;
         public string TitleView { get => _TitleView; set { _TitleView = value; OnPropertyChanged(); } }
@@ -74,11 +80,21 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
 
         private string _PasswordAccount;
-        public string PasswordAccount { get => _PasswordAccount; set { _PasswordAccount = value; OnPropertyChanged(); } }
+        public string PasswordAccount
+        {
+            get => _PasswordAccount;
+            set
+            {
+                _PasswordAccount = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand ChangePasswordCommand { get; set; }
+        public ICommand PasswordClickCommand { get; set; }
 
 
 
@@ -95,10 +111,12 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             TitleView = titleView;
             openDiaLog = isOpenDialog;
             AccountsList = accountsList;
+
             PermissionsList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
+
             CancelCommand = new RelayCommand<AddOrEditAccountUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddOrEditAccountUC>((p) => CheckEmptyFieldDialog(), p => ActionAddAccount());
-            ChangePasswordCommand = new RelayCommand<AddOrEditAccountUC>((p) => CheckEmptyFieldDialog(), p => ActionChangePassword());
+            SaveCommand = new RelayCommand<AddOrEditAccountUC>((p) => true, p => ActionAddAccount());
+            ChangePasswordCommand = new RelayCommand<PasswordBox>((p) => true, (p) => { PasswordAccount = p.Password; });
 
         }
 
@@ -109,11 +127,14 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             TitleView = tilteView;
             openDiaLog = isOpenDialog;
             AccountsList = suppliersList;
-            PermissionsList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
             EditedAccount = editedAccount;
-            CancelCommand = new RelayCommand<AddOrEditAccountUC>((p) => true, p => CheckCloseDiaLog());
-            SaveCommand = new RelayCommand<AddOrEditAccountUC>((p) => CheckEmptyFieldDialog(), p => ActionEditAccount());
 
+            PermissionsList = new ObservableCollection<QuyenHan>(DataProvider.Ins.DB.QuyenHans);
+
+
+            CancelCommand = new RelayCommand<AddOrEditAccountUC>((p) => true, p => CheckCloseDiaLog());
+            SaveCommand = new RelayCommand<AddOrEditAccountUC>((p) => true, p => ActionEditAccount());
+            ChangePasswordCommand = new RelayCommand<PasswordBox>((p) => true, (p) => { PasswordAccount = p.Password; });
         }
 
 
@@ -148,8 +169,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         bool CheckEmptyFieldDialog()
         {
-            if (string.IsNullOrWhiteSpace(AccountName) || string.IsNullOrWhiteSpace(AccountUsername) || string.IsNullOrWhiteSpace(PasswordAccount) || SelectedPermission == null)
+            if (string.IsNullOrWhiteSpace(AccountName) || string.IsNullOrWhiteSpace(AccountUsername) || SelectedPermission == null || (EditedAccount == null && string.IsNullOrWhiteSpace(PasswordAccount)))
             {
+                if(openDiaLog != null) MessageBox.Show("Các trường không được trống");
                 return false;
             }
             return true;
@@ -170,10 +192,11 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             DataProvider.Ins.DB.NguoiDungs.Add(newAccount);
             DataProvider.Ins.DB.SaveChanges();
-            if(openDiaLog != null)
+            if (openDiaLog != null)
             {
                 AccountsList.Add(newAccount);
                 openDiaLog.IsOpen = false;
+                MessageBox.Show("Người dùng được thêm thành công");
             }
             accountCode = DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == AccountUsername).FirstOrDefault().MaND;
         }
@@ -182,23 +205,27 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         {
             if (!CheckEmptyFieldDialog()) return;
             if (!ValidAccountCheck()) return;
-            if(openDiaLog != null)
+
+            if (openDiaLog != null)
             {
                 openDiaLog.IsOpen = false;
             }
-            
+
             var account = DataProvider.Ins.DB.NguoiDungs.Where(x => x.MaND == EditedAccount.MaND).SingleOrDefault();
             account.TenDangNhap = AccountUsername;
             account.TenND = AccountName;
-            account.MatKhau = MD5Hash(Base64Encode(PasswordAccount));
+            if(PasswordAccount == "") account.MatKhau = EditedAccount.MatKhau;
+            else account.MatKhau = MD5Hash(Base64Encode(PasswordAccount));
             account.MaQH = SelectedPermission.MaQH;
             DataProvider.Ins.DB.SaveChanges();
+            if (openDiaLog != null)
+            {
+                openDiaLog.IsOpen = false;
+                MessageBox.Show("Người dùng được sửa thành công");
+            }
         }
 
-        public void ActionChangePassword()
-        {
-            MessageBox.Show("asd");
-        }
+
 
 
 

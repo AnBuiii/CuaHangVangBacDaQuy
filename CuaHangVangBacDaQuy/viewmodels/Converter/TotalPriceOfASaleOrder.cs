@@ -16,7 +16,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
 
             string receiptCode = value as string;
             List<ChiTietPhieuBan> detailReceiptList = new List<ChiTietPhieuBan>(DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaPhieu == receiptCode));
-            decimal? totalMoney = detailReceiptList.Sum(p => p.SoLuong * p.SanPham.DonGia);
+            decimal? totalMoney = detailReceiptList.Sum(p => p.SoLuong * p.SanPham.DonGia * (1 + p.SanPham.LoaiSanPham.LoiNhuan));
             decimal result = (decimal)((totalMoney == null) ? 0 : totalMoney);
             return result.ToString("#,##0.");
         }

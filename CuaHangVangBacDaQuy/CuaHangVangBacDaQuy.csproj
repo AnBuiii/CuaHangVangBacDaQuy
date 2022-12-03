@@ -170,6 +170,7 @@
     <Compile Include="viewmodels\Converter\CaculateInventoryConverter.cs" />
     <Compile Include="viewmodels\Converter\IntoMoneyConverter.cs" />
     <Compile Include="viewmodels\Converter\IntoSaleMoneyConverter.cs" />
+    <Compile Include="viewmodels\Converter\IntoSalePriceConverter.cs" />
     <Compile Include="viewmodels\Converter\PriceConverter.cs" />
     <Compile Include="viewmodels\Converter\TotalPriceOfAReceipt.cs" />
     <Compile Include="viewmodels\Converter\TotalPriceOfASaleOrder.cs" />

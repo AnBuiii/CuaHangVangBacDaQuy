@@ -24,13 +24,9 @@
 
 
     <Grid>
-
-        <!--Dialog add or edit Import Receipt-->
-        <materialDesign:DialogHost  VerticalAlignment="Top"
-                                    Identifier="AccountDialog"
-                                    CloseOnClickAway="True"
-                                    DialogTheme="Inherit"
-                                    IsOpen="{Binding IsOpenMakeReceiptDialog.IsOpen}">
+        <materialDesign:DialogHost CloseOnClickAway="True"
+                                   DialogTheme="Inherit"
+                                   IsOpen="{Binding IsOpenMakeReceiptDialog.IsOpen}">
             <materialDesign:DialogHost.DialogContent>
                 <ucDialog:AddOrEditImportReceiptUC DataContext="{Binding ContentAddOrEditImportReceipt}" />
             </materialDesign:DialogHost.DialogContent>

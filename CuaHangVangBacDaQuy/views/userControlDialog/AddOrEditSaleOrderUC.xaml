@@ -497,7 +497,7 @@
                                                                             Binding="{Binding SanPham.DonVi.TenDV}"
                                                                             IsReadOnly="True" />
 
-                                                            <DataGridTemplateColumn Header="Số lượng nhập"
+                                                            <DataGridTemplateColumn Header="Số lượng"
                                                                                 x:Name="columnTextBox">
 
                                                                 <DataGridTemplateColumn.CellTemplate>
@@ -523,9 +523,18 @@
                                                                 </DataGridTemplateColumn.CellTemplate>
                                                             </DataGridTemplateColumn>
 
-                                                            <DataGridTextColumn Header="Đơn giá"
-                                                                            Binding="{Binding SanPham.DonGia,  Converter={StaticResource DecimalConverterKey}}"
-                                                                            IsReadOnly="True" />
+                                                            <DataGridTextColumn Header="Đơn giá bán"
+                                                                                IsReadOnly="True"
+                                                                                CanUserReorder="True"
+                                                                                CanUserSort="True">
+                                                                <DataGridTextColumn.Binding>
+                                                                    <MultiBinding UpdateSourceTrigger="PropertyChanged"
+                                                                                  Converter="{StaticResource IntoSalePriceConverterKey}">
+                                                                        <Binding Path="SanPham.DonGia" />
+                                                                        <Binding Path="SanPham.LoaiSanPham.LoiNhuan" />
+                                                                    </MultiBinding>
+                                                                </DataGridTextColumn.Binding>
+                                                            </DataGridTextColumn>
 
 
 

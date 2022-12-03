@@ -9,10 +9,11 @@
 
 namespace CuaHangVangBacDaQuy.models
 {
+    using CuaHangVangBacDaQuy.viewmodels;
     using System;
     using System.Collections.Generic;
-    
-    public partial class NguoiDung
+
+    public partial class NguoiDung : BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NguoiDung()
@@ -20,13 +21,21 @@ namespace CuaHangVangBacDaQuy.models
             this.PhieuBans = new HashSet<PhieuBan>();
             this.PhieuMuas = new HashSet<PhieuMua>();
         }
-    
+
         public int MaND { get; set; }
-        public string TenND { get; set; }
-        public string TenDangNhap { get; set; }
-        public string MatKhau { get; set; }
-        public int MaQH { get; set; }
-    
+
+        private string _TenND;
+        public string TenND { get => _TenND; set { _TenND = value; OnPropertyChanged(); } }
+
+        private string _TenDangNhap;
+        public string TenDangNhap { get => _TenDangNhap; set { _TenDangNhap = value; OnPropertyChanged(); } }
+
+        private string _MatKhau;
+        public string MatKhau { get => _MatKhau; set { _MatKhau = value; OnPropertyChanged(); } }
+
+        private int _MaQH;
+        public int MaQH { get => _MaQH; set { _MaQH = value; OnPropertyChanged(); } }
+
         public virtual QuyenHan QuyenHan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuBan> PhieuBans { get; set; }

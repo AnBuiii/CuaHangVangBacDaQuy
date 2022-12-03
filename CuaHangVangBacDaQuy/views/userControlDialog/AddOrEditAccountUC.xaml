@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CuaHangVangBacDaQuy.views.userControlDialog"
              mc:Ignorable="d"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -62,7 +63,7 @@
                 <StackPanel>
                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                 VerticalAlignment="Center"
-                                Text="Tên đăng nhập"></TextBlock>
+                                Text="Tên hiển thị"></TextBlock>
 
                     <TextBox Height="52"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -84,7 +85,7 @@
                 <StackPanel>
                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                 VerticalAlignment="Center"
-                                Text="Tên hiển thị"></TextBlock>
+                                Text="Tên đăng nhập"></TextBlock>
 
                     <TextBox Height="52"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -96,7 +97,7 @@
                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                              BorderThickness="0.5"
                              BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                             Text="{Binding AccountName1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             Text="{Binding AccountUsername, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 </StackPanel>
             </Grid>
@@ -109,17 +110,29 @@
                     <TextBlock  Style="{StaticResource MaterialDesignBody1TextBlock}"
                                 VerticalAlignment="Center"
                                 Text="Mật khẩu" />
-                    <TextBox  Height="52"
-                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                              Foreground="Black"
-                              FontSize="16"
-                              FontWeight="Medium"
-                              MinWidth="100"
-                              VerticalAlignment="Center"
-                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                              BorderThickness="0.5"
-                              BorderBrush="{StaticResource MaterialDesignBodyLight}"
-                              Text="{Binding PasswordAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <PasswordBox  x:Name="FloatingPasswordBox"
+                                  Height="52"
+                                  Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"
+                                  Foreground="Black"
+                                  FontSize="16"
+                                  FontWeight="Medium"
+                                  MinWidth="100"
+                                  VerticalAlignment="Center"
+                                  materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                  BorderThickness="0.5"
+                                  BorderBrush="{StaticResource MaterialDesignBodyLight}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangePasswordCommand}"
+                                                       CommandParameter="{Binding ElementName=FloatingPasswordBox}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding PasswordClickCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                       
+
+                    </PasswordBox>
                 </StackPanel>
             </Grid>
 
@@ -130,8 +143,8 @@
                                 Text="Quyền hạn" />
 
                     <ComboBox FontSize="16"
-                              ItemsSource="{Binding JurisdictionsList }"
-                              SelectedItem="{Binding SelectedJurisdiction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding PermissionsList }"
+                              SelectedItem="{Binding SelectedPermission, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Foreground="Black"
                               DisplayMemberPath="TenQH"
                               Style="{StaticResource MaterialDesignOutlinedComboBox}" />

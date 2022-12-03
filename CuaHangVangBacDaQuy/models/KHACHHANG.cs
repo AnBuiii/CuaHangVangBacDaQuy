@@ -9,10 +9,11 @@
 
 namespace CuaHangVangBacDaQuy.models
 {
+    using CuaHangVangBacDaQuy.viewmodels;
     using System;
     using System.Collections.Generic;
-    
-    public partial class KhachHang
+
+    public partial class KhachHang : BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhachHang()
@@ -21,10 +22,19 @@ namespace CuaHangVangBacDaQuy.models
         }
     
         public int MaKH { get; set; }
-        public string TenKH { get; set; }
-        public string GioiTinh { get; set; }
-        public string DiaChi { get; set; }
-        public string SoDT { get; set; }
+
+        private string _TenKH { get; set; }
+        public string TenKH { get => _TenKH; set { _TenKH = value; OnPropertyChanged(); } }
+
+        private string _GioiTinh { get; set; }
+        public string GioiTinh { get => _GioiTinh; set { _GioiTinh = value; OnPropertyChanged(); } }
+
+        private string _DiaChi { get; set; }
+        public string DiaChi { get => _DiaChi; set { _DiaChi = value; OnPropertyChanged(); } }
+
+        private string _SoDT { get; set; }
+        public string SoDT { get => _SoDT; set { _SoDT = value; OnPropertyChanged(); } }
+
         public Nullable<System.DateTime> NgayDK { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

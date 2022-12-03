@@ -64,7 +64,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 {
                     SelectedCustomer = SelectedSaleOrder.KhachHang;
                     SelectedProductList = new ObservableCollection<ChiTietPhieuBan>(SelectedSaleOrder.ChiTietPhieuBans);
-                    TotalMoney = SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia);
+                    TotalMoney = SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia * (1+ p.SanPham.LoaiSanPham.LoiNhuan));
                     Staff = SelectedSaleOrder.NguoiDung;
 
                 }

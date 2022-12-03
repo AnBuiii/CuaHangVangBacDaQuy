@@ -79,7 +79,7 @@
                             <TextBlock Text="Mật khẩu" Margin="0 8" FontSize="16"/>
                             <PasswordBox x:Name="FloatingPasswordBox"
                                  materialDesign:HintAssist.Hint="Mật khẩu"
-                                 Style="{StaticResource MaterialDesignOutlinedPasswordBox}">
+                                 Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PasswordChanged">
                                         <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"

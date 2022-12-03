@@ -27,11 +27,7 @@
             <materialDesign:DialogHost.DialogContent>
                 <ucDialog:AddOrEditProductUC DataContext="{Binding ContentAddProduct}" />
             </materialDesign:DialogHost.DialogContent>
-
-
-
-
-            <!--end dialog-->
+    
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>

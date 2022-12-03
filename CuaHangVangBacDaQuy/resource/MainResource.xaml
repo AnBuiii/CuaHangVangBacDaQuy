@@ -28,6 +28,7 @@
     <converter:CaculateInventoryConverter x:Key="CaculateInventoryConverterKey"/>
     <converter:IntoMoneyConverter x:Key="IntoMoneyConverterKey" />
     <converter:IntoSaleMoneyConverter x:Key="IntoSaleMoneyConverterKey" />
+    <converter:IntoSalePriceConverter x:Key="IntoSalePriceConverterKey" />
     <converter:TotalPriceOfAReceipt x:Key="TotalPriceOfAReceiptConverterKey"/>
     <converter:TotalPriceOfASaleOrder x:Key="TotalPriceOfASaleOrderKey"/>
     <converter:PriceConverter x:Key="PriceConverterKey" />

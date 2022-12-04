@@ -16,6 +16,17 @@ namespace CuaHangVangBacDaQuy.viewmodels
 {
     public class HomeViewModel : BaseViewModel
     {
+        private object _currentReportView;
+        public object CurrentReportView
+        {
+            get => _currentReportView;
+            set
+            {
+                _currentReportView = value;
+                OnPropertyChanged();
+            }
+        }
+
         private ObservableCollection<TonKho> _TonKhoList;
         public ObservableCollection<TonKho> TonKhoList { get => _TonKhoList; set { _TonKhoList = value; OnPropertyChanged(); } }
 
@@ -86,6 +97,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
         {
             LoadHomeView = new RelayCommand<HomeView>((p) => true, (p) => LoadingHomeView(p, GetImportVolume()));
 
+            CurrentReportView = new InventoryReport();
+
 
         }
 
@@ -109,42 +122,42 @@ namespace CuaHangVangBacDaQuy.viewmodels
             NCCTop = new NhaCungCap();
             NCCValueTop = 0;
             int i = 1;
-            foreach (var item in SanPhamList)
-            {
-                var MuaList = DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaSP == item.MaSP);
-                var BanList = DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaSP == item.MaSP);
+            //foreach (var item in SanPhamList)
+            //{
+            //    var MuaList = DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaSP == item.MaSP);
+            //    var BanList = DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaSP == item.MaSP);
 
-                int sumMua = 0;
-                int sumBan = 0;
+            //    int sumMua = 0;
+            //    int sumBan = 0;
 
-                decimal moneyMua = 0;
-                decimal moneyBan = 0;
+            //    decimal moneyMua = 0;
+            //    decimal moneyBan = 0;
 
-                if (MuaList != null && MuaList.Count() > 0)
-                {
-                    sumMua = (int)MuaList.Sum(p => p.SoLuong);
-                    moneyMua = (decimal)((decimal)MuaList.Sum(p => p.SoLuong) * item.DonGia);
-                }
-                if (BanList != null && BanList.Count() > 0)
-                {
-                    sumBan = (int)BanList.Sum(p => p.SoLuong);
-                    moneyBan = (decimal)((decimal)BanList.Sum(p => p.SoLuong) * item.DonGia);
-                }
-                if (sumMua == sumBan) OutOfStockCount++;
+            //    if (MuaList != null && MuaList.Count() > 0)
+            //    {
+            //        sumMua = (int)MuaList.Sum(p => p.SoLuong);
+            //        moneyMua = (decimal)((decimal)MuaList.Sum(p => p.SoLuong) * item.DonGia);
+            //    }
+            //    if (BanList != null && BanList.Count() > 0)
+            //    {
+            //        sumBan = (int)BanList.Sum(p => p.SoLuong);
+            //        moneyBan = (decimal)((decimal)BanList.Sum(p => p.SoLuong) * item.DonGia);
+            //    }
+            //    if (sumMua == sumBan) OutOfStockCount++;
 
-                ImportVolume += moneyMua;
-                ExportVolume += moneyBan;
+            //    ImportVolume += moneyMua;
+            //    ExportVolume += moneyBan;
 
-                TonKho tonkho = new TonKho
-                {
-                    Stt = i,
-                    Count = sumMua - sumBan,
-                    SanPham = item
-                };
+            //    TonKho tonkho = new TonKho
+            //    {
+            //        Stt = i,
+            //        Count = sumMua - sumBan,
+            //        SanPham = item
+            //    };
 
-                TonKhoList.Add(tonkho);
-                i++;
-            }
+            //    TonKhoList.Add(tonkho);
+            //    i++;
+            //}
             Inventory = ImportVolume - ExportVolume;
 
             foreach (KhachHang khachHang in KhachHangList)
@@ -181,7 +194,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 SeriesCollection.Add(new PieSeries
                 {
                     Title = ton.SanPham.TenSP,
-                    Values = new ChartValues<ObservableValue> { new ObservableValue(ton.Count) },
+                    //Values = new ChartValues<ObservableValue> { new ObservableValue(ton.Count) },
                     DataLabels = true
                 }
                 );
@@ -189,6 +202,8 @@ namespace CuaHangVangBacDaQuy.viewmodels
             }
 
         }
+
+
 
 
 

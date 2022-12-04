@@ -34,4 +34,8 @@
     <DataTemplate DataType="{x:Type contentDialogViewModel:AddOrEditImportReceiptViewModel}">
         <viewUC:AddOrEditImportReceiptUC />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type contentDialogViewModel:InventoryReportViewModel}">
+        <view:InventoryReport />
+    </DataTemplate>
+
 </ResourceDictionary>

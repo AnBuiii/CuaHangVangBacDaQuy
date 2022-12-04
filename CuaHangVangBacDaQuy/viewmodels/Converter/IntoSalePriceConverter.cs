@@ -14,9 +14,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.Converter
         {
             if (values != null && values.Length > 0 && values[1] != null && values[0] != null)
             {
-
-
-
                 decimal intoMoney = (decimal)values[0] * (1 + (decimal)values[1]);
                 return intoMoney.ToString("#,##0.");
             }

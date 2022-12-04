@@ -9,15 +9,22 @@
 
 namespace CuaHangVangBacDaQuy.models
 {
+    using CuaHangVangBacDaQuy.viewmodels;
     using System;
     using System.Collections.Generic;
     
-    public partial class ChiTietPhieuBan
+    public partial class ChiTietPhieuBan:BaseViewModel
     {
         public string MaChiTietPhieu { get; set; }
-        public string MaPhieu { get; set; }
-        public string MaSP { get; set; }
-        public Nullable<int> SoLuong { get; set; }
+
+        private string _MaPhieu { get; set; }
+        public string MaPhieu { get => _MaPhieu; set { _MaPhieu = value; OnPropertyChanged(); } }
+
+        private string _MaSP { get; set; }
+        public string MaSP { get => _MaSP; set { _MaSP = value; OnPropertyChanged(); } }
+
+        private Nullable<int> _SoLuong { get; set; }
+        public Nullable<int> SoLuong { get => _SoLuong; set { _SoLuong = value; OnPropertyChanged(); } }
     
         public virtual PhieuBan PhieuBan { get; set; }
         public virtual SanPham SanPham { get; set; }

@@ -21,6 +21,7 @@
     <contentDialogViewModel:AddOrEditImportReceiptViewModel x:Key="AddOrEditImportReceiptVM"/>
     <contentDialogViewModel:AddOrEditSaleOrderViewModel x:Key="AddOrEditSaleOrderVM"/>
     <contentDialogViewModel:AddOrEditAccountViewModel x:Key ="AddOrEditAccountVM"/>
+    <contentDialogViewModel:InventoryReportViewModel x:Key="InventoryReportVM" />
 
     <converter:GenderConverter x:Key="genderConverterKey"/>
     <converter:AmountConverter x:Key="AmountConverterKey"/>

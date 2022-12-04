@@ -10,6 +10,9 @@ namespace CuaHangVangBacDaQuy.models
     {
         public SanPham SanPham { get; set; }
         public int Stt { get; set; }
-        public int Count { get; set; }
+        public int TonDau { get; set; }
+        public int Mua { get; set; }
+        public int Ban { get; set; }
+        public int TonCuoi { get; set; }
     }
 }

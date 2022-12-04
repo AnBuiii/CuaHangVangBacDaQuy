@@ -29,7 +29,7 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <!--<Grid Grid.Row="0">
             <materialDesign:Card Margin="5">
                 <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
@@ -289,11 +289,7 @@
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Left"
                                                    Text="{Binding KhachHangTop.TenKH}" />
-                                        <!--<TextBlock Grid.Column="1"
-                                                   Margin="8 4"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Right"
-                                                   Text="0" />-->
+                                    
                                     </Grid>
                                     <Grid Grid.Row="3">
                                         <Grid.ColumnDefinitions>
@@ -305,11 +301,7 @@
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Left"
                                                    Text="{Binding KhachHangValueTop}" />
-                                        <!--<TextBlock Grid.Column="1"
-                                                   Margin="8 4"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Right"
-                                                   Text="0" />-->
+                                  
                                     </Grid>
                                 </Grid>
                             </materialDesign:Card>
@@ -439,11 +431,7 @@
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Left"
                                                        Text="{Binding NCCValueTop}" />
-                                            <!--<TextBlock Grid.Column="1"
-                                                       Margin="8 4"
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Right"
-                                                       Text="0" />-->
+                                           
                                         </Grid>
                                     </Grid>
                                 </materialDesign:Card>
@@ -453,8 +441,8 @@
                     </Grid>
                 </Grid>
             </materialDesign:Card>
-        </Grid>
-        <materialDesign:Card Grid.Row="1"
+        </Grid>-->
+        <!--<materialDesign:Card Grid.Row="1"
                              Margin="5"
                              VerticalAlignment="Stretch">
             <Grid>
@@ -500,6 +488,35 @@
                     </Grid>
                 </Grid>
             </Grid>
-        </materialDesign:Card>
+        </materialDesign:Card>-->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <StackPanel Grid.Column="0"
+                            Orientation="Horizontal">
+                    <RadioButton x:Name="rdbtRevenue"
+                                 BorderBrush="{StaticResource PrimaryHueDarkBrush}"
+                                 Style="{StaticResource MaterialDesignTabRadioButton}"
+                                 Margin="4"
+                                 Command="{Binding TonKhoCommand}"
+                                 IsChecked="True">
+                        <TextBlock Text="Báo cáo     tồn kho" />
+                    </RadioButton>
+                    <RadioButton x:Name="rdbtGuestChart"
+                                 BorderBrush="{StaticResource PrimaryHueDarkBrush}"
+                                 Style="{StaticResource MaterialDesignTabRadioButton}"
+                                 Margin="4"
+                                 Command="{Binding DoanhThuCommand}">
+                        <TextBlock Text="Báo cáo doanh thu" />
+                    </RadioButton>
+                </StackPanel>
+            </Grid>
+            <ContentControl Grid.Row="1"
+                            Content="{Binding CurrentReportView}" />
+
+        </Grid>
     </Grid>
 </UserControl>

@@ -166,12 +166,14 @@
     <Compile Include="viewmodels\BaseViewModel.cs" />
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
     <Compile Include="viewmodels\Converter\AmountConverter.cs" />
+    <Compile Include="viewmodels\Converter\Resource\DatePickerCalendar.cs" />
     <Compile Include="viewmodels\Converter\DecimalConverter.cs" />
     <Compile Include="viewmodels\Converter\CaculateInventoryConverter.cs" />
     <Compile Include="viewmodels\Converter\IntoMoneyConverter.cs" />
     <Compile Include="viewmodels\Converter\IntoSaleMoneyConverter.cs" />
     <Compile Include="viewmodels\Converter\IntoSalePriceConverter.cs" />
     <Compile Include="viewmodels\Converter\PriceConverter.cs" />
+    <Compile Include="viewmodels\Converter\Resource\DatePickerFormat.cs" />
     <Compile Include="viewmodels\Converter\TotalPriceOfAReceipt.cs" />
     <Compile Include="viewmodels\Converter\TotalPriceOfASaleOrder.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditAccountViewModel.cs" />
@@ -180,6 +182,7 @@
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditProductViewModel.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditSaleOrderViewModel.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditSupplierViewModel.cs" />
+    <Compile Include="viewmodels\DialogContentViewModel\InventoryReportViewModel.cs" />
     <Compile Include="viewmodels\ImportReceiptViewModel.cs" />
     <Compile Include="viewmodels\SaleOrderViewModel.cs" />
     <Compile Include="viewmodels\Converter\GenderConverter.cs" />
@@ -193,6 +196,9 @@
     </Compile>
     <Compile Include="views\ImportReceiptView.xaml.cs">
       <DependentUpon>ImportReceiptView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\InventoryReport.xaml.cs">
+      <DependentUpon>InventoryReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\SaleOrderView.xaml.cs">
       <DependentUpon>SaleOrderView.xaml</DependentUpon>
@@ -247,6 +253,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\ImportReceiptView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\InventoryReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

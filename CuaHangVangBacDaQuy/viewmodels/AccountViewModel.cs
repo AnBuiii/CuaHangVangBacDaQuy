@@ -259,17 +259,23 @@ namespace CuaHangVangBacDaQuy.viewmodels
         private void DeletedAccount()
         {
             if (SelectedAccount == null) { MessageBox.Show("null"); IsOpenDialogAccount.IsOpen = false; return; }
-            var deletedCustomer = DataProvider.Ins.DB.NguoiDungs.Where(c => c.MaND == SelectedAccount.MaND).SingleOrDefault();
+            var deletedAccount = DataProvider.Ins.DB.NguoiDungs.Where(c => c.MaND == SelectedAccount.MaND).SingleOrDefault();
 
-            if (deletedCustomer.MaND == 1)
+            if (deletedAccount.MaND == 1)
             {
                 MessageBox.Show("Đây là tài khoản mặc định, không thể xóa!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
-            if (MessageBox.Show("Bạn có chắc chắc muốn xóa tài khoản" + deletedCustomer.TenDangNhap + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if (DataProvider.Ins.DB.PhieuMuas.Where(d => d.NguoiDung.MaND == deletedAccount.MaND).Count() > 0 || DataProvider.Ins.DB.PhieuBans.Where(d => d.NguoiDung.MaND == deletedAccount.MaND).Count() > 0)
+            {
+                MessageBox.Show("Người dùng " + deletedAccount.TenND + " đã từng hoạt động, vui lòng kiểm tra các đơn mua hàng hoặc bán hàng liên quan trước khi xóa người dùng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (MessageBox.Show("Bạn có chắc chắc muốn xóa người dùng" + deletedAccount.TenND + " không?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 return;
             }
-            DataProvider.Ins.DB.NguoiDungs.Remove(deletedCustomer);
+            DataProvider.Ins.DB.NguoiDungs.Remove(deletedAccount);
             DataProvider.Ins.DB.SaveChanges();
             NguoiDungList.Remove(SelectedAccount);
 

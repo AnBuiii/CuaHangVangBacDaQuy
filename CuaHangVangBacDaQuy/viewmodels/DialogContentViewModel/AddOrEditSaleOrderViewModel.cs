@@ -355,10 +355,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         void CaculateTotalMoney()
         {
-            //(bool)value ? parameter : Binding.DoNothin
-
-
-            TotalMoney = (TotalMoney == null) ? 0 : SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia);
+            TotalMoney = SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia * (1 + p.SanPham.LoaiSanPham.LoiNhuan));
 
         }
 

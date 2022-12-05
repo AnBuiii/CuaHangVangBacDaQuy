@@ -183,6 +183,7 @@
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditSaleOrderViewModel.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\AddOrEditSupplierViewModel.cs" />
     <Compile Include="viewmodels\DialogContentViewModel\InventoryReportViewModel.cs" />
+    <Compile Include="viewmodels\DialogContentViewModel\RevenueReportViewModel.cs" />
     <Compile Include="viewmodels\ImportReceiptViewModel.cs" />
     <Compile Include="viewmodels\SaleOrderViewModel.cs" />
     <Compile Include="viewmodels\Converter\GenderConverter.cs" />
@@ -199,6 +200,9 @@
     </Compile>
     <Compile Include="views\InventoryReport.xaml.cs">
       <DependentUpon>InventoryReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\RevenueReport.xaml.cs">
+      <DependentUpon>RevenueReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\SaleOrderView.xaml.cs">
       <DependentUpon>SaleOrderView.xaml</DependentUpon>
@@ -257,6 +261,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\InventoryReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\RevenueReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

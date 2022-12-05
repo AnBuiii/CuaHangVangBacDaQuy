@@ -363,12 +363,12 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         {
             foreach (var product in SelectedProductList)
             {
-                if (CaculateInventoryConverter.CaculateInventory(product.MaSP) <= 0)
-                {
-                    if (product.SanPham != null)
-                        MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " đã hết hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return false;
-                }
+                //if (CaculateInventoryConverter.CaculateInventory(product.MaSP) <= 0)
+                //{
+                //    if (product.SanPham != null)
+                //        MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " đã hết hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //    return false;
+                //}
 
                 if (CaculateInventoryConverter.CaculateInventory(product.MaSP) < product.SoLuong)
                 {
@@ -380,6 +380,29 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                     return false;
                 }
             }
+            return true;
+        }
+
+        bool CheckProductStodckEdit() {
+            //foreach (var product in SelectedProductList)
+            //{
+            //    int count = CaculateInventoryConverter.CaculateInventory(product.MaSP);
+            //    if(DataProvider.Ins.DB.ChiTietPhieuBans.Where(p=> p.SanPham.MaSP == product.MaSP && p.PhieuBan.MaPhieu == SelectedSaleOrder.MaPhieu).SingleOrDefault() != null)
+            //    {
+            //        count += 
+            //    }
+
+            //    if (CaculateInventoryConverter.CaculateInventory(product.MaSP) < product.SoLuong)
+            //    {
+            //        if (product.SanPham != null)
+            //        {
+            //            MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " không đủ hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //        }
+
+            //        return false;
+            //    }
+            //}
+
             return true;
         }
         public string code;

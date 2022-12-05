@@ -503,7 +503,7 @@
                                  Margin="4"
                                  Command="{Binding TonKhoCommand}"
                                  IsChecked="True">
-                        <TextBlock Text="Báo cáo     tồn kho" />
+                        <TextBlock Text="Báo cáo tồn kho" />
                     </RadioButton>
                     <RadioButton x:Name="rdbtGuestChart"
                                  BorderBrush="{StaticResource PrimaryHueDarkBrush}"

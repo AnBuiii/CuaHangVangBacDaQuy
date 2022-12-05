@@ -37,5 +37,9 @@
     <DataTemplate DataType="{x:Type contentDialogViewModel:InventoryReportViewModel}">
         <view:InventoryReport />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type contentDialogViewModel:RevenueReportViewModel}">
+        <view:RevenueReport />
+    </DataTemplate>
+    
 
 </ResourceDictionary>

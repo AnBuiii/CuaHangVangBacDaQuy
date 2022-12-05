@@ -92,10 +92,15 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
 
         public ICommand LoadHomeView { get; set; }
+        public ICommand TonKhoCommand { get; set; }
+        public ICommand DoanhThuCommand { get; set; }
 
         public HomeViewModel()
         {
             LoadHomeView = new RelayCommand<HomeView>((p) => true, (p) => LoadingHomeView(p, GetImportVolume()));
+            TonKhoCommand = new RelayCommand<HomeView>((p) => true, (p) => CurrentReportView = new InventoryReport());
+            DoanhThuCommand = new RelayCommand<HomeView>((p) => true, (p) => CurrentReportView = new RevenueReport());
+
 
             CurrentReportView = new InventoryReport();
 

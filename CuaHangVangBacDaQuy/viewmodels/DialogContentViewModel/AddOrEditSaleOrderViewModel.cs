@@ -15,20 +15,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
     public class AddOrEditSaleOrderViewModel : BaseViewModel
     {
-        #region
-        // các biến cho view chính này
-
-        private ObservableCollection<PhieuBan> _SaleOrdersList;
-        public ObservableCollection<PhieuBan> SaleOrdersList
-        {
-            get => _SaleOrdersList;
-            set
-            {
-
-                _SaleOrdersList = value;
-                OnPropertyChanged();
-            }
-        }
+        #region SaleOrderProperties
 
         private NguoiDung _Staff;
         public NguoiDung Staff
@@ -41,76 +28,17 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
         }
 
-        private decimal? _TotalMoney;
-        public decimal? TotalMoney
+        private ObservableCollection<ChiTietPhieuBan> _SelectedProductList;
+        public ObservableCollection<ChiTietPhieuBan> SelectedProductList
         {
-            get => _TotalMoney;
-
+            get => _SelectedProductList;
             set
             {
-                _TotalMoney = value;
+
+                _SelectedProductList = value;
                 OnPropertyChanged();
             }
         }
-        private PhieuBan _SelectedSaleOrder;
-        public PhieuBan SelectedSaleOrder
-        {
-            get => _SelectedSaleOrder;
-            set
-            {
-                _SelectedSaleOrder = value;
-                OnPropertyChanged();
-                if (SelectedSaleOrder != null)
-                {
-                    SelectedCustomer = SelectedSaleOrder.KhachHang;
-                    //SelectedProductList = new ObservableCollection<ChiTietPhieuBan>(SelectedSaleOrder.ChiTietPhieuBans);
-                    foreach (ChiTietPhieuBan phieuBan in SelectedSaleOrder.ChiTietPhieuBans)
-                    {
-                        SelectedProductList.Add(new ChiTietPhieuBan() { 
-                            MaChiTietPhieu = phieuBan.MaChiTietPhieu, 
-                            MaPhieu = phieuBan.MaPhieu, 
-                            MaSP = phieuBan.MaSP, 
-                            PhieuBan = phieuBan.PhieuBan,
-                            SanPham = phieuBan.SanPham,
-                            SoLuong = phieuBan.SoLuong
-                        });
-                    }
-                    TotalMoney = SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia * (1 + p.SanPham.LoaiSanPham.LoiNhuan));
-                    Staff = SelectedSaleOrder.NguoiDung;
-
-                }
-            }
-        }
-
-        private ObservableCollection<ChiTietPhieuBan> InsertProductsList;
-        private ObservableCollection<ChiTietPhieuBan> DeletedProductsList;
-
-
-
-        private readonly OpenDiaLog OpenThisDiaLog;  //tham chiếu để tắt bật dialog có view này
-        private string _TitleView;
-        public string TitleView { get => _TitleView; set { _TitleView = value; OnPropertyChanged(); } }
-
-        public ICommand SaveCommand { get; set; }
-        public ICommand CancelCommand { get; set; }
-
-
-
-
-        public ICommand RemoveSelectedProductCommand { get; set; }
-        public ICommand CaculateTotalMoneyCommand { get; set; } // dùng để tính lại tổng tiền hóa đơn khi nhập số lượng sản phẩm
-
-        //Các biến cho việc chọn nhà cung cấp
-
-        #region 
-
-        private ObservableCollection<KhachHang> _SelectedCustomersList;
-        public ObservableCollection<KhachHang> SelectedCustomersList
-        {
-            get => _SelectedCustomersList;
-            set { _SelectedCustomersList = value; OnPropertyChanged(); }
-        }
-
 
         private KhachHang _SelectedCustomer;
         public KhachHang SelectedCustomer
@@ -131,71 +59,86 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                     SelectedCustomersList.Add(value);
 
                 }
-
-
             }
         }
-
-        private AddOrEditSupplierViewModel _ContentAddSupplier;
-        public AddOrEditSupplierViewModel ContentAddSupplier
-        {
-            get => _ContentAddSupplier;
-            set
-            {
-                _ContentAddSupplier = value;
-                OnPropertyChanged();
-
-            }
-        }
-
-
-
-        private OpenDiaLog _IsOpenAddSupplierDialog;
-        public OpenDiaLog IsOpenAddSupplierDialog
-        {
-            get { return _IsOpenAddSupplierDialog; }
-            set { _IsOpenAddSupplierDialog = value; OnPropertyChanged(); }
-        }
-
-        public ICommand AddSupplierCommand { get; set; }
-        public ICommand RemoveSelectedSupplierCommand { get; set; }
-
         #endregion
 
-
-        //Các biến cho việc chọn sản phẩm
-
-        #region 
-
-        private ObservableCollection<ChiTietPhieuBan> _SelectedProductList;
-        public ObservableCollection<ChiTietPhieuBan> SelectedProductList
+        #region SaleOrderViewProperties
+        private ObservableCollection<PhieuBan> _SaleOrdersList;
+        public ObservableCollection<PhieuBan> SaleOrdersList
         {
-            get => _SelectedProductList;
+            get => _SaleOrdersList;
             set
             {
-
-                _SelectedProductList = value;
+                _SaleOrdersList = value;
                 OnPropertyChanged();
             }
+        }
+        private readonly OpenDiaLog OpenThisDiaLog;
+        private string _TitleView;
+        public string TitleView { get => _TitleView; set { _TitleView = value; OnPropertyChanged(); } }
+        #endregion
+
+        #region CalculatingProperties
+        private PhieuBan _SelectedSaleOrder;
+        public PhieuBan SelectedSaleOrder
+        {
+            get => _SelectedSaleOrder;
+            set
+            {
+                _SelectedSaleOrder = value;
+                OnPropertyChanged();
+                if (SelectedSaleOrder != null)
+                {
+                    SelectedCustomer = SelectedSaleOrder.KhachHang;
+                    foreach (ChiTietPhieuBan phieuBan in SelectedSaleOrder.ChiTietPhieuBans)
+                    {
+                        SelectedProductList.Add(new ChiTietPhieuBan()
+                        {
+                            MaChiTietPhieu = phieuBan.MaChiTietPhieu,
+                            MaPhieu = phieuBan.MaPhieu,
+                            MaSP = phieuBan.MaSP,
+                            PhieuBan = phieuBan.PhieuBan,
+                            SanPham = phieuBan.SanPham,
+                            SoLuong = phieuBan.SoLuong
+                        });
+                    }
+                    TotalMoney = SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia * (1 + p.SanPham.LoaiSanPham.LoiNhuan));
+                    Staff = SelectedSaleOrder.NguoiDung;
+
+                }
+            }
+        }
+
+        private decimal? _TotalMoney;
+        public decimal? TotalMoney
+        {
+            get => _TotalMoney;
+            set
+            {
+                _TotalMoney = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<KhachHang> _SelectedCustomersList;
+        public ObservableCollection<KhachHang> SelectedCustomersList
+        {
+            get => _SelectedCustomersList;
+            set { _SelectedCustomersList = value; OnPropertyChanged(); }
         }
 
         private SanPham _SelectedProductItem;
         public SanPham SelectedProductItem
         {
-            get
-            {
-                return _SelectedProductItem;
-            }
+            get => _SelectedProductItem;
             set
             {
                 _SelectedProductItem = value;
-
                 OnPropertyChanged();
 
                 if (SelectedProductItem != null)
                 {
-
-
                     if (SelectedProductList.Where(x => x.SanPham == SelectedProductItem).Count() == 0)
                     {
                         ChiTietPhieuBan productAdded = new ChiTietPhieuBan()
@@ -205,77 +148,34 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                             SanPham = SelectedProductItem,
                             SoLuong = 1
                         };
-
                         SelectedProductList.Add(productAdded);
                         CaculateTotalMoney();
-
-                        // nếu là thêm sản phẩm vào phiếu đang chỉnh sửa
-                        //if (SelectedSaleOrder != null && DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaPhieu == SelectedSaleOrder.MaPhieu && p.MaSP == SelectedProductItem.MaSP).Count() == 0)
-                        //{
-
-                        //    InsertProductsList.Add(productAdded);
-                        //}
-                        //SelectedProductItem = null;
-
                     }
-
-
                 }
-
-
             }
         }
-
-
 
         private ChiTietPhieuBan _SelectedProductDataGrid;
         public ChiTietPhieuBan SelectedProductDataGrid
         {
-            get
-            {
-                return _SelectedProductDataGrid;
-            }
+            get => _SelectedProductDataGrid;
             set
             {
                 _SelectedProductDataGrid = value;
                 OnPropertyChanged();
-
             }
         }
-
-
-        private OpenDiaLog _IsOpenAddProductDialog;
-        public OpenDiaLog IsOpenAddProductDialog
-        {
-            get { return _IsOpenAddProductDialog; }
-            set { _IsOpenAddProductDialog = value; OnPropertyChanged(); }
-        }
-
-
-        private AddOrEditProductViewModel _ContentAddProduct;
-        public AddOrEditProductViewModel ContentAddProduct
-        {
-            get => _ContentAddProduct;
-            set
-            {
-                _ContentAddProduct = value;
-                OnPropertyChanged();
-
-            }
-        }
-
-        public ICommand AddProductCommand { get; set; }
-
-
-
         #endregion
 
-
-
-
-
+        #region Command
+        public ICommand RemoveSelectedSupplierCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
+        public ICommand RemoveSelectedProductCommand { get; set; }
+        public ICommand CaculateTotalMoneyCommand { get; set; }
         #endregion
 
+        #region Constructors
         public AddOrEditSaleOrderViewModel()
         {
 
@@ -283,10 +183,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             SelectedProductList = new ObservableCollection<ChiTietPhieuBan>();
 
         }
-        //constructor cho việc tạo phiếu bán hàng mới 
         public AddOrEditSaleOrderViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuBan> saleOrdersList)
         {
-
             SelectedCustomersList = new ObservableCollection<KhachHang>();
             SelectedProductList = new ObservableCollection<ChiTietPhieuBan>();
 
@@ -295,21 +193,14 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             SaleOrdersList = saleOrdersList;
             Staff = NguoiDung.Logged;
 
-
             SaveCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => AddNewSaleOrder());
             CancelCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => CheckCloseDiaLog());
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct());
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
-
-
-
         }
-        // constructor cho việc chỉnh sửa phiếu bán hàng
 
         public AddOrEditSaleOrderViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuBan> saleOrdersList, ref PhieuBan selectedSaleOrder)
         {
-            InsertProductsList = new ObservableCollection<ChiTietPhieuBan>();
-            DeletedProductsList = new ObservableCollection<ChiTietPhieuBan>();
             SelectedCustomersList = new ObservableCollection<KhachHang>();
             SelectedProductList = new ObservableCollection<ChiTietPhieuBan>();
 
@@ -323,75 +214,28 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             CancelCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => CheckCloseDiaLog());
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct());
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
-
-
-
         }
+        #endregion
 
         #region Funtion for creating or editing the SaleOrder
         void RemoveSelectedProduct()
         {
-            //switch (caseRemove)
-            //{
-            //    case "UNSAVED":
-            //        {
-            //            if (SelectedProductDataGrid != null)
-            //            {
-            //                SelectedProductList.Remove(SelectedProductDataGrid);
-            //                CaculateTotalMoney();
-            //            }
-            //            break;
-            //        }
-            //    case "SAVED":
-            //        {
-
-
-            //            ChiTietPhieuBan deletedProduct = SelectedProductDataGrid;
-
-            //            if (InsertProductsList.Contains(deletedProduct))
-            //            {
-            //                InsertProductsList.Remove(deletedProduct);
-            //            }
-            //            else
-            //                DeletedProductsList.Add(deletedProduct);
-
-            //            SelectedProductList.Remove(SelectedProductDataGrid);
-
-            //            CaculateTotalMoney();
-
-            //            break;
-            //        }
-
-            //}
-
             if (SelectedProductDataGrid != null)
             {
                 SelectedProductList.Remove(SelectedProductDataGrid);
                 CaculateTotalMoney();
             }
-
-
         }
 
         void CaculateTotalMoney()
         {
             TotalMoney = SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia * (1 + p.SanPham.LoaiSanPham.LoiNhuan));
-
         }
 
         bool CheckProductStock()
         {
             foreach (var product in SelectedProductList)
             {
-                //if (CaculateInventoryConverter.CaculateInventory(product.MaSP) <= 0)
-                //{
-                //    if (product.SanPham != null)
-                //        MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " đã hết hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
-                //    return false;
-                //}
-
-
-
                 if (CaculateInventoryConverter.CaculateInventory(product.MaSP) < product.SoLuong)
                 {
                     if (product.SanPham != null)
@@ -412,10 +256,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 int count = CaculateInventoryConverter.CaculateInventory(product.MaSP);
                 if (DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaSP == product.MaSP && p.MaPhieu == SelectedSaleOrder.MaPhieu).SingleOrDefault() != null)
                 {
-                    //MessageBox.Show(DataProvider.Ins.DB.ChiTietPhieuBans.Select(x=>x.)
                     count += (int)DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaSP == product.MaSP && p.MaPhieu == SelectedSaleOrder.MaPhieu).SingleOrDefault().SoLuong;
                 }
-
 
                 if (count < product.SoLuong)
                 {
@@ -423,19 +265,15 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                     {
                         MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " không đủ hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
-
                     return false;
                 }
             }
-
-
             return true;
         }
+
         public string code;
         public void AddNewSaleOrder()
         {
-
-
             if (!CheckValidFieldInDialog()) return;
             if (!CheckProductStock()) return;
 
@@ -450,14 +288,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 NgayLap = DateTime.Now,
                 MaKH = SelectedCustomer.MaKH,
                 MaNV = Staff.MaND
-
             };
-
             DataProvider.Ins.DB.PhieuBans.Add(newSaleOrder);
 
-
-
-            //Chi tiet phieu
             foreach (var item in SelectedProductList)
             {
                 ChiTietPhieuBan newDetailSaleOrder = new ChiTietPhieuBan()
@@ -472,14 +305,13 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             }
             DataProvider.Ins.DB.SaveChanges();
+
             if (OpenThisDiaLog != null)
             {
                 MessageBox.Show("Phiếu bán hàng được thêm thành công. Mã phiếu: " + newSaleOrder.MaPhieu);
                 SaleOrdersList.Add(newSaleOrder);
                 OpenThisDiaLog.IsOpen = false;
             }
-
-
         }
         public void EditSaleOrder()
         {
@@ -487,30 +319,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             if (!CheckProductStockEdit()) return;
 
             var editedSaleOrder = DataProvider.Ins.DB.PhieuBans.Where(i => i.MaPhieu == SelectedSaleOrder.MaPhieu).SingleOrDefault();
+
             editedSaleOrder.MaKH = SelectedCustomersList.First().MaKH;
-
-
-            //foreach (var item in DeletedProductsList)
-            //{
-            //    var selectedProduct = DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.MaPhieu == item.MaPhieu && p.MaSP == item.MaSP).SingleOrDefault();
-            //    DataProvider.Ins.DB.ChiTietPhieuBans.Remove(selectedProduct);
-
-            //}
-
-            //foreach (var item in InsertProductsList)
-            //{
-
-            //    ChiTietPhieuBan newDetailSaleOrder = new ChiTietPhieuBan()
-            //    {
-            //        MaChiTietPhieu = Guid.NewGuid().ToString(),
-            //        MaPhieu = SelectedSaleOrder.MaPhieu,
-            //        MaSP = item.MaSP,
-            //        SoLuong = item.SoLuong,
-            //    };
-
-            //    DataProvider.Ins.DB.ChiTietPhieuBans.Add(newDetailSaleOrder);
-
-            //}
 
             foreach(ChiTietPhieuBan phieuBan in DataProvider.Ins.DB.ChiTietPhieuBans.Where(x => x.PhieuBan.MaPhieu == SelectedSaleOrder.MaPhieu))
             {
@@ -560,16 +370,12 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         private void CheckCloseDiaLog()
         {
-
             if (MessageBox.Show("Những thay đổi của bạn sẽ không được lưu?", "",
                  MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-
                 OpenThisDiaLog.IsOpen = false;
 
             }
-
-
         }
         #endregion
     }

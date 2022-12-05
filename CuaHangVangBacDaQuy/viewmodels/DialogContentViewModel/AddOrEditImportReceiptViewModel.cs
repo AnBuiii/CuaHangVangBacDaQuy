@@ -1,4 +1,5 @@
 using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.viewmodels.Converter;
 using CuaHangVangBacDaQuy.views.userControlDialog;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 if (SelectedImportReceipt != null)
                 {
                     SelectedSupplier = SelectedImportReceipt.NhaCungCap;
-                    //SelectedProductList = new ObservableCollection<ChiTietPhieuMua>(SelectedImportReceipt.ChiTietPhieuMuas);
                     foreach (ChiTietPhieuMua phieuMua in SelectedImportReceipt.ChiTietPhieuMuas)
                     {
                         SelectedProductList.Add(new ChiTietPhieuMua()
@@ -93,12 +93,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
-
-
-
-
         public ICommand RemoveSelectedProductCommand { get; set; }
-        public ICommand CaculateTotalMoneyCommand { get; set; } // dùng để tính lại tổng tiền hóa đơn khi nhập số lượng sản phẩm
+        public ICommand CaculateTotalMoneyCommand { get; set; } 
 
         //Các biến cho việc chọn nhà cung cấp
 
@@ -150,7 +146,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             get => _SelectedProductList;
             set
             {
-
                 _SelectedProductList = value;
                 OnPropertyChanged();
             }
@@ -159,10 +154,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         private SanPham _SelectedProductItem;
         public SanPham SelectedProductItem
         {
-            get
-            {
-                return _SelectedProductItem;
-            }
+            get => _SelectedProductItem;
             set
             {
                 _SelectedProductItem = value;
@@ -171,8 +163,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
                 if (SelectedProductItem != null)
                 {
-
-
                     if (SelectedProductList.Where(x => x.SanPham == SelectedProductItem).Count() == 0)
                     {
                         ChiTietPhieuMua productAdded = new ChiTietPhieuMua()
@@ -183,13 +173,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                         };
 
                         SelectedProductList.Add(productAdded);
-                        // nếu là thêm sản phẩm vào phiếu đang chỉnh sửa
-                        //if (SelectedImportReceipt != null && DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == SelectedImportReceipt.MaPhieu && p.MaSP == SelectedProductItem.MaSP).Count() == 0)
-                        //{
-                        //    InsertProductsList.Add(productAdded);
-                        //}
-                        //SelectedProductItem = null;
-
+                        CaculateTotalMoney();
                     }
 
 
@@ -204,10 +188,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         private ChiTietPhieuMua _SelectedProductDataGrid;
         public ChiTietPhieuMua SelectedProductDataGrid
         {
-            get
-            {
-                return _SelectedProductDataGrid;
-            }
+            get => _SelectedProductDataGrid;
             set
             {
                 _SelectedProductDataGrid = value;
@@ -227,14 +208,12 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
 
 
-
+        #region Constructor
         public AddOrEditImportReceiptViewModel()
         {
-
             SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
             SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
         }
-        //constructor cho việc tạo phiếu mua hàng mới 
         public AddOrEditImportReceiptViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuMua> phieuMuaList)
         {
 
@@ -255,8 +234,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
 
         }
-        // constructor cho việc chỉnh sửa phiếu mua hàng
-
         public AddOrEditImportReceiptViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuMua> phieuMuaList, ref PhieuMua selectedImportReceipt)
         {
             
@@ -274,63 +251,22 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             RemoveSelectedSupplierCommand = new RelayCommand<AddOrEditImportReceiptViewModel>((p) => true, p => { SelectedSuppliersList.Clear(); });
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct());
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
-
-
-
         }
+        #endregion
 
         #region Funtion for creating or editing the Receipt
         void RemoveSelectedProduct()
         {
-            //switch (caseRemove)
-            //{
-            //    case "UNSAVED":
-            //        {
-            //            if (SelectedProductDataGrid != null)
-            //            {
-            //                SelectedProductList.Remove(SelectedProductDataGrid);
-            //                CaculateTotalMoney();
-            //            }
-            //            break;
-            //        }
-            //    case "SAVED":
-            //        {
-
-
-            //            ChiTietPhieuMua deletedProduct = SelectedProductDataGrid;
-
-            //            if (InsertProductsList.Contains(deletedProduct))
-            //            {
-            //                InsertProductsList.Remove(deletedProduct);
-            //            }
-            //            else
-            //                DeletedProductsList.Add(deletedProduct);
-
-            //            SelectedProductList.Remove(SelectedProductDataGrid);
-
-            //            CaculateTotalMoney();
-
-            //            break;
-            //        }
-
-            //}
             if (SelectedProductDataGrid != null)
             {
                 SelectedProductList.Remove(SelectedProductDataGrid);
                 CaculateTotalMoney();
             }
-
-
-
         }
 
         void CaculateTotalMoney()
         {
-            //(bool)value ? parameter : Binding.DoNothin
-
-
             TotalMoney = (TotalMoney == null) ? 0 : SelectedProductList.Sum(p => p.SoLuong * p.SanPham.DonGia);
-
         }
 
         public string code;
@@ -353,9 +289,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             DataProvider.Ins.DB.PhieuMuas.Add(newImportReceipt);
 
-
-
-            //Chi tiet phieu
             foreach (var item in SelectedProductList)
             {
                 ChiTietPhieuMua newDetailImportReceitpt = new ChiTietPhieuMua()
@@ -382,36 +315,41 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
 
         }
+
+        bool CheckInventory()
+        {
+            foreach (var oldChitiet in DataProvider.Ins.DB.ChiTietPhieuMuas.Where(x=> x.MaPhieu == SelectedImportReceipt.MaPhieu))
+            {
+                int count = CaculateInventoryConverter.CaculateInventory(oldChitiet.MaSP);
+                count -= (int)DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaSP == oldChitiet.MaSP && p.MaPhieu == SelectedImportReceipt.MaPhieu).SingleOrDefault().SoLuong;
+                // count: Số lượng sản phẩm nếu k có đơn
+              
+                foreach (var newChitiet in SelectedProductList)
+                {
+                    if(newChitiet.MaSP== oldChitiet.MaSP)
+                    {
+                        count += (int)newChitiet.SoLuong;
+                    }
+                    
+                }
+             
+                if (count < 0)
+                {
+                    MessageBox.Show("Sản phẩm " + oldChitiet.SanPham.TenSP);
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private void EditImportReceipt()
         {
             if (!CheckValidFieldInDialog()) return;
+            if (!CheckInventory()) return;
 
             var editedImportReceipt = DataProvider.Ins.DB.PhieuMuas.Where(i => i.MaPhieu == SelectedImportReceipt.MaPhieu).SingleOrDefault();
+
             editedImportReceipt.MaNCC = SelectedSuppliersList.First().MaNCC;
-
-
-            //foreach (var item in DeletedProductsList)
-            //{
-            //    var selectedProduct = DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaPhieu == item.MaPhieu && p.MaSP == item.MaSP).SingleOrDefault();
-            //    DataProvider.Ins.DB.ChiTietPhieuMuas.Remove(selectedProduct);
-
-            //}
-            //DataProvider.Ins.DB.SaveChanges();
-
-            //foreach (var item in InsertProductsList)
-            //{
-
-            //    ChiTietPhieuMua newDetailImportReceitpt = new ChiTietPhieuMua()
-            //    {
-            //        MaChiTietPhieu = Guid.NewGuid().ToString(),
-            //        MaPhieu = SelectedImportReceipt.MaPhieu,
-            //        MaSP = item.MaSP,
-            //        SoLuong = item.SoLuong,
-            //    };
-
-            //    DataProvider.Ins.DB.ChiTietPhieuMuas.Add(newDetailImportReceitpt);
-
-            //}
             foreach (ChiTietPhieuMua phieuMua in DataProvider.Ins.DB.ChiTietPhieuMuas.Where(x => x.PhieuMua.MaPhieu == SelectedImportReceipt.MaPhieu))
             {
                 DataProvider.Ins.DB.ChiTietPhieuMuas.Remove(phieuMua);
@@ -443,7 +381,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
 
         }
-
         private bool CheckValidFieldInDialog()
         {
             if (SelectedSuppliersList == null || SelectedSuppliersList.Count == 0)
@@ -465,9 +402,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             if (MessageBox.Show("Những thay đổi của bạn sẽ không được lưu?", "",
                  MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-
                 OpenThisDiaLog.IsOpen = false;
-
             }
         }
         #endregion

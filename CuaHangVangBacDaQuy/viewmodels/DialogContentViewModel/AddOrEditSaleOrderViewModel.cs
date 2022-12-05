@@ -64,6 +64,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         #endregion
 
         #region SaleOrderViewProperties
+        public string code;
         private ObservableCollection<PhieuBan> _SaleOrdersList;
         public ObservableCollection<PhieuBan> SaleOrdersList
         {
@@ -271,7 +272,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             return true;
         }
 
-        public string code;
         public void AddNewSaleOrder()
         {
             if (!CheckValidFieldInDialog()) return;

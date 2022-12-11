@@ -272,10 +272,46 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             return true;
         }
 
+        public bool CheckValidOrder()
+        {
+            if (SelectedCustomersList == null || SelectedCustomersList.Count == 0)
+            {
+                if (OpenThisDiaLog != null) MessageBox.Show("Vui lòng chọn khách hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (SelectedProductList == null || SelectedProductList.Count == 0)
+            {
+                if (OpenThisDiaLog != null) MessageBox.Show("Vui lòng chọn sản phẩm xuất kho!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+
+            foreach (var product in SelectedProductList)
+            {
+                if (product.SoLuong <= 0)
+                {
+                    if (OpenThisDiaLog != null) MessageBox.Show("Số lượng sản phẩm phải lớn hơn 0");
+                    return false;
+                }
+                if (CaculateInventoryConverter.CaculateInventory(product.MaSP) < product.SoLuong)
+                {
+                    if (product.SanPham != null)
+                    {
+                         if (OpenThisDiaLog != null) MessageBox.Show("Sản phẩm " + product.SanPham.TenSP + " không đủ hàng!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public void AddNewSaleOrder()
         {
-            if (!CheckValidFieldInDialog()) return;
-            if (!CheckProductStock()) return;
+            if (!CheckValidOrder()) return;
+
+            //if (!CheckValidFieldInDialog()) return;
+            //if (!CheckProductStock()) return;
 
             if (string.IsNullOrEmpty(code))
             {
@@ -315,8 +351,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
         public void EditSaleOrder()
         {
-            if (!CheckValidFieldInDialog()) return;
-            if (!CheckProductStockEdit()) return;
+            if (!CheckValidOrder()) return;
 
             var editedSaleOrder = DataProvider.Ins.DB.PhieuBans.Where(i => i.MaPhieu == SelectedSaleOrder.MaPhieu).SingleOrDefault();
 

@@ -74,6 +74,8 @@
     <Compile Include="Account\AddAndEditAccountTest.cs" />
     <Compile Include="Account\EditAccountTest.cs" />
     <Compile Include="Account\FindAccountTest.cs" />
+    <Compile Include="CheckValidProduct.cs" />
+    <Compile Include="CheckValidSaleOderTest.cs" />
     <Compile Include="Customer\AddAndDeleteCustomerTest.cs" />
     <Compile Include="Customer\EditCustomerTest.cs" />
     <Compile Include="Customer\FindCustomerTest.cs" />
@@ -91,7 +93,7 @@
     <Compile Include="Supplier\AddAndDeleteSupplierTest.cs" />
     <Compile Include="Supplier\EditSupplierTest.cs" />
     <Compile Include="Supplier\FindSupplierTest.cs" />
-    <Compile Include="CheckValidOrderTest.cs" />
+    <Compile Include="CheckValidImportOrderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -134,30 +134,15 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
 
-        bool CheckEmptyFieldDialog()
+        public bool CheckValidProduct()
         {
             if (string.IsNullOrWhiteSpace(ProductName) || string.IsNullOrWhiteSpace(ProductPrice) || SelectedTypeProduct == null || SelectedUnit == null)
             {
                 if (openDiaLog != null) MessageBox.Show("Các thông tin không được để trống");
                 return false;
             }
-            return true;
-        }
-        bool ValidProductCheck()
-        {
-            if (!decimal.TryParse(ProductPrice, out decimal check))
-            {
-                if (openDiaLog != null)
-                {
-                    MessageBox.Show("Đơn giá không hợp lệ");
-                }
-                return false;
-            }
-            if (check <= 0)
-            {
-                if (openDiaLog != null) MessageBox.Show("Đơn giá phải lớn hơn 0");
-                return false;
-            } 
+
+            
             if (EditedProduct == null)
             {
                 if (DataProvider.Ins.DB.SanPhams.Where(x => x.TenSP == ProductName).Count() > 0)
@@ -178,15 +163,27 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 }
                 
             }
-            return true;
 
-            //return ((EditedProduct == null && DataProvider.Ins.DB.SanPhams.Where(x => x.TenSP == ProductName).Count() == 0) || ()) && ProductPrice > 0;
+            if (!decimal.TryParse(ProductPrice, out decimal check))
+            {
+                if (openDiaLog != null)
+                {
+                    MessageBox.Show("Đơn giá không hợp lệ");
+                }
+                return false;
+            }
+            if (check <= 0)
+            {
+                if (openDiaLog != null) MessageBox.Show("Đơn giá phải lớn hơn 0");
+                return false;
+            }
+            return true;
 
         }
 
         public void ActionAddProduct()
         {
-            if ( !CheckEmptyFieldDialog() ||!ValidProductCheck()) return;
+            if ( !CheckValidProduct()) return;
 
             if(string.IsNullOrEmpty(ProductCode)) ProductCode = Guid.NewGuid().ToString();
             var newProduct = new SanPham()
@@ -231,8 +228,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         public void ActionEditProduct()
         {
-            if (!ValidProductCheck() || !CheckEmptyFieldDialog()) return;
-            
+            if (!CheckValidProduct()) return;
+
+
             var editedProduct = DataProvider.Ins.DB.SanPhams.Where(x => x.MaSP == EditedProduct.MaSP).SingleOrDefault();
             editedProduct.TenSP = ProductName;
             editedProduct.DonGia = decimal.Parse(ProductPrice);

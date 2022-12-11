@@ -28,7 +28,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         {
 
             LoadView = new RelayCommand<InventoryReport>((p) => true, (p) => LoadTonKhoList());
-            SelectedTime = DateTime.Now;
+            SelectedTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             LoadTonKhoList();
 
         }

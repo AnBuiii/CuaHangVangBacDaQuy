@@ -56,5 +56,10 @@ namespace CuaHangVangBacDaQuy.models
                 _Logged = value;
             }
         }
+
+        public void LogOut()
+        {
+            Logged = null;
+        }
     }
 }

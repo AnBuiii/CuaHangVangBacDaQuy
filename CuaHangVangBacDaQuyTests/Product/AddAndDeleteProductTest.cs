@@ -27,7 +27,7 @@ namespace CuaHangVangBacDaQuyTests.Product
         //productname check
         [TestCase("Nhẫn 101", 1, 1, 1, true)]
         [TestCase("Nhẫn 102", 1, 1, 1, false)]
-        [TestCase("Nhẫn bạc", 1, 1, 1, true)] 
+        [TestCase("Nhẫn bạc", 1, 1, 1, true)]
         [TestCase("Vòng 111", 1, 1, 1, true)]
         //product price check
         [TestCase("Vòng 111", -1, 1, 1, false)]
@@ -52,12 +52,12 @@ namespace CuaHangVangBacDaQuyTests.Product
             string productCode = Guid.NewGuid().ToString();
             addOrEditProductViewModel.ProductCode = productCode;
             addOrEditProductViewModel.ProductName = productName;
-            addOrEditProductViewModel.ProductPrice = productPrice;
+            //addOrEditProductViewModel.ProductPrice = productPrice;
             addOrEditProductViewModel.SelectedTypeProduct = addOrEditProductViewModel.TypeProductList.Where(x => x.MaLoaiSP == typeCode).FirstOrDefault();
             addOrEditProductViewModel.SelectedUnit = addOrEditProductViewModel.UnitList.Where(x => x.MaDV == unitCode).FirstOrDefault();
             addOrEditProductViewModel.ActionAddProduct();
             SanPham preDeleteCheck = DataProvider.Ins.DB.SanPhams.Where(x => x.MaSP == productCode).FirstOrDefault();
-          
+
             if (preDeleteCheck != null)
             {
                 DataProvider.Ins.DB.SanPhams.Attach(preDeleteCheck);

@@ -22,6 +22,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand CloseCommand { get; set; }
         public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
+
         public LoginViewModel()
         {
             IsLogin = false;

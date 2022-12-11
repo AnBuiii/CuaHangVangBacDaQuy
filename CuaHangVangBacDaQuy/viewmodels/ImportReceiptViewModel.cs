@@ -137,6 +137,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public bool isTest;
         public void DeleteImportReceipt()
         {
+            
             if(IsOpenMakeReceiptDialog != null)
             {
                 if (!isTest) {
@@ -158,6 +159,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
             ImportReceiptsList.Remove(SelectedImportReceipt);
             //Thread.Sleep(1000);
             //ImportReceiptsList = new ObservableCollection<PhieuMua>(DataProvider.Ins.DB.PhieuMuas);
+        }
+
+        public bool CheckInventory()
+        {
+
+            return true;
         }
         public void Search()
         {

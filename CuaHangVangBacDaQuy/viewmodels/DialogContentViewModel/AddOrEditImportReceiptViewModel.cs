@@ -83,7 +83,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
         }
 
-     
+
 
 
 
@@ -94,7 +94,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand RemoveSelectedProductCommand { get; set; }
-        public ICommand CaculateTotalMoneyCommand { get; set; } 
+        public ICommand CaculateTotalMoneyCommand { get; set; }
 
         //Các biến cho việc chọn nhà cung cấp
 
@@ -236,7 +236,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
         public AddOrEditImportReceiptViewModel(string titleView, ref OpenDiaLog openDiaLog, ref ObservableCollection<PhieuMua> phieuMuaList, ref PhieuMua selectedImportReceipt)
         {
-            
+
             SelectedSuppliersList = new ObservableCollection<NhaCungCap>();
             SelectedProductList = new ObservableCollection<ChiTietPhieuMua>();
 
@@ -272,7 +272,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         public string code;
         public void AddNewImportReceipt()
         {
-            if (!CheckValidFieldInDialog()) return;
+            if (!CheckValidOrder()) return;
             if (string.IsNullOrEmpty(code))
             {
                 code = Guid.NewGuid().ToString();
@@ -316,23 +316,65 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         }
 
+        public bool CheckValidOrder()
+        {
+            if (SelectedSuppliersList == null || SelectedSuppliersList.Count == 0)
+            {
+                if (OpenThisDiaLog != null) MessageBox.Show("Vui lòng chọn nhà cung cấp!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            if (SelectedProductList == null || SelectedProductList.Count == 0)
+            {
+                if (OpenThisDiaLog != null) MessageBox.Show("Vui lòng chọn sản phẩm nhập kho!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            foreach(ChiTietPhieuMua ct in SelectedProductList)
+            {
+                if(ct.SoLuong <= 0)
+                {
+                    if (OpenThisDiaLog != null) MessageBox.Show("Số lượng phải lớn hơn 0", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+            }
+            if (SelectedImportReceipt != null)
+                foreach (var oldChitiet in DataProvider.Ins.DB.ChiTietPhieuMuas.Where(x => x.MaPhieu == SelectedImportReceipt.MaPhieu))
+                {
+                    int count = CaculateInventoryConverter.CaculateInventory(oldChitiet.MaSP);
+                    count -= (int)DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaSP == oldChitiet.MaSP && p.MaPhieu == SelectedImportReceipt.MaPhieu).SingleOrDefault().SoLuong;
+
+                    foreach (var newChitiet in SelectedProductList)
+                    {
+                        if (newChitiet.MaSP == oldChitiet.MaSP)
+                        {
+                            count += (int)newChitiet.SoLuong;
+                        }
+
+                    }
+                    if (count < 0)
+                    {
+                        if (OpenThisDiaLog != null) MessageBox.Show("Sản phẩm " + oldChitiet.SanPham.TenSP + " số lượng không đúng");
+                        return false;
+                    }
+                }
+            return true;
+        }
+
         bool CheckInventory()
         {
-            foreach (var oldChitiet in DataProvider.Ins.DB.ChiTietPhieuMuas.Where(x=> x.MaPhieu == SelectedImportReceipt.MaPhieu))
+            foreach (var oldChitiet in DataProvider.Ins.DB.ChiTietPhieuMuas.Where(x => x.MaPhieu == SelectedImportReceipt.MaPhieu))
             {
                 int count = CaculateInventoryConverter.CaculateInventory(oldChitiet.MaSP);
                 count -= (int)DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaSP == oldChitiet.MaSP && p.MaPhieu == SelectedImportReceipt.MaPhieu).SingleOrDefault().SoLuong;
-                // count: Số lượng sản phẩm nếu k có đơn
-              
+
                 foreach (var newChitiet in SelectedProductList)
                 {
-                    if(newChitiet.MaSP== oldChitiet.MaSP)
+                    if (newChitiet.MaSP == oldChitiet.MaSP)
                     {
                         count += (int)newChitiet.SoLuong;
                     }
-                    
+
                 }
-             
+
                 if (count < 0)
                 {
                     MessageBox.Show("Sản phẩm " + oldChitiet.SanPham.TenSP);
@@ -344,8 +386,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         private void EditImportReceipt()
         {
-            if (!CheckValidFieldInDialog()) return;
-            if (!CheckInventory()) return;
+            if (!CheckValidOrder()) return;
 
             var editedImportReceipt = DataProvider.Ins.DB.PhieuMuas.Where(i => i.MaPhieu == SelectedImportReceipt.MaPhieu).SingleOrDefault();
 

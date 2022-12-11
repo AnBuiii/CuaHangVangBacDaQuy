@@ -51,7 +51,7 @@ namespace CuaHangVangBacDaQuyTests.Product
            
             viewModel.EditedProduct = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
             viewModel.ProductName = productName;
-            viewModel.ProductPrice = productPrice;
+            //viewModel.ProductPrice = productPrice;
             viewModel.SelectedTypeProduct = viewModel.TypeProductList.Where(x => x.MaLoaiSP == typeCode).FirstOrDefault();
             viewModel.SelectedUnit = viewModel.UnitList.Where(x => x.MaDV == unitCode).FirstOrDefault();
             viewModel.ActionEditProduct();
@@ -61,7 +61,7 @@ namespace CuaHangVangBacDaQuyTests.Product
 
             viewModel.EditedProduct = DataProvider.Ins.DB.SanPhams.FirstOrDefault();
             viewModel.ProductName = preEdit.TenSP;
-            viewModel.ProductPrice = (decimal)preEdit.DonGia;
+            //viewModel.ProductPrice = (decimal)preEdit.DonGia;
             viewModel.SelectedTypeProduct = viewModel.TypeProductList.Where(x => x.MaLoaiSP == preEdit.MaLoaiSP).FirstOrDefault();
             viewModel.SelectedUnit = viewModel.UnitList.Where(x => x.MaDV == preEdit.MaDV).FirstOrDefault();
             viewModel.ActionEditProduct();

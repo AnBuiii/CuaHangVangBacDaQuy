@@ -126,7 +126,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
             KhachHangValueTop = 0;
             NCCTop = new NhaCungCap();
             NCCValueTop = 0;
-            int i = 1;
             //foreach (var item in SanPhamList)
             //{
             //    var MuaList = DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaSP == item.MaSP);

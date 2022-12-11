@@ -112,7 +112,6 @@
     <Compile Include="models\ChiTietPhieuMua.cs">
       <DependentUpon>VDBQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\CurrentAccount.cs" />
     <Compile Include="models\DataProvider.cs" />
     <Compile Include="models\DonVi.cs">
       <DependentUpon>VDBQModel.tt</DependentUpon>
@@ -195,6 +194,9 @@
     <Compile Include="views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\ChangePasswordView.xaml.cs">
+      <DependentUpon>ChangePasswordView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\ImportReceiptView.xaml.cs">
       <DependentUpon>ImportReceiptView.xaml</DependentUpon>
     </Compile>
@@ -253,6 +255,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\AccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\ChangePasswordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

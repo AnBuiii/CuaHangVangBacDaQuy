@@ -91,6 +91,7 @@
     <Compile Include="Supplier\AddAndDeleteSupplierTest.cs" />
     <Compile Include="Supplier\EditSupplierTest.cs" />
     <Compile Include="Supplier\FindSupplierTest.cs" />
+    <Compile Include="CheckValidOrderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

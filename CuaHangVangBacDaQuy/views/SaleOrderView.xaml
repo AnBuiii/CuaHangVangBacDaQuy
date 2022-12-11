@@ -725,6 +725,7 @@
 
                 <materialDesign:Card Grid.Row="1"
                                      Margin="5"
+                                     Height="auto"
                                      VerticalAlignment="Stretch">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <DataGrid ItemsSource="{Binding SaleOrdersList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -733,7 +734,7 @@
                                   IsReadOnly="False"
                                   CanUserAddRows="False"
                                   AutoGenerateColumns="False"
-                                  MaxHeight="680">
+                                  MaxHeight="640">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Mã phiếu"
                                                     Binding="{Binding MaPhieu}"

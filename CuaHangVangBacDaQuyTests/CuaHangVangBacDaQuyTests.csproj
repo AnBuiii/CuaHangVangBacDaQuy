@@ -71,28 +71,15 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Account\AddAndEditAccountTest.cs" />
-    <Compile Include="Account\EditAccountTest.cs" />
-    <Compile Include="Account\FindAccountTest.cs" />
+    <Compile Include="CheckLoginTest.cs" />
+    <Compile Include="CheckValidAccount.cs" />
+    <Compile Include="CheckValidCustomer.cs" />
+    <Compile Include="CheckValidPasswordChange.cs" />
     <Compile Include="CheckValidProduct.cs" />
     <Compile Include="CheckValidSaleOderTest.cs" />
-    <Compile Include="Customer\AddAndDeleteCustomerTest.cs" />
-    <Compile Include="Customer\EditCustomerTest.cs" />
-    <Compile Include="Customer\FindCustomerTest.cs" />
-    <Compile Include="ImportOrder\AddAndDeleteImportOrderTest.cs" />
-    <Compile Include="Product\EditProductTest.cs" />
-    <Compile Include="Product\CheckInventoryTest.cs" />
-    <Compile Include="Account\EncodeTest.cs" />
-    <Compile Include="ImportOrder\FindImportOrderTest.cs" />
-    <Compile Include="Product\AddAndDeleteProductTest.cs" />
-    <Compile Include="Product\FindProductTest.cs" />
-    <Compile Include="Account\LoginTest.cs" />
+    <Compile Include="CheckValidSupplierTest.cs" />
+    <Compile Include="EncodePasswordTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SaleOrder\AddAndDeleteSaleOrderTest.cs" />
-    <Compile Include="SaleOrder\FindSaleOrderTest.cs" />
-    <Compile Include="Supplier\AddAndDeleteSupplierTest.cs" />
-    <Compile Include="Supplier\EditSupplierTest.cs" />
-    <Compile Include="Supplier\FindSupplierTest.cs" />
     <Compile Include="CheckValidImportOrderTest.cs" />
   </ItemGroup>
   <ItemGroup>

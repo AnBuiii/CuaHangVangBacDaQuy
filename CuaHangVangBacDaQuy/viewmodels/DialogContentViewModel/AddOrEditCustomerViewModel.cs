@@ -109,9 +109,21 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             
         }
 
-        bool ValidCustomerCheck()
+        public bool CheckValidCustomer()
         {
-
+            if (string.IsNullOrWhiteSpace(CustomerName) || string.IsNullOrWhiteSpace(Gender) || string.IsNullOrWhiteSpace(Address) || string.IsNullOrWhiteSpace(PhoneNumber))
+            {
+                if (openDiaLog != null) MessageBox.Show("Các thông tin không được trống");
+                return false;
+            }
+            if (!CheckField.CheckPhone(PhoneNumber))
+            {
+                if (CustomerList != null)
+                {
+                    MessageBox.Show("Vui lòng nhập đúng định dạng số điện thoại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                return false;
+            }
             if (EditedCustomer == null)
             {
                 if (DataProvider.Ins.DB.KhachHangs.Where(x => x.TenKH == CustomerName).Count() > 0)
@@ -129,7 +141,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             {
                 if (CustomerName != EditedCustomer.TenKH)
                 {
-                    
+
                     if (DataProvider.Ins.DB.KhachHangs.Where(x => x.TenKH == CustomerName).Count() > 0)
                     {
                         if (openDiaLog != null) MessageBox.Show("Tên khách hàng không được trùng");
@@ -138,7 +150,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 }
                 if (PhoneNumber != EditedCustomer.SoDT)
                 {
-                    
+
                     if (DataProvider.Ins.DB.KhachHangs.Where(x => x.SoDT == PhoneNumber).Count() > 0)
                     {
                         if (openDiaLog != null) MessageBox.Show("Số điện thoại không được trùng");
@@ -146,29 +158,13 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                     }
                 }
 
-
-            }
-            return true;
-
-            //return ((EditedProduct == null && DataProvider.Ins.DB.SanPhams.Where(x => x.TenSP == ProductName).Count() == 0) || ()) && ProductPrice > 0;
-
-        }
-
-
-        bool CheckEmptyFieldDialog()
-        {
-            if (string.IsNullOrWhiteSpace(CustomerName) || string.IsNullOrWhiteSpace(Gender) || string.IsNullOrWhiteSpace(Address) || string.IsNullOrWhiteSpace(PhoneNumber))
-            {
-                if (openDiaLog != null) MessageBox.Show("Các thông tin không được trống");
-                return false;
             }
             return true;
         }
 
         public void ActionAddCustomer()
         {
-            if (!CheckEmptyFieldDialog()) return;
-            if (!CheckValidPhoneNumber() || !ValidCustomerCheck()) return;
+            if (!CheckValidCustomer()) return;
 
             var newCus = new KhachHang()
             {
@@ -190,17 +186,13 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             }
             customerCode = DataProvider.Ins.DB.KhachHangs.Where(x => x.TenKH == CustomerName).FirstOrDefault().MaKH;
 
-
-
-
         }
 
         public void ActionEditCustomer()
         {
-            if (!CheckEmptyFieldDialog()) return;
-            if (!CheckValidPhoneNumber() || !ValidCustomerCheck()) return;
+            if (!CheckValidCustomer()) return;
 
-            
+
             var customer = DataProvider.Ins.DB.KhachHangs.Where(x => x.MaKH == EditedCustomer.MaKH).SingleOrDefault();          
             customer.TenKH = CustomerName;
             customer.GioiTinh = Gender;
@@ -215,21 +207,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
 
-        bool CheckValidPhoneNumber()
-        {
-            if (!CheckField.CheckPhone(PhoneNumber))
-            {
-                if (CustomerList != null)
-                {
-                    MessageBox.Show("Vui lòng nhập đúng định dạng số điện thoại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                }
-                return false;
-            }
-            return true;
-
-
-        }
+        
 
         bool CheckExistPhoneNumer()
         {

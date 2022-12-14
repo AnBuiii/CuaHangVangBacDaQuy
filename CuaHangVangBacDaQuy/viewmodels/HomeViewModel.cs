@@ -102,7 +102,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             DoanhThuCommand = new RelayCommand<HomeView>((p) => true, (p) => CurrentReportView = new RevenueReport());
 
 
-            CurrentReportView = new InventoryReport();
+            //CurrentReportView = new InventoryReport();
 
 
         }
@@ -115,17 +115,18 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void LoadingHomeView(HomeView view, decimal importVolume)
         {
-            TonKhoList = new ObservableCollection<TonKho>();
-            SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
-            NCCList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
-            KhachHangList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
-            ImportVolume = 0;
-            ExportVolume = 0;
-            OutOfStockCount = 0;
-            KhachHangTop = new KhachHang();
-            KhachHangValueTop = 0;
-            NCCTop = new NhaCungCap();
-            NCCValueTop = 0;
+            CurrentReportView = new InventoryReport();
+            //TonKhoList = new ObservableCollection<TonKho>();
+            //SanPhamList = new ObservableCollection<SanPham>(DataProvider.Ins.DB.SanPhams);
+            //NCCList = new ObservableCollection<NhaCungCap>(DataProvider.Ins.DB.NhaCungCaps);
+            //KhachHangList = new ObservableCollection<KhachHang>(DataProvider.Ins.DB.KhachHangs);
+            //ImportVolume = 0;
+            //ExportVolume = 0;
+            //OutOfStockCount = 0;
+            //KhachHangTop = new KhachHang();
+            //KhachHangValueTop = 0;
+            //NCCTop = new NhaCungCap();
+            //NCCValueTop = 0;
             //foreach (var item in SanPhamList)
             //{
             //    var MuaList = DataProvider.Ins.DB.ChiTietPhieuMuas.Where(p => p.MaSP == item.MaSP);
@@ -162,48 +163,48 @@ namespace CuaHangVangBacDaQuy.viewmodels
             //    TonKhoList.Add(tonkho);
             //    i++;
             //}
-            Inventory = ImportVolume - ExportVolume;
+            //Inventory = ImportVolume - ExportVolume;
 
-            foreach (KhachHang khachHang in KhachHangList)
-            {
-                decimal khachHangValue = 0;
-                foreach (ChiTietPhieuBan ct in DataProvider.Ins.DB.ChiTietPhieuBans.Where(x => x.PhieuBan.KhachHang.MaKH == khachHang.MaKH))
-                {
-                    khachHangValue += (decimal)((decimal)ct.SoLuong * ct.SanPham.DonGia);
-                }
-                if (khachHangValue > KhachHangValueTop)
-                {
-                    KhachHangTop = khachHang;
-                    KhachHangValueTop = khachHangValue;
-                }
-            }
+            //foreach (KhachHang khachHang in KhachHangList)
+            //{
+            //    decimal khachHangValue = 0;
+            //    foreach (ChiTietPhieuBan ct in DataProvider.Ins.DB.ChiTietPhieuBans.Where(x => x.PhieuBan.KhachHang.MaKH == khachHang.MaKH))
+            //    {
+            //        khachHangValue += (decimal)((decimal)ct.SoLuong * ct.SanPham.DonGia);
+            //    }
+            //    if (khachHangValue > KhachHangValueTop)
+            //    {
+            //        KhachHangTop = khachHang;
+            //        KhachHangValueTop = khachHangValue;
+            //    }
+            //}
 
-            foreach (NhaCungCap ncc in NCCList)
-            {
-                decimal nccValue = 0;
-                foreach (ChiTietPhieuMua ct in DataProvider.Ins.DB.ChiTietPhieuMuas.Where(x => x.PhieuMua.NhaCungCap.MaNCC == ncc.MaNCC))
-                {
-                    nccValue += (decimal)((decimal)ct.SoLuong * ct.SanPham.DonGia);
-                }
-                if (nccValue > NCCValueTop)
-                {
-                    NCCTop= ncc;
-                    NCCValueTop = nccValue;
-                }
-            }
+            //foreach (NhaCungCap ncc in NCCList)
+            //{
+            //    decimal nccValue = 0;
+            //    foreach (ChiTietPhieuMua ct in DataProvider.Ins.DB.ChiTietPhieuMuas.Where(x => x.PhieuMua.NhaCungCap.MaNCC == ncc.MaNCC))
+            //    {
+            //        nccValue += (decimal)((decimal)ct.SoLuong * ct.SanPham.DonGia);
+            //    }
+            //    if (nccValue > NCCValueTop)
+            //    {
+            //        NCCTop= ncc;
+            //        NCCValueTop = nccValue;
+            //    }
+            //}
 
-            SeriesCollection = new SeriesCollection();
-            foreach (TonKho ton in TonKhoList)
-            {
-                SeriesCollection.Add(new PieSeries
-                {
-                    Title = ton.SanPham.TenSP,
-                    //Values = new ChartValues<ObservableValue> { new ObservableValue(ton.Count) },
-                    DataLabels = true
-                }
-                );
+            //SeriesCollection = new SeriesCollection();
+            //foreach (TonKho ton in TonKhoList)
+            //{
+            //    SeriesCollection.Add(new PieSeries
+            //    {
+            //        Title = ton.SanPham.TenSP,
+            //        //Values = new ChartValues<ObservableValue> { new ObservableValue(ton.Count) },
+            //        DataLabels = true
+            //    }
+            //    );
 
-            }
+            //}
 
         }
 

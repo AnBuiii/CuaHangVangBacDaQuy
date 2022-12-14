@@ -33,10 +33,10 @@ namespace CuaHangVangBacDaQuyTests.Account
             int accountFound = 0;
             if(!(username == null || password == null))
             {
-                string a = LoginViewModel.Base64Encode(password);
-                string passEncode = LoginViewModel.MD5Hash(a);
+                //string a = LoginViewModel.Base64Encode(password);
+                //string passEncode = LoginViewModel.MD5Hash(a);
 
-                accountFound = listNguoiDung.Where(x => x.TenDangNhap == username && x.MatKhau == passEncode).Count();
+                //accountFound = listNguoiDung.Where(x => x.TenDangNhap == username && x.MatKhau == passEncode).Count();
             }
            
             Assert.AreEqual(accountFound> 0, expect, "thiếu thông tin đăng nhập");

@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
 using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.viewmodels.Converter;
 
 namespace CuaHangVangBacDaQuy.viewmodels
 {
@@ -33,49 +34,31 @@ namespace CuaHangVangBacDaQuy.viewmodels
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
         }
 
+        public bool CheckLogin()
+        {
+            if (string.IsNullOrWhiteSpace(UserName) || string.IsNullOrWhiteSpace(Password)) { 
+                if(!IsLogin) MessageBox.Show("Thiếu thông tin đăng nhập"); 
+                return false; 
+            }
+            string passwordEncode = Encode.EncodePassword(Password);
+            var account = DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == UserName && x.MatKhau == passwordEncode).FirstOrDefault();
+            if (account == null)
+            {
+                if (!IsLogin) MessageBox.Show("Sai thông tin đăng nhập");
+                return false;
+            }
+            return true;
+        }
+
         void Login(Window p)
         {
-            if (p == null)
-                return;
-            if(string.IsNullOrWhiteSpace(UserName) || string.IsNullOrWhiteSpace(Password)) { MessageBox.Show("Thiếu thông tin đăng nhập"); return; }
+            if (!CheckLogin()) return;
 
-            string passEncode = MD5Hash(Base64Encode(Password));
-            var accCount = DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == UserName && x.MatKhau == passEncode).FirstOrDefault();
-   
-
-            if (accCount != null)
-            {
-                IsLogin = true;
-                MessageBox.Show("Xin chào " + accCount.QuyenHan.TenQH + " "+ accCount.TenND);
-                NguoiDung.Logged = accCount;
-                p.Close();
-            }
-            else
-            {
-                IsLogin = false;
-                MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
-            }
+            NguoiDung.Logged = DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == UserName).FirstOrDefault();
+            MessageBox.Show("Xin chào " + NguoiDung.Logged.QuyenHan.TenQH + " " + NguoiDung.Logged.TenND);
+            IsLogin = true;
+            p.Close();
         }
-
-        public static string Base64Encode(string plainText)
-        {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return System.Convert.ToBase64String(plainTextBytes);
-        }
-
-
-
-        public static string MD5Hash(string input)
-        {
-            StringBuilder hash = new StringBuilder();
-            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
-            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
-
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                hash.Append(bytes[i].ToString("x2"));
-            }
-            return hash.ToString();
-        }
+        
     }
 }

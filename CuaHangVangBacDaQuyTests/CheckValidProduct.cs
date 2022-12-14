@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 namespace CuaHangVangBacDaQuyTests
 {
     [TestFixture]
-    
     internal class CheckValidProduct
     {
         private AddOrEditProductViewModel viewModel;

@@ -165,6 +165,7 @@
     <Compile Include="viewmodels\BaseViewModel.cs" />
     <Compile Include="viewmodels\ControlBarViewModel.cs" />
     <Compile Include="viewmodels\Converter\AmountConverter.cs" />
+    <Compile Include="viewmodels\Converter\Encode.cs" />
     <Compile Include="viewmodels\Converter\Resource\DatePickerCalendar.cs" />
     <Compile Include="viewmodels\Converter\DecimalConverter.cs" />
     <Compile Include="viewmodels\Converter\CaculateInventoryConverter.cs" />

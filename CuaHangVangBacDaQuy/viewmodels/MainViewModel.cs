@@ -1,4 +1,5 @@
 ﻿using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.viewmodels.Converter;
 using CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel;
 using CuaHangVangBacDaQuy.views;
 using CuaHangVangBacDaQuy.views.userControlDialog;
@@ -73,6 +74,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand ChangePasswordCommand { get; set; }
         public ICommand SavePasswordCommand { get; set; }
         public ICommand NewPasswordChangedCommand { get; set; }
+        public ICommand OldPasswordChangedCommand { get; set; }
         public ICommand ConfirmPasswordChangedCommand { get; set; }
         public ICommand LogOutCommand { get; set; }
 
@@ -101,6 +103,16 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 OnPropertyChanged();
             }
         }
+        private string _OldPassword;
+        public string OldPassword
+        {
+            get => _OldPassword;
+            set
+            {
+                _OldPassword = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _ConfirmPassword;
         public string ConfirmPassword
@@ -115,7 +127,10 @@ namespace CuaHangVangBacDaQuy.viewmodels
         #endregion
 
 
+        public MainViewModel(int _)
+        {
 
+        }
         public MainViewModel()
         {
             InitNavBar();
@@ -196,6 +211,10 @@ namespace CuaHangVangBacDaQuy.viewmodels
             NewPasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
             {
                 NewPassword = p.Password;
+            }); 
+            OldPasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
+            {
+                OldPassword = p.Password;
             });
             ConfirmPasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
             {
@@ -204,7 +223,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             LogOutCommand = new RelayCommand<MainWindow>((p) => { return true; }, (p) =>
             {
                 NguoiDung.Logged = null;
-
+                
                 p.Hide();
                 LoginWindow loginWindow = new LoginWindow();
                 loginWindow.ShowDialog();
@@ -212,7 +231,6 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 if (loginWindow.DataContext == null)
                     return;
                 var loginVM = loginWindow.DataContext as LoginViewModel;
-
                 if (loginVM.IsLogin)
                 {
                     p.Show();
@@ -243,43 +261,40 @@ namespace CuaHangVangBacDaQuy.viewmodels
             //viewmodel init
 
         }
-        public void ChangePassword()
+
+        public bool CheckValidPasswordChange()
         {
-            if (string.IsNullOrWhiteSpace(NewPassword)|| string.IsNullOrWhiteSpace(ConfirmPassword))
+            if (string.IsNullOrWhiteSpace(OldPassword) || string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(ConfirmPassword))
             {
-                MessageBox.Show("Các trường không được trống");
-                return;
+                if (IsOpenChangePasswordDialog.IsOpen) MessageBox.Show("Các trường không được trống");
+                return false;
             }
-            if(NewPassword != ConfirmPassword)
+            if(Encode.EncodePassword(OldPassword) != DataProvider.Ins.DB.NguoiDungs.Where(x => x.MaND == NguoiDung.Logged.MaND).SingleOrDefault().MatKhau)
             {
-                MessageBox.Show("Xác nhận mật khẩu không khớp");
-                return;
+                if (IsOpenChangePasswordDialog.IsOpen) MessageBox.Show("Mật khẩu cũ không đúng");
+                return false;
             }
+            if(NewPassword.Length < 5)
+            {
+                if (IsOpenChangePasswordDialog.IsOpen) MessageBox.Show("Mật khẩu phải dài ít nhất 5 ký tự");
+                return false;
+            }
+            if (NewPassword != ConfirmPassword)
+            {
+                if (IsOpenChangePasswordDialog.IsOpen) MessageBox.Show("Xác nhận mật khẩu không khớp");
+                return false;
+            }
+            return true;
+        }
+        private void ChangePassword()
+        {
+            if (!CheckValidPasswordChange()) return;
             var nguoidung = DataProvider.Ins.DB.NguoiDungs.Where(x => x.MaND == NguoiDung.Logged.MaND).SingleOrDefault();
-            nguoidung.MatKhau = MD5Hash(Base64Encode(NewPassword));
+            nguoidung.MatKhau = Encode.EncodePassword(NewPassword);
             DataProvider.Ins.DB.SaveChanges();
             MessageBox.Show("Thay đổi mật khẩu thành công");
             IsOpenChangePasswordDialog.IsOpen = false;
         }
-        public static string Base64Encode(string plainText)
-        {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return System.Convert.ToBase64String(plainTextBytes);
-        }
-
-
-
-        public static string MD5Hash(string input)
-        {
-            StringBuilder hash = new StringBuilder();
-            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
-            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
-
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                hash.Append(bytes[i].ToString("x2"));
-            }
-            return hash.ToString();
-        }
+        
     }
 }

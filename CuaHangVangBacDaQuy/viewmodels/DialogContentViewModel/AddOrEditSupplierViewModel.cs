@@ -132,8 +132,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
 
 
-
-        bool checkEmptyFieldDialog()
+       
+        public bool CheckValidSupplier()
         {
 
             if (string.IsNullOrWhiteSpace(SupplierName) || string.IsNullOrWhiteSpace(SupplierAddress) || string.IsNullOrWhiteSpace(SupplierPhoneNumber))
@@ -141,13 +141,58 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 if (openDiaLog != null) MessageBox.Show("Các thông tin không được trống");
                 return false;
             }
+            if (!CheckField.CheckPhone(SupplierPhoneNumber))
+            {
+                if (SuppliersList != null)
+                {
+                    if (openDiaLog != null)     MessageBox.Show("Vui lòng nhập đúng định dạng số điện thoại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
+                return false;
+            }
+            if (EditedSupplier == null)
+            {
+                if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.TenNCC == SupplierName).Count() > 0)
+                {
+                    if (openDiaLog != null) MessageBox.Show("Tên nhà cung cấp không được trùng");
+                    return false;
+                }
+                if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.SoDT == SupplierPhoneNumber).Count() > 0)
+                {
+                    if (openDiaLog != null) MessageBox.Show("Số điện thoại không được trùng");
+                    return false;
+                }
+            }
+            else
+            {
+                if (SupplierName != EditedSupplier.TenNCC)
+                {
+                    if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.TenNCC == SupplierName).Count() > 0)
+                    {
+                        if (openDiaLog != null)
+                            MessageBox.Show("Tên nhà cung cấp không được trùng");
+                        return false;
+                    }
+                }
+                if (SupplierPhoneNumber != EditedSupplier.SoDT)
+                {
+
+                    if (DataProvider.Ins.DB.NhaCungCaps.Where(x => x.SoDT == SupplierPhoneNumber).Count() > 0)
+                    {
+                        if (openDiaLog != null)
+                            MessageBox.Show("Số điện thoại không được trùng");
+                        return false;
+                    }
+                }
+
+
+            }
             return true;
         }
 
         public void ActionAddSupplier()
         {
-            if (!checkEmptyFieldDialog()) return;
-            if (!CheckValidPhoneNumber() || !ValidCustomerCheck()) return;
+            if (!CheckValidSupplier()) return;
 
             var newSup = new NhaCungCap()
             {
@@ -173,10 +218,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         public void ActionEditSupplier()
         {
-            if (!checkEmptyFieldDialog()) return;
-            if (!CheckValidPhoneNumber() || !ValidCustomerCheck()) return;
+            if (!CheckValidSupplier()) return;
 
-            
+
             var supplier = DataProvider.Ins.DB.NhaCungCaps.Where(x => x.MaNCC == EditedSupplier.MaNCC).SingleOrDefault();
             supplier.TenNCC = SupplierName;
             supplier.DiaChi = SupplierAddress;
@@ -232,22 +276,6 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             return true;
 
             //return ((EditedProduct == null && DataProvider.Ins.DB.SanPhams.Where(x => x.TenSP == ProductName).Count() == 0) || ()) && ProductPrice > 0;
-
-        }
-
-        bool CheckValidPhoneNumber()
-        {
-            if (!CheckField.CheckPhone(SupplierPhoneNumber))
-            {
-                if (SuppliersList != null)
-                {
-                    MessageBox.Show("Vui lòng nhập đúng định dạng số điện thoại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                }
-                return false;
-            }
-            return true;
-
 
         }
 

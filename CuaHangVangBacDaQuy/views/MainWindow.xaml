@@ -36,14 +36,31 @@
                                    IsOpen="{Binding IsOpenChangePasswordDialog.IsOpen , Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             <!---->
             <materialDesign:DialogHost.DialogContent>
-                <Grid>
+                <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0"
                                 Orientation="Vertical">
-
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10,0,0,10">
+                            <TextBlock Width="200"
+                                       Text="Mật khẩu cũ: "
+                                       FontSize="16"
+                                       VerticalAlignment="Center" />
+                            <PasswordBox x:Name="txtOldPassword"
+                                         Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"
+                                         Foreground="Black"
+                                         Width="200">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PasswordChanged">
+                                        <i:InvokeCommandAction Command="{Binding OldPasswordChangedCommand}"
+                                                               CommandParameter="{Binding ElementName=txtOldPassword}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </PasswordBox>
+                        </StackPanel>
                         <StackPanel Orientation="Horizontal"
                                     Margin="10,0,0,10">
                             <TextBlock Width="200"

@@ -1,4 +1,5 @@
 ﻿using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.viewmodels.Converter;
 using CuaHangVangBacDaQuy.views.userControlDialog;
 using System;
 using System.Collections.Generic;
@@ -138,54 +139,53 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
 
 
-        bool ValidAccountCheck()
-        {
-
-            if (EditedAccount == null)
-            {
-                //if (DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenND == AccountName).Count() > 0) return false;
-                if (DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == AccountUsername).Count() > 0) return false;
-            }
-            else
-            {
-                if (AccountName != EditedAccount.TenND)
-                {
-                    //if (DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenND == AccountName).Count() > 0) return false;
-                }
-                if (AccountUsername != EditedAccount.TenDangNhap)
-                {
-
-                    if (DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == AccountUsername).Count() > 0) return false;
-                }
-
-
-            }
-            return true;
-
-            //return ((EditedProduct == null && DataProvider.Ins.DB.SanPhams.Where(x => x.TenSP == ProductName).Count() == 0) || ()) && ProductPrice > 0;
-
-        }
-
-
-        bool CheckEmptyFieldDialog()
+        public bool CheckValidAccount()
         {
             if (string.IsNullOrWhiteSpace(AccountName) || string.IsNullOrWhiteSpace(AccountUsername) || SelectedPermission == null || (EditedAccount == null && string.IsNullOrWhiteSpace(PasswordAccount)))
             {
-                if(openDiaLog != null) MessageBox.Show("Các trường không được trống");
+                if (openDiaLog != null) MessageBox.Show("Các trường không được trống");
                 return false;
             }
+
+            if(PasswordAccount.Length < 5)
+            {
+                if (openDiaLog != null) MessageBox.Show("Mật khẩu phải dài ít nhất 5 ký tự");
+                return false;
+            }
+
+            if (EditedAccount == null)
+            {
+                if (DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == AccountUsername).Count() > 0) {
+                    if (openDiaLog != null) MessageBox.Show("Tên người dùng không được trùng");
+                    return false; 
+                }
+            }
+            else
+            {
+                if (AccountUsername != EditedAccount.TenDangNhap)
+                {
+
+                    if (DataProvider.Ins.DB.NguoiDungs.Where(x => x.TenDangNhap == AccountUsername).Count() > 0)
+                    {
+                        if (openDiaLog != null) MessageBox.Show("Tên người dùng không được trùng");
+                        return false;
+                    }
+                }
+
+
+            }
             return true;
+
         }
 
         public void ActionAddAccount()
         {
-            if (!CheckEmptyFieldDialog()) return;
-            if (!ValidAccountCheck()) return;
+            if (!CheckValidAccount()) return;
             var newAccount = new NguoiDung()
             {
                 TenDangNhap = AccountUsername,
                 TenND = AccountName,
-                MatKhau = MD5Hash(Base64Encode(PasswordAccount)),
+                MatKhau = Encode.EncodePassword(PasswordAccount),
                 MaQH = SelectedPermission.MaQH
 
             };
@@ -203,19 +203,13 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
         public void ActionEditAccount()
         {
-            if (!CheckEmptyFieldDialog()) return;
-            if (!ValidAccountCheck()) return;
-
-            if (openDiaLog != null)
-            {
-                openDiaLog.IsOpen = false;
-            }
+            if (!CheckValidAccount()) return;
 
             var account = DataProvider.Ins.DB.NguoiDungs.Where(x => x.MaND == EditedAccount.MaND).SingleOrDefault();
             account.TenDangNhap = AccountUsername;
             account.TenND = AccountName;
-            if(PasswordAccount == "") account.MatKhau = EditedAccount.MatKhau;
-            else account.MatKhau = MD5Hash(Base64Encode(PasswordAccount));
+            if(string.IsNullOrWhiteSpace(PasswordAccount)) account.MatKhau = EditedAccount.MatKhau;
+            else account.MatKhau = Encode.EncodePassword(PasswordAccount);
             account.MaQH = SelectedPermission.MaQH;
             DataProvider.Ins.DB.SaveChanges();
             if (openDiaLog != null)
@@ -240,27 +234,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             }
 
-
         }
 
-        public static string Base64Encode(string plainText)
-        {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return System.Convert.ToBase64String(plainTextBytes);
-        }
-
-        public static string MD5Hash(string input)
-        {
-            StringBuilder hash = new StringBuilder();
-            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
-            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
-
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                hash.Append(bytes[i].ToString("x2"));
-            }
-            return hash.ToString();
-        }
+        
     }
 }
 

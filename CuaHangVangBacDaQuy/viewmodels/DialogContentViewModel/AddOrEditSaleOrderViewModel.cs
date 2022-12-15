@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using COMExcel = Microsoft.Office.Interop.Excel;
+
 
 namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 {
@@ -172,6 +174,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         public ICommand RemoveSelectedSupplierCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+        public ICommand PrintCommand { get; set; }
         public ICommand RemoveSelectedProductCommand { get; set; }
         public ICommand CaculateTotalMoneyCommand { get; set; }
         #endregion
@@ -195,6 +198,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             Staff = NguoiDung.Logged;
 
             SaveCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => AddNewSaleOrder());
+            PrintCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => false, p => AddNewSaleOrder());
             CancelCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => CheckCloseDiaLog());
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct());
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
@@ -213,6 +217,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
 
             SaveCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => EditSaleOrder());
             CancelCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => CheckCloseDiaLog());
+            PrintCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => Print());
             RemoveSelectedProductCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => RemoveSelectedProduct());
             CaculateTotalMoneyCommand = new RelayCommand<DataGridTemplateColumn>(p => true, p => CaculateTotalMoney());
         }
@@ -270,6 +275,64 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 }
             }
             return true;
+        }
+
+        void Print()
+        {
+            COMExcel.Application exApp = new COMExcel.Application();
+            COMExcel.Workbook exBook; //Trong 1 chương trình Excel có nhiều Workbook
+            COMExcel.Worksheet exSheet; //Trong 1 Workbook có nhiều Worksheet
+            COMExcel.Range exRange;
+
+            int row = 0;
+            exBook = exApp.Workbooks.Add(COMExcel.XlWBATemplate.xlWBATWorksheet);
+            exSheet = exBook.Worksheets[1];
+            // Định dạng chung
+            exRange = exSheet.Cells[1, 1];
+            exRange.Range["A1:Z300"].Font.Name = "Times new roman"; //Font chữ
+            exRange.Range["C2:E2"].Font.Size = 16;
+            exRange.Range["C2:E2"].Font.Bold = true;
+            exRange.Range["C2:E2"].Font.ColorIndex = 3;
+            exRange.Range["C2:E2"].MergeCells = true;
+            exRange.Range["C2:E2"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
+            exRange.Range["C2:E2"].Value = "PHIẾU BÁN HÀNG";
+
+
+            exRange.Range["B4:C4"].Font.Size = 12;
+            exRange.Range["B4:B4"].Value = "Ngày lập:";
+            exRange.Range["C4:E4"].MergeCells = true;
+            exRange.Range["C4:E4"].Value = SelectedSaleOrder.NgayLap.Value.Day + "/" + SelectedSaleOrder.NgayLap.Value.Month + "/" + SelectedSaleOrder.NgayLap.Value.Year;
+
+            exRange.Range["B5:C5"].Font.Size = 12;
+            exRange.Range["B5:B5"].Value = "Khách hàng:";
+            exRange.Range["C5:E5"].MergeCells = true;
+            exRange.Range["C5:E5"].Value = SelectedSaleOrder.KhachHang.TenKH;
+
+            exRange.Range["A6:F6"].Font.Bold = true;
+            exRange.Range["A6:F6"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
+            exRange.Range["C6:F6"].ColumnWidth = 12;
+            exRange.Range["A6:A6"].Value = "STT";
+            exRange.Range["B6:B6"].Value = "Sản phẩm";
+            exRange.Range["C6:C6"].Value = "Đơn vị";
+            exRange.Range["D6:D6"].Value = "Số lượng";
+            exRange.Range["E6:E6"].Value = "Đơn giá bán";
+            exRange.Range["F6:F6"].Value = "Thành tiền";
+            for (row = 0; row < SelectedProductList.Count; row++)
+            {
+                exSheet.Cells[1][row + 7] = (row + 1).ToString();
+                exSheet.Cells[2][row + 7] = SelectedProductList[row].SanPham.TenSP;
+                exSheet.Cells[3][row + 7] = SelectedProductList[row].SanPham.DonVi.TenDV;
+                exSheet.Cells[4][row + 7] = SelectedProductList[row].SoLuong;
+                exSheet.Cells[5][row + 7] = (int)SelectedProductList[row].SanPham.DonGia * (1 + SelectedProductList[row].SanPham.LoaiSanPham.LoiNhuan);
+                exSheet.Cells[6][row + 7] = (int)SelectedProductList[row].SanPham.DonGia * (1 + SelectedProductList[row].SanPham.LoaiSanPham.LoiNhuan) * SelectedProductList[row].SoLuong;
+            }
+            exRange.Cells[5][row + 8].Font.Bold = true;
+            exSheet.Cells[5][row + 8] = "Tổng tiền";
+            exSheet.Cells[6][row + 8] = (int)TotalMoney;
+
+            exSheet.Name = "Phiếu bán hàng";
+            exApp.Visible = true;
+
         }
 
         public bool CheckValidOrder()

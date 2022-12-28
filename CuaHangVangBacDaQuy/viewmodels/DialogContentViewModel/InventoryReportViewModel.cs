@@ -40,6 +40,11 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
         }
         private void Print()
         {
+            if (NguoiDung.Logged.QuyenHan.TenQH != "Admin")
+            {
+                MessageBox.Show("Người dùng không có quyền truy cập chức năng này");
+                return;
+            }   
             COMExcel.Application exApp = new COMExcel.Application();
             COMExcel.Workbook exBook; //Trong 1 chương trình Excel có nhiều Workbook
             COMExcel.Worksheet exSheet; //Trong 1 Workbook có nhiều Worksheet

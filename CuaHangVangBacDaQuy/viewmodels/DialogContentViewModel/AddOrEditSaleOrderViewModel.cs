@@ -63,6 +63,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 }
             }
         }
+
+        private bool _IsPaid;
+        public bool IsPaid { get => _IsPaid; set { _IsPaid = value; OnPropertyChanged(); } }
         #endregion
 
         #region SaleOrderViewProperties
@@ -213,7 +216,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             OpenThisDiaLog = openDiaLog;
             SaleOrdersList = saleOrdersList;
             SelectedSaleOrder = selectedSaleOrder;
-
+            if(SelectedSaleOrder.ThanhToan == 0) IsPaid = false;
+            else IsPaid = true;
 
             SaveCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => EditSaleOrder());
             CancelCommand = new RelayCommand<AddOrEditSaleOrderUC>((p) => true, p => CheckCloseDiaLog());
@@ -386,7 +390,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 MaPhieu = code,
                 NgayLap = DateTime.Now,
                 MaKH = SelectedCustomer.MaKH,
-                MaNV = Staff.MaND
+                MaNV = Staff.MaND,
+                ThanhToan = IsPaid ? 1 : 0
             };
             DataProvider.Ins.DB.PhieuBans.Add(newSaleOrder);
 
@@ -419,8 +424,9 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             var editedSaleOrder = DataProvider.Ins.DB.PhieuBans.Where(i => i.MaPhieu == SelectedSaleOrder.MaPhieu).SingleOrDefault();
 
             editedSaleOrder.MaKH = SelectedCustomersList.First().MaKH;
+            editedSaleOrder.ThanhToan = IsPaid ? 1 : 0;
 
-            foreach(ChiTietPhieuBan phieuBan in DataProvider.Ins.DB.ChiTietPhieuBans.Where(x => x.PhieuBan.MaPhieu == SelectedSaleOrder.MaPhieu))
+            foreach (ChiTietPhieuBan phieuBan in DataProvider.Ins.DB.ChiTietPhieuBans.Where(x => x.PhieuBan.MaPhieu == SelectedSaleOrder.MaPhieu))
             {
                 DataProvider.Ins.DB.ChiTietPhieuBans.Remove(phieuBan);
             }

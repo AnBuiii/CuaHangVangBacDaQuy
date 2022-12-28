@@ -376,8 +376,8 @@
                                 </Grid>
                                 <!--Phần grid này để hiện thị thông tin các món hạng được mua sau khi tạo hoặc tìm kiếm-->
                                 <Grid Grid.Row="2"
-                                      MinHeight="270"
-                                      MaxHeight="270">
+                                      MinHeight="250"
+                                      MaxHeight="250">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto"
                                                   Margin="0, 0, 16, 0">
                                         <DataGrid ItemsSource="{Binding SelectedProductList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -522,6 +522,11 @@
                                                                     Margin="16,0,0,0"
                                                                     VerticalAlignment="Center"
                                                                     Text="Tổng tiền :" />
+                                                        <CheckBox Style="{StaticResource MaterialDesignAccentCheckBox}"
+                                                                  IsChecked="{Binding IsPaid}">
+                                                            <TextBlock Text="Đã thanh toán"
+                                                                       Style="{StaticResource MaterialDesignBody1TextBlock}" />
+                                                        </CheckBox>
 
                                                     </StackPanel>
                                                 </StackPanel>

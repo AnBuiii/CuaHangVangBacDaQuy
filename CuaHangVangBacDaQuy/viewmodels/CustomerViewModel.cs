@@ -133,6 +133,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void ActionDiaLog(string caseDiaLog)
         {
+            if (NguoiDung.Logged.QuyenHan.TenQH != "Admin" && NguoiDung.Logged.QuyenHan.TenQH != "Nhân viên bán hàng")
+            {
+                MessageBox.Show("Người dùng không có quyền truy cập chức năng này");
+                return;
+            }
             IsOpenDiaLog.IsOpen = true;
             switch (caseDiaLog)
             {
@@ -159,6 +164,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void DeledteCustomer()
         {
+            if (NguoiDung.Logged.QuyenHan.TenQH != "Admin")
+            {
+                MessageBox.Show("Người dùng không có quyền truy cập chức năng này");
+                return;
+            }
             var deletedCustomer = DataProvider.Ins.DB.KhachHangs.Where(c => c.MaKH == SelectedCustomer.MaKH).SingleOrDefault();
             if (DataProvider.Ins.DB.PhieuBans.Where(s => s.MaKH == deletedCustomer.MaKH).Count() > 0)
             {

@@ -76,24 +76,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Button Grid.Column="2"
-                        HorizontalAlignment="Right"
-                        Margin="4"
-                        Padding="20 0 20 0"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Name="btNewAccount"
-                        Command="{Binding PrintCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Printer"
-                                                 VerticalAlignment="Center"
-                                                 Width="16"
-                                                 Height="16" />
-                        <Separator Margin="5" />
-                        <TextBlock Text="In"
-                                   FontSize="16"
-                                   VerticalAlignment="Center" />
-                    </StackPanel>
-                </Button>
+               
             </Grid>
         </materialDesign:Card>
 

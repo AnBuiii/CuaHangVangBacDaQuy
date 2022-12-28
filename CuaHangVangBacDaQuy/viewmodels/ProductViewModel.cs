@@ -130,6 +130,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void ActionDiaLog(string caseDiaLog)
         {
+            if (NguoiDung.Logged.QuyenHan.TenQH != "Admin")
+            {
+                MessageBox.Show("Người dùng không có quyền truy cập chức năng này");
+                return;
+            }
             IsOpenProductDialog.IsOpen = true;
             switch (caseDiaLog)
             {
@@ -145,7 +150,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         public void AddnewProduct()
         {
-
+           
             ContentAddProduct = new AddOrEditProductViewModel("Thêm sản phẩm mới", ref _IsOpenProductDialog, ref _ProducstList);
         }
         public void EditProduct()
@@ -154,7 +159,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
         }
         public void DeleteProduct()
         {
-
+            if (NguoiDung.Logged.QuyenHan.TenQH != "Admin")
+            {
+                MessageBox.Show("Người dùng không có quyền truy cập chức năng này");
+                return;
+            }
             var deletedProduct = DataProvider.Ins.DB.SanPhams.Where(c => c.MaSP == SelectedProduct.MaSP).SingleOrDefault();
             if (DataProvider.Ins.DB.ChiTietPhieuMuas.Where(d => d.SanPham.MaSP == deletedProduct.MaSP).Count() > 0)
             {

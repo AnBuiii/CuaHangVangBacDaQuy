@@ -23,6 +23,7 @@ namespace CuaHangVangBacDaQuy.models
 
         private string _MaPhieu;
         public string MaPhieu { get => _MaPhieu; set { _MaPhieu = value; OnPropertyChanged(); } }
+
         public Nullable<System.DateTime> NgayLap { get; set; }
 
         private int _MaKH { get; set; }
@@ -30,6 +31,9 @@ namespace CuaHangVangBacDaQuy.models
 
         private int _MaNV { get; set; }
         public int MaNV { get => _MaNV; set { _MaNV = value; OnPropertyChanged(); } }
+
+        private int _ThanhToan { get; set; }
+        public int ThanhToan { get => _ThanhToan; set { _ThanhToan = value; OnPropertyChanged(); }}
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuBan> ChiTietPhieuBans { get; set; }

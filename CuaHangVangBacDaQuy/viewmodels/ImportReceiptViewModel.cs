@@ -1,4 +1,5 @@
 ﻿using CuaHangVangBacDaQuy.models;
+using CuaHangVangBacDaQuy.viewmodels.Converter;
 using CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel;
 using CuaHangVangBacDaQuy.views;
 using CuaHangVangBacDaQuy.views.userControlDialog;
@@ -138,6 +139,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public void DeleteImportReceipt()
         {
             
+
             if(IsOpenMakeReceiptDialog != null)
             {
                 if (!isTest) {
@@ -149,7 +151,17 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 
             }
             ObservableCollection<ChiTietPhieuMua> deleteChiTietPhieuMuas = new ObservableCollection<ChiTietPhieuMua>(DataProvider.Ins.DB.ChiTietPhieuMuas.Where(x=> x.MaPhieu == SelectedImportReceipt.MaPhieu));
-            foreach(ChiTietPhieuMua ctphieu in deleteChiTietPhieuMuas)
+            foreach (ChiTietPhieuMua ctphieu in deleteChiTietPhieuMuas)
+            {
+               
+                if(ctphieu.SoLuong > CaculateInventoryConverter.CaculateInventory(ctphieu.SanPham.MaSP))
+                {
+                    MessageBox.Show("Không thể xóa phiếu mua");
+                    return;
+                }
+            }
+
+            foreach (ChiTietPhieuMua ctphieu in deleteChiTietPhieuMuas)
             {
                 DataProvider.Ins.DB.ChiTietPhieuMuas.Remove(ctphieu);
                 DataProvider.Ins.DB.SaveChanges();

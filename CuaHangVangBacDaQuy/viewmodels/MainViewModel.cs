@@ -148,11 +148,21 @@ namespace CuaHangVangBacDaQuy.viewmodels
             });
             MakeOrderCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
+                if (NguoiDung.Logged.QuyenHan.TenQH != "Admin" && NguoiDung.Logged.QuyenHan.TenQH != "Nhân viên mua hàng")
+                {
+                    MessageBox.Show("Người dùng không có quyền truy cập chức năng này");
+                    return;
+                }
                 DataTemplate = ImportReceiptViewModel;
 
             });
             SaleOrderViewCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
+                if (NguoiDung.Logged.QuyenHan.TenQH != "Admin" && NguoiDung.Logged.QuyenHan.TenQH != "Nhân viên bán hàng")
+                {
+                    MessageBox.Show("Người dùng không có quyền truy cập chức năng này");
+                    return;
+                }
                 DataTemplate = SaleOrderViewModel;
             });
 
@@ -172,6 +182,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
             AccountViewCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
+                if(NguoiDung.Logged.QuyenHan.TenQH != "Admin")
+                {
+                    MessageBox.Show("Người dùng không có quyền truy cập chức năng này");
+                    return;
+                }
                 DataTemplate = AccountViewModel;
             });
 
@@ -192,7 +207,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
                    if (loginVM.IsLogin)
                    {
                        p.Show();
-
+                       DataTemplate = HomeViewModel;
                        //LoadTonKhoData();
                    }
                    else
@@ -226,15 +241,17 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 
                 p.Hide();
                 LoginWindow loginWindow = new LoginWindow();
+                var loginVM = loginWindow.DataContext as LoginViewModel;
+                loginVM.IsLogin = false;
                 loginWindow.ShowDialog();
 
                 if (loginWindow.DataContext == null)
                     return;
-                var loginVM = loginWindow.DataContext as LoginViewModel;
+                
                 if (loginVM.IsLogin)
                 {
                     p.Show();
-
+                    DataTemplate = HomeViewModel;
                     //LoadTonKhoData();
                 }
                 else

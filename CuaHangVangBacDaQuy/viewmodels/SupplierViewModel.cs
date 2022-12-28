@@ -117,6 +117,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void ActionDiaLog(string caseDiaLog)
         {
+            if (NguoiDung.Logged.QuyenHan.TenQH != "Admin" && NguoiDung.Logged.QuyenHan.TenQH != "Nhân viên mua hàng")
+            {
+                MessageBox.Show("Người dùng không có quyền truy cập chức năng này");
+                return;
+            }
             IsOpenDiaLog.IsOpen = true;
             switch (caseDiaLog)
             {
@@ -145,6 +150,11 @@ namespace CuaHangVangBacDaQuy.viewmodels
 
         private void DeledteCustomer()
         {
+            if (NguoiDung.Logged.QuyenHan.TenQH != "Admin")
+            {
+                MessageBox.Show("Người dùng không có quyền truy cập chức năng này");
+                return;
+            }
             var deletedSupplier = DataProvider.Ins.DB.NhaCungCaps.Where(c => c.MaNCC == SelectedSupplier.MaNCC).SingleOrDefault();
             if (DataProvider.Ins.DB.PhieuMuas.Where(s => s.NhaCungCap.MaNCC == deletedSupplier.MaNCC).Count() > 0)
             {

@@ -33,6 +33,7 @@
     <converter:IntoSalePriceConverter x:Key="IntoSalePriceConverterKey" />
     <converter:TotalPriceOfAReceipt x:Key="TotalPriceOfAReceiptConverterKey"/>
     <converter:TotalPriceOfASaleOrder x:Key="TotalPriceOfASaleOrderKey"/>
+    <converter:PaidConverter x:Key="PaidConverterKey" />
     <converter:PriceConverter x:Key="PriceConverterKey" />
 
 

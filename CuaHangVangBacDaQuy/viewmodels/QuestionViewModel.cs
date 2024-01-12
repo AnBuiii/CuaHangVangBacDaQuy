@@ -186,7 +186,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             
         }
 
-        public async void DeleteChat()
+        public void DeleteChat()
         {
             Messages.Clear();
         }

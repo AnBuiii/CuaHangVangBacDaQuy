@@ -178,7 +178,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             {
                 var newMessageFrombot = new Message
                 {
-                    Content = "bạn cần đặt đâu hỏi liên quan tới Đá Quý hoặc các loại đá quý liên quan",
+                    Content = "bạn cần đặt đâu hỏi liên quan tới Đá Quý hoặc các loại đá quý liên quan \nVí dụ: Đá + Tên 1 loại đá + vấn đề cần hỏi!",
                     TenNDCommand = "ChatBot"
                 };
                 Messages.Add(newMessageFrombot);
@@ -203,7 +203,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             string normalizedInput = RemoveDiacritics(input.ToLower());
 
             // Chuyển mảng wordsToFind về chữ thường và không dấu
-            string[] wordsToFind = { "da quy", "kim cuong", "ruby", "sapphire", "emerald", "topaz", "amethyst", "aquamarine", "opal", "turquoise", "citrine", "hong ngoc", "ngoc luc bao", "ngoc luc bao xanh la cay", "thach anh", "thach anh tim", "ngoc luc bao xanh nhat", "ngoc lam", "thach anh vang" };
+            string[] wordsToFind = { "da quy", "kim cuong", "da ruby", "sapphire", "emerald", "topaz", "amethyst", "aquamarine", "opal", "turquoise", "citrine", "hong ngoc", "ngoc luc bao", "ngoc luc bao xanh la cay", "thach anh", "thach anh tim", "ngoc luc bao xanh nhat", "ngoc lam", "thach anh vang" };
 
             // Kiểm tra từng từ trong mảng
             foreach (string word in wordsToFind)

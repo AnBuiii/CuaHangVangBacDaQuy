@@ -38,12 +38,19 @@ namespace CuaHangVangBacDaQuy.viewmodels
         private readonly Predicate<T> _canExecute;
         private readonly Action<T> _execute;
 
+        public Func<KeyEventArgs, bool> Value { get; }
+
         public RelayCommand(Predicate<T> canExecute, Action<T> execute)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute");
             _canExecute = canExecute;
             _execute = execute;
+        }
+
+        public RelayCommand(Func<KeyEventArgs, bool> value)
+        {
+            Value = value;
         }
 
         public bool CanExecute(object parameter)

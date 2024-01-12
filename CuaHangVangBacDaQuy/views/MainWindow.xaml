@@ -406,7 +406,28 @@
                                         </Grid>
                                     </Grid>
                                 </Button>
-
+                                <Button x:Name="btnQuestion"
+                                        Command="{Binding QuestionViewCommand}">
+                                    <Grid Height="40"
+                                          Width="250">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0">
+                                            <materialDesign:PackIcon Kind="QuestionAnswer"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Width="20"
+                                          Height="20" />
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <TextBlock FontSize="14"
+                                                       FontWeight="Regular"
+                                                       VerticalAlignment="Center">Hỏi đáp</TextBlock>
+                                        </Grid>
+                                    </Grid>
+                                </Button>
 
                             </StackPanel>
                             <!-- End: MenuItem -->

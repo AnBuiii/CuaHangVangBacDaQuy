@@ -111,7 +111,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 }); ;
             }
             Labels.Clear();
-            string[] labelMonth = new[] { "10/2022", "11/2022", "12/2022","1/2023","2/2023","3/2023" };
+            string[] labelMonth = new[] { "10/2023", "11/2023", "12/2023","1/2024","2/2024","3/2024" };
             Labels = labelMonth.ToList();
 
             YFormatter = value => value.ToString();
@@ -154,8 +154,8 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
             ChartValues<decimal> chartValues = new ChartValues<decimal>();
             if(type == "Tổng bán")
             {
-                DateTime begin = new DateTime(2022,10,1);
-                for(int i = 0; i < 6; i++)
+                DateTime begin = DateTime.Now.AddMonths(-5);
+                for (int i = 0; i < 6; i++)
                 {
                     decimal sum = 0;
                     foreach (ChiTietPhieuBan phieuBan in DataProvider.Ins.DB.ChiTietPhieuBans.Where(p => p.PhieuBan.NgayLap.Value.Month == begin.Month && p.PhieuBan.NgayLap.Value.Year == begin.Year))
@@ -167,7 +167,7 @@ namespace CuaHangVangBacDaQuy.viewmodels.DialogContentViewModel
                 }
             } else // Tổng mua
             {
-                DateTime begin = new DateTime(2022, 10, 1);
+                DateTime begin = DateTime.Now.AddMonths(-5);
                 for (int i = 0; i < 6; i++)
                 {
                     decimal sum = 0;

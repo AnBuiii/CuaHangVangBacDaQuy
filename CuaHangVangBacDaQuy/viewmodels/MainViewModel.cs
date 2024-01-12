@@ -57,6 +57,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public CustomerViewModel CustomerViewModel { get; set; }
         public ProductViewModel ProductViewModel { get; set; }
         public SupplierViewModel SupplierViewModel { get; set; }
+        public QuestionViewModel QuestionViewModel { get; set; }
 
         public AddOrEditImportReceiptViewModel AddOrEditImportReceiptViewModel { get; set; }
         #endregion
@@ -77,10 +78,12 @@ namespace CuaHangVangBacDaQuy.viewmodels
         public ICommand OldPasswordChangedCommand { get; set; }
         public ICommand ConfirmPasswordChangedCommand { get; set; }
         public ICommand LogOutCommand { get; set; }
+        public ICommand QuestionViewCommand { get; set; }
+
 
         #endregion
 
-        
+
 
         #region ChangePassword
         private OpenDiaLog _IsOpenChangePasswordDialog;
@@ -189,6 +192,10 @@ namespace CuaHangVangBacDaQuy.viewmodels
                 }
                 DataTemplate = AccountViewModel;
             });
+            QuestionViewCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                DataTemplate = QuestionViewModel;
+            });
 
             LoadedWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
                {
@@ -275,6 +282,7 @@ namespace CuaHangVangBacDaQuy.viewmodels
             SupplierViewModel = new SupplierViewModel();
             CustomerViewModel = new CustomerViewModel();
             AddOrEditImportReceiptViewModel = new AddOrEditImportReceiptViewModel();
+            QuestionViewModel = new QuestionViewModel();
             //viewmodel init
 
         }

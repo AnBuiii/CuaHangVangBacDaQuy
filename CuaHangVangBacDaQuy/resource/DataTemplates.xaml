@@ -15,7 +15,10 @@
     <DataTemplate DataType="{x:Type viewModel:ImportReceiptViewModel}">
         <view:ImportReceiptView/>
     </DataTemplate>
-    <!--<DataTemplate DataType="{x:Type viewModel:MakeOrderViewModel}">
+    <DataTemplate DataType="{x:Type viewModel:QuestionViewModel}">
+        <view:QuestionView/>
+    </DataTemplate>
+        <!--<DataTemplate DataType="{x:Type viewModel:MakeOrderViewModel}">
         <view:MakeOderView/>
     </DataTemplate>-->
     <DataTemplate DataType="{x:Type viewModel:ProductViewModel}">

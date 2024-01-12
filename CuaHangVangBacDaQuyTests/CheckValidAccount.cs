@@ -17,7 +17,7 @@ namespace CuaHangVangBacDaQuyTests
         public void SetUp()
         {
             viewModel = new AddOrEditAccountViewModel();
-        }
+        } 
 
         [Test]
         public void CheckValidAccount_EmptyAccountName()

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="51b2bb895eed4d11bf0e377af477e78c" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="VBDQEntityDBModel.ChiTietPhieuBan" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VBDQEntityDBModel.ChiTietPhieuMua" Width="2" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VBDQEntityDBModel.DonVi" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="VBDQEntityDBModel.KhachHang" Width="1.625" PointX="0.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="VBDQEntityDBModel.LoaiSanPham" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VBDQEntityDBModel.NguoiDung" Width="1.5" PointX="8" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VBDQEntityDBModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VBDQEntityDBModel.PhieuBan" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VBDQEntityDBModel.PhieuMua" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VBDQEntityDBModel.QuyenHan" Width="1.5" PointX="5.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VBDQEntityDBModel.SanPham" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="VBDQEntityDBModel.FK__ChiTietPh__MaPhi__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="VBDQEntityDBModel.FK__ChiTietPhi__MaSP__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="VBDQEntityDBModel.FK__ChiTietPh__MaPhi__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="VBDQEntityDBModel.FK__ChiTietPhi__MaSP__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="VBDQEntityDBModel.FK__SanPham__MaDV__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="VBDQEntityDBModel.FK__PhieuBan__MaKH__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="VBDQEntityDBModel.FK__SanPham__MaLoaiS__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="VBDQEntityDBModel.FK__NguoiDung__MaQH__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="VBDQEntityDBModel.FK__PhieuMua__MaNCC__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="VBDQEntityDBModel.FK__PhieuBan__MaNV__403A8C7D" />
+        <AssociationConnector Association="VBDQEntityDBModel.FK__PhieuMua__MaNV__3F466844" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

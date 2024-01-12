@@ -88,7 +88,7 @@
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5"
                                              IsEnabled="False"
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                             BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}"
                                              Text="{Binding RemainMoney, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                                 </StackPanel>
@@ -116,7 +116,7 @@
                                              VerticalAlignment="Center"
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                              BorderThickness="0.5"
-                                             BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                             BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}"
                                              Text="{Binding PaidMoney, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
@@ -133,7 +133,7 @@
                                               materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                               BorderThickness="0.5"
                                               IsEnabled="False"
-                                              BorderBrush="{StaticResource MaterialDesignBodyLight}"
+                                              BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}"
                                               Text="{Binding TotalMoney, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </StackPanel>
                             </Grid>
